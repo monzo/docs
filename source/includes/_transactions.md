@@ -85,3 +85,7 @@ You may store your own key-value annotations against a transaction in its `metad
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `metadata[$name]`<br><span class="label">Repeated</span>|Include each key you would like to modify. To delete a key, set its value to an empty string.|
+
+<aside class="notice">
+Metadata is private to your application.
+</aside>

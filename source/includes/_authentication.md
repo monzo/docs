@@ -33,19 +33,19 @@ $ http --form POST "https://mini.mondobank.io/oauth2/token" \
 
 An access token is tied to both your application (the client) and an individual Mondo user and is valid for 6 hours.
 
-<aside class="warning">
-Your client may only have <em>one</em> active access token at a time, per user. Acquiring a new access token will invalidate any other active access/refresh tokens for that user.
+<aside class="notice">
+Your client may only have <em>one</em> active access token at a time, per user. Acquiring a new access token will invalidate any other token you own for that user.
 </aside>
 
 ##### Arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
-`grant_type`<br><span class="label notice">Required</span>|Should be `password`
-`client_id`<br><span class="label notice">Required</span>|Your client ID
-`client_secret`<br><span class="label notice">Required</span>|Your client secret
-`username`<br><span class="label notice">Required</span>|The user's email address
-`password`<br><span class="label notice">Required</span>|The user's password
+`grant_type`<br><span class="label notice">Required</span>|Should be `password`.
+`client_id`<br><span class="label notice">Required</span>|Your client ID.
+`client_secret`<br><span class="label notice">Required</span>|Your client secret.
+`username`<br><span class="label notice">Required</span>|The user's email address.
+`password`<br><span class="label notice">Required</span>|The user's password.
 
 ## Authenticating requests
 

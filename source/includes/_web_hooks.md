@@ -21,7 +21,7 @@ $ http POST "https://mini.mondobank.io/webhooks" \
 }
 ```
 
-Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails, we will try a maximum of 5 times to deliver it.
+Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails, we will retry up to a maximum of 5 attempts.
 
 ##### Arguments
 

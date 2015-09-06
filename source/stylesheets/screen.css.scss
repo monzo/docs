@@ -545,9 +545,7 @@ html, body {
     &>p { margin: 0; }
 
     a {
-      color: #fff;
-      text-decoration: none;
-      border-bottom: dashed 1px #ccc;
+      color: #90CAF9;
     }
   }
 
@@ -571,7 +569,6 @@ html, body {
   blockquote {
     padding-top: 0;
     padding-bottom: 0;
-    font-weight: bold;
 
     + pre {
         padding-top: 1em;
