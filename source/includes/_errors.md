@@ -1,20 +1,25 @@
 # Errors
 
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files...just save them to the `includes` folder and add them to the top of your `index.md`'s frontmatter. Files are included in the order listed.</aside>
+The Mondo API uses conventional HTTP response codes to indicate errors, and includes more detailed information on the exact nature of an error in the HTTP response.
 
-The Kittn API uses the following error codes:
+##### HTTP response codes
 
+<span class="hide">Response code</span> | <span class="hide">Meaning</span>
+--------------------------------------- | ---------------------------------
+`200`<br>OK|All is well.
+`400`<br>Bad Request|The request has missing parameters or is malformed.
+`401`<br>Unauthorized|Your request is not authenticated.
+`403`<br>Forbidden|Your request is authenticated but has insufficient permissions.
+`404`<br>Page Not Found|The endpoint requested does not exist.
+`429`<br>Too Many Requests|Your application is exceeding its rate limit. Back off, buddy :p
+`500`<br>Internal Server Error|Something is wrong on our end. Whoopsie.
 
-Error Code | Meaning
----------- | -------
-400 | Bad Request -- Your request sucks
-401 | Unauthorized -- Your API key is wrong
-403 | Forbidden -- The kitten requested is hidden for administrators only
-404 | Not Found -- The specified kitten could not be found
-405 | Method Not Allowed -- You tried to access a kitten with an invalid method
-406 | Not Acceptable -- You requested a format that isn't json
-410 | Gone -- The kitten requested has been removed from our servers
-418 | I'm a teapot
-429 | Too Many Requests -- You're requesting too many kittens! Slow down!
-500 | Internal Server Error -- We had a problem with our server. Try again later.
-503 | Service Unavailable -- We're temporarially offline for maintanance. Please try again later.
+### Authentication errors
+
+Errors pertaining to authentication are standard errors but also contain extra information to follow the OAuth specification. Specifically, they contain the `error` key with the following values:
+
+##### `error` values
+
+<span class="hide">Value</span> | <span class="hide">Meaning</span>
+------------------------------- | ---------------------------------
+`invalid_token`|The supplied access token is invalid or has expired.

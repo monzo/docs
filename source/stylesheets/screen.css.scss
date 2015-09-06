@@ -48,15 +48,6 @@ html, body {
   width: 20px;
 }
 
-@mixin embossed-bg {
-  background:
-    linear-gradient(to bottom, rgba(#000, 0.2), rgba(#000, 0) 8px),
-    linear-gradient(to top, rgba(#000, 0.2), rgba(#000, 0) 8px),
-    linear-gradient(to bottom, rgba($nav-embossed-border-top, 1), rgba($nav-embossed-border-top, 0) 1.5px),
-    linear-gradient(to top, rgba($nav-embossed-border-bottom, 1), rgba($nav-embossed-border-bottom, 0) 1.5px),
-    $nav-subitem-bg;
-}
-
 .tocify-wrapper {
   transition: left 0.3s ease-in-out;
 
@@ -69,21 +60,27 @@ html, body {
   bottom: 0;
   width: $nav-width;
   background-color: $nav-bg;
-  font-size: 13px;
-  font-weight: bold;
+  border-right: 1px solid #f0f4f7;
+  box-sizing: border-box;
 
   // language selector for mobile devices
   .lang-selector {
-    display: none;
-    a {
-      padding-top: 0.5em;
-      padding-bottom: 0.5em;
-    }
+      display: none;
+      a {
+          padding-top: 0.5em;
+          padding-bottom: 0.5em;
+      }
   }
 
   // This is the logo at the top of the ToC
-  &>img {
-    display: block;
+  .logo {
+      display: block;
+      padding: 0 0 15px 15px;
+      margin-top: 2em;
+
+      img {
+          width: 70%;
+      }
   }
 
   &>.search {
@@ -129,8 +126,6 @@ html, body {
       margin-bottom: 1em;
     }
 
-    @include embossed-bg;
-
     li {
       margin: 1em $nav-padding;
       line-height: 1;
@@ -148,6 +143,7 @@ html, body {
 
 
   .tocify-item>a, .toc-footer li {
+    margin-top: 10px;
     padding: 0 $nav-padding 0 $nav-padding;
     display: block;
     overflow-x: hidden;
@@ -174,8 +170,6 @@ html, body {
 
   // This is the currently selected ToC entry
   .tocify-focus {
-    box-shadow: 0px 1px 0px $nav-active-shadow;
-    background-color: $nav-active-bg;
     color: $nav-active-text;
   }
 
@@ -183,15 +177,12 @@ html, body {
   // in the table of contents.
   .tocify-subheader {
     display: none; // tocify will override this when needed
-    background-color: $nav-subitem-bg;
-    font-weight: 500;
     .tocify-item>a {
+      margin-top: 0;
       padding-left: $nav-padding + $nav-indent;
-      font-size: 12px;
+      font-size: 13px;
     }
 
-    // for embossed look:
-    @include embossed-bg;
     &>li:last-child {
       box-shadow: none; // otherwise it'll overflow out of the subheader
     }
@@ -282,6 +273,7 @@ html, body {
   }
 
   .lang-selector {
+    visibility: hidden;
     position: fixed;
     z-index: 50;
     border-bottom: 5px solid $lang-select-active-bg;
@@ -328,6 +320,7 @@ html, body {
   // to place content above the dark box
   position: relative;
   z-index: 30;
+  padding-bottom: 50px;
 
   &:after {
     content: '';
@@ -335,12 +328,15 @@ html, body {
     clear: both;
   }
 
+  .hide {
+      display: none;
+  }
+
   &>h1, &>h2, &>h3, &>h4, &>h5, &>h6, &>p, &>table, &>ul, &>ol, &>aside, &>dl {
     margin-right: $examples-width;
     padding: 0 $main-padding;
     box-sizing: border-box;
     display: block;
-    @include text-shadow($main-embossed-text-shadow);
 
     @extend %left-col;
   }
@@ -357,13 +353,10 @@ html, body {
   h1 {
     @extend %header-font;
     font-size: 30px;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: $h1-margin-bottom;
-    margin-top: 2em;
-    border-top: 1px solid #ddd;
-    background-image: linear-gradient(to bottom, #fff, #f9f9f9);
+    padding-top: 1em;
+    border-top: 1px solid #f0f4f7;
+    margin-top: 4em;
+    margin-bottom: 1em;
   }
 
   h1:first-child, div:first-child + h1 {
@@ -374,19 +367,8 @@ html, body {
   h2 {
     @extend %header-font;
     font-size: 20px;
-    margin-top: 4em;
-    margin-bottom: 0;
-    border-top: 1px solid #ccc;
-    padding-top: 1.2em;
-    padding-bottom: 1.2em;
-    background-image: linear-gradient(to bottom, rgba(#fff, 0.4), rgba(#fff, 0));
-  }
-
-  // h2s right after h1s should bump right up
-  // against the h1s.
-  h1 + h2, h1 + div + h2 {
-    margin-top: $h1-margin-bottom * -1;
-    border-top: none;
+    margin-top: 2em;
+    margin-bottom: 1em;
   }
 
   h3, h4, h5, h6 {
@@ -406,9 +388,28 @@ html, body {
     border-bottom: 2px solid $main-bg;
   }
 
+  h5 {
+      text-transform: uppercase;
+      color: #BDBDBD;
+      font-size: 13px;
+
+      + table {
+          margin-top: -0.8em;
+
+          tbody tr td:first-child {
+              text-align: right;
+              width: 40%;
+          }
+      }
+  }
+
   table {
+    display: table;
     margin-bottom: 1em;
-    overflow: auto;
+    width: 50%;
+    width: calc(50% - 28px*2);
+    margin: 0 $main-padding + $main-padding 0 $main-padding;
+
     th,td {
       text-align: left;
       vertical-align: top;
@@ -416,26 +417,33 @@ html, body {
     }
 
     th {
-      padding: 5px 10px;
-      border-bottom: 1px solid #ccc;
-      vertical-align: bottom;
+        padding: 5px 10px;
+        border-bottom: 1px solid #f0f4f7;
+        vertical-align: bottom;
     }
 
     td {
-      padding: 10px;
+        padding: 10px;
     }
 
-    tr:last-child {
-      border-bottom: 1px solid #ccc;
+    code {
+        white-space: nowrap;
     }
+  }
 
-    tr:nth-child(odd)>td {
-      background-color: lighten($main-bg,4.2%);
-    }
+  a {
+      color: $link-text;
+      text-decoration: none;
+  }
 
-    tr:nth-child(even)>td {
-      background-color: lighten($main-bg,2.4%);
-    }
+  .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 400;
+
+      &.notice {
+          color: #EF5350;
+      }
   }
 
   dt {
@@ -456,7 +464,7 @@ html, body {
   }
 
   code {
-    background-color: rgba(0,0,0,0.05);
+    background-color: #F5F5F5;
     padding: 3px;
     border-radius: 3px;
     @extend %break-words;
@@ -471,7 +479,6 @@ html, body {
   aside {
     padding-top: 1em;
     padding-bottom: 1em;
-    @include text-shadow(0 1px 0 lighten($aside-notice-bg, 15%));
     margin-top: 1.5em;
     margin-bottom: 1.5em;
     background: $aside-notice-bg;
@@ -479,12 +486,10 @@ html, body {
 
     &.warning {
       background-color: $aside-warning-bg;
-      @include text-shadow(0 1px 0 lighten($aside-warning-bg, 15%));
     }
 
     &.success {
       background-color: $aside-success-bg;
-      @include text-shadow(0 1px 0 lighten($aside-success-bg, 15%));
     }
   }
 
@@ -511,7 +516,6 @@ html, body {
     margin: -2px;
     border-radius: 4px;
     border: 1px solid #F7E633;
-    @include text-shadow(1px 1px 0 #666);
     background: linear-gradient(to top left, #F7E633 0%, #F1D32F 100%);
   }
 }
@@ -522,7 +526,7 @@ html, body {
 // This is all the stuff that appears in the right half of the page
 
 .content {
-  pre, blockquote {
+  pre, blockquote, .right {
     background-color: $code-bg;
     color: #fff;
 
@@ -534,7 +538,6 @@ html, body {
     clear:right;
 
     box-sizing: border-box;
-    @include text-shadow(0px 1px 2px rgba(0,0,0,0.4));
 
     @extend %right-col;
 
@@ -547,18 +550,25 @@ html, body {
     }
   }
 
+  pre + pre {
+      padding-top: 0;
+  }
+
+  span.right {
+      display: block;
+  }
+
   pre {
     @extend %code-font;
   }
 
   blockquote {
-    &>p {
-      background-color: $code-annotation-bg;
-      border-radius: 5px;
-      padding: $code-annotation-padding;
-      color: #ccc;
-      border-top: 1px solid #000;
-      border-bottom: 1px solid #404040;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-weight: bold;
+
+    + pre {
+        padding-top: 1em;
     }
   }
 }
@@ -602,7 +612,7 @@ html, body {
   }
 
   .tocify-wrapper .lang-selector {
-    display: block;
+    display: none;
   }
 
   .page-wrapper .lang-selector {
@@ -617,4 +627,15 @@ html, body {
   %right-col + %left-col {
     margin-top: $main-padding;
   }
+
+    .content {
+        table {
+            width: 100%;
+            width: calc(100% - 28px*2);
+        }
+
+        blockquote {
+            padding-top: 1.5em;
+        }
+    }
 }

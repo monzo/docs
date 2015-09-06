@@ -1,168 +1,201 @@
 ---
-title: API Reference
+title: Mondo API Reference
 
 language_tabs:
   - shell
-  - ruby
-  - python
-
-toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
   - errors
 
-search: true
+search: false
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+> API endpoint
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+```
+https://mini.mondobank.io
+```
 
-This example API documentation page was created with [Slate](http://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+The Mondo API is designed to be a predictable and intuitive interface for interacting with user's accounts. We offer both a REST API and web hooks.
+
+The API isn't publicly-available at this time, but if you're interested in using it, please get in touch. Similarly, if a feature you'd like is missing, do let us know. As one of the first examples (if not *the* first example) of a widely-available bank API, we're very excited to see what you build!
 
 # Authentication
 
-> To authorize, use this code:
+The Mondo API implements [OAuth 2.0](http://oauth.net/2/), and is only available over HTTPS. A typical OAuth authentication flow involves several steps.
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+1. [Acquiring](#acquiring-an-access-token) an access token.
+2. [Using](#authenticating-requests) the access token to make authenticated requests.
+3. [Refreshing](#refreshing-access) the access token when it expires.
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+Requests <strong>must</strong> be authenticated. Unauthenticated requests will be rejected.
 </aside>
 
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+## Acquiring an access token
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+$ http --form POST "https://mini.mondobank.io/oauth2/token" \
+    "grant_type=password" \
+    "client_id=$client_id" \
+    "client_secret=$client_secret" \
+    "username=$user_email" \
+    "password=$user_password"
 ```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Isis",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
-
 ```json
 {
-  "id": 2,
-  "name": "Isis",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+    "access_token": "access_token",
+    "client_id": "client_id",
+    "expires_in": 21600,
+    "refresh_token": "refresh_token",
+    "token_type": "Bearer",
+    "user_id": "user_id"
 }
 ```
 
-This endpoint retrieves a specific kitten.
+An access token is tied to both your application (the client) and an individual Mondo user, and is valid for 6 hours.
 
-<aside class="warning">If you're not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
+<aside class="warning">
+Your client may only have <em>one</em> active access token at a time, per user. Acquiring a new access token will invalidate any other active access/refresh tokens for that user.
+</aside>
 
-### HTTP Request
+##### Arguments
 
-`GET http://example.com/kittens/<ID>`
+<span class="hide">Parameter</span> | <span class="hide">Description</span>
+------------------------------------|--------------------------------------
+`grant_type`<br><span class="label notice">Required</span>|Should be `password`
+`client_id`<br><span class="label notice">Required</span>|Your client ID
+`client_secret`<br><span class="label notice">Required</span>|Your client secret
+`username`<br><span class="label notice">Required</span>|The user's email address
+`password`<br><span class="label notice">Required</span>|The user's password
 
-### URL Parameters
+## Authenticating requests
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+```shell
+$ http "https://mini.mondobank.io/ping/whoami" \
+    "Authorization: Bearer $access_token"
+```
+```json
+{
+    "authenticated": true,
+    "client_id": "client_id",
+    "user_id": "user_id"
+}
+```
 
+**All** requests must be authenticated with an access token. It is supplied in the `Authorization` header using the `Bearer` scheme.
+
+To get information about an access token, you can call the `/ping/whoami` endpoint.
+
+## Refreshing access
+
+```shell
+$ http --form POST "http://localhost:8000/oauth2/token" \
+    "grant_type=$refresh_token" \
+    "client_id=$client_id" \
+    "client_secret=$client_secret" \
+    "refresh_token=$refresh_token"
+```
+```json
+{
+    "access_token": "access_token_2",
+    "client_id": "client_id",
+    "expires_in": 21600,
+    "refresh_token": "refresh_token_2",
+    "token_type": "Bearer",
+    "user_id": "user_id"
+}
+```
+
+To limit the window of opportunity for attackers in the event an access token is compromised, access tokens expire after 6 hours. To gain long-lived access to a user's account, it is necessary to "refresh" your access when it expires using a refresh token. Only ["confidential" clients](https://tools.ietf.org/html/rfc6749#section-2.1) are issued access tokens – "public" clients must ask the user to re-authenticate.
+
+Refreshing an access token will invalidate the previous token, if it is still valid. Refreshing is a one-time operation.
+
+##### Arguments
+
+<span class="hide">Parameter</span> | <span class="hide">Description</span>
+------------------------------------|--------------------------------------
+`grant_type`<br><span class="label notice">Required</span>|Should be `refresh_token`
+`client_id`<br><span class="label notice">Required</span>|Your client ID
+`client_secret`<br><span class="label notice">Required</span>|Your client secret
+`refresh_token`<br><span class="label notice">Required</span>|The refresh token received along with the original access token
+
+# Pagination
+
+# Object expansion
+
+# Transactions
+
+Transactions are movements of funds into or out of an account. Negative transactions represent debits (ie. *spending* money) and positive transactions represent credits (ie. *receiving* money).
+
+## List transactions
+
+```shell
+$ http "https://mini.mondobank.io/transactions" \
+    "Authorization: Bearer $access_token" \
+    "account_id==$account_id"
+```
+
+```json
+{
+    "transactions": [
+        {
+            "amount": -535,
+            "created": "2015-05-26T03:44:00Z",
+            "currency": "GBP",
+            "description": "Transport for London",
+            "id": "tx_00008zhJ3kE6c8kmsGUgKn",
+            "merchant": null,
+            "metadata": {
+                "logo_url": "http://pbs.twimg.com/profile_images/450634458396258304/_7g-xGC4_400x400.png",
+                "tags": "#transport"
+            },
+            "notes": ""
+        },
+        {
+            "amount": -5663,
+            "created": "2015-05-27T03:45:00Z",
+            "currency": "GBP",
+            "description": "Ocado",
+            "id": "tx_00008zhJ3ltyNxq04P5dEP",
+            "merchant": null,
+            "metadata": {
+                "logo_url": "http://pbs.twimg.com/profile_images/474227427648868353/Xrt860cz_400x400.jpeg",
+                "tags": "#groceries"
+            },
+            "notes": ""
+        },
+    ]
+}
+```
+
+A list of transactions on the user's account.
+
+##### Arguments
+
+<span class="hide">Parameter</span> | <span class="hide">Description</span>
+------------------------------------|--------------------------------------
+`account_id`<br><span class="label notice">Required</span>|The account to retrieve transactions from
+
+## Annotate transaction
+
+# Feed items
+
+The Mondo app is organised around the feed – a reverse-chronological stream of events. Transactions are one such feed item, and your application can create its own feed items to surface relevant information to the user.
+
+It's important to keep a few principals in mind when creating feed items:
+
+1. Feed items are *discrete* events that happen at a *point in time*.
+2. Because of their prominence within the Mondo app, feed items should contain information of *high value*.
+
+## Create feed item
+
+# Webhooks
+
+Webhooks allow your application to receive real-time, push notification of events in a user's accounts.
+
+## Registering a webhook
+
+## Transaction created
