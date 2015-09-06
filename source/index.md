@@ -26,4 +26,6 @@ https://mini.mondobank.io
 
 The Mondo API is designed to be a predictable and intuitive interface for interacting with user's accounts. We offer both a REST API and web hooks.
 
-The API isn't publicly-available at this time, but if you're interested in using it, please get in touch. Similarly, if a feature you'd like is missing, do let us know. As one of the first examples (if not *the* first example) of a widely-available bank API, we're very excited to see what you build!
+The API is in beta and isn't publicly-available yet. If you're interested in using it, please get in touch. Similarly, if a feature you'd like is missing (or broken!), do let us know.
+
+As one of the first – if not *the* first – example of a widely-available bank API, we're very excited to see what you build!

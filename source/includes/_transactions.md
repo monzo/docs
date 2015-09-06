@@ -43,13 +43,13 @@ $ http "https://mini.mondobank.io/transactions" \
 }
 ```
 
-A list of transactions on the user's account.
+Returns a list of transactions on the user's account.
 
 ##### Arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
-`account_id`<br><span class="label notice">Required</span>|The account to retrieve transactions from
+`account_id`<br><span class="label notice">Required</span>|The account to retrieve transactions from.
 
 ## Annotate transaction
 
@@ -78,7 +78,7 @@ $ http PATCH "https://mini.mondobank.io/transactions/$transaction_id" \
 }
 ```
 
-You may store your own, key-value annotations against a transaction in its `metadata`.
+You may store your own key-value annotations against a transaction in its `metadata`.
 
 ##### Arguments
 

@@ -27,8 +27,8 @@ Each time a matching event occurs, we will make a POST call to the URL you provi
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
-`account_id`<br><span class="label notice">Required</span>|The account to receive notifications for
-`url`<br><span class="label notice">Required</span>|The URL we will send notifications to
+`account_id`<br><span class="label notice">Required</span>|The account to receive notifications for.
+`url`<br><span class="label notice">Required</span>|The URL we will send notifications to.
 
 ## Deleting a web hook
 

@@ -31,7 +31,7 @@ $ http --form POST "https://mini.mondobank.io/oauth2/token" \
 }
 ```
 
-An access token is tied to both your application (the client) and an individual Mondo user, and is valid for 6 hours.
+An access token is tied to both your application (the client) and an individual Mondo user and is valid for 6 hours.
 
 <aside class="warning">
 Your client may only have <em>one</em> active access token at a time, per user. Acquiring a new access token will invalidate any other active access/refresh tokens for that user.
@@ -85,7 +85,7 @@ $ http --form POST "http://localhost:8000/oauth2/token" \
 }
 ```
 
-To limit the window of opportunity for attackers in the event an access token is compromised, access tokens expire after 6 hours. To gain long-lived access to a user's account, it is necessary to "refresh" your access when it expires using a refresh token. Only ["confidential" clients](https://tools.ietf.org/html/rfc6749#section-2.1) are issued access tokens – "public" clients must ask the user to re-authenticate.
+To limit the window of opportunity for attackers in the event an access token is compromised, access tokens expire after 6 hours. To gain long-lived access to a user's account, it's necessary to "refresh" your access when it expires using a refresh token. Only ["confidential" clients](https://tools.ietf.org/html/rfc6749#section-2.1) are issued access tokens – "public" clients must ask the user to re-authenticate.
 
 Refreshing an access token will invalidate the previous token, if it is still valid. Refreshing is a one-time operation.
 
@@ -93,7 +93,7 @@ Refreshing an access token will invalidate the previous token, if it is still va
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
-`grant_type`<br><span class="label notice">Required</span>|Should be `refresh_token`
-`client_id`<br><span class="label notice">Required</span>|Your client ID
-`client_secret`<br><span class="label notice">Required</span>|Your client secret
-`refresh_token`<br><span class="label notice">Required</span>|The refresh token received along with the original access token
+`grant_type`<br><span class="label notice">Required</span>|Should be `refresh_token`.
+`client_id`<br><span class="label notice">Required</span>|Your client ID.
+`client_secret`<br><span class="label notice">Required</span>|Your client secret.
+`refresh_token`<br><span class="label notice">Required</span>|The refresh token received along with the original access token.
