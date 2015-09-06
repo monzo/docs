@@ -79,7 +79,7 @@ html, body {
       margin-top: 2em;
 
       img {
-          width: 70%;
+          width: 60%;
       }
   }
 
@@ -440,6 +440,7 @@ html, body {
       font-size: 12px;
       text-transform: uppercase;
       font-weight: 400;
+      color: #9E9E9E;
 
       &.notice {
           color: #EF5350;
@@ -548,6 +549,11 @@ html, body {
       text-decoration: none;
       border-bottom: dashed 1px #ccc;
     }
+  }
+
+  blockquote code {
+      background-color: #424242;
+      color: #E0E0E0;
   }
 
   pre + pre {
