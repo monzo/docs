@@ -1,0 +1,435 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Mondo API Reference</title>
+
+    <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="javascripts/all_nosearch.js" type="text/javascript"></script>
+
+      <script>
+        $(function() {
+          setupLanguages(["shell"]);
+        });
+      </script>
+  </head>
+
+  <body class="index">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <span class="logo"><img src="images/logo.svg" /></span>
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+        </div>
+      <div id="toc">
+      </div>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="introduction">Introduction</h1>
+
+<blockquote>
+<p><strong>API endpoint</strong></p>
+</blockquote>
+<pre class="highlight plaintext"><code>https://mini.mondobank.io
+</code></pre>
+
+<blockquote>
+<p>Examples in this documentation are written using <a href="https://github.com/jkbrzt/httpie">httpie</a> for clarity.</p>
+</blockquote>
+
+<p>The Mondo API is designed to be a predictable and intuitive interface for interacting with users&rsquo; accounts. We offer both a REST API and web hooks.</p>
+
+<p>The API is in beta and isn&rsquo;t publicly-available yet. If you&rsquo;re interested in using it, please get in touch. Similarly, if a feature you&rsquo;d like is missing (or broken!), do let us know.</p>
+
+<p>As one of the first – if not <em>the</em> first – example of a widely-available bank API, we&rsquo;re very excited to see what you build!</p>
+
+          <h1 id="authentication">Authentication</h1>
+
+<p>The Mondo API implements <a href="http://oauth.net/2/">OAuth 2.0</a>, and is only available over HTTPS. A typical OAuth authentication flow involves several steps.</p>
+
+<ol>
+<li><a href="#acquiring-an-access-token">Acquiring</a> an access token.</li>
+<li><a href="#authenticating-requests">Using</a> the access token to make authenticated requests.</li>
+<li><a href="#refreshing-access">Refreshing</a> the access token when it expires.</li>
+</ol>
+
+<aside class="notice">
+Requests <strong>must</strong> be authenticated. Unauthenticated requests will be rejected.
+</aside>
+
+<h2 id="acquiring-an-access-token">Acquiring an access token</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://mini.mondobank.io/oauth2/token"</span> <span class="se">\</span>
+    <span class="s2">"grant_type=password"</span> <span class="se">\</span>
+    <span class="s2">"client_id=</span><span class="nv">$client_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"client_secret=</span><span class="nv">$client_secret</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"username=</span><span class="nv">$user_email</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"password=</span><span class="nv">$user_password</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"access_token"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">21600</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"refresh_token"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>An access token is tied to both your application (the client) and an individual Mondo user and is valid for 6 hours.</p>
+
+<aside class="notice">
+Your client may only have <em>one</em> active access token at a time, per user. Acquiring a new access token will invalidate any other token you own for that user.
+</aside>
+
+<h5 id="arguments">Arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">grant_type</code><br><span class="label notice">Required</span></td>
+<td>Should be <code class="prettyprint">password</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">client_id</code><br><span class="label notice">Required</span></td>
+<td>Your client ID.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">client_secret</code><br><span class="label notice">Required</span></td>
+<td>Your client secret.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">username</code><br><span class="label notice">Required</span></td>
+<td>The user&rsquo;s email address.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">password</code><br><span class="label notice">Required</span></td>
+<td>The user&rsquo;s password.</td>
+</tr>
+</tbody></table>
+
+<h2 id="authenticating-requests">Authenticating requests</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://mini.mondobank.io/ping/whoami"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"authenticated"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><strong>All</strong> requests must be authenticated with an access token. It is supplied in the <code class="prettyprint">Authorization</code> header using the <code class="prettyprint">Bearer</code> scheme.</p>
+
+<p>To get information about an access token, you can call the <code class="prettyprint">/ping/whoami</code> endpoint.</p>
+
+<h2 id="refreshing-access">Refreshing access</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"http://localhost:8000/oauth2/token"</span> <span class="se">\</span>
+    <span class="s2">"grant_type=</span><span class="nv">$refresh_token</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"client_id=</span><span class="nv">$client_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"client_secret=</span><span class="nv">$client_secret</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"refresh_token=</span><span class="nv">$refresh_token</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"access_token_2"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">21600</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"refresh_token_2"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>To limit the window of opportunity for attackers in the event an access token is compromised, access tokens expire after 6 hours. To gain long-lived access to a user&rsquo;s account, it&rsquo;s necessary to &ldquo;refresh&rdquo; your access when it expires using a refresh token. Only <a href="https://tools.ietf.org/html/rfc6749#section-2.1">&ldquo;confidential&rdquo; clients</a> are issued access tokens – &ldquo;public&rdquo; clients must ask the user to re-authenticate.</p>
+
+<p>Refreshing an access token will invalidate the previous token, if it is still valid. Refreshing is a one-time operation.</p>
+
+<h5 id="arguments">Arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">grant_type</code><br><span class="label notice">Required</span></td>
+<td>Should be <code class="prettyprint">refresh_token</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">client_id</code><br><span class="label notice">Required</span></td>
+<td>Your client ID.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">client_secret</code><br><span class="label notice">Required</span></td>
+<td>Your client secret.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">refresh_token</code><br><span class="label notice">Required</span></td>
+<td>The refresh token received along with the original access token.</td>
+</tr>
+</tbody></table>
+
+          <h1 id="pagination">Pagination</h1>
+
+          <h1 id="object-expansion">Object expansion</h1>
+
+          <h1 id="transactions">Transactions</h1>
+
+<p>Transactions are movements of funds into or out of an account. Negative transactions represent debits (ie. <em>spending</em> money) and positive transactions represent credits (ie. <em>receiving</em> money).</p>
+
+<h2 id="list-transactions">List transactions</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://mini.mondobank.io/transactions"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"account_id==</span><span class="nv">$account_id</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"transactions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-535</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-26T03:44:00Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transport for London"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zhJ3kE6c8kmsGUgKn"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"logo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://pbs.twimg.com/profile_images/450634458396258304/_7g-xGC4_400x400.png"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#transport"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-5663</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-27T03:45:00Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ocado"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zhJ3ltyNxq04P5dEP"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"logo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://pbs.twimg.com/profile_images/474227427648868353/Xrt860cz_400x400.jpeg"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#groceries"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Returns a list of transactions on the user&rsquo;s account.</p>
+
+<h5 id="arguments">Arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">account_id</code><br><span class="label notice">Required</span></td>
+<td>The account to retrieve transactions from.</td>
+</tr>
+</tbody></table>
+
+<h2 id="annotate-transaction">Annotate transaction</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http PATCH <span class="s2">"https://mini.mondobank.io/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"metadata[</span><span class="nv">$key1</span><span class="s2">]=</span><span class="nv">$value1</span><span class="s2">"</span>
+    <span class="c"># Set a key's value as empty to delete it</span>
+    <span class="s2">"metadata[</span><span class="nv">$key2</span><span class="s2">]="</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-580</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-06T04:13:00Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transport for London"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zhJ7dgorNv5l6mW37"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"foo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bar baz"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You may store your own key-value annotations against a transaction in its <code class="prettyprint">metadata</code>.</p>
+
+<h5 id="arguments">Arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">metadata[$name]</code><br><span class="label">Repeated</span></td>
+<td>Include each key you would like to modify. To delete a key, set its value to an empty string.</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Metadata is private to your application.
+</aside>
+
+          <h1 id="feed-items">Feed items</h1>
+
+<p>The Mondo app is organised around the feed – a reverse-chronological stream of events. Transactions are one such feed item, and your application can create its own feed items to surface relevant information to the user.</p>
+
+<p>It&rsquo;s important to keep a few principals in mind when creating feed items:</p>
+
+<ol>
+<li>Feed items are <em>discrete</em> events that happen at a <em>point in time</em>.</li>
+<li>Because of their prominence within the Mondo app, feed items should contain information of <em>high value</em>.</li>
+</ol>
+
+<h2 id="create-feed-item">Create feed item</h2>
+
+          <h1 id="web-hooks">Web hooks</h1>
+
+<p>Web hooks allow your application to receive real-time, push notification of events in an account.</p>
+
+<h2 id="registering-a-web-hook">Registering a web hook</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http POST <span class="s2">"https://mini.mondobank.io/webhooks"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"url=</span><span class="nv">$url</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"webhook"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account_id"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webhook_id"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails, we will retry up to a maximum of 5 attempts.</p>
+
+<h5 id="arguments">Arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">account_id</code><br><span class="label notice">Required</span></td>
+<td>The account to receive notifications for.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">url</code><br><span class="label notice">Required</span></td>
+<td>The URL we will send notifications to.</td>
+</tr>
+</tbody></table>
+
+<h2 id="deleting-a-web-hook">Deleting a web hook</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http DELETE <span class="s2">"https://mini.mondobank.io/webhooks/</span><span class="nv">$webhook_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{}</span><span class="w">
+</span></code></pre>
+
+<p>When you delete a web hook, we will no longer send notifications to it.</p>
+
+<h2 id="transaction-created">Transaction created</h2>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transaction.created"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-350</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-04T14:28:40Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ozone Coffee Roasters"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zjky19HyFLAzlUk7t"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Each time a new transaction is created in a user&rsquo;s account, we will immediately send information about it in a <code class="prettyprint">transaction.created</code> event.</p>
+
+          <h1 id="errors">Errors</h1>
+
+<p>The Mondo API uses conventional HTTP response codes to indicate errors, and includes more detailed information on the exact nature of an error in the HTTP response.</p>
+
+<h5 id="http-response-codes">HTTP response codes</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Response code</span></th>
+<th><span class="hide">Meaning</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">200</code><br>OK</td>
+<td>All is well.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">400</code><br>Bad Request</td>
+<td>The request has missing parameters or is malformed.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">401</code><br>Unauthorized</td>
+<td>Your request is not authenticated.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">403</code><br>Forbidden</td>
+<td>Your request is authenticated but has insufficient permissions.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">404</code><br>Page Not Found</td>
+<td>The endpoint requested does not exist.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">429</code><br>Too Many Requests</td>
+<td>Your application is exceeding its rate limit. Back off, buddy. :p</td>
+</tr>
+<tr>
+<td><code class="prettyprint">500</code><br>Internal Server Error</td>
+<td>Something is wrong on our end. Whoopsie.</td>
+</tr>
+</tbody></table>
+
+<h3 id="authentication-errors">Authentication errors</h3>
+
+<p>Errors pertaining to authentication are standard errors but also contain extra information to follow the OAuth specification. Specifically, they contain the <code class="prettyprint">error</code> key with the following values:</p>
+
+<h5 id="error-values"><code class="prettyprint">error</code> values</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Value</span></th>
+<th><span class="hide">Meaning</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">invalid_token</code></td>
+<td>The supplied access token is invalid or has expired.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
