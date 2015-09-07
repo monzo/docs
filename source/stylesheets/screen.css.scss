@@ -547,15 +547,16 @@ html, body {
     a {
       color: #90CAF9;
     }
+
+    + pre, + blockquote, + .right {
+        padding-top: 0;
+        padding-bottom: 2em;
+    }
   }
 
   blockquote code {
       background-color: #424242;
       color: #E0E0E0;
-  }
-
-  pre + pre {
-      padding-top: 0;
   }
 
   span.right {
@@ -564,15 +565,6 @@ html, body {
 
   pre {
     @extend %code-font;
-  }
-
-  blockquote {
-    padding-top: 0;
-    padding-bottom: 0;
-
-    + pre {
-        padding-top: 1em;
-    }
   }
 }
 
