@@ -629,8 +629,8 @@ html, body {
             width: calc(100% - 28px*2);
         }
 
-        blockquote {
-            padding-top: 1.5em;
+        blockquote, pre, .right {
+            padding-top: 2em;
         }
     }
 }
