@@ -1,6 +1,6 @@
 # Pagination
 
-Endpoints which enumerate objects support time- and cursor-based pagination.
+Endpoints which enumerate objects support time-based and cursor-based pagination.
 
 ##### Arguments
 
