@@ -11,7 +11,7 @@ The Mondo API uses conventional HTTP response codes to indicate errors, and incl
 `401`<br>Unauthorized|Your request is not authenticated.
 `403`<br>Forbidden|Your request is authenticated but has insufficient permissions.
 `404`<br>Page Not Found|The endpoint requested does not exist.
-`429`<br>Too Many Requests|Your application is exceeding its rate limit. Back off, buddy :p
+`429`<br>Too Many Requests|Your application is exceeding its rate limit. Back off, buddy. :p
 `500`<br>Internal Server Error|Something is wrong on our end. Whoopsie.
 
 ### Authentication errors
