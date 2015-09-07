@@ -31,7 +31,7 @@ $ http --form POST "https://mini.mondobank.io/oauth2/token" \
 }
 ```
 
-An access token is tied to both your application (the client) and an individual Mondo user and is valid for 6 hours.
+An access token is tied to both your application (the client) and an individual Mondo user and is valid for several hours.
 
 <aside class="notice">
 Your client may only have <em>one</em> active access token at a time, per user. Acquiring a new access token will invalidate any other token you own for that user.
