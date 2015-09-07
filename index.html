@@ -188,13 +188,90 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 </tr>
 </tbody></table>
 
-          <!-- # Pagination -->
+          <h1 id="pagination">Pagination</h1>
 
-          <!-- # Object expansion -->
+<p>Endpoints which enumerate objects support time-based and cursor-based pagination.</p>
+
+<h5 id="arguments">Arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">limit</code><br><span class="label">Optional</span></td>
+<td>Limits the number of results per-page.<br>Max: 100.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">since</code><br><span class="label">Optional</span></td>
+<td>An RFC 3339-encoded timestamp.<br> eg.<code class="prettyprint">2009-11-10T23:00:00Z</code><br><br>Or an object id.<br>eg. <code class="prettyprint">tx_00008zhJ3kE6c8kmsGUKgn</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">before</code><br><span class="label">Optional</span></td>
+<td>An RFC 3339 encoded-timestamp<br><code class="prettyprint">2009-11-10T23:00:00Z</code></td>
+</tr>
+</tbody></table>
+
+          <h1 id="expanding-objects">Expanding objects</h1>
+
+<p>Some objects contain the id of another object in their response. To save a round-trip, some of these objects can be expanded inline with the <code class="prettyprint">expand[]</code> parameter, which is repeatable. Objects that can be expanded are noted in individual endpoint documentation.</p>
 
           <h1 id="transactions">Transactions</h1>
 
 <p>Transactions are movements of funds into or out of an account. Negative transactions represent debits (ie. <em>spending</em> money) and positive transactions represent credits (ie. <em>receiving</em> money).</p>
+
+<h2 id="retrieve-transaction">Retrieve transaction</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://mini.mondobank.io/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="c"># Here we are expanding the merchant</span>
+    <span class="s2">"expand[]==merchant"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-510</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-22T12:20:18Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"THE DE BEAUVOIR DELI C LONDON        GBR"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zIcpb1TB4yeIFXMzx"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"98 Southgate Road"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.54151</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.08482400000002599</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"postcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"N1 3JD"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Greater London"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-22T12:20:18Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"group_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"grp_00008zIcpbBOaAr7TTP3sv"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"merch_00008zIcpbAKe8shBxXUtl"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The De Beauvoir Deli Co."</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+        </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Salmon sandwich 🍞"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Returns an individual transaction, fetched by its id.</p>
+
+<h5 id="arguments">Arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="#expanding-objects"><code class="prettyprint">expand[]</code></a><br><span class="label">Repeated</span></td>
+<td>Can be <code class="prettyprint">merchant</code>.</td>
+</tr>
+</tbody></table>
 
 <h2 id="list-transactions">List transactions</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://mini.mondobank.io/transactions"</span> <span class="se">\</span>
@@ -204,29 +281,23 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"transactions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-535</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-26T03:44:00Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-510</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-22T12:20:18Z"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transport for London"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zhJ3kE6c8kmsGUgKn"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="nt">"logo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://pbs.twimg.com/profile_images/450634458396258304/_7g-xGC4_400x400.png"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#transport"</span><span class="w">
-            </span><span class="p">},</span><span class="w">
-            </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"THE DE BEAUVOIR DELI C LONDON        GBR"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zIcpb1TB4yeIFXMzx"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="s2">"merch_00008zIcpbAKe8shBxXUtl"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+            </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Salmon sandwich 🍞"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-5663</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-27T03:45:00Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-679</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-23T16:15:03Z"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ocado"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zhJ3ltyNxq04P5dEP"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="nt">"logo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://pbs.twimg.com/profile_images/474227427648868353/Xrt860cz_400x400.jpeg"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#groceries"</span><span class="w">
-            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VUE BSL LTD            ISLINGTON     GBR"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zL2INM3xZ41THuRF3"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="s2">"merch_00008z6uFVhVBcaZzSQwCX"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
             </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
         </span><span class="p">},</span><span class="w">
     </span><span class="p">]</span><span class="w">
@@ -247,25 +318,29 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 <td><code class="prettyprint">account_id</code><br><span class="label notice">Required</span></td>
 <td>The account to retrieve transactions from.</td>
 </tr>
+<tr>
+<td>Pagination<br><span class="label">Optional</span></td>
+<td>This endpoint can be <a href="#pagination">paginated</a>.</td>
+</tr>
 </tbody></table>
 
 <h2 id="annotate-transaction">Annotate transaction</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http PATCH <span class="s2">"https://mini.mondobank.io/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"metadata[</span><span class="nv">$key1</span><span class="s2">]=</span><span class="nv">$value1</span><span class="s2">"</span>
+    <span class="s2">"metadata[</span><span class="nv">$key1</span><span class="s2">]=</span><span class="nv">$value1</span><span class="s2">"</span> <span class="se">\</span>
     <span class="c"># Set a key's value as empty to delete it</span>
     <span class="s2">"metadata[</span><span class="nv">$key2</span><span class="s2">]="</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-580</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-06T04:13:00Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-679</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-23T16:15:03Z"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transport for London"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zhJ7dgorNv5l6mW37"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VUE BSL LTD            ISLINGTON     GBR"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zL2INM3xZ41THuRF3"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="s2">"merch_00008z6uFVhVBcaZzSQwCX"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"foo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bar baz"</span><span class="w">
+            </span><span class="nt">"foo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bar"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
     </span><span class="p">}</span><span class="w">
