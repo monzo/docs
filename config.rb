@@ -35,4 +35,8 @@ configure :build do
     config.cascade  = false
     config.inline   = true
   end
+
+  activate :robots, :rules => [
+      {:user_agent => '*', :disallow => %w(/)}
+  ]
 end

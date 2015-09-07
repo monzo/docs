@@ -74,6 +74,8 @@ GEM
       tilt (~> 1.4.1, < 2.0)
     middleman-gh-pages (0.0.3)
       rake (> 0.9.3)
+    middleman-robots (1.1.0)
+      middleman (>= 3.3)
     middleman-sprockets (3.4.2)
       middleman-core (>= 3.3)
       sprockets (~> 2.12.1)
@@ -133,6 +135,7 @@ DEPENDENCIES
   middleman (~> 3.3.10)
   middleman-autoprefixer (~> 2.4.4)
   middleman-gh-pages (~> 0.0.3)
+  middleman-robots
   middleman-syntax (~> 2.0.0)
   rake (~> 10.4.2)
   redcarpet (~> 3.3.2)
