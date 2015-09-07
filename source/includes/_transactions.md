@@ -99,7 +99,7 @@ Pagination<br><span class="label">Optional</span>|This endpoint can be [paginate
 ```shell
 $ http PATCH "https://mini.mondobank.io/transactions/$transaction_id" \
     "Authorization: Bearer $access_token" \
-    "metadata[$key1]=$value1"
+    "metadata[$key1]=$value1" \
     # Set a key's value as empty to delete it
     "metadata[$key2]="
 ```
