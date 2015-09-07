@@ -2,6 +2,54 @@
 
 Transactions are movements of funds into or out of an account. Negative transactions represent debits (ie. *spending* money) and positive transactions represent credits (ie. *receiving* money).
 
+## Retrieve transaction
+
+```shell
+$ http "https://mini.mondobank.io/transactions/$transaction_id"
+    "Authorization: Bearer $access_token" \
+    # Here we are expanding the merchant
+    "expand[]==merchant"
+```
+
+```json
+{
+    "transaction": {
+        "amount": -510,
+        "created": "2015-08-22T12:20:18Z",
+        "currency": "GBP",
+        "description": "THE DE BEAUVOIR DELI C LONDON        GBR",
+        "id": "tx_00008zIcpb1TB4yeIFXMzx",
+        "merchant": {
+            "address": {
+                "address": "98 Southgate Road",
+                "city": "London",
+                "country": "GB",
+                "latitude": 51.54151,
+                "longitude": -0.08482400000002599,
+                "postcode": "N1 3JD",
+                "region": "Greater London"
+            },
+            "created": "2015-08-22T12:20:18Z",
+            "group_id": "grp_00008zIcpbBOaAr7TTP3sv",
+            "id": "merch_00008zIcpbAKe8shBxXUtl",
+            "logo": "https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg",
+            "name": "The De Beauvoir Deli Co."
+        },
+        "metadata": {},
+        "notes": "Salmon sandwich 🍞"
+    }
+}
+```
+
+Returns an individual transaction, fetched by its id.
+
+##### Arguments
+
+<span class="hide">Parameter</span> | <span class="hide">Description</span>
+------------------------------------|--------------------------------------
+[`expand[]`](#expanding-objects)<br><span class="label">Repeated</span>|Can be `merchant`.
+
+
 ## List transactions
 
 ```shell
@@ -14,29 +62,23 @@ $ http "https://mini.mondobank.io/transactions" \
 {
     "transactions": [
         {
-            "amount": -535,
-            "created": "2015-05-26T03:44:00Z",
+            "amount": -510,
+            "created": "2015-08-22T12:20:18Z",
             "currency": "GBP",
-            "description": "Transport for London",
-            "id": "tx_00008zhJ3kE6c8kmsGUgKn",
-            "merchant": null,
-            "metadata": {
-                "logo_url": "http://pbs.twimg.com/profile_images/450634458396258304/_7g-xGC4_400x400.png",
-                "tags": "#transport"
-            },
-            "notes": ""
+            "description": "THE DE BEAUVOIR DELI C LONDON        GBR",
+            "id": "tx_00008zIcpb1TB4yeIFXMzx",
+            "merchant": "merch_00008zIcpbAKe8shBxXUtl",
+            "metadata": {},
+            "notes": "Salmon sandwich 🍞"
         },
         {
-            "amount": -5663,
-            "created": "2015-05-27T03:45:00Z",
+            "amount": -679,
+            "created": "2015-08-23T16:15:03Z",
             "currency": "GBP",
-            "description": "Ocado",
-            "id": "tx_00008zhJ3ltyNxq04P5dEP",
-            "merchant": null,
-            "metadata": {
-                "logo_url": "http://pbs.twimg.com/profile_images/474227427648868353/Xrt860cz_400x400.jpeg",
-                "tags": "#groceries"
-            },
+            "description": "VUE BSL LTD            ISLINGTON     GBR",
+            "id": "tx_00008zL2INM3xZ41THuRF3",
+            "merchant": "merch_00008z6uFVhVBcaZzSQwCX",
+            "metadata": {},
             "notes": ""
         },
     ]
@@ -50,13 +92,14 @@ Returns a list of transactions on the user's account.
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `account_id`<br><span class="label notice">Required</span>|The account to retrieve transactions from.
+Pagination<br><span class="label">Optional</span>|This endpoint can be [paginated](#pagination).
 
 ## Annotate transaction
 
 ```shell
 $ http PATCH "https://mini.mondobank.io/transactions/$transaction_id" \
     "Authorization: Bearer $access_token" \
-    "metadata[$key1]=$value1"
+    "metadata[$key1]=$value1" \
     # Set a key's value as empty to delete it
     "metadata[$key2]="
 ```
@@ -64,14 +107,14 @@ $ http PATCH "https://mini.mondobank.io/transactions/$transaction_id" \
 ```json
 {
     "transaction": {
-        "amount": -580,
-        "created": "2015-07-06T04:13:00Z",
+        "amount": -679,
+        "created": "2015-08-23T16:15:03Z",
         "currency": "GBP",
-        "description": "Transport for London",
-        "id": "tx_00008zhJ7dgorNv5l6mW37",
-        "merchant": null,
+        "description": "VUE BSL LTD            ISLINGTON     GBR",
+        "id": "tx_00008zL2INM3xZ41THuRF3",
+        "merchant": "merch_00008z6uFVhVBcaZzSQwCX",
         "metadata": {
-            "foo": "bar baz"
+            "foo": "bar"
         },
         "notes": ""
     }
