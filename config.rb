@@ -24,11 +24,11 @@ set :relative_links, true
 
 # Build Configuration
 configure :build do
-  # activate :minify_css
-  # activate :minify_javascript
-  # activate :relative_assets
-  # activate :asset_hash
-  # activate :gzip
+  activate :minify_css
+  activate :minify_javascript
+  activate :relative_assets
+  activate :asset_hash
+  activate :gzip
 
   activate :autoprefixer do |config|
     config.browsers = ['last 2 version', 'Firefox ESR']
