@@ -1,12 +1,11 @@
 # Pagination
 
-The list endpoints in the Mondo API support time based and cursor based
-pagination.
+Endpoints which enumerate objects support time- and cursor-based pagination.
 
 ##### Arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
-`limit`<br><span class="label notice">Optional</span>|A limit on the number of objects to be returned. Limit can range between 1 and 100 items.
-`since`<br><span class="label notice">Optional</span>|Either an RFC3339 encoded timestamp (`2009-11-10T23:00:00Z`) or an id (`tx_00008zhJ3kE6c8kmsGUKgn`).
-`before`<br><span class="label notice">Optional</span>|An RFC3339 encoded timestamp (`2009-11-10T23:00:00Z`).
+`limit`<br><span class="label">Optional</span>|Limits the number of results per-page.<br>Max: 100.
+`since`<br><span class="label">Optional</span>|An RFC 3339-encoded timestamp.<br> eg.`2009-11-10T23:00:00Z`<br><br>Or an object id.<br>eg. `tx_00008zhJ3kE6c8kmsGUKgn`.
+`before`<br><span class="label">Optional</span>|An RFC 3339 encoded-timestamp<br>`2009-11-10T23:00:00Z`
