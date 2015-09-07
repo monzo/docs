@@ -2,6 +2,31 @@
 
 Transactions are movements of funds into or out of an account. Negative transactions represent debits (ie. *spending* money) and positive transactions represent credits (ie. *receiving* money).
 
+# Retrieve transaction
+
+```shell
+$ http "https://mini.mondobank.io/transactions/$transaction_id"
+    "Authorization: Bearer $access_token" \
+```
+
+```json
+{
+    "transaction": {
+      "amount": -535,
+      "created": "2015-05-26T03:44:00Z",
+      "currency": "GBP",
+      "description": "Transport for London",
+      "id": "tx_00008zhJ3kE6c8kmsGUgKn",
+      "merchant": null,
+      "metadata": {
+          "logo_url": "http://pbs.twimg.com/profile_images/450634458396258304/_7g-xGC4_400x400.png",
+          "tags": "#transport"
+      },
+      "notes": ""
+    }
+}
+```
+
 ## List transactions
 
 ```shell
@@ -32,7 +57,7 @@ $ http "https://mini.mondobank.io/transactions" \
             "currency": "GBP",
             "description": "Ocado",
             "id": "tx_00008zhJ3ltyNxq04P5dEP",
-            "merchant": null,
+            "merchant": "merch_00008zhJ3ltyNxkmsGUgKn",
             "metadata": {
                 "logo_url": "http://pbs.twimg.com/profile_images/474227427648868353/Xrt860cz_400x400.jpeg",
                 "tags": "#groceries"
