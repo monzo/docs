@@ -5,7 +5,7 @@ Web hooks allow your application to receive real-time, push notification of even
 ## Registering a web hook
 
 ```shell
-$ http POST "https://mini.mondobank.io/webhooks" \
+$ http POST "https://api.getmondo.co.uk/webhooks" \
     "Authorization: Bearer $access_token" \
     "account_id=$account_id" \
     "url=$url"
@@ -33,7 +33,7 @@ Each time a matching event occurs, we will make a POST call to the URL you provi
 ## Deleting a web hook
 
 ```shell
-$ http DELETE "https://mini.mondobank.io/webhooks/$webhook_id" \
+$ http DELETE "https://api.getmondo.co.uk/webhooks/$webhook_id" \
     "Authorization: Bearer $access_token"
 ```
 

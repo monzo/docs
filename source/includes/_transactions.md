@@ -5,7 +5,7 @@ Transactions are movements of funds into or out of an account. Negative transact
 ## Retrieve transaction
 
 ```shell
-$ http "https://mini.mondobank.io/transactions/$transaction_id"
+$ http "https://api.getmondo.co.uk/transactions/$transaction_id"
     "Authorization: Bearer $access_token" \
     # Here we are expanding the merchant
     "expand[]==merchant"
@@ -53,7 +53,7 @@ Returns an individual transaction, fetched by its id.
 ## List transactions
 
 ```shell
-$ http "https://mini.mondobank.io/transactions" \
+$ http "https://api.getmondo.co.uk/transactions" \
     "Authorization: Bearer $access_token" \
     "account_id==$account_id"
 ```
@@ -97,7 +97,7 @@ Pagination<br><span class="label">Optional</span>|This endpoint can be [paginate
 ## Annotate transaction
 
 ```shell
-$ http PATCH "https://mini.mondobank.io/transactions/$transaction_id" \
+$ http PATCH "https://api.getmondo.co.uk/transactions/$transaction_id" \
     "Authorization: Bearer $access_token" \
     "metadata[$key1]=$value1" \
     # Set a key's value as empty to delete it

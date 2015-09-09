@@ -13,7 +13,7 @@ Requests <strong>must</strong> be authenticated. Unauthenticated requests will b
 ## Acquiring an access token
 
 ```shell
-$ http --form POST "https://mini.mondobank.io/oauth2/token" \
+$ http --form POST "https://api.getmondo.co.uk/oauth2/token" \
     "grant_type=password" \
     "client_id=$client_id" \
     "client_secret=$client_secret" \
@@ -50,7 +50,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 ## Authenticating requests
 
 ```shell
-$ http "https://mini.mondobank.io/ping/whoami" \
+$ http "https://api.getmondo.co.uk/ping/whoami" \
     "Authorization: Bearer $access_token"
 ```
 ```json
