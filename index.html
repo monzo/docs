@@ -45,7 +45,7 @@
 <blockquote>
 <p><strong>API endpoint</strong></p>
 </blockquote>
-<pre class="highlight plaintext"><code>https://mini.mondobank.io
+<pre class="highlight plaintext"><code>https://api.getmondo.co.uk
 </code></pre>
 
 <blockquote>
@@ -73,7 +73,7 @@ Requests <strong>must</strong> be authenticated. Unauthenticated requests will b
 </aside>
 
 <h2 id="acquiring-an-access-token">Acquiring an access token</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://mini.mondobank.io/oauth2/token"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/oauth2/token"</span> <span class="se">\</span>
     <span class="s2">"grant_type=password"</span> <span class="se">\</span>
     <span class="s2">"client_id=</span><span class="nv">$client_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"client_secret=</span><span class="nv">$client_secret</span><span class="s2">"</span> <span class="se">\</span>
@@ -127,7 +127,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 </tbody></table>
 
 <h2 id="authenticating-requests">Authenticating requests</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://mini.mondobank.io/ping/whoami"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/ping/whoami"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
@@ -223,7 +223,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 <p>Transactions are movements of funds into or out of an account. Negative transactions represent debits (ie. <em>spending</em> money) and positive transactions represent credits (ie. <em>receiving</em> money).</p>
 
 <h2 id="retrieve-transaction">Retrieve transaction</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://mini.mondobank.io/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="c"># Here we are expanding the merchant</span>
     <span class="s2">"expand[]==merchant"</span>
@@ -274,7 +274,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 </tbody></table>
 
 <h2 id="list-transactions">List transactions</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://mini.mondobank.io/transactions"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/transactions"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_id==</span><span class="nv">$account_id</span><span class="s2">"</span>
 </code></pre>
@@ -325,7 +325,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 </tbody></table>
 
 <h2 id="annotate-transaction">Annotate transaction</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http PATCH <span class="s2">"https://mini.mondobank.io/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http PATCH <span class="s2">"https://api.getmondo.co.uk/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"metadata[</span><span class="nv">$key1</span><span class="s2">]=</span><span class="nv">$value1</span><span class="s2">"</span> <span class="se">\</span>
     <span class="c"># Set a key's value as empty to delete it</span>
@@ -385,7 +385,7 @@ Metadata is private to your application.
 <p>Web hooks allow your application to receive real-time, push notification of events in an account.</p>
 
 <h2 id="registering-a-web-hook">Registering a web hook</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http POST <span class="s2">"https://mini.mondobank.io/webhooks"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http POST <span class="s2">"https://api.getmondo.co.uk/webhooks"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"url=</span><span class="nv">$url</span><span class="s2">"</span>
@@ -420,7 +420,7 @@ Metadata is private to your application.
 </tbody></table>
 
 <h2 id="deleting-a-web-hook">Deleting a web hook</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http DELETE <span class="s2">"https://mini.mondobank.io/webhooks/</span><span class="nv">$webhook_id</span><span class="s2">"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http DELETE <span class="s2">"https://api.getmondo.co.uk/webhooks/</span><span class="nv">$webhook_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{}</span><span class="w">
