@@ -20,7 +20,7 @@ under the License.
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title><%= current_page.data.title || "Mondo API" %></title>
+    <title><%= current_page.data.title || "Mondo API Reference" %></title>
 
     <meta property="og:title" content="<%= current_page.data.title || "Mondo API" %>" />
     <meta property="og:type" content="website" />
@@ -52,7 +52,7 @@ under the License.
       </span>
     </a>
     <div class="tocify-wrapper">
-      <span class="logo"><%= image_tag("logo.svg") %></span>
+      <span class="logo"><a href="https://getmondo.co.uk"><%= image_tag("logo.svg") %></a></span>
       <% if language_tabs %>
         <div class="lang-selector">
           <% language_tabs.each do |lang| %>

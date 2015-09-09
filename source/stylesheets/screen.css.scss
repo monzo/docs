@@ -171,6 +171,7 @@ html, body {
   // This is the currently selected ToC entry
   .tocify-focus {
     color: $nav-active-text;
+    font-weight: bold;
   }
 
   // Subheaders are the submenus that slide open
