@@ -142,7 +142,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 <p>To get information about an access token, you can call the <code class="prettyprint">/ping/whoami</code> endpoint.</p>
 
 <h2 id="refreshing-access">Refreshing access</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"http://localhost:8000/oauth2/token"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/oauth2/token"</span> <span class="se">\</span>
     <span class="s2">"grant_type=</span><span class="nv">$refresh_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"client_id=</span><span class="nv">$client_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"client_secret=</span><span class="nv">$client_secret</span><span class="s2">"</span> <span class="se">\</span>
