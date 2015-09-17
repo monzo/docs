@@ -508,7 +508,7 @@ Metadata is private to your application.
 </tr>
 <tr>
 <td><code class="prettyprint">400</code><br>Bad Request</td>
-<td>The request has missing parameters or is malformed.</td>
+<td>Your request has missing parameters or is malformed.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">401</code><br>Unauthorized</td>
@@ -519,8 +519,16 @@ Metadata is private to your application.
 <td>Your request is authenticated but has insufficient permissions.</td>
 </tr>
 <tr>
+<td><code class="prettyprint">405</code><br>Method Not Allowed</td>
+<td>You are using the incorrect HTTP verb. Double check whether it should be POST/GET/DELETE/etc.</td>
+</tr>
+<tr>
 <td><code class="prettyprint">404</code><br>Page Not Found</td>
 <td>The endpoint requested does not exist.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">406</code><br>Not Acceptable</td>
+<td>Your application does not accept the content format returned according to the Accept headers sent in the request.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">429</code><br>Too Many Requests</td>
@@ -529,6 +537,10 @@ Metadata is private to your application.
 <tr>
 <td><code class="prettyprint">500</code><br>Internal Server Error</td>
 <td>Something is wrong on our end. Whoopsie.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">504</code><br>Gateway Timeout</td>
+<td>Something has timed out on our end. Whoopsie.</td>
 </tr>
 </tbody></table>
 
