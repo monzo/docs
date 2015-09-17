@@ -223,10 +223,10 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 <p>Transactions are movements of funds into or out of an account. Negative transactions represent debits (ie. <em>spending</em> money) and positive transactions represent credits (ie. <em>receiving</em> money).</p>
 
 <h2 id="retrieve-transaction">Retrieve transaction</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="c"># Here we are expanding the merchant</span>
-    <span class="s2">"expand[]==merchant"</span>
+    <span class="c"># Here we are expanding the merchant \</span>
+    <span class="s2">"expand[]=merchant"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -276,7 +276,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 <h2 id="list-transactions">List transactions</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/transactions"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"account_id==</span><span class="nv">$account_id</span><span class="s2">"</span>
+    <span class="s2">"account_id=</span><span class="nv">$account_id</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"transactions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -379,6 +379,53 @@ Metadata is private to your application.
 </ol>
 
 <h2 id="create-feed-item">Create feed item</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http POST <span class="s2">"https://api.getmondo.co.uk/feed"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"type=image"</span> <span class="se">\</span>
+    <span class="s2">"title=My custom item"</span> <span class="se">\</span>
+    <span class="s2">"image_url=www.example.com/image.png"</span> <span class="se">\</span>
+    <span class="s2">"background_color=#FCF1EE"</span> <span class="se">\</span>
+    <span class="s2">"body=Some body text to display"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{}</span><span class="w">
+</span></code></pre>
+
+<p>Creates a new feed item on the user&rsquo;s feed</p>
+
+<h5 id="arguments">Arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">account_id</code><br><span class="label notice">Required</span></td>
+<td>The account to create feed item for.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">type</code><br><span class="label notice">Required</span></td>
+<td>Type of feed item. Only supports <code class="prettyprint">image</code> currently.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">title</code><br><span class="label notice">Required</span></td>
+<td>The title to display.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">image_url</code><br><span class="label notice">Required</span></td>
+<td>URL of the image to display.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">background_color</code><br><span class="label">Optional</span></td>
+<td>Hex value for the background colour of the feed item. Defaults to <code class="prettyprint">#FFFFFF</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">body</code><br><span class="label">Optional</span></td>
+<td>The body text of the feed item.</td>
+</tr>
+</tbody></table>
 
           <h1 id="web-hooks">Web hooks</h1>
 
