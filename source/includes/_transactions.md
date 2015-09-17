@@ -5,10 +5,10 @@ Transactions are movements of funds into or out of an account. Negative transact
 ## Retrieve transaction
 
 ```shell
-$ http "https://api.getmondo.co.uk/transactions/$transaction_id"
+$ http "https://api.getmondo.co.uk/transactions/$transaction_id" \
     "Authorization: Bearer $access_token" \
-    # Here we are expanding the merchant
-    "expand[]==merchant"
+    # Here we are expanding the merchant \
+    "expand[]=merchant"
 ```
 
 ```json
@@ -55,7 +55,7 @@ Returns an individual transaction, fetched by its id.
 ```shell
 $ http "https://api.getmondo.co.uk/transactions" \
     "Authorization: Bearer $access_token" \
-    "account_id==$account_id"
+    "account_id=$account_id"
 ```
 
 ```json
