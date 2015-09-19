@@ -436,7 +436,7 @@ Metadata is private to your application.
 <p>Web hooks allow your application to receive real-time, push notification of events in an account.</p>
 
 <h2 id="registering-a-web-hook">Registering a web hook</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http POST <span class="s2">"https://api.getmondo.co.uk/webhooks"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/webhooks"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"url=</span><span class="nv">$url</span><span class="s2">"</span>
