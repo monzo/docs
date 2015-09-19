@@ -5,7 +5,7 @@ Web hooks allow your application to receive real-time, push notification of even
 ## Registering a web hook
 
 ```shell
-$ http POST "https://api.getmondo.co.uk/webhooks" \
+$ http --form POST "https://api.getmondo.co.uk/webhooks" \
     "Authorization: Bearer $access_token" \
     "account_id=$account_id" \
     "url=$url"
