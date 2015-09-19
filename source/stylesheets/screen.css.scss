@@ -566,6 +566,16 @@ html, body {
 
   pre {
     @extend %code-font;
+
+    &.highlight {
+        .gp {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            cursor: default;
+        }
+    }
   }
 }
 
