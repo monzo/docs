@@ -14,6 +14,7 @@ $ http "https://api.getmondo.co.uk/transactions/$transaction_id" \
 ```json
 {
     "transaction": {
+        "account_balance": 13013,
         "amount": -510,
         "created": "2015-08-22T12:20:18Z",
         "currency": "GBP",
@@ -62,6 +63,7 @@ $ http "https://api.getmondo.co.uk/transactions" \
 {
     "transactions": [
         {
+            "account_balance": 13013,
             "amount": -510,
             "created": "2015-08-22T12:20:18Z",
             "currency": "GBP",
@@ -72,6 +74,7 @@ $ http "https://api.getmondo.co.uk/transactions" \
             "notes": "Salmon sandwich 🍞"
         },
         {
+            "account_balance": 12334,
             "amount": -679,
             "created": "2015-08-23T16:15:03Z",
             "currency": "GBP",
@@ -107,6 +110,7 @@ $ http PATCH "https://api.getmondo.co.uk/transactions/$transaction_id" \
 ```json
 {
     "transaction": {
+        "account_balance": 12334,
         "amount": -679,
         "created": "2015-08-23T16:15:03Z",
         "currency": "GBP",
