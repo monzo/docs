@@ -11,4 +11,4 @@ It was generated using Slate. Check it out at [tripit.github.io/slate](http://tr
 Need Help? Found a bug?
 --------------------
 
-Just [submit a issue](https://github.com/mondough/docs/issues) to this Github repo if you need any help. And, of course, feel free to submit pull requests with bug fixes or changes.
+Just [submit an issue](https://github.com/mondough/docs/issues) to this GitHub repo if you need any help. And, of course, feel free to submit pull requests with bug fixes or changes.
