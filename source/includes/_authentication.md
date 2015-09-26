@@ -85,7 +85,7 @@ $ http --form POST "https://api.getmondo.co.uk/oauth2/token" \
 }
 ```
 
-To limit the window of opportunity for attackers in the event an access token is compromised, access tokens expire after 6 hours. To gain long-lived access to a user's account, it's necessary to "refresh" your access when it expires using a refresh token. Only ["confidential" clients](https://tools.ietf.org/html/rfc6749#section-2.1) are issued access tokens – "public" clients must ask the user to re-authenticate.
+To limit the window of opportunity for attackers in the event an access token is compromised, access tokens expire after 6 hours. To gain long-lived access to a user's account, it's necessary to "refresh" your access when it expires using a refresh token. Only ["confidential" clients](https://tools.ietf.org/html/rfc6749#section-2.1) are issued refresh tokens – "public" clients must ask the user to re-authenticate.
 
 Refreshing an access token will invalidate the previous token, if it is still valid. Refreshing is a one-time operation.
 
