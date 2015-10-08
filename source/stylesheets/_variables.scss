@@ -24,7 +24,7 @@ under the License.
 // BACKGROUND COLORS
 ////////////////////
 $nav-bg: #F5F5F5;
-$examples-bg: #393939;
+$examples-bg: #263238;
 $code-bg: $examples-bg;
 $code-annotation-bg: #1c1c1c;
 $lang-select-border: #000;
@@ -32,17 +32,19 @@ $lang-select-bg: #222;
 $lang-select-active-bg: $examples-bg; // feel free to change this to blue or something
 $lang-select-pressed-bg: #111; // color of language tab bg when mouse is pressed
 $main-bg: #fff;
-$aside-notice-bg:  #E3F2FD;
+$aside-notice-bg:  #E1F5FE;
 $aside-warning-bg: #FFCDD2;
 $aside-success-bg: #6ac174;
+$aside-announce-bg: #FFF9C4;
 $search-notice-bg: #c97a7e;
 
 
 // TEXT COLORS
 ////////////////////
 $main-text: #333; // main content text color
-$link-text: #2196F3; // link text color
-$nav-text: #4c555a;
+$link-text: #0277BD; // link text color
+$examples-link-text: #81D4FA;
+$nav-text: $main-text;
 $nav-active-text: $nav-text;
 $lang-select-text: #fff; // color of unselected language tab text
 $lang-select-active-text: #fff; // color of selected language tab text

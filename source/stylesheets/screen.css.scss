@@ -79,7 +79,7 @@ html, body {
       margin-top: 2em;
 
       img {
-          width: 60%;
+          width: 75%;
       }
   }
 
@@ -493,6 +493,10 @@ html, body {
     &.success {
       background-color: $aside-success-bg;
     }
+
+    &.announce {
+      background-color: $aside-announce-bg;
+    }
   }
 
   aside:before {
@@ -511,6 +515,10 @@ html, body {
 
   aside.success:before {
     @extend %icon-ok-sign;
+  }
+
+  aside.announce:before {
+      @extend %icon-info-sign;
   }
 
   .search-highlight {
@@ -546,7 +554,7 @@ html, body {
     &>p { margin: 0; }
 
     a {
-      color: #90CAF9;
+      color: $examples-link-text;
     }
 
     + pre, + blockquote, + .right {

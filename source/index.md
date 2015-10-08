@@ -31,3 +31,7 @@ The Mondo API is designed to be a predictable and intuitive interface for intera
 The API is in beta and isn't publicly-available yet. If you're interested in using it, please [get in touch](http://twitter.com/getmondo). Similarly, if a feature you'd like is missing (or broken!), do let us know.
 
 As one of the first – if not *the* first – example of a widely-available bank API, we're very excited to see what you build!
+
+<aside class="announce">
+If you're interested in getting access to our API, we'd love you to <a href="https://www.universe.com/events/mondo-hackathon-tickets-london-HLV936" title="Mondo Hackathon">come to our hackathon</a> on November 14-15.
+</aside>
