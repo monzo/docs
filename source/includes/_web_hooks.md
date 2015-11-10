@@ -54,7 +54,7 @@ $ http "https://api.getmondo.co.uk/webhooks?account_id=$account_id" \
 }
 ```
 
-List the web hooks registered for an account
+List the web hooks registered on an account.
 
 ##### Arguments
 
