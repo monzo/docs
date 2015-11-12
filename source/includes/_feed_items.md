@@ -44,7 +44,13 @@ Creates a new feed item on the user's feed
 
 Each type of feed item supports customisation with a specific list of `params`. Currently we only support creation of the `basic` feed item which requires the parameters below. These should be sent as form parameters as in the example to the right.
 
-##### Basic Type Arguments
+##### Basic
+
+The basic type displays an `image`, with `title` text and optional `body` text.
+<br/>*Note the image supports animated gifs!*
+
+<img src="/images/nyanfeed.gif" />
+
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
