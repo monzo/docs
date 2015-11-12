@@ -37,7 +37,7 @@ Creates a new feed item on the user's feed
 `account_id`<br><span class="label notice">Required</span>|The account to create feed item for.
 `type`<br><span class="label notice">Required</span>|Type of feed item. Currently only `basic` is supported.
 `params`<br><span class="label notice">Required</span>|A *map* of parameters which vary based on `type`
-`url`<br><span class="label">Optional</span>|A URL to open when the feed item is tapped. If no URL is provided the feed item will expand on tap.
+`url`<br><span class="label">Optional</span>|A URL to open when the feed item is tapped. If no URL is provided, the app will display a fallback view based on the title & body.
 
 
 ### Per type arguments
@@ -50,7 +50,6 @@ The basic type displays an `image`, with `title` text and optional `body` text.
 <br/>*Note the image supports animated gifs!*
 
 <img src="/images/nyanfeed.gif" />
-
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
