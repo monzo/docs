@@ -49,7 +49,7 @@ Each type of feed item supports customisation with a specific list of `params`. 
 The basic type displays an `image`, with `title` text and optional `body` text.
 <br/>*Note the image supports animated gifs!*
 
-<img src="/images/nyanfeed.gif" />
+<img src="images/nyanfeed.gif" />
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
