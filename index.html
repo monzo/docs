@@ -462,15 +462,15 @@ Metadata is private to your application.
 </tr>
 <tr>
 <td><code class="prettyprint">background_color</code><br><span class="label">Optional</span></td>
-<td>Hex value for the background colour of the feed item. Defaults to <code class="prettyprint">#FFFFFF</code></td>
+<td>Hex value for the background colour of the feed item. Defaults to to standard app colours (ie. white background).</td>
 </tr>
 <tr>
 <td><code class="prettyprint">title_color</code><br><span class="label">Optional</span></td>
-<td>Hex value for the colour of the title text. Defaults to <code class="prettyprint">#333333</code></td>
+<td>Hex value for the colour of the title text. Defaults to standard app colours.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">body_color</code><br><span class="label">Optional</span></td>
-<td>Hex value for the colour of the body text. Defaults to <code class="prettyprint">#333333</code></td>
+<td>Hex value for the colour of the body text. Defaults to standard app colours.</td>
 </tr>
 </tbody></table>
 
@@ -574,6 +574,169 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 </span></code></pre>
 
 <p>Each time a new transaction is created in a user&rsquo;s account, we will immediately send information about it in a <code class="prettyprint">transaction.created</code> event.</p>
+
+          <h1 id="attachments">Attachments</h1>
+
+<p>Images (eg. receipts) can be attached to transactions by uploading these via the <code class="prettyprint">attachment</code> API. Once <em>uploaded</em> and <em>registered</em> against a transaction an image will be shown in the transaction detail screen within the Mondo app.</p>
+
+<p>The upload process consists of three steps.</p>
+
+<ol>
+<li>Obtain a temporary authorised URL to <a href="#upload-attachment">upload</a> the attachment to.</li>
+<li>Upload the file to this URL.</li>
+<li><a href="#register-attachment">Register</a> the attachment against a <code class="prettyprint">transaction</code>.</li>
+</ol>
+
+<h2 id="upload-attachment">Upload attachment</h2>
+
+<p>The first step when uploading an attachment is to obtain a temporary URL to which the file can be uploaded. The response will include a <code class="prettyprint">file_url</code> which will be the URL of the resulting file, and an <code class="prettyprint">upload_url</code> to which the file should be uploaded to.</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/attachment/upload"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"file_name=foo.png"</span> <span class="se">\</span>
+    <span class="s2">"file_type=image/png"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"file_url"</span><span class="p">:</span><span class="s2">"https://s3-eu-west-1.amazonaws.com/mondo-image-uploads/user_00009237hliZellUicKuG1/LcCu4ogv1xW28OCcvOTL-foo.png"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"upload_url"</span><span class="p">:</span><span class="s2">"https://mondo-image-uploads.s3.amazonaws.com/user_00009237hliZellUicKuG1/LcCu4ogv1xW28OCcvOTL-foo.png?AWSAccessKeyId=AKIAIR3IFH6UCTCXB5PQ\u0026Expires=1447353431\u0026Signature=k2QeDCCQQHaZeynzYKckejqXRGU%!D(MISSING)"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h5 id="request-parameters">Request Parameters</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">file_name</code><br><span class="label">Required</span></td>
+<td>The name of the file to be uploaded</td>
+</tr>
+<tr>
+<td><code class="prettyprint">file_type</code><br><span class="label">Required</span></td>
+<td>The content type of the file</td>
+</tr>
+</tbody></table>
+
+<h5 id="response-parameters">Response Parameters</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">file_url</code></td>
+<td>The URL of the file once it has been uploaded</td>
+</tr>
+<tr>
+<td><code class="prettyprint">upload_url</code></td>
+<td>The URL to <code class="prettyprint">POST</code> the file to when uploading</td>
+</tr>
+</tbody></table>
+
+<h2 id="register-attachment">Register attachment</h2>
+
+<p>Once the file has been uploaded to the <code class="prettyprint">upload_url</code> obtained from the <code class="prettyprint">upload</code> endpoint above, this can then be registered against a transaction.</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/attachment/register"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"external_id=tx_00008zIcpb1TB4yeIFXMzx"</span> <span class="se">\</span>
+    <span class="s2">"file_type=image/png"</span> <span class="se">\</span>
+    <span class="s2">"file_url=https://s3-eu-west-1.amazonaws.com/mondo-image-uploads/user_00009237hliZellUicKuG1/LcCu4ogv1xW28OCcvOTL-foo.png"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"attachment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"attach_00009238aOAIvVqfb9LrZh"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_00009238aMBIIrS5Rdncq9"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zIcpb1TB4yeIFXMzx"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"file_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-eu-west-1.amazonaws.com/mondo-image-uploads/user_00009237hliZellUicKuG1/LcCu4ogv1xW28OCcvOTL-foo.png"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"file_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image/png"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-11-12T18:37:02Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h5 id="request-parameters">Request Parameters</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">external_id</code><br><span class="label">Required</span></td>
+<td>The id of the <code class="prettyprint">transaction</code> to associate the <code class="prettyprint">attachment</code> with.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">file_url</code><br><span class="label">Required</span></td>
+<td>The URL of the uploaded attachment.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">file_type</code><br><span class="label">Required</span></td>
+<td>The content type of the attachment.</td>
+</tr>
+</tbody></table>
+
+<h5 id="response-parameters">Response Parameters</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">id</code></td>
+<td>The ID of the attachment. This can be used to deregister at a later date.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">user_id</code></td>
+<td>The id of the <code class="prettyprint">user</code> who owns this <code class="prettyprint">attachment</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">external_id</code></td>
+<td>The id of the <code class="prettyprint">transaction</code> to which the <code class="prettyprint">attachment</code> is attached.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">file_url</code></td>
+<td>The URL at which the <code class="prettyprint">attachment</code> is available.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">file_type</code></td>
+<td>The file type of the <code class="prettyprint">attachment</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">created</code></td>
+<td>The timestamp <em>in UTC</em> when the attachment was created.</td>
+</tr>
+</tbody></table>
+
+<h2 id="deregister-attachment">Deregister attachment</h2>
+
+<p>To remove an <code class="prettyprint">attachment</code>, simply deregister this using its <code class="prettyprint">id</code></p>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/attachment/deregister"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"id=attach_00009238aOAIvVqfb9LrZh"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{}</span><span class="w">
+</span></code></pre>
+
+<h5 id="request-parameters">Request Parameters</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">id</code><br><span class="label">Required</span></td>
+<td>The id of the <code class="prettyprint">attachment</code> to deregister.</td>
+</tr>
+</tbody></table>
 
           <h1 id="errors">Errors</h1>
 
