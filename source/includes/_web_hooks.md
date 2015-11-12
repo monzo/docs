@@ -21,7 +21,8 @@ $ http --form POST "https://api.getmondo.co.uk/webhooks" \
 }
 ```
 
-Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails, we will retry up to a maximum of 5 attempts.
+Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails,
+we will retry up to a maximum of 5 attempts, with exponential backoff.
 
 ##### Arguments
 
@@ -29,6 +30,39 @@ Each time a matching event occurs, we will make a POST call to the URL you provi
 ------------------------------------|--------------------------------------
 `account_id`<br><span class="label notice">Required</span>|The account to receive notifications for.
 `url`<br><span class="label notice">Required</span>|The URL we will send notifications to.
+
+## List web hooks
+
+```shell
+$ http "https://api.getmondo.co.uk/webhooks?account_id=$account_id" \
+    "Authorization: Bearer $access_token"
+```
+
+```json
+{
+    "webhooks": [
+        {
+            "account_id": "acc_000091yf79yMwNaZHhHGzp",
+            "id": "webhook_000091yhhOmrXQaVZ1Irsv",
+            "url": "http://example.com/callback"
+        },
+        {
+            "account_id": "acc_000091yf79yMwNaZHhHGzp",
+            "id": "webhook_000091yhhzvJSxLYGAceC9",
+            "url": "http://example2.com/anothercallback"
+        }
+    ]
+}
+```
+
+List the web hooks registered on an account.
+
+##### Arguments
+
+<span class="hide">Parameter</span> | <span class="hide">Description</span>
+------------------------------------|--------------------------------------
+`account_id`<br><span class="label notice">Required</span>|The account to list registered web hooks for.
+
 
 ## Deleting a web hook
 
