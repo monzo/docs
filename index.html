@@ -58,6 +58,10 @@
 
 <p>As one of the first – if not <em>the</em> first – example of a widely-available bank API, we&rsquo;re very excited to see what you build!</p>
 
+<aside class="warning">
+The Mondo API is currently under active development and breaking changes may be introduced.
+</aside>
+
           <h1 id="authentication">Authentication</h1>
 
 <p>The Mondo API implements <a href="http://oauth.net/2/">OAuth 2.0</a>, and is only available over HTTPS. A typical OAuth authentication flow involves several steps.</p>
@@ -380,24 +384,28 @@ Metadata is private to your application.
 <ol>
 <li>Feed items are <em>discrete</em> events that happen at a <em>point in time</em>.</li>
 <li>Because of their prominence within the Mondo app, feed items should contain information of <em>high value</em>.</li>
+<li>While the appearance of feed items can be customised, care should be taken to match the style of the Mondo app so that your feed items feel part of the experience.</li>
 </ol>
 
 <h2 id="create-feed-item">Create feed item</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/feed"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"type=image"</span> <span class="se">\</span>
-    <span class="s2">"title=My custom item"</span> <span class="se">\</span>
-    <span class="s2">"image_url=www.example.com/image.png"</span> <span class="se">\</span>
-    <span class="s2">"background_color=#FCF1EE"</span> <span class="se">\</span>
-    <span class="s2">"body=Some body text to display"</span>
+    <span class="s2">"type=basic"</span> <span class="se">\</span>
+    <span class="s2">"url=https://www.example.com/a_page_to_open_on_tap.html"</span> <span class="se">\</span>
+    <span class="s2">"params[title]=My custom item"</span> <span class="se">\</span>
+    <span class="s2">"params[image_url]=www.example.com/image.png"</span> <span class="se">\</span>
+    <span class="s2">"params[background_color]=#FCF1EE"</span> <span class="se">\</span>
+    <span class="s2">"params[body_color]=#FCF1EE"</span> <span class="se">\</span>
+    <span class="s2">"params[title_color]=#333"</span> <span class="se">\</span>
+    <span class="s2">"params[body]=Some body text to display"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{}</span><span class="w">
 </span></code></pre>
 
 <p>Creates a new feed item on the user&rsquo;s feed</p>
 
-<h5 id="arguments">Arguments</h5>
+<h5 id="general-arguments-for-all-types-of-feed-item">General Arguments (for all types of feed item)</h5>
 
 <table><thead>
 <tr>
@@ -411,23 +419,58 @@ Metadata is private to your application.
 </tr>
 <tr>
 <td><code class="prettyprint">type</code><br><span class="label notice">Required</span></td>
-<td>Type of feed item. Only supports <code class="prettyprint">image</code> currently.</td>
+<td>Type of feed item. Currently only <code class="prettyprint">basic</code> is supported.</td>
 </tr>
+<tr>
+<td><code class="prettyprint">params</code><br><span class="label notice">Required</span></td>
+<td>A <em>map</em> of parameters which vary based on <code class="prettyprint">type</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">url</code><br><span class="label">Optional</span></td>
+<td>A URL to open when the feed item is tapped. If no URL is provided, the app will display a fallback view based on the title &amp; body.</td>
+</tr>
+</tbody></table>
+
+<h3 id="per-type-arguments">Per type arguments</h3>
+
+<p>Each type of feed item supports customisation with a specific list of <code class="prettyprint">params</code>. Currently we only support creation of the <code class="prettyprint">basic</code> feed item which requires the parameters below. These should be sent as form parameters as in the example to the right.</p>
+
+<h5 id="basic">Basic</h5>
+
+<p>The basic type displays an <code class="prettyprint">image</code>, with <code class="prettyprint">title</code> text and optional <code class="prettyprint">body</code> text.
+<br/><em>Note the image supports animated gifs!</em></p>
+
+<p><img src="/images/nyanfeed-93ee2ecb.gif" /></p>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
 <tr>
 <td><code class="prettyprint">title</code><br><span class="label notice">Required</span></td>
 <td>The title to display.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">image_url</code><br><span class="label notice">Required</span></td>
-<td>URL of the image to display.</td>
+<td>URL of the image to display. This will be displayed as an icon in the feed, and on the expanded page if no <code class="prettyprint">url</code> has been provided.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">body</code><br><span class="label">Optional</span></td>
+<td>The body text of the feed item.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">background_color</code><br><span class="label">Optional</span></td>
 <td>Hex value for the background colour of the feed item. Defaults to <code class="prettyprint">#FFFFFF</code></td>
 </tr>
 <tr>
-<td><code class="prettyprint">body</code><br><span class="label">Optional</span></td>
-<td>The body text of the feed item.</td>
+<td><code class="prettyprint">title_color</code><br><span class="label">Optional</span></td>
+<td>Hex value for the colour of the title text. Defaults to <code class="prettyprint">#333333</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">body_color</code><br><span class="label">Optional</span></td>
+<td>Hex value for the colour of the body text. Defaults to <code class="prettyprint">#333333</code></td>
 </tr>
 </tbody></table>
 
@@ -450,7 +493,8 @@ Metadata is private to your application.
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails, we will retry up to a maximum of 5 attempts.</p>
+<p>Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails,
+we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 
 <h5 id="arguments">Arguments</h5>
 
@@ -467,6 +511,42 @@ Metadata is private to your application.
 <tr>
 <td><code class="prettyprint">url</code><br><span class="label notice">Required</span></td>
 <td>The URL we will send notifications to.</td>
+</tr>
+</tbody></table>
+
+<h2 id="list-web-hooks">List web hooks</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/webhooks?account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"webhooks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_000091yf79yMwNaZHhHGzp"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webhook_000091yhhOmrXQaVZ1Irsv"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/callback"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_000091yf79yMwNaZHhHGzp"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webhook_000091yhhzvJSxLYGAceC9"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example2.com/anothercallback"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>List the web hooks registered on an account.</p>
+
+<h5 id="arguments">Arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">account_id</code><br><span class="label notice">Required</span></td>
+<td>The account to list registered web hooks for.</td>
 </tr>
 </tbody></table>
 
