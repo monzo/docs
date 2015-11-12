@@ -11,6 +11,7 @@ includes:
   - transactions
   - feed_items
   - web_hooks
+  - attachments
   - errors
 
 search: false
