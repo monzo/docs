@@ -28,6 +28,8 @@ https://api.getmondo.co.uk
 
 > Examples in this documentation are written using [httpie](https://github.com/jkbrzt/httpie) for clarity.
 
+> To install `httpie` on OS X run `brew install httpie`
+
 The Mondo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and web hooks.
 
 The API is in beta and isn't publicly-available yet. If you're interested in using it, please [get in touch](http://twitter.com/getmondo). Similarly, if a feature you'd like is missing (or broken!), do let us know.
