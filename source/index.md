@@ -8,6 +8,7 @@ includes:
   - authentication
   - pagination
   - object_expansion
+  - accounts
   - transactions
   - feed_items
   - web_hooks
