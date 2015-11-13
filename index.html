@@ -50,6 +50,8 @@
 
 <blockquote>
 <p>Examples in this documentation are written using <a href="https://github.com/jkbrzt/httpie">httpie</a> for clarity.</p>
+
+<p>To install <code class="prettyprint">httpie</code> on OS X run <code class="prettyprint">brew install httpie</code></p>
 </blockquote>
 
 <p>The Mondo API is designed to be a predictable and intuitive interface for interacting with users&rsquo; accounts. We offer both a REST API and web hooks.</p>
@@ -221,6 +223,27 @@ Your client may only have <em>one</em> active access token at a time, per user. 
           <h1 id="expanding-objects">Expanding objects</h1>
 
 <p>Some objects contain the id of another object in their response. To save a round-trip, some of these objects can be expanded inline with the <code class="prettyprint">expand[]</code> parameter, which is repeatable. Objects that can be expanded are noted in individual endpoint documentation.</p>
+
+          <h1 id="accounts">Accounts</h1>
+
+<p>Accounts represent a store of funds, and have a list of transactions.</p>
+
+<h2 id="list-accounts">List accounts</h2>
+
+<p>Returns a list of accounts owned by the currently authorised user.</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/accounts"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_00009237aqC8c5umZmrRdh"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Peter Pan's Account"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-11-13T12:17:42Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
           <h1 id="transactions">Transactions</h1>
 
