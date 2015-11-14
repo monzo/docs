@@ -9,6 +9,7 @@ includes:
   - pagination
   - object_expansion
   - accounts
+  - balance
   - transactions
   - feed_items
   - web_hooks
