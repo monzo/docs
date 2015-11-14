@@ -277,10 +277,13 @@ Your client may only have <em>one</em> active access token at a time, per user. 
             </span><span class="nt">"group_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"grp_00008zIcpbBOaAr7TTP3sv"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"merch_00008zIcpbAKe8shBxXUtl"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"emoji"</span><span class="p">:</span><span class="w"> </span><span class="s2">"🍞"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The De Beauvoir Deli Co."</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-        </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Salmon sandwich 🍞"</span><span class="w">
+        </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Salmon sandwich 🍞"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_load"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -600,13 +603,21 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 
           <h1 id="attachments">Attachments</h1>
 
-<p>Images (eg. receipts) can be attached to transactions by uploading these via the <code class="prettyprint">attachment</code> API. Once <em>uploaded</em> and <em>registered</em> against a transaction an image will be shown in the transaction detail screen within the Mondo app.</p>
+<p>Images (eg. receipts) can be attached to transactions by uploading these via the <code class="prettyprint">attachment</code> API. Once an attachment is <em>registered</em> against a transaction, the image will be shown in the transaction detail screen within the Mondo app.</p>
 
-<p>The upload process consists of three steps.</p>
+<p>There are two options for attaching images to transactions - either Mondo can host the image, or remote images can be displayed.</p>
+
+<p>If Mondo is hosting the attachment the upload process consists of three steps:</p>
 
 <ol>
 <li>Obtain a temporary authorised URL to <a href="#upload-attachment">upload</a> the attachment to.</li>
 <li>Upload the file to this URL.</li>
+<li><a href="#register-attachment">Register</a> the attachment against a <code class="prettyprint">transaction</code>.</li>
+</ol>
+
+<p>If you are hosting the attachment, you can simply register the attachment with the transaction:</p>
+
+<ol>
 <li><a href="#register-attachment">Register</a> the attachment against a <code class="prettyprint">transaction</code>.</li>
 </ol>
 
@@ -662,7 +673,7 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 
 <h2 id="register-attachment">Register attachment</h2>
 
-<p>Once the file has been uploaded to the <code class="prettyprint">upload_url</code> obtained from the <code class="prettyprint">upload</code> endpoint above, this can then be registered against a transaction.</p>
+<p>Once you have obtained a URL for an attachment, either by uploading to the <code class="prettyprint">upload_url</code> obtained from the <code class="prettyprint">upload</code> endpoint above or by hosting a remote image, this URL can then be registered against a transaction. Once an attachment is registered against a transaction this will be displayed on the detail page of a transaction within the Mondo app.</p>
 <pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/attachment/register"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"external_id=tx_00008zIcpb1TB4yeIFXMzx"</span> <span class="se">\</span>
