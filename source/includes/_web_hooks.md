@@ -91,6 +91,7 @@ When you delete a web hook, we will no longer send notifications to it.
         "id": "tx_00008zjky19HyFLAzlUk7t",
         "category": "eating_out",
         "is_load": false,
+        "settled": true,
         "merchant": {
             "address": {
                 "address": "98 Southgate Road",

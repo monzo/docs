@@ -9,7 +9,7 @@ let's discuss the most interesting/confusing ones:
 Property         | Explanation
 ---------------- | --------------
 `amount`         | The amount of the transaction in minor units of `currency`. For example pennies in the case of GBP. A negative amount indicates a debit (most card transactions will have a negative amount)
-`decline_reason` | If this property is present, the transaction was declined! Valid values are `INSUFFICIENT_FUNDS`, `CARD_INACTIVE`, `CARD_BLOCKED` or `OTHER`.
+`decline_reason` | **This is only present on declined transactions!** Valid values are `INSUFFICIENT_FUNDS`, `CARD_INACTIVE`, `CARD_BLOCKED` or `OTHER`.
 `is_load`        | Top-ups to an account are represented as transactions with a positive amount and `is_load = true`. Other transactions such as refunds, reversals or chargebacks may have a positive amount but `is_load = false`
 `settled`        | You probably don't need to worry about this. Card transactions only settle 24-48 hours (sometimes even more!) after the purchase; until then they are just "authorised" and `settled = false` on them.
 `category`       | The category can be set for each transaction by the user. Over time we learn which merchant goes in which category and auto-assign the category of a transaction. If the user hasn't set a category, we'll return the default category of the merchant on this transactions. Top-ups have category "mondo".
