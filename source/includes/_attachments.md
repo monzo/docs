@@ -1,12 +1,18 @@
 # Attachments
 
-Images (eg. receipts) can be attached to transactions by uploading these via the `attachment` API. Once *uploaded* and *registered* against a transaction an image will be shown in the transaction detail screen within the Mondo app.
+Images (eg. receipts) can be attached to transactions by uploading these via the `attachment` API. Once an attachment is *registered* against a transaction, the image will be shown in the transaction detail screen within the Mondo app.
 
-The upload process consists of three steps.
+There are two options for attaching images to transactions - either Mondo can host the image, or remote images can be displayed.
+
+If Mondo is hosting the attachment the upload process consists of three steps:
 
 1. Obtain a temporary authorised URL to [upload](#upload-attachment) the attachment to.
 2. Upload the file to this URL.
 3. [Register](#register-attachment) the attachment against a `transaction`.
+
+If you are hosting the attachment, you can simply register the attachment with the transaction:
+
+1. [Register](#register-attachment) the attachment against a `transaction`.
 
 ## Upload attachment
 
@@ -43,7 +49,7 @@ $ http --form POST "https://api.getmondo.co.uk/attachment/upload" \
 
 ## Register attachment
 
-Once the file has been uploaded to the `upload_url` obtained from the `upload` endpoint above, this can then be registered against a transaction.
+Once you have obtained a URL for an attachment, either by uploading to the `upload_url` obtained from the `upload` endpoint above or by hosting a remote image, this URL can then be registered against a transaction. Once an attachment is registered against a transaction this will be displayed on the detail page of a transaction within the Mondo app.
 
 ```shell
 $ http --form POST "https://api.getmondo.co.uk/attachment/register" \
