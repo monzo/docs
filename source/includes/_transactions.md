@@ -34,10 +34,13 @@ $ http "https://api.getmondo.co.uk/transactions/$transaction_id" \
             "group_id": "grp_00008zIcpbBOaAr7TTP3sv",
             "id": "merch_00008zIcpbAKe8shBxXUtl",
             "logo": "https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg",
+            "emoji": "🍞",
             "name": "The De Beauvoir Deli Co."
         },
         "metadata": {},
-        "notes": "Salmon sandwich 🍞"
+        "notes": "Salmon sandwich 🍞",
+        "is_load": false,
+        "settled": true
     }
 }
 ```
