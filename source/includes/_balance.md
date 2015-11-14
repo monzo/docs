@@ -1,6 +1,6 @@
 # Balance
 
-Retrieve information about an accounts balance.
+Retrieve information about an account's balance.
 
 ## Read balance
 
