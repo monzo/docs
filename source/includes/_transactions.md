@@ -74,7 +74,9 @@ $ http "https://api.getmondo.co.uk/transactions" \
             "id": "tx_00008zIcpb1TB4yeIFXMzx",
             "merchant": "merch_00008zIcpbAKe8shBxXUtl",
             "metadata": {},
-            "notes": "Salmon sandwich 🍞"
+            "notes": "Salmon sandwich 🍞",
+            "is_load": false,
+            "settled": true
         },
         {
             "account_balance": 12334,
@@ -85,7 +87,9 @@ $ http "https://api.getmondo.co.uk/transactions" \
             "id": "tx_00008zL2INM3xZ41THuRF3",
             "merchant": "merch_00008z6uFVhVBcaZzSQwCX",
             "metadata": {},
-            "notes": ""
+            "notes": "",
+            "is_load": false,
+            "settled": true
         },
     ]
 }
@@ -123,7 +127,9 @@ $ http PATCH "https://api.getmondo.co.uk/transactions/$transaction_id" \
         "metadata": {
             "foo": "bar"
         },
-        "notes": ""
+        "notes": "",
+        "is_load": false,
+        "settled": true
     }
 }
 ```
