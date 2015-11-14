@@ -88,7 +88,27 @@ When you delete a web hook, we will no longer send notifications to it.
         "created": "2015-09-04T14:28:40Z",
         "currency": "GBP",
         "description": "Ozone Coffee Roasters",
-        "id": "tx_00008zjky19HyFLAzlUk7t"
+        "id": "tx_00008zjky19HyFLAzlUk7t",
+        "category": "eating_out",
+        "is_load": false,
+        "merchant": {
+            "address": {
+                "address": "98 Southgate Road",
+                "city": "London",
+                "country": "GB",
+                "latitude": 51.54151,
+                "longitude": -0.08482400000002599,
+                "postcode": "N1 3JD",
+                "region": "Greater London"
+            },
+            "created": "2015-08-22T12:20:18Z",
+            "group_id": "grp_00008zIcpbBOaAr7TTP3sv",
+            "id": "merch_00008zIcpbAKe8shBxXUtl",
+            "logo": "https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg",
+            "emoji": "🍞",
+            "name": "The De Beauvoir Deli Co.",
+            "category": "eating_out"
+        }
     }
 }
 ```

@@ -2,6 +2,19 @@
 
 Transactions are movements of funds into or out of an account. Negative transactions represent debits (ie. *spending* money) and positive transactions represent credits (ie. *receiving* money).
 
+
+Most properties on transactions are self-explanatory. We'll eventually get around to documenting them all, but in the meantime
+let's discuss the most interesting/confusing ones:
+
+Property         | Explanation
+---------------- | --------------
+`amount`         | The amount of the transaction in minor units of `currency`. For example pennies in the case of GBP. A negative amount indicates a debit (most card transactions will have a negative amount)
+`decline_reason` | If this property is present, the transaction was declined! Valid values are `INSUFFICIENT_FUNDS`, `CARD_INACTIVE`, `CARD_BLOCKED` or `OTHER`.
+`is_load`        | Top-ups to an account are represented as transactions with a positive amount and `is_load = true`. Other transactions such as refunds, reversals or chargebacks may have a positive amount but `is_load = false`
+`settled`        | You probably don't need to worry about this. Card transactions only settle 24-48 hours (sometimes even more!) after the purchase; until then they are just "authorised" and `settled = false` on them.
+`category`       | The category can be set for each transaction by the user. Over time we learn which merchant goes in which category and auto-assign the category of a transaction. If the user hasn't set a category, we'll return the default category of the merchant on this transactions. Top-ups have category "mondo".
+`merchant`       | This contains the `merchant_id` of the merchant that this transaction was made at. If you pass `?expand[]=merchant` in your request URL, it will contain lots of information about the merchant.
+
 ## Retrieve transaction
 
 ```shell
@@ -35,7 +48,8 @@ $ http "https://api.getmondo.co.uk/transactions/$transaction_id" \
             "id": "merch_00008zIcpbAKe8shBxXUtl",
             "logo": "https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg",
             "emoji": "🍞",
-            "name": "The De Beauvoir Deli Co."
+            "name": "The De Beauvoir Deli Co.",
+            "category": "eating_out"
         },
         "metadata": {},
         "notes": "Salmon sandwich 🍞",
@@ -76,7 +90,8 @@ $ http "https://api.getmondo.co.uk/transactions" \
             "metadata": {},
             "notes": "Salmon sandwich 🍞",
             "is_load": false,
-            "settled": true
+            "settled": true,
+            "category": "eating_out"
         },
         {
             "account_balance": 12334,
@@ -89,7 +104,8 @@ $ http "https://api.getmondo.co.uk/transactions" \
             "metadata": {},
             "notes": "",
             "is_load": false,
-            "settled": true
+            "settled": true,
+            "category": "eating_out"
         },
     ]
 }
@@ -129,7 +145,8 @@ $ http PATCH "https://api.getmondo.co.uk/transactions/$transaction_id" \
         },
         "notes": "",
         "is_load": false,
-        "settled": true
+        "settled": true,
+        "category": "eating_out"
     }
 }
 ```
