@@ -302,6 +302,41 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 
 <p>Transactions are movements of funds into or out of an account. Negative transactions represent debits (ie. <em>spending</em> money) and positive transactions represent credits (ie. <em>receiving</em> money).</p>
 
+<p>Most properties on transactions are self-explanatory. We&rsquo;ll eventually get around to documenting them all, but in the meantime
+let&rsquo;s discuss the most interesting/confusing ones:</p>
+
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Explanation</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">amount</code></td>
+<td>The amount of the transaction in minor units of <code class="prettyprint">currency</code>. For example pennies in the case of GBP. A negative amount indicates a debit (most card transactions will have a negative amount)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">decline_reason</code></td>
+<td><strong>This is only present on declined transactions!</strong> Valid values are <code class="prettyprint">INSUFFICIENT_FUNDS</code>, <code class="prettyprint">CARD_INACTIVE</code>, <code class="prettyprint">CARD_BLOCKED</code> or <code class="prettyprint">OTHER</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">is_load</code></td>
+<td>Top-ups to an account are represented as transactions with a positive amount and <code class="prettyprint">is_load = true</code>. Other transactions such as refunds, reversals or chargebacks may have a positive amount but <code class="prettyprint">is_load = false</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">settled</code></td>
+<td>You probably don&rsquo;t need to worry about this. Card transactions only settle 24-48 hours (sometimes even more!) after the purchase; until then they are just &ldquo;authorised&rdquo; and <code class="prettyprint">settled = false</code> on them.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">category</code></td>
+<td>The category can be set for each transaction by the user. Over time we learn which merchant goes in which category and auto-assign the category of a transaction. If the user hasn&rsquo;t set a category, we&rsquo;ll return the default category of the merchant on this transactions. Top-ups have category &ldquo;mondo&rdquo;.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">merchant</code></td>
+<td>This contains the <code class="prettyprint">merchant_id</code> of the merchant that this transaction was made at. If you pass <code class="prettyprint">?expand[]=merchant</code> in your request URL, it will contain lots of information about the merchant.</td>
+</tr>
+</tbody></table>
+
 <h2 id="retrieve-transaction">Retrieve transaction</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
@@ -331,7 +366,8 @@ Your client may only have <em>one</em> active access token at a time, per user. 
             </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"merch_00008zIcpbAKe8shBxXUtl"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"emoji"</span><span class="p">:</span><span class="w"> </span><span class="s2">"🍞"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The De Beauvoir Deli Co."</span><span class="w">
+            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The De Beauvoir Deli Co."</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eating_out"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
         </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Salmon sandwich 🍞"</span><span class="p">,</span><span class="w">
@@ -375,7 +411,8 @@ Your client may only have <em>one</em> active access token at a time, per user. 
             </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
             </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Salmon sandwich 🍞"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"is_load"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+            </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eating_out"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="nt">"account_balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">12334</span><span class="p">,</span><span class="w">
@@ -388,7 +425,8 @@ Your client may only have <em>one</em> active access token at a time, per user. 
             </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
             </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
             </span><span class="nt">"is_load"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+            </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eating_out"</span><span class="w">
         </span><span class="p">},</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -435,7 +473,8 @@ Your client may only have <em>one</em> active access token at a time, per user. 
         </span><span class="p">},</span><span class="w">
         </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
         </span><span class="nt">"is_load"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eating_out"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -653,7 +692,28 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
         </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-04T14:28:40Z"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ozone Coffee Roasters"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zjky19HyFLAzlUk7t"</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zjky19HyFLAzlUk7t"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eating_out"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"is_load"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"98 Southgate Road"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.54151</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.08482400000002599</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"postcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"N1 3JD"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Greater London"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-22T12:20:18Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"group_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"grp_00008zIcpbBOaAr7TTP3sv"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"merch_00008zIcpbAKe8shBxXUtl"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"emoji"</span><span class="p">:</span><span class="w"> </span><span class="s2">"🍞"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The De Beauvoir Deli Co."</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eating_out"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
