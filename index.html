@@ -245,59 +245,6 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-          <h1 id="balance">Balance</h1>
-
-<p>Retrieve information about an account&rsquo;s balance.</p>
-
-<h2 id="read-balance">Read balance</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/balance?account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"spend_today"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Returns balance information for a specific account.</p>
-
-<h5 id="request-parameters">Request Parameters</h5>
-
-<table><thead>
-<tr>
-<th><span class="hide">Parameter</span></th>
-<th><span class="hide">Description</span></th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">account_id</code><br><span class="label notice">Required</span></td>
-<td>The id of the account.</td>
-</tr>
-</tbody></table>
-
-<h5 id="response-parameters">Response Parameters</h5>
-
-<table><thead>
-<tr>
-<th><span class="hide">Parameter</span></th>
-<th><span class="hide">Description</span></th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">balance</code></td>
-<td>The currently available balance of the account, as a 64bit integer in minor units of the currency, eg. pennies for GBP, or cents for EUR and USD.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">currency</code></td>
-<td>The ISO 4217 currency code.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">spend_today</code></td>
-<td>The amount spent from this account today (considered from approx 4am onwards), as a 64bit integer in minor units of the currency.</td>
-</tr>
-</tbody></table>
-
           <h1 id="transactions">Transactions</h1>
 
 <p>Transactions are movements of funds into or out of an account. Negative transactions represent debits (ie. <em>spending</em> money) and positive transactions represent credits (ie. <em>receiving</em> money).</p>
@@ -329,7 +276,7 @@ let&rsquo;s discuss the most interesting/confusing ones:</p>
 </tr>
 <tr>
 <td><code class="prettyprint">category</code></td>
-<td>The category can be set for each transaction by the user. Over time we learn which merchant goes in which category and auto-assign the category of a transaction. If the user hasn&rsquo;t set a category, we&rsquo;ll return the default category of the merchant on this transactions. Top-ups have category &ldquo;mondo&rdquo;. Valid values are <code class="prettyprint">general</code>, <code class="prettyprint">eating_out</code>, <code class="prettyprint">expenses</code>, <code class="prettyprint">transport</code>, <code class="prettyprint">cash</code>, <code class="prettyprint">bills</code>, <code class="prettyprint">entertainment</code>, <code class="prettyprint">shopping</code>, <code class="prettyprint">holidays</code>, <code class="prettyprint">groceries</code>.</td>
+<td>The category can be set for each transaction by the user. Over time we learn which merchant goes in which category and auto-assign the category of a transaction. If the user hasn&rsquo;t set a category, we&rsquo;ll return the default category of the merchant on this transactions. Top-ups have category &ldquo;mondo&rdquo;. Valid values are <code class="prettyprint">general</code>, <code class="prettyprint">eating_out</code>, <code class="prettyprint">expenses</code>, <code class="prettyprint">transport</code>, <code class="prettyprint">cash</code>, <code class="prettyprint">bills</code>, <code class="prettyprint">entertainment</code>, <code class="prettyprint">shopping</code>, <code class="prettyprint">holidays</code>, <code class="prettyprint">groceries</code></td>
 </tr>
 <tr>
 <td><code class="prettyprint">merchant</code></td>
