@@ -69,7 +69,7 @@ To get information about an access token, you can call the `/ping/whoami` endpoi
 
 ```shell
 $ http --form POST "https://api.getmondo.co.uk/oauth2/token" \
-    "grant_type=$refresh_token" \
+    "grant_type=refresh_token" \
     "client_id=$client_id" \
     "client_secret=$client_secret" \
     "refresh_token=$refresh_token"
