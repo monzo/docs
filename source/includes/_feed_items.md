@@ -11,7 +11,7 @@ It's important to keep a few principals in mind when creating feed items:
 ## Create feed item
 
 ```shell
-$ http --form POST "https://api.getmondo.co.uk/feed" \
+$ http --form POST "https://production-api.gmon.io/feed" \
     "Authorization: Bearer $access_token" \
     "account_id=$account_id" \
     "type=basic" \
