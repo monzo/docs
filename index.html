@@ -45,7 +45,7 @@
 <blockquote>
 <p><strong>API endpoint</strong></p>
 </blockquote>
-<pre class="highlight plaintext"><code>https://api.getmondo.co.uk
+<pre class="highlight plaintext"><code>https://production-api.gmon.io
 </code></pre>
 
 <blockquote>
@@ -56,7 +56,7 @@
 
 <p>The Mondo API is designed to be a predictable and intuitive interface for interacting with users&rsquo; accounts. We offer both a REST API and web hooks.</p>
 
-<p>The API is in beta and isn&rsquo;t publicly-available yet. If you&rsquo;re interested in using it, please <a href="http://twitter.com/getmondo">get in touch</a>. Similarly, if a feature you&rsquo;d like is missing (or broken!), do let us know.</p>
+<p>The API is in beta and isn&rsquo;t publicly-available yet. If you&rsquo;re interested in using it, please sign up to our <a href="http://bit.ly/mondo-developers">developers mailing list</a>. We will occasionally send out things like API change information and hackathon announcements. Similarly, if a feature you&rsquo;d like is missing (or broken!), do <a href="mailto:developers@getmondo.co.uk">let us know</a>.</p>
 
 <p>As one of the first – if not <em>the</em> first – example of a widely-available bank API, we&rsquo;re very excited to see what you build!</p>
 
@@ -79,7 +79,7 @@ Requests <strong>must</strong> be authenticated. Unauthenticated requests will b
 </aside>
 
 <h2 id="acquiring-an-access-token">Acquiring an access token</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/oauth2/token"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://production-api.gmon.io/oauth2/token"</span> <span class="se">\</span>
     <span class="s2">"grant_type=password"</span> <span class="se">\</span>
     <span class="s2">"client_id=</span><span class="nv">$client_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"client_secret=</span><span class="nv">$client_secret</span><span class="s2">"</span> <span class="se">\</span>
@@ -133,7 +133,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 </tbody></table>
 
 <h2 id="authenticating-requests">Authenticating requests</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/ping/whoami"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://production-api.gmon.io/ping/whoami"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
@@ -148,8 +148,8 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 <p>To get information about an access token, you can call the <code class="prettyprint">/ping/whoami</code> endpoint.</p>
 
 <h2 id="refreshing-access">Refreshing access</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/oauth2/token"</span> <span class="se">\</span>
-    <span class="s2">"grant_type=</span><span class="nv">$refresh_token</span><span class="s2">"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://production-api.gmon.io/oauth2/token"</span> <span class="se">\</span>
+    <span class="s2">"grant_type=refresh_token"</span> <span class="se">\</span>
     <span class="s2">"client_id=</span><span class="nv">$client_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"client_secret=</span><span class="nv">$client_secret</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"refresh_token=</span><span class="nv">$refresh_token</span><span class="s2">"</span>
@@ -231,7 +231,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 <h2 id="list-accounts">List accounts</h2>
 
 <p>Returns a list of accounts owned by the currently authorised user.</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/accounts"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://production-api.gmon.io/accounts"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
@@ -244,6 +244,59 @@ Your client may only have <em>one</em> active access token at a time, per user. 
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+
+          <h1 id="balance">Balance</h1>
+
+<p>Retrieve information about an account&rsquo;s balance.</p>
+
+<h2 id="read-balance">Read balance</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://production-api.gmon.io/balance?account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"spend_today"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Returns balance information for a specific account.</p>
+
+<h5 id="request-parameters">Request Parameters</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">account_id</code><br><span class="label notice">Required</span></td>
+<td>The id of the account.</td>
+</tr>
+</tbody></table>
+
+<h5 id="response-parameters">Response Parameters</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">balance</code></td>
+<td>The currently available balance of the account, as a 64bit integer in minor units of the currency, eg. pennies for GBP, or cents for EUR and USD.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">currency</code></td>
+<td>The ISO 4217 currency code.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">spend_today</code></td>
+<td>The amount spent from this account today (considered from approx 4am onwards), as a 64bit integer in minor units of the currency.</td>
+</tr>
+</tbody></table>
 
           <h1 id="transactions">Transactions</h1>
 
@@ -276,7 +329,7 @@ let&rsquo;s discuss the most interesting/confusing ones:</p>
 </tr>
 <tr>
 <td><code class="prettyprint">category</code></td>
-<td>The category can be set for each transaction by the user. Over time we learn which merchant goes in which category and auto-assign the category of a transaction. If the user hasn&rsquo;t set a category, we&rsquo;ll return the default category of the merchant on this transactions. Top-ups have category &ldquo;mondo&rdquo;. Valid values are <code class="prettyprint">general</code>, <code class="prettyprint">eating_out</code>, <code class="prettyprint">expenses</code>, <code class="prettyprint">transport</code>, <code class="prettyprint">cash</code>, <code class="prettyprint">bills</code>, <code class="prettyprint">entertainment</code>, <code class="prettyprint">shopping</code>, <code class="prettyprint">holidays</code>, <code class="prettyprint">groceries</code></td>
+<td>The category can be set for each transaction by the user. Over time we learn which merchant goes in which category and auto-assign the category of a transaction. If the user hasn&rsquo;t set a category, we&rsquo;ll return the default category of the merchant on this transactions. Top-ups have category &ldquo;mondo&rdquo;. Valid values are <code class="prettyprint">general</code>, <code class="prettyprint">eating_out</code>, <code class="prettyprint">expenses</code>, <code class="prettyprint">transport</code>, <code class="prettyprint">cash</code>, <code class="prettyprint">bills</code>, <code class="prettyprint">entertainment</code>, <code class="prettyprint">shopping</code>, <code class="prettyprint">holidays</code>, <code class="prettyprint">groceries</code>.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">merchant</code></td>
@@ -285,7 +338,7 @@ let&rsquo;s discuss the most interesting/confusing ones:</p>
 </tbody></table>
 
 <h2 id="retrieve-transaction">Retrieve transaction</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://production-api.gmon.io/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="c"># Here we are expanding the merchant \</span>
     <span class="s2">"expand[]=merchant"</span>
@@ -341,7 +394,7 @@ let&rsquo;s discuss the most interesting/confusing ones:</p>
 </tbody></table>
 
 <h2 id="list-transactions">List transactions</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/transactions"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://production-api.gmon.io/transactions"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_id==</span><span class="nv">$account_id</span><span class="s2">"</span>
 </code></pre>
@@ -400,7 +453,7 @@ let&rsquo;s discuss the most interesting/confusing ones:</p>
 </tbody></table>
 
 <h2 id="annotate-transaction">Annotate transaction</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http PATCH <span class="s2">"https://api.getmondo.co.uk/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http PATCH <span class="s2">"https://production-api.gmon.io/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"metadata[</span><span class="nv">$key1</span><span class="s2">]=</span><span class="nv">$value1</span><span class="s2">"</span> <span class="se">\</span>
     <span class="c"># Set a key's value as empty to delete it</span>
@@ -459,7 +512,7 @@ Metadata is private to your application.
 </ol>
 
 <h2 id="create-feed-item">Create feed item</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/feed"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://production-api.gmon.io/feed"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"type=basic"</span> <span class="se">\</span>
@@ -550,7 +603,7 @@ Metadata is private to your application.
 <p>Web hooks allow your application to receive real-time, push notification of events in an account.</p>
 
 <h2 id="registering-a-web-hook">Registering a web hook</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/webhooks"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://production-api.gmon.io/webhooks"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"url=</span><span class="nv">$url</span><span class="s2">"</span>
@@ -586,7 +639,7 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 </tbody></table>
 
 <h2 id="list-web-hooks">List web hooks</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/webhooks?account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://production-api.gmon.io/webhooks?account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
@@ -622,7 +675,7 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 </tbody></table>
 
 <h2 id="deleting-a-web-hook">Deleting a web hook</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http DELETE <span class="s2">"https://api.getmondo.co.uk/webhooks/</span><span class="nv">$webhook_id</span><span class="s2">"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http DELETE <span class="s2">"https://production-api.gmon.io/webhooks/</span><span class="nv">$webhook_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{}</span><span class="w">
@@ -690,7 +743,7 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 <h2 id="upload-attachment">Upload attachment</h2>
 
 <p>The first step when uploading an attachment is to obtain a temporary URL to which the file can be uploaded. The response will include a <code class="prettyprint">file_url</code> which will be the URL of the resulting file, and an <code class="prettyprint">upload_url</code> to which the file should be uploaded to.</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/attachment/upload"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://production-api.gmon.io/attachment/upload"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"file_name=foo.png"</span> <span class="se">\</span>
     <span class="s2">"file_type=image/png"</span>
@@ -740,7 +793,7 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 <h2 id="register-attachment">Register attachment</h2>
 
 <p>Once you have obtained a URL for an attachment, either by uploading to the <code class="prettyprint">upload_url</code> obtained from the <code class="prettyprint">upload</code> endpoint above or by hosting a remote image, this URL can then be registered against a transaction. Once an attachment is registered against a transaction this will be displayed on the detail page of a transaction within the Mondo app.</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/attachment/register"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://production-api.gmon.io/attachment/register"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"external_id=tx_00008zIcpb1TB4yeIFXMzx"</span> <span class="se">\</span>
     <span class="s2">"file_type=image/png"</span> <span class="se">\</span>
@@ -817,7 +870,7 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 <h2 id="deregister-attachment">Deregister attachment</h2>
 
 <p>To remove an <code class="prettyprint">attachment</code>, simply deregister this using its <code class="prettyprint">id</code></p>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/attachment/deregister"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://production-api.gmon.io/attachment/deregister"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"id=attach_00009238aOAIvVqfb9LrZh"</span>
 </code></pre>
