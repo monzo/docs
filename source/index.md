@@ -33,7 +33,7 @@ https://api.getmondo.co.uk
 
 The Mondo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and web hooks.
 
-The API is in beta and isn't publicly-available yet. If you're interested in using it, please [get in touch](http://twitter.com/getmondo). Similarly, if a feature you'd like is missing (or broken!), do let us know.
+The API is in beta and isn't publicly-available yet. If you're interested in using it, please sign up to our [developers mailing list](http://eepurl.com/bGPKOD). We will occasionally send out things like API change information and hackathon announcements. Similarly, if a feature you'd like is missing (or broken!), do [let us know](mailto:developers@getmondo.co.uk).
 
 As one of the first – if not *the* first – example of a widely-available bank API, we're very excited to see what you build!
 
