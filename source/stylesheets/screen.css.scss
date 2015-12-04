@@ -564,8 +564,8 @@ html, body {
   }
 
   blockquote code {
-      background-color: #424242;
-      color: #E0E0E0;
+      background-color: lighten($code-bg, 7.5%);
+    //   color: #E0E0E0;
   }
 
   span.right {
