@@ -37,6 +37,10 @@ An access token is tied to both your application (the client) and an individual 
 Your client may only have <em>one</em> active access token at a time, per user. Acquiring a new access token will invalidate any other token you own for that user.
 </aside>
 
+<aside class="warning">
+The OAuth flow that requires a user's password will soon be replaced with a flow that does not require a password.
+</aside>
+
 ##### Arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
