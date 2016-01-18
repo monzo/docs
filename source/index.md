@@ -12,7 +12,7 @@ includes:
   - balance
   - transactions
   - feed_items
-  - web_hooks
+  - webhooks
   - attachments
   - errors
 
@@ -31,7 +31,7 @@ https://api.getmondo.co.uk
 
 > To install `httpie` on OS X run `brew install httpie`
 
-The Mondo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and web hooks.
+The Mondo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and webhooks.
 
 The API is in beta and isn't publicly-available yet. If you're interested in using it, please sign up to our [developers mailing list](http://bit.ly/mondo-developers). We will occasionally send out things like API change information and hackathon announcements. Similarly, if a feature you'd like is missing (or broken!), do [let us know](mailto:developers@getmondo.co.uk).
 
