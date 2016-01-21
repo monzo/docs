@@ -5,7 +5,7 @@ Web hooks allow your application to receive real-time, push notification of even
 ## Registering a web hook
 
 ```shell
-$ http --form POST "https://production-api.gmon.io/webhooks" \
+$ http --form POST "https://api.getmondo.co.uk/webhooks" \
     "Authorization: Bearer $access_token" \
     "account_id=$account_id" \
     "url=$url"
@@ -34,7 +34,7 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.
 ## List web hooks
 
 ```shell
-$ http "https://production-api.gmon.io/webhooks?account_id=$account_id" \
+$ http "https://api.getmondo.co.uk/webhooks?account_id=$account_id" \
     "Authorization: Bearer $access_token"
 ```
 
@@ -67,7 +67,7 @@ List the web hooks registered on an account.
 ## Deleting a web hook
 
 ```shell
-$ http DELETE "https://production-api.gmon.io/webhooks/$webhook_id" \
+$ http DELETE "https://api.getmondo.co.uk/webhooks/$webhook_id" \
     "Authorization: Bearer $access_token"
 ```
 

@@ -13,7 +13,7 @@ Requests <strong>must</strong> be authenticated. Unauthenticated requests will b
 ## Acquiring an access token
 
 ```shell
-$ http --form POST "https://production-api.gmon.io/oauth2/token" \
+$ http --form POST "https://api.getmondo.co.uk/oauth2/token" \
     "grant_type=password" \
     "client_id=$client_id" \
     "client_secret=$client_secret" \
@@ -54,7 +54,7 @@ The OAuth flow that requires a user's password will soon be replaced with a flow
 ## Authenticating requests
 
 ```shell
-$ http "https://production-api.gmon.io/ping/whoami" \
+$ http "https://api.getmondo.co.uk/ping/whoami" \
     "Authorization: Bearer $access_token"
 ```
 ```json
@@ -72,7 +72,7 @@ To get information about an access token, you can call the `/ping/whoami` endpoi
 ## Refreshing access
 
 ```shell
-$ http --form POST "https://production-api.gmon.io/oauth2/token" \
+$ http --form POST "https://api.getmondo.co.uk/oauth2/token" \
     "grant_type=refresh_token" \
     "client_id=$client_id" \
     "client_secret=$client_secret" \
