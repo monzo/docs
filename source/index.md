@@ -24,7 +24,7 @@ search: false
 > **API endpoint**
 
 ```
-https://production-api.gmon.io
+https://api.getmondo.co.uk
 ```
 
 > Examples in this documentation are written using [httpie](https://github.com/jkbrzt/httpie) for clarity.

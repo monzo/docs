@@ -7,7 +7,7 @@ Accounts represent a store of funds, and have a list of transactions.
 Returns a list of accounts owned by the currently authorised user.
 
 ```shell
-$ http "https://production-api.gmon.io/accounts" \
+$ http "https://api.getmondo.co.uk/accounts" \
     "Authorization: Bearer $access_token"
 ```
 
