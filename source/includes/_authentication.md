@@ -24,7 +24,8 @@ The Web Application Flow allows you, as a developer, to request access to privat
 ### Redirect the User to Mondo
 
 ```shell
-$ http GET "https://auth.getmondo.uk/?client_id=oauthclient_000094QU2tSWpTkuaEhnPd&redirect_url=http://your.example.com/oauth/callback&response_type=code&state=jjHwiXGC7zSIa0sUhN0U"
+// Your App redirects the web browser to Mondo:
+"https://auth.getmondo.uk/?client_id=oauthclient_000094QU2tSWpTkuaEhnPd&redirect_url=http://your.example.com/oauth/callback&response_type=code&state=jjHwiXGC7zSIa0sUhN0U"
 ```
 
 The first step in the authorization process is redirecting the User to Mondo where they
@@ -41,7 +42,8 @@ can log in and grant access to your application.
 ### Mondo redirects back to your app
 
 ```shell
-$ http GET "http://your.example.com/oauth/callback?code=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaSI6Im9hdXRoY2xpZW50XzAwMDA5NFFVMnRTV3BUa3VhRWhuUGQiLCJleHAiOjE0NTM0OTY0MDAsImlhdCI6MTQ1MzQ5NTgwMCwianRpIjoiYXV0aGNvZGVfMDAwMDk0UVV2c084Vm9vSkJucnZNMSIsInVpIjoidXNlcl8wMDAwOTRNNU5ZMzJNODlEdXRhajlHIiwidiI6IjEifQ.YnrvzKPQDvStchGDMjpIvUa-SE-Br0koWZqFxFS4QDQ&state=adiasd76as97d8a7sd987asd897as8d79as8"
+// Mondo redirects the web browser back to your App:
+"http://your.example.com/oauth/callback?code=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaSI6Im9hdXRoY2xpZW50XzAwMDA5NFFVMnRTV3BUa3VhRWhuUGQiLCJleHAiOjE0NTM0OTY0MDAsImlhdCI6MTQ1MzQ5NTgwMCwianRpIjoiYXV0aGNvZGVfMDAwMDk0UVV2c084Vm9vSkJucnZNMSIsInVpIjoidXNlcl8wMDAwOTRNNU5ZMzJNODlEdXRhajlHIiwidiI6IjEifQ.YnrvzKPQDvStchGDMjpIvUa-SE-Br0koWZqFxFS4QDQ&state=adiasd76as97d8a7sd987asd897as8d79as8"
 ```
 
 If the user accepts your request, Mondo redirects back to your site with a temporary code in a `code` parameter as well as the state you provided in the previous step in a `state` parameter. If the states don't match, the request has been created by a third party and the process should be aborted.
