@@ -37,6 +37,6 @@ The API is in beta and isn't publicly-available yet. If you're interested in usi
 
 As one of the first – if not *the* first – example of a widely-available bank API, we're very excited to see what you build!
 
-<aside class="warning">
+<aside class="notice">
 The Mondo API is currently under active development and breaking changes may be introduced.
 </aside>
