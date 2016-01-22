@@ -1,8 +1,8 @@
-# Web hooks
+# Webhooks
 
-Web hooks allow your application to receive real-time, push notification of events in an account.
+Webhooks allow your application to receive real-time, push notification of events in an account.
 
-## Registering a web hook
+## Registering a webhook
 
 ```shell
 $ http --form POST "https://api.getmondo.co.uk/webhooks" \
@@ -21,8 +21,7 @@ $ http --form POST "https://api.getmondo.co.uk/webhooks" \
 }
 ```
 
-Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails,
-we will retry up to a maximum of 5 attempts, with exponential backoff.
+Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails, we will retry up to a maximum of 5 attempts, with exponential backoff.
 
 ##### Arguments
 
@@ -31,7 +30,7 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.
 `account_id`<br><span class="label notice">Required</span>|The account to receive notifications for.
 `url`<br><span class="label notice">Required</span>|The URL we will send notifications to.
 
-## List web hooks
+## List webhooks
 
 ```shell
 $ http "https://api.getmondo.co.uk/webhooks?account_id=$account_id" \
@@ -55,16 +54,16 @@ $ http "https://api.getmondo.co.uk/webhooks?account_id=$account_id" \
 }
 ```
 
-List the web hooks registered on an account.
+List the webhooks your application has registered on an account.
 
 ##### Arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
-`account_id`<br><span class="label notice">Required</span>|The account to list registered web hooks for.
+`account_id`<br><span class="label notice">Required</span>|The account to list registered webhooks for.
 
 
-## Deleting a web hook
+## Deleting a webhook
 
 ```shell
 $ http DELETE "https://api.getmondo.co.uk/webhooks/$webhook_id" \
@@ -75,7 +74,7 @@ $ http DELETE "https://api.getmondo.co.uk/webhooks/$webhook_id" \
 {}
 ```
 
-When you delete a web hook, we will no longer send notifications to it.
+When you delete a webhook, we will no longer send notifications to it.
 
 ## Transaction created
 
