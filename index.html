@@ -8,7 +8,7 @@
 
     <meta property="og:title" content="Mondo API Reference" />
     <meta property="og:type" content="website" />
-    <meta property="og:description" content="The Mondo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and web hooks." />
+    <meta property="og:description" content="The Mondo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and webhooks." />
 
     <link href="stylesheets/screen-466a220b.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print-32bbdc25.css" rel="stylesheet" type="text/css" media="print" />
@@ -54,7 +54,7 @@
 <p>To install <code class="prettyprint">httpie</code> on OS X run <code class="prettyprint">brew install httpie</code></p>
 </blockquote>
 
-<p>The Mondo API is designed to be a predictable and intuitive interface for interacting with users&rsquo; accounts. We offer both a REST API and web hooks.</p>
+<p>The Mondo API is designed to be a predictable and intuitive interface for interacting with users&rsquo; accounts. We offer both a REST API and webhooks.</p>
 
 <p>The API is in beta and isn&rsquo;t publicly-available yet. If you&rsquo;re interested in using it, please sign up to our <a href="http://bit.ly/mondo-developers">developers mailing list</a>. We will occasionally send out things like API change information and hackathon announcements. Similarly, if a feature you&rsquo;d like is missing (or broken!), do <a href="mailto:developers@getmondo.co.uk">let us know</a>.</p>
 
@@ -726,11 +726,11 @@ Metadata is private to your application.
 </tr>
 </tbody></table>
 
-          <h1 id="web-hooks">Web hooks</h1>
+          <h1 id="webhooks">Webhooks</h1>
 
-<p>Web hooks allow your application to receive real-time, push notification of events in an account.</p>
+<p>Webhooks allow your application to receive real-time, push notification of events in an account.</p>
 
-<h2 id="registering-a-web-hook">Registering a web hook</h2>
+<h2 id="registering-a-webhook">Registering a webhook</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/webhooks"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
@@ -745,8 +745,7 @@ Metadata is private to your application.
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails,
-we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
+<p>Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails, we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 
 <h5 id="arguments">Arguments</h5>
 
@@ -766,7 +765,7 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 </tr>
 </tbody></table>
 
-<h2 id="list-web-hooks">List web hooks</h2>
+<h2 id="list-webhooks">List webhooks</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/webhooks?account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
@@ -786,7 +785,7 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>List the web hooks registered on an account.</p>
+<p>List the webhooks your application has registered on an account.</p>
 
 <h5 id="arguments">Arguments</h5>
 
@@ -798,18 +797,18 @@ we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">account_id</code><br><span class="label notice">Required</span></td>
-<td>The account to list registered web hooks for.</td>
+<td>The account to list registered webhooks for.</td>
 </tr>
 </tbody></table>
 
-<h2 id="deleting-a-web-hook">Deleting a web hook</h2>
+<h2 id="deleting-a-webhook">Deleting a webhook</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http DELETE <span class="s2">"https://api.getmondo.co.uk/webhooks/</span><span class="nv">$webhook_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{}</span><span class="w">
 </span></code></pre>
 
-<p>When you delete a web hook, we will no longer send notifications to it.</p>
+<p>When you delete a webhook, we will no longer send notifications to it.</p>
 
 <h2 id="transaction-created">Transaction created</h2>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
