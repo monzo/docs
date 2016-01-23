@@ -22,7 +22,7 @@ The Web Application Flow allows your app to request access to private details in
 
 ```shell
 # Your App redirects the web browser to Mondo:
-"https://auth.getmondo.uk/?client_id=oauthclient_000094QU2tSWpTkuaEhnPd&redirect_url=http://your.example.com/oauth/callback&response_type=code&state=jjHwiXGC7zSIa0sUhN0U"
+"https://auth.getmondo.co.uk/?client_id=oauthclient_000094QU2tSWpTkuaEhnPd&redirect_url=http://your.example.com/oauth/callback&response_type=code&state=jjHwiXGC7zSIa0sUhN0U"
 ```
 
 The first step in the authorization process is redirecting the user to Mondo where they can log in and grant access to your application.
