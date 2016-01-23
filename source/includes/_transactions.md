@@ -118,7 +118,7 @@ Returns a list of transactions on the user's account.
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `account_id`<br><span class="label notice">Required</span>|The account to retrieve transactions from.
-Pagination<br><span class="label">Optional</span>|This endpoint can be [paginated](#pagination).
+Pagination<br><span class="label">Optional</span>|This endpoint can be [paginated](#pagination). `since`/`before` timestamps filter per the `created` time of transactions.
 
 ## Annotate transaction
 
