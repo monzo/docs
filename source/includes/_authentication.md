@@ -97,6 +97,10 @@ Using the password grant involves:
 The Password Grant flow can only be used to access your own account. Use the [Authorization Code Grant](#web-application-flow-authorization-code-grant) to request access to another Mondo user's account.
 </aside>
 
+<aside class="notice">
+The Password Grant flow can only be used with confidential clients. Make sure you select confidential when creating a new client, and do not expose the client secret.
+</aside>
+
 ### Acquiring an access token
 
 ```shell
