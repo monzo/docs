@@ -94,7 +94,7 @@ Using the password grant involves:
 3. [Refreshing](#refreshing-access) the access token when it expires.
 
 <aside class="warning">
-The Password Grant flow can only be used to access your own account. Use the [Authorization Code Grant](#web-application-flow-authorization-code-grant) to request access to another Mondo user's account.
+The Password Grant flow can only be used to access your own account. Use the <a href="#web-application-flow-authorization-code-grant">Authorization Code Grant</a> to request access to another Mondo user's account.
 </aside>
 
 ### Acquiring an access token
