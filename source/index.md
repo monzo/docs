@@ -33,7 +33,7 @@ https://api.getmondo.co.uk
 
 The Mondo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and webhooks.
 
-Our developers' community in Slack is the place to discuss our API and show off what you build.
+Our developers' community in Slack is the place to get help with our API, discuss ideas, and show off what you build. Hit the button to join:
 
 <script async defer src="https://devslack.getmondo.co.uk/slackin.js"></script>
 
