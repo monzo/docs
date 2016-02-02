@@ -33,10 +33,10 @@ https://api.getmondo.co.uk
 
 The Mondo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and webhooks.
 
-The API is in beta and isn't publicly-available yet. If you're interested in using it, please sign up to our [developers mailing list](http://bit.ly/mondo-developers). We will occasionally send out things like API change information and hackathon announcements. Similarly, if a feature you'd like is missing (or broken!), do [let us know](mailto:developers@getmondo.co.uk).
+Our developers' community in Slack is the place to discuss our API and show off what you build.
 
-As one of the first – if not *the* first – example of a widely-available bank API, we're very excited to see what you build!
+<script async defer src="https://devslack.getmondo.co.uk/slackin.js"></script>
 
 <aside class="notice">
-The Mondo API is currently under active development and breaking changes may be introduced.
+The Mondo API is currently in beta, and is under active development. You should expect breaking changes to be introduced.
 </aside>

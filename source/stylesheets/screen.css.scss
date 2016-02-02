@@ -351,6 +351,11 @@ html, body {
     clear:both;
   }
 
+  // slack button
+  .__slackin {
+    margin: 0 0 15px $main-padding;
+  }
+
   h1 {
     @extend %header-font;
     font-size: 30px;
