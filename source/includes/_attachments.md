@@ -32,14 +32,14 @@ $ http --form POST "https://api.getmondo.co.uk/attachment/upload" \
 }
 ```
 
-##### Request Parameters
+##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `file_name`<br><span class="label">Required</span>|The name of the file to be uploaded
 `file_type`<br><span class="label">Required</span>|The content type of the file
 
-##### Response Parameters
+##### Response arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
@@ -72,7 +72,7 @@ $ http --form POST "https://api.getmondo.co.uk/attachment/register" \
 }
 ```
 
-##### Request Parameters
+##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
@@ -80,7 +80,7 @@ $ http --form POST "https://api.getmondo.co.uk/attachment/register" \
 `file_url`<br><span class="label">Required</span>|The URL of the uploaded attachment.
 `file_type`<br><span class="label">Required</span>|The content type of the attachment.
 
-##### Response Parameters
+##### Response arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
@@ -105,7 +105,7 @@ $ http --form POST "https://api.getmondo.co.uk/attachment/deregister" \
 {}
 ```
 
-##### Request Parameters
+##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------

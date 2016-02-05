@@ -2,12 +2,12 @@
 
 Transactions are movements of funds into or out of an account. Negative transactions represent debits (ie. *spending* money) and positive transactions represent credits (ie. *receiving* money).
 
+Most properties on transactions are self-explanatory. We'll eventually get around to documenting them all, but in the meantime let's discuss the most interesting/confusing ones:
 
-Most properties on transactions are self-explanatory. We'll eventually get around to documenting them all, but in the meantime
-let's discuss the most interesting/confusing ones:
+##### Properties
 
-Property         | Explanation
----------------- | --------------
+<span class="hide">Property</span> | <span class="hide">Description</span>
+-----------------------------------|--------------------------------------
 `amount`         | The amount of the transaction in minor units of `currency`. For example pennies in the case of GBP. A negative amount indicates a debit (most card transactions will have a negative amount)
 `decline_reason` | **This is only present on declined transactions!** Valid values are `INSUFFICIENT_FUNDS`, `CARD_INACTIVE`, `CARD_BLOCKED` or `OTHER`.
 `is_load`        | Top-ups to an account are represented as transactions with a positive amount and `is_load = true`. Other transactions such as refunds, reversals or chargebacks may have a positive amount but `is_load = false`
@@ -61,7 +61,7 @@ $ http "https://api.getmondo.co.uk/transactions/$transaction_id" \
 
 Returns an individual transaction, fetched by its id.
 
-##### Arguments
+##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
@@ -113,7 +113,7 @@ $ http "https://api.getmondo.co.uk/transactions" \
 
 Returns a list of transactions on the user's account.
 
-##### Arguments
+##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
@@ -153,7 +153,7 @@ $ http PATCH "https://api.getmondo.co.uk/transactions/$transaction_id" \
 
 You may store your own key-value annotations against a transaction in its `metadata`.
 
-##### Arguments
+##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------

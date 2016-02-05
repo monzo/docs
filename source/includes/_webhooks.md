@@ -23,7 +23,7 @@ $ http --form POST "https://api.getmondo.co.uk/webhooks" \
 
 Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails, we will retry up to a maximum of 5 attempts, with exponential backoff.
 
-##### Arguments
+##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
@@ -56,7 +56,7 @@ $ http "https://api.getmondo.co.uk/webhooks?account_id=$account_id" \
 
 List the webhooks your application has registered on an account.
 
-##### Arguments
+##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
