@@ -38,5 +38,5 @@ Our developers' community in Slack is the place to get help with our API, discus
 <script async defer src="https://devslack.getmondo.co.uk/slackin.js"></script>
 
 <aside class="notice">
-The Mondo API is currently in beta, and is under active development. You should expect breaking changes to be introduced.
+The Mondo API is under active development. Breaking changes should be expected.
 </aside>

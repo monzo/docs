@@ -20,13 +20,13 @@ $ http "https://api.getmondo.co.uk/balance?account_id=$account_id" \
 Returns balance information for a specific account.
 
 
-##### Request Parameters
+##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `account_id`<br><span class="label notice">Required</span>|The id of the account.
 
-##### Response Parameters
+##### Response arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------

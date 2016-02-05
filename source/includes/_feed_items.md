@@ -30,26 +30,28 @@ $ http --form POST "https://api.getmondo.co.uk/feed" \
 
 Creates a new feed item on the user's feed
 
-##### General Arguments (for all types of feed item)
+##### Request arguments (for all feed item types)
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
-`account_id`<br><span class="label notice">Required</span>|The account to create feed item for.
+`account_id`<br><span class="label notice">Required</span>|The account to create a feed item for.
 `type`<br><span class="label notice">Required</span>|Type of feed item. Currently only `basic` is supported.
 `params`<br><span class="label notice">Required</span>|A *map* of parameters which vary based on `type`
 `url`<br><span class="label">Optional</span>|A URL to open when the feed item is tapped. If no URL is provided, the app will display a fallback view based on the title & body.
 
 
-### Per type arguments
+### Per-type arguments
 
 Each type of feed item supports customisation with a specific list of `params`. Currently we only support creation of the `basic` feed item which requires the parameters below. These should be sent as form parameters as in the example to the right.
 
 ##### Basic
 
-The basic type displays an `image`, with `title` text and optional `body` text.
-<br/>*Note the image supports animated gifs!*
+The basic type displays an `image`, with `title` text and optional `body` text.  
+*Note the image supports animated gifs!*
 
 <img src="images/nyanfeed.gif" />
+
+##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------

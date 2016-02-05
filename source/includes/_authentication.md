@@ -1,91 +1,103 @@
 # Authentication
 
-The Mondo API implements [OAuth 2.0](http://oauth.net/2/), a protocol that lets external apps request authorization to private details in a Mondo user's account without obtaining their password. This also lets users revoke permission to authorized apps at any time, and in time will allow more granular access to their data.
+The Mondo API implements [OAuth 2.0](http://oauth.net/2/) to allow users to log in to applications without exposing their credentials. Several authentication flows are available, and the one you use will depend on the use-case. All flows broadly follow the same pattern:
 
-Before getting started developers need to create a client (application) in the [Mondo Developer Portal](https://developers.getmondo.co.uk). This will generate a unique client ID and secret which can be used to authorize yourself and other users to your application.
+1. **Acquire** an access token, and optionally a refresh token
+2. **Use** the access token to make authenticated requests
+3. If you were issued a refresh token: **refresh** the access token when it expires
 
-<aside class="warning">
-The client secret must not be shared.
-</aside>
+To start integrating with the Mondo API, obtain client credentials through the [Mondo Developer Tools](https://developers.getmondo.co.uk). These client credentials uniquely identify your application.
+### Client confidentiality
 
-Mondo's OAuth implementation supports the standard [Authorization Code Grant](https://tools.ietf.org/html/rfc6749#section-4.1) type. Developers should implement the web application flow described below to obtain an authorization code and then exchange it for an access token.
+Clients are designated either confidential or non-confidential.
 
-## Web application flow (Authorization Code Grant)
+* **Confidential** clients keep their client secret hidden. For example, a server-side app that never exposes its secret to users.
+* **Non-confidential** clients cannot keep their client secret hidden. For example, client-side apps that store their client secret on the user's device, where it could be intercepted.
 
-The Web Application Flow allows your app to request access to private details in another user's Mondo account, without requesting their password. This three step process is often referred to as three-legged authorization, and consists of the following steps:
+    Non-confidential clients are not issued refresh tokens.
 
-1. [Redirect the user](#redirect-the-user-to-mondo) to Mondo where they can authorize your application
+## Authorization code grant
+
+The authorization code grant is the primary way to get an access token. This three-step process is often called "three-legged" authorisation:
+
+1. [Redirect the user](#redirect-the-user-to-mondo) to Mondo to authorise your app
 2. [Mondo redirects the user](#mondo-redirects-back-to-your-app) back to your app with an authorization code
-3. [Exchange the authorization code](#exchange-the-authorization-code) for an access token
+3. [Exchange](#exchange-the-authorization-code) the authorization code for an access token
 
 ### Redirect the user to Mondo
 
 ```shell
-# Your App redirects the web browser to Mondo:
-"https://auth.getmondo.co.uk/?client_id=oauthclient_000094QU2tSWpTkuaEhnPd&redirect_uri=http://your.example.com/oauth/callback&response_type=code&state=jjHwiXGC7zSIa0sUhN0U"
+"https://auth.getmondo.co.uk/?
+    client_id=$client_id&
+    redirect_uri=$redirect_uri&
+    response_type=code&
+    state=$state_token"
 ```
 
-The first step in the authorization process is redirecting the user to Mondo where they can log in and grant access to your application.
+Send the user to Mondo in a web browser, where they will log in and grant access to their account.
+
+##### URL parameters
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
-`client_id`<br><span class="label notice">Required</span>|The client ID you received from Mondo.
-`redirect_uri`<br><span class="label notice">Required</span>|The URL in your app where users will be sent after authorization.
-`response_type`<br><span class="label notice">Required</span>|This must be set to `code`.
-`state`|An unguessable random string which is used to protect against cross-site request forgery attacks.
+`client_id`<br><span class="label notice">Required</span>|Your client ID.
+`redirect_uri`<br><span class="label notice">Required</span>|A URI to which users will be redirected after authorising your app.
+`response_type`<br><span class="label notice">Required</span>|Must be set to `code`.
+`state`|An unguessable random string used to protect against [cross-site request forgery attacks](http://www.twobotechnologies.com/blog/2014/02/importance-of-state-in-oauth2.html).
 
 
 ### Mondo redirects back to your app
 
 ```shell
-# Mondo redirects the web browser back to your App:
-"http://your.example.com/oauth/callback?code=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaSI6Im9hdXRoY2xpZW50XzAwMDA5NFFVMnRTV3BUa3VhRWhuUGQiLCJleHAiOjE0NTM0OTY0MDAsImlhdCI6MTQ1MzQ5NTgwMCwianRpIjoiYXV0aGNvZGVfMDAwMDk0UVV2c084Vm9vSkJucnZNMSIsInVpIjoidXNlcl8wMDAwOTRNNU5ZMzJNODlEdXRhajlHIiwidiI6IjEifQ.YnrvzKPQDvStchGDMjpIvUa-SE-Br0koWZqFxFS4QDQ&state=jjHwiXGC7zSIa0sUhN0U"
+"http://your.exampe.com/oauth/callback?
+    code=$authorization_code&
+    state=$state_token"
 ```
 
-If the user accepts your request, Mondo redirects back to your app with a temporary code in the `code` parameter as well as the state you provided in the previous step in the `state` parameter. If the states don't match, the request may have been tampered with, and the process should be aborted.
+If the user allows access to their account, Mondo redirects them back to your app.
+
+##### URL parameters
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
-`code`|The authorization code which can be exchanged for an access token.
-`state`|An unguessable random string which is used to protect against cross-site request forgery attacks, which you provided when redirecting to Mondo.
+`code`|A temporary authorization code which will be exchanged for an access token in the next step.
+`state`|The same string you provided as `state` when sending the user to Mondo. If this value differs from what you sent, you **must** abort the authentication process.
 
 ### Exchange the authorization code
 
 ```shell
 $ http --form POST "https://api.getmondo.co.uk/oauth2/token" \
     "grant_type=authorization_code" \
-    "client_id=oauthclient_000094QU2tSWpTkuaEhnPd" \
-    "client_secret=s9P2eXmMMbjH+g/TrMIYdQc5oxs7Lv4wOZrtntLXvoVlMvdAauQF/4f8a0zxF+YKTmuQlG2xoGHaZqG/uIyr" \
-    "redirect_uri=http://your.example.com/oauth/callback" \
-    "code=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaSI6Im9hdXRoY2xpZW50XzAwMDA5NFFVMnRTV3BUa3VhRWhuUGQiLCJleHAiOjE0NTM0OTY0MDAsImlhdCI6MTQ1MzQ5NTgwMCwianRpIjoiYXV0aGNvZGVfMDAwMDk0UVV2c084Vm9vSkJucnZNMSIsInVpIjoidXNlcl8wMDAwOTRNNU5ZMzJNODlEdXRhajlHIiwidiI6IjEifQ.YnrvzKPQDvStchGDMjpIvUa-SE-Br0koWZqFxFS4QDQ"
+    "client_id=$client_id" \
+    "client_secret=$client_secret" \
+    "redirect_uri=$redirect_uri" \
+    "code=$authorization_code"
 ```
 
 ```json
 {
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaSI6Im9hdXRoY2xpZW50XzAwMDA5NFFYUGJYdnRXbmZZQ2twTUgiLCJleHAiOjE0NTM2NzAzNDksImlhdCI6MTQ1MzQ5NzU0OSwianRpIjoidG9rXzAwMDA5NFFYWDlBTklLMjdxZktjYzUiLCJ1aSI6InVzZXJfMDAwMDk0TTVOWTMyTTg5RHV0YWo5RyIsInYiOiIxIn0.SEhPOg86PmbAwbz4BadK6_UUB36IVL77TfaGeg96WEc",
-    "client_id": "oauthclient_000094QU2tSWpTkuaEhnPd",
-    "expires_in": 172799,
-    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhaSI6InRva18wMDAwOTRRWFg5QU5JSzI3cWZLY2M1IiwiY2kiOiJvYXV0aGNsaWVudF8wMDAwOTRRWFBiWHZ0V25mWUNrcE1IIiwiaWF0IjoxNDUzNDk3NTQ5LCJ1aSI6InVzZXJfMDAwMDk0TTVOWTMyTTg5RHV0YWo5RyIsInYiOiIxIn0.0cEnNEYLeBT5F2eT58DqRnwK-iVCk3c2YAEn9uAod28",
+    "access_token": "access_token",
+    "client_id": "client_id",
+    "expires_in": 21600,
+    "refresh_token": "refresh_token",
     "token_type": "Bearer",
-    "user_id": "user_000094M5NY32M89Dutaj9G"
+    "user_id": "user_id"
 }
 ```
 
-Once an authorization code is received this can be exchanged by your application for an access token. An access token is tied to both your application (the client) and an individual Mondo user and is valid for several hours.
+When you receive an authorization code, exchange it for an access token. The resulting access token is tied to both your client and an individual Mondo user, and is valid for several hours.
 
-<aside class="notice">
-Your client may only have <em>one</em> active access token at a time, per user. Acquiring a new access token will invalidate any other token you own for that user.
-</aside>
+##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `grant_type`<br><span class="label notice">Required</span>|This must be set to `authorization_code`
 `client_id`<br><span class="label notice">Required</span>|The client ID you received from Mondo.
 `client_secret`<br><span class="label notice">Required</span>|The client secret which you received from Mondo.
-`redirect_uri`<br><span class="label notice">Required</span>|The URL in your app where users were sent after authorization.
+`redirect_uri`<br><span class="label notice">Required</span>|The URL in your app where users were sent after authorisation.
 `code`<br><span class="label notice">Required</span>|The authorization code you received when the user was redirected back to your app.
 
-## Password Grant
+## Password grant
 
 Using the password grant involves:
 
@@ -93,11 +105,9 @@ Using the password grant involves:
 2. [Using](#authenticating-requests) the access token to make authenticated requests.
 3. [Refreshing](#refreshing-access) the access token when it expires.
 
-<aside class="warning">
-The Password Grant flow can only be used to access your own account. Use the <a href="#web-application-flow-authorization-code-grant">Authorization Code Grant</a> to request access to another Mondo user's account.
-</aside>
+The Password Grant flow can *only* be used to access your own account. Use the [Authorization Code Grant](#web-application-flow-authorization-code-grant) to request access to another Mondo user's account.
 
-### Acquiring an access token
+### Acquire an access token
 
 ```shell
 $ http --form POST "https://api.getmondo.co.uk/oauth2/token" \
@@ -118,13 +128,9 @@ $ http --form POST "https://api.getmondo.co.uk/oauth2/token" \
 }
 ```
 
-An access token is tied to both your application (the client) and an individual Mondo user and is valid for several hours.
+An access token is tied to both your client and an individual Mondo user and is valid for several hours.
 
-<aside class="notice">
-Your client may only have <em>one</em> active access token at a time, per user. Acquiring a new access token will invalidate any other token you own for that user.
-</aside>
-
-##### Arguments
+##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
@@ -148,9 +154,10 @@ $ http "https://api.getmondo.co.uk/ping/whoami" \
 }
 ```
 
-**All** requests must be authenticated with an access token. It is supplied in the `Authorization` header using the `Bearer` scheme.
+**All** requests must be authenticated with an access token supplied in the `Authorization` header using the `Bearer` scheme. Your client may only have *one* active access token at a time, per user. Acquiring a new access token will invalidate any other token you own for that user.
 
 To get information about an access token, you can call the `/ping/whoami` endpoint.
+
 
 ## Refreshing access
 
@@ -176,7 +183,7 @@ To limit the window of opportunity for attackers in the event an access token is
 
 Refreshing an access token will invalidate the previous token, if it is still valid. Refreshing is a one-time operation.
 
-##### Arguments
+##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
