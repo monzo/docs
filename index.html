@@ -61,37 +61,53 @@
 <script async defer src="https://devslack.getmondo.co.uk/slackin.js"></script>
 
 <aside class="notice">
-The Mondo API is currently in beta, and is under active development. You should expect breaking changes to be introduced.
+The Mondo API is under active development. Breaking changes should be expected.
 </aside>
 
           <h1 id="authentication">Authentication</h1>
 
-<p>The Mondo API implements <a href="http://oauth.net/2/">OAuth 2.0</a>, a protocol that lets external apps request authorization to private details in a Mondo user&rsquo;s account without obtaining their password. This also lets users revoke permission to authorized apps at any time, and in time will allow more granular access to their data.</p>
-
-<p>Before getting started developers need to create a client (application) in the <a href="https://developers.getmondo.co.uk">Mondo Developer Portal</a>. This will generate a unique client ID and secret which can be used to authorize yourself and other users to your application.</p>
-
-<aside class="warning">
-The client secret must not be shared.
-</aside>
-
-<p>Mondo&rsquo;s OAuth implementation supports the standard <a href="https://tools.ietf.org/html/rfc6749#section-4.1">Authorization Code Grant</a> type. Developers should implement the web application flow described below to obtain an authorization code and then exchange it for an access token.</p>
-
-<h2 id="web-application-flow-authorization-code-grant">Web application flow (Authorization Code Grant)</h2>
-
-<p>The Web Application Flow allows your app to request access to private details in another user&rsquo;s Mondo account, without requesting their password. This three step process is often referred to as three-legged authorization, and consists of the following steps:</p>
+<p>The Mondo API implements <a href="http://oauth.net/2/">OAuth 2.0</a> to allow users to log in to applications without exposing their credentials. Several authentication flows are available, and the one you use will depend on the use-case. All flows broadly follow the same pattern:</p>
 
 <ol>
-<li><a href="#redirect-the-user-to-mondo">Redirect the user</a> to Mondo where they can authorize your application</li>
+<li><strong>Acquire</strong> an access token, and optionally a refresh token</li>
+<li><strong>Use</strong> the access token to make authenticated requests</li>
+<li>If you were issued a refresh token: <strong>refresh</strong> the access token when it expires</li>
+</ol>
+
+<p>To start integrating with the Mondo API, obtain client credentials through the <a href="https://developers.getmondo.co.uk">Mondo Developer Tools</a>. These client credentials uniquely identify your application.</p>
+
+<h3 id="client-confidentiality">Client confidentiality</h3>
+
+<p>Clients are designated either confidential or non-confidential.</p>
+
+<ul>
+<li><strong>Confidential</strong> clients keep their client secret hidden. For example, a server-side app that never exposes its secret to users.</li>
+<li><p><strong>Non-confidential</strong> clients cannot keep their client secret hidden. For example, client-side apps that store their client secret on the user&rsquo;s device, where it could be intercepted.</p>
+
+<p>Non-confidential clients are not issued refresh tokens.</p></li>
+</ul>
+
+<h2 id="authorization-code-grant">Authorization code grant</h2>
+
+<p>The authorization code grant is the primary way to get an access token. This three-step process is often called &ldquo;three-legged&rdquo; authorisation:</p>
+
+<ol>
+<li><a href="#redirect-the-user-to-mondo">Redirect the user</a> to Mondo to authorise your app</li>
 <li><a href="#mondo-redirects-back-to-your-app">Mondo redirects the user</a> back to your app with an authorization code</li>
-<li><a href="#exchange-the-authorization-code">Exchange the authorization code</a> for an access token</li>
+<li><a href="#exchange-the-authorization-code">Exchange</a> the authorization code for an access token</li>
 </ol>
 
 <h3 id="redirect-the-user-to-mondo">Redirect the user to Mondo</h3>
-<pre class="highlight shell"><code><span class="c"># Your App redirects the web browser to Mondo:</span>
-<span class="s2">"https://auth.getmondo.co.uk/?client_id=oauthclient_000094QU2tSWpTkuaEhnPd&amp;redirect_uri=http://your.example.com/oauth/callback&amp;response_type=code&amp;state=jjHwiXGC7zSIa0sUhN0U"</span>
+<pre class="highlight shell"><code><span class="s2">"https://auth.getmondo.co.uk/?
+    client_id=</span><span class="nv">$client_id</span><span class="s2">&amp;
+    redirect_uri=</span><span class="nv">$redirect_uri</span><span class="s2">&amp;
+    response_type=code&amp;
+    state=</span><span class="nv">$state_token</span><span class="s2">"</span>
 </code></pre>
 
-<p>The first step in the authorization process is redirecting the user to Mondo where they can log in and grant access to your application.</p>
+<p>Send the user to Mondo in a web browser, where they will log in and grant access to their account.</p>
+
+<h5 id="url-arguments">URL arguments</h5>
 
 <table><thead>
 <tr>
@@ -101,28 +117,31 @@ The client secret must not be shared.
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">client_id</code><br><span class="label notice">Required</span></td>
-<td>The client ID you received from Mondo.</td>
+<td>Your client ID.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">redirect_uri</code><br><span class="label notice">Required</span></td>
-<td>The URL in your app where users will be sent after authorization.</td>
+<td>A URI to which users will be redirected after authorising your app.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">response_type</code><br><span class="label notice">Required</span></td>
-<td>This must be set to <code class="prettyprint">code</code>.</td>
+<td>Must be set to <code class="prettyprint">code</code>.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">state</code></td>
-<td>An unguessable random string which is used to protect against cross-site request forgery attacks.</td>
+<td>An unguessable random string used to protect against <a href="http://www.twobotechnologies.com/blog/2014/02/importance-of-state-in-oauth2.html">cross-site request forgery attacks</a>.</td>
 </tr>
 </tbody></table>
 
 <h3 id="mondo-redirects-back-to-your-app">Mondo redirects back to your app</h3>
-<pre class="highlight shell"><code><span class="c"># Mondo redirects the web browser back to your App:</span>
-<span class="s2">"http://your.example.com/oauth/callback?code=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaSI6Im9hdXRoY2xpZW50XzAwMDA5NFFVMnRTV3BUa3VhRWhuUGQiLCJleHAiOjE0NTM0OTY0MDAsImlhdCI6MTQ1MzQ5NTgwMCwianRpIjoiYXV0aGNvZGVfMDAwMDk0UVV2c084Vm9vSkJucnZNMSIsInVpIjoidXNlcl8wMDAwOTRNNU5ZMzJNODlEdXRhajlHIiwidiI6IjEifQ.YnrvzKPQDvStchGDMjpIvUa-SE-Br0koWZqFxFS4QDQ&amp;state=jjHwiXGC7zSIa0sUhN0U"</span>
+<pre class="highlight shell"><code><span class="s2">"http://your.exampe.com/oauth/callback?
+    code=</span><span class="nv">$authorization_code</span><span class="s2">&amp;
+    state=</span><span class="nv">$state_token</span><span class="s2">"</span>
 </code></pre>
 
-<p>If the user accepts your request, Mondo redirects back to your app with a temporary code in the <code class="prettyprint">code</code> parameter as well as the state you provided in the previous step in the <code class="prettyprint">state</code> parameter. If the states don&rsquo;t match, the request may have been tampered with, and the process should be aborted.</p>
+<p>If the user allows access to their account, Mondo redirects them back to your app.</p>
+
+<h5 id="url-arguments">URL arguments</h5>
 
 <table><thead>
 <tr>
@@ -132,37 +151,35 @@ The client secret must not be shared.
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">code</code></td>
-<td>The authorization code which can be exchanged for an access token.</td>
+<td>A temporary authorization code which will be exchanged for an access token in the next step.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">state</code></td>
-<td>An unguessable random string which is used to protect against cross-site request forgery attacks, which you provided when redirecting to Mondo.</td>
+<td>The same string you provided as <code class="prettyprint">state</code> when sending the user to Mondo. If this value differs from what you sent, you <strong>must</strong> abort the authentication process.</td>
 </tr>
 </tbody></table>
 
 <h3 id="exchange-the-authorization-code">Exchange the authorization code</h3>
 <pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/oauth2/token"</span> <span class="se">\</span>
     <span class="s2">"grant_type=authorization_code"</span> <span class="se">\</span>
-    <span class="s2">"client_id=oauthclient_000094QU2tSWpTkuaEhnPd"</span> <span class="se">\</span>
-    <span class="s2">"client_secret=s9P2eXmMMbjH+g/TrMIYdQc5oxs7Lv4wOZrtntLXvoVlMvdAauQF/4f8a0zxF+YKTmuQlG2xoGHaZqG/uIyr"</span> <span class="se">\</span>
-    <span class="s2">"redirect_uri=http://your.example.com/oauth/callback"</span> <span class="se">\</span>
-    <span class="s2">"code=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaSI6Im9hdXRoY2xpZW50XzAwMDA5NFFVMnRTV3BUa3VhRWhuUGQiLCJleHAiOjE0NTM0OTY0MDAsImlhdCI6MTQ1MzQ5NTgwMCwianRpIjoiYXV0aGNvZGVfMDAwMDk0UVV2c084Vm9vSkJucnZNMSIsInVpIjoidXNlcl8wMDAwOTRNNU5ZMzJNODlEdXRhajlHIiwidiI6IjEifQ.YnrvzKPQDvStchGDMjpIvUa-SE-Br0koWZqFxFS4QDQ"</span>
+    <span class="s2">"client_id=</span><span class="nv">$client_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"client_secret=</span><span class="nv">$client_secret</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"redirect_uri=</span><span class="nv">$redirect_uri</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"code=</span><span class="nv">$authorization_code</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaSI6Im9hdXRoY2xpZW50XzAwMDA5NFFYUGJYdnRXbmZZQ2twTUgiLCJleHAiOjE0NTM2NzAzNDksImlhdCI6MTQ1MzQ5NzU0OSwianRpIjoidG9rXzAwMDA5NFFYWDlBTklLMjdxZktjYzUiLCJ1aSI6InVzZXJfMDAwMDk0TTVOWTMyTTg5RHV0YWo5RyIsInYiOiIxIn0.SEhPOg86PmbAwbz4BadK6_UUB36IVL77TfaGeg96WEc"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oauthclient_000094QU2tSWpTkuaEhnPd"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">172799</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhaSI6InRva18wMDAwOTRRWFg5QU5JSzI3cWZLY2M1IiwiY2kiOiJvYXV0aGNsaWVudF8wMDAwOTRRWFBiWHZ0V25mWUNrcE1IIiwiaWF0IjoxNDUzNDk3NTQ5LCJ1aSI6InVzZXJfMDAwMDk0TTVOWTMyTTg5RHV0YWo5RyIsInYiOiIxIn0.0cEnNEYLeBT5F2eT58DqRnwK-iVCk3c2YAEn9uAod28"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"access_token"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">21600</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"refresh_token"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_000094M5NY32M89Dutaj9G"</span><span class="w">
+    </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Once an authorization code is received this can be exchanged by your application for an access token. An access token is tied to both your application (the client) and an individual Mondo user and is valid for several hours.</p>
+<p>When you receive an authorization code, exchange it for an access token. The resulting access token is tied to both your client and an individual Mondo user, and is valid for several hours.</p>
 
-<aside class="notice">
-Your client may only have <em>one</em> active access token at a time, per user. Acquiring a new access token will invalidate any other token you own for that user.
-</aside>
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -184,7 +201,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 </tr>
 <tr>
 <td><code class="prettyprint">redirect_uri</code><br><span class="label notice">Required</span></td>
-<td>The URL in your app where users were sent after authorization.</td>
+<td>The URL in your app where users were sent after authorisation.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">code</code><br><span class="label notice">Required</span></td>
@@ -192,7 +209,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 </tr>
 </tbody></table>
 
-<h2 id="password-grant">Password Grant</h2>
+<h2 id="password-grant">Password grant</h2>
 
 <p>Using the password grant involves:</p>
 
@@ -202,11 +219,9 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 <li><a href="#refreshing-access">Refreshing</a> the access token when it expires.</li>
 </ol>
 
-<aside class="warning">
-The Password Grant flow can only be used to access your own account. Use the <a href="#web-application-flow-authorization-code-grant">Authorization Code Grant</a> to request access to another Mondo user&rsquo;s account.
-</aside>
+<p>The Password Grant flow can <em>only</em> be used to access your own account. Use the <a href="#web-application-flow-authorization-code-grant">Authorization Code Grant</a> to request access to another Mondo user&rsquo;s account.</p>
 
-<h3 id="acquiring-an-access-token">Acquiring an access token</h3>
+<h3 id="acquire-an-access-token">Acquire an access token</h3>
 <pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/oauth2/token"</span> <span class="se">\</span>
     <span class="s2">"grant_type=password"</span> <span class="se">\</span>
     <span class="s2">"client_id=</span><span class="nv">$client_id</span><span class="s2">"</span> <span class="se">\</span>
@@ -224,13 +239,9 @@ The Password Grant flow can only be used to access your own account. Use the <a 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>An access token is tied to both your application (the client) and an individual Mondo user and is valid for several hours.</p>
+<p>An access token is tied to both your client and an individual Mondo user and is valid for several hours.</p>
 
-<aside class="notice">
-Your client may only have <em>one</em> active access token at a time, per user. Acquiring a new access token will invalidate any other token you own for that user.
-</aside>
-
-<h5 id="arguments">Arguments</h5>
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -271,7 +282,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><strong>All</strong> requests must be authenticated with an access token. It is supplied in the <code class="prettyprint">Authorization</code> header using the <code class="prettyprint">Bearer</code> scheme.</p>
+<p><strong>All</strong> requests must be authenticated with an access token supplied in the <code class="prettyprint">Authorization</code> header using the <code class="prettyprint">Bearer</code> scheme. Your client may only have <em>one</em> active access token at a time, per user. Acquiring a new access token will invalidate any other token you own for that user.</p>
 
 <p>To get information about an access token, you can call the <code class="prettyprint">/ping/whoami</code> endpoint.</p>
 
@@ -296,7 +307,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 
 <p>Refreshing an access token will invalidate the previous token, if it is still valid. Refreshing is a one-time operation.</p>
 
-<h5 id="arguments">Arguments</h5>
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -326,7 +337,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 
 <p>Endpoints which enumerate objects support time-based and cursor-based pagination.</p>
 
-<h5 id="arguments">Arguments</h5>
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -336,11 +347,11 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">limit</code><br><span class="label">Optional</span></td>
-<td>Limits the number of results per-page.<br>Max: 100.</td>
+<td>Limits the number of results per-page. Maximum: 100.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">since</code><br><span class="label">Optional</span></td>
-<td>An RFC 3339-encoded timestamp.<br> eg.<code class="prettyprint">2009-11-10T23:00:00Z</code><br><br>Or an object id.<br>eg. <code class="prettyprint">tx_00008zhJ3kE6c8kmsGUKgn</code>.</td>
+<td>An RFC 3339-encoded timestamp.<br> eg.<code class="prettyprint">2009-11-10T23:00:00Z</code><br>…or an object id.<br>eg. <code class="prettyprint">tx_00008zhJ3kE6c8kmsGUKgn</code></td>
 </tr>
 <tr>
 <td><code class="prettyprint">before</code><br><span class="label">Optional</span></td>
@@ -350,7 +361,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 
           <h1 id="expanding-objects">Expanding objects</h1>
 
-<p>Some objects contain the id of another object in their response. To save a round-trip, some of these objects can be expanded inline with the <code class="prettyprint">expand[]</code> parameter, which is repeatable. Objects that can be expanded are noted in individual endpoint documentation.</p>
+<p>Some objects contain the id of another object in their response. To save a round-trip, some of these objects can be expanded inline with the <code class="prettyprint">expand[]</code> argument, which is repeatable. Objects that can be expanded are noted in individual endpoint documentation.</p>
 
           <h1 id="accounts">Accounts</h1>
 
@@ -390,7 +401,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 
 <p>Returns balance information for a specific account.</p>
 
-<h5 id="request-parameters">Request Parameters</h5>
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -404,7 +415,7 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 </tr>
 </tbody></table>
 
-<h5 id="response-parameters">Response Parameters</h5>
+<h5 id="response-arguments">Response arguments</h5>
 
 <table><thead>
 <tr>
@@ -430,13 +441,14 @@ Your client may only have <em>one</em> active access token at a time, per user. 
 
 <p>Transactions are movements of funds into or out of an account. Negative transactions represent debits (ie. <em>spending</em> money) and positive transactions represent credits (ie. <em>receiving</em> money).</p>
 
-<p>Most properties on transactions are self-explanatory. We&rsquo;ll eventually get around to documenting them all, but in the meantime
-let&rsquo;s discuss the most interesting/confusing ones:</p>
+<p>Most properties on transactions are self-explanatory. We&rsquo;ll eventually get around to documenting them all, but in the meantime let&rsquo;s discuss the most interesting/confusing ones:</p>
+
+<h5 id="properties">Properties</h5>
 
 <table><thead>
 <tr>
-<th>Property</th>
-<th>Explanation</th>
+<th><span class="hide">Property</span></th>
+<th><span class="hide">Description</span></th>
 </tr>
 </thead><tbody>
 <tr>
@@ -507,7 +519,7 @@ let&rsquo;s discuss the most interesting/confusing ones:</p>
 
 <p>Returns an individual transaction, fetched by its id.</p>
 
-<h5 id="arguments">Arguments</h5>
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -562,7 +574,7 @@ let&rsquo;s discuss the most interesting/confusing ones:</p>
 
 <p>Returns a list of transactions on the user&rsquo;s account.</p>
 
-<h5 id="arguments">Arguments</h5>
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -609,7 +621,7 @@ let&rsquo;s discuss the most interesting/confusing ones:</p>
 
 <p>You may store your own key-value annotations against a transaction in its <code class="prettyprint">metadata</code>.</p>
 
-<h5 id="arguments">Arguments</h5>
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -657,7 +669,7 @@ Metadata is private to your application.
 
 <p>Creates a new feed item on the user&rsquo;s feed</p>
 
-<h5 id="general-arguments-for-all-types-of-feed-item">General Arguments (for all types of feed item)</h5>
+<h5 id="request-arguments-for-all-feed-item-types">Request arguments (for all feed item types)</h5>
 
 <table><thead>
 <tr>
@@ -667,7 +679,7 @@ Metadata is private to your application.
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">account_id</code><br><span class="label notice">Required</span></td>
-<td>The account to create feed item for.</td>
+<td>The account to create a feed item for.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">type</code><br><span class="label notice">Required</span></td>
@@ -683,16 +695,18 @@ Metadata is private to your application.
 </tr>
 </tbody></table>
 
-<h3 id="per-type-arguments">Per type arguments</h3>
+<h3 id="per-type-arguments">Per-type arguments</h3>
 
 <p>Each type of feed item supports customisation with a specific list of <code class="prettyprint">params</code>. Currently we only support creation of the <code class="prettyprint">basic</code> feed item which requires the parameters below. These should be sent as form parameters as in the example to the right.</p>
 
 <h5 id="basic">Basic</h5>
 
-<p>The basic type displays an <code class="prettyprint">image</code>, with <code class="prettyprint">title</code> text and optional <code class="prettyprint">body</code> text.
-<br/><em>Note the image supports animated gifs!</em></p>
+<p>The basic type displays an <code class="prettyprint">image</code>, with <code class="prettyprint">title</code> text and optional <code class="prettyprint">body</code> text.<br>
+<em>Note the image supports animated gifs!</em></p>
 
 <p><img src="images/nyanfeed-93ee2ecb.gif" /></p>
+
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -747,7 +761,7 @@ Metadata is private to your application.
 
 <p>Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails, we will retry up to a maximum of 5 attempts, with exponential backoff.</p>
 
-<h5 id="arguments">Arguments</h5>
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -787,7 +801,7 @@ Metadata is private to your application.
 
 <p>List the webhooks your application has registered on an account.</p>
 
-<h5 id="arguments">Arguments</h5>
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -881,7 +895,7 @@ Metadata is private to your application.
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<h5 id="request-parameters">Request Parameters</h5>
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -899,7 +913,7 @@ Metadata is private to your application.
 </tr>
 </tbody></table>
 
-<h5 id="response-parameters">Response Parameters</h5>
+<h5 id="response-arguments">Response arguments</h5>
 
 <table><thead>
 <tr>
@@ -938,7 +952,7 @@ Metadata is private to your application.
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<h5 id="request-parameters">Request Parameters</h5>
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -960,7 +974,7 @@ Metadata is private to your application.
 </tr>
 </tbody></table>
 
-<h5 id="response-parameters">Response Parameters</h5>
+<h5 id="response-arguments">Response arguments</h5>
 
 <table><thead>
 <tr>
@@ -1004,7 +1018,7 @@ Metadata is private to your application.
 <pre class="highlight json"><code><span class="p">{}</span><span class="w">
 </span></code></pre>
 
-<h5 id="request-parameters">Request Parameters</h5>
+<h5 id="request-arguments">Request arguments</h5>
 
 <table><thead>
 <tr>
@@ -1036,7 +1050,7 @@ Metadata is private to your application.
 </tr>
 <tr>
 <td><code class="prettyprint">400</code><br>Bad Request</td>
-<td>Your request has missing parameters or is malformed.</td>
+<td>Your request has missing arguments or is malformed.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">401</code><br>Unauthorized</td>
@@ -1048,7 +1062,7 @@ Metadata is private to your application.
 </tr>
 <tr>
 <td><code class="prettyprint">405</code><br>Method Not Allowed</td>
-<td>You are using the incorrect HTTP verb. Double check whether it should be POST/GET/DELETE/etc.</td>
+<td>You are using an incorrect HTTP verb. Double check whether it should be <code class="prettyprint">POST</code>/<code class="prettyprint">GET</code>/<code class="prettyprint">DELETE</code>/etc.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">404</code><br>Page Not Found</td>
@@ -1056,7 +1070,7 @@ Metadata is private to your application.
 </tr>
 <tr>
 <td><code class="prettyprint">406</code><br>Not Acceptable</td>
-<td>Your application does not accept the content format returned according to the Accept headers sent in the request.</td>
+<td>Your application does not accept the content format returned according to the <code class="prettyprint">Accept</code> headers sent in the request.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">429</code><br>Too Many Requests</td>
@@ -1076,7 +1090,7 @@ Metadata is private to your application.
 
 <p>Errors pertaining to authentication are standard errors but also contain extra information to follow the OAuth specification. Specifically, they contain the <code class="prettyprint">error</code> key with the following values:</p>
 
-<h5 id="error-values"><code class="prettyprint">error</code> values</h5>
+<h5 id="error-argument-values"><code class="prettyprint">error</code> argument values</h5>
 
 <table><thead>
 <tr>
