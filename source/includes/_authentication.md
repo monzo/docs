@@ -37,7 +37,7 @@ The authorization code grant is the primary way to get an access token. This thr
 
 Send the user to Mondo in a web browser, where they will log in and grant access to their account.
 
-##### URL parameters
+##### URL arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
@@ -57,7 +57,7 @@ Send the user to Mondo in a web browser, where they will log in and grant access
 
 If the user allows access to their account, Mondo redirects them back to your app.
 
-##### URL parameters
+##### URL arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------

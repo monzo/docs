@@ -7,7 +7,7 @@ The Mondo API uses conventional HTTP response codes to indicate errors, and incl
 <span class="hide">Response code</span> | <span class="hide">Meaning</span>
 --------------------------------------- | ---------------------------------
 `200`<br>OK|All is well.
-`400`<br>Bad Request|Your request has missing parameters or is malformed.
+`400`<br>Bad Request|Your request has missing arguments or is malformed.
 `401`<br>Unauthorized|Your request is not authenticated.
 `403`<br>Forbidden|Your request is authenticated but has insufficient permissions.
 `405`<br>Method Not Allowed|You are using an incorrect HTTP verb. Double check whether it should be `POST`/`GET`/`DELETE`/etc.
