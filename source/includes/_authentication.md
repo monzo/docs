@@ -7,6 +7,7 @@ The Mondo API implements [OAuth 2.0](http://oauth.net/2/) to allow users to log 
 3. If you were issued a refresh token: **refresh** the access token when it expires
 
 To start integrating with the Mondo API, obtain client credentials through the [Mondo Developer Tools](https://developers.getmondo.co.uk). These client credentials uniquely identify your application.
+
 ### Client confidentiality
 
 Clients are designated either confidential or non-confidential.
