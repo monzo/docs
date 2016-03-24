@@ -73,7 +73,7 @@ Returns an individual transaction, fetched by its id.
 ```shell
 $ http "https://api.getmondo.co.uk/transactions" \
     "Authorization: Bearer $access_token" \
-    "account_id==$account_id"
+    "account_id=$account_id"
 ```
 
 ```json
