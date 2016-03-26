@@ -123,7 +123,7 @@ Pagination<br><span class="label">Optional</span>|This endpoint can be [paginate
 ## Annotate transaction
 
 ```shell
-$ http PATCH "https://api.getmondo.co.uk/transactions/$transaction_id" \
+$ http --form PATCH "https://api.getmondo.co.uk/transactions/$transaction_id" \
     "Authorization: Bearer $access_token" \
     "metadata[$key1]=$value1" \
     # Set a key's value as empty to delete it
