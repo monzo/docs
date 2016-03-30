@@ -465,7 +465,7 @@ The Mondo API is under active development. Breaking changes should be expected.
 </tr>
 <tr>
 <td><code class="prettyprint">settled</code></td>
-<td>You probably don&rsquo;t need to worry about this. Card transactions only settle 24-48 hours (sometimes even more!) after the purchase; until then they are just &ldquo;authorised&rdquo; and <code class="prettyprint">settled = false</code> on them.</td>
+<td>The timestamp at which the transaction <a href="http://blog.unibulmerchantservices.com/authorization-clearing-and-settlement-of-mastercard-transactions/">settled</a>. In most cases, this happens 24-48 hours after <code class="prettyprint">created</code>. If this field is not present, the transaction is authorised but not yet &ldquo;complete.&rdquo;</td>
 </tr>
 <tr>
 <td><code class="prettyprint">category</code></td>
