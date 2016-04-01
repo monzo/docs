@@ -54,7 +54,7 @@ $ http "https://api.getmondo.co.uk/transactions/$transaction_id" \
         "metadata": {},
         "notes": "Salmon sandwich 🍞",
         "is_load": false,
-        "settled": true
+        "settled": "2015-08-23T12:20:18Z"
     }
 }
 ```
@@ -90,7 +90,7 @@ $ http "https://api.getmondo.co.uk/transactions" \
             "metadata": {},
             "notes": "Salmon sandwich 🍞",
             "is_load": false,
-            "settled": true,
+            "settled": "2015-08-23T12:20:18Z",
             "category": "eating_out"
         },
         {
@@ -104,7 +104,7 @@ $ http "https://api.getmondo.co.uk/transactions" \
             "metadata": {},
             "notes": "",
             "is_load": false,
-            "settled": true,
+            "settled": "2015-08-24T16:15:03Z",
             "category": "eating_out"
         },
     ]
@@ -145,7 +145,7 @@ $ http --form PATCH "https://api.getmondo.co.uk/transactions/$transaction_id" \
         },
         "notes": "",
         "is_load": false,
-        "settled": true,
+        "settled": "2015-08-24T16:15:03Z",
         "category": "eating_out"
     }
 }
