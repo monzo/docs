@@ -331,7 +331,8 @@ To get started quickly, you can use the access token from the API playground and
 <p>Retrieve information about an account&rsquo;s balance.</p>
 
 <h2 id="read-balance">Read balance</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/balance?account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/balance"</span> <span class="se">\</span>
+    <span class="s2">"account_id==</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
