@@ -5,7 +5,8 @@ Retrieve information about an account's balance.
 ## Read balance
 
 ```shell
-$ http "https://api.getmondo.co.uk/balance?account_id=$account_id" \
+$ http "https://api.getmondo.co.uk/balance" \
+    "account_id==$account_id" \
     "Authorization: Bearer $access_token"
 ```
 
