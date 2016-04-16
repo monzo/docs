@@ -1,12 +1,16 @@
 # Authentication
 
-The Mondo API implements [OAuth 2.0](http://oauth.net/2/) to allow users to log in to applications without exposing their credentials. Several authentication flows are available, and the one you use will depend on the use-case. All flows broadly follow the same pattern:
+The Mondo API implements [OAuth 2.0](http://oauth.net/2/) to allow users to log in to applications without exposing their credentials. The process involves several steps:
 
-1. **Acquire** an access token, and optionally a refresh token
-2. **Use** the access token to make authenticated requests
-3. If you were issued a refresh token: **refresh** the access token when it expires
+1. [**Acquire**](#acquire-an-access-token) an access token, and optionally a refresh token
+2. [**Use**](#authenticating-requests) the access token to make authenticated requests
+3. If you were issued a refresh token: [**refresh**](#refreshing-access) the access token when it expires
 
-To start integrating with the Mondo API, obtain client credentials through the [Mondo Developer Tools](https://developers.getmondo.co.uk). These client credentials uniquely identify your application.
+<aside class="notice">
+To get started quickly, you can use the access token from the API playground and avoid implementing the OAuth login flow.
+</aside>
+
+Before you begin, you will need to create a client in the [developer tools](https://developer.getmondo.co.uk).
 
 ### Client confidentiality
 
@@ -17,9 +21,9 @@ Clients are designated either confidential or non-confidential.
 
     Non-confidential clients are not issued refresh tokens.
 
-## Authorization code grant
+## Acquire an access token
 
-The authorization code grant is the primary way to get an access token. This three-step process is often called "three-legged" authorisation:
+Acquiring an access token is a three-step process:
 
 1. [Redirect the user](#redirect-the-user-to-mondo) to Mondo to authorise your app
 2. [Mondo redirects the user](#mondo-redirects-back-to-your-app) back to your app with an authorization code
@@ -97,49 +101,6 @@ When you receive an authorization code, exchange it for an access token. The res
 `client_secret`<br><span class="label notice">Required</span>|The client secret which you received from Mondo.
 `redirect_uri`<br><span class="label notice">Required</span>|The URL in your app where users were sent after authorisation.
 `code`<br><span class="label notice">Required</span>|The authorization code you received when the user was redirected back to your app.
-
-## Password grant
-
-Using the password grant involves:
-
-1. [Acquiring](#acquiring-an-access-token) an access token.
-2. [Using](#authenticating-requests) the access token to make authenticated requests.
-3. [Refreshing](#refreshing-access) the access token when it expires.
-
-The Password Grant flow can *only* be used to access your own account. Use the [Authorization Code Grant](#web-application-flow-authorization-code-grant) to request access to another Mondo user's account.
-
-### Acquire an access token
-
-```shell
-$ http --form POST "https://api.getmondo.co.uk/oauth2/token" \
-    "grant_type=password" \
-    "client_id=$client_id" \
-    "client_secret=$client_secret" \
-    "username=$user_email" \
-    "password=$user_password"
-```
-```json
-{
-    "access_token": "access_token",
-    "client_id": "client_id",
-    "expires_in": 21600,
-    "refresh_token": "refresh_token",
-    "token_type": "Bearer",
-    "user_id": "user_id"
-}
-```
-
-An access token is tied to both your client and an individual Mondo user and is valid for several hours.
-
-##### Request arguments
-
-<span class="hide">Parameter</span> | <span class="hide">Description</span>
-------------------------------------|--------------------------------------
-`grant_type`<br><span class="label notice">Required</span>|Should be `password`.
-`client_id`<br><span class="label notice">Required</span>|Your client ID.
-`client_secret`<br><span class="label notice">Required</span>|Your client secret.
-`username`<br><span class="label notice">Required</span>|The user's email address.
-`password`<br><span class="label notice">Required</span>|The user's password.
 
 ## Authenticating requests
 
