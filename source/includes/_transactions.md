@@ -21,7 +21,7 @@ Most properties on transactions are self-explanatory. We'll eventually get aroun
 $ http "https://api.getmondo.co.uk/transactions/$transaction_id" \
     "Authorization: Bearer $access_token" \
     # Here we are expanding the merchant \
-    "expand[]=merchant"
+    "expand[]==merchant"
 ```
 
 ```json
@@ -71,9 +71,8 @@ Returns an individual transaction, fetched by its id.
 ## List transactions
 
 ```shell
-$ http "https://api.getmondo.co.uk/transactions" \
-    "Authorization: Bearer $access_token" \
-    "account_id=$account_id"
+$ http "https://api.getmondo.co.uk/transactions?account_id=$account_id" \
+    "Authorization: Bearer $access_token"
 ```
 
 ```json
