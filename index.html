@@ -66,15 +66,19 @@ The Mondo API is under active development. Breaking changes should be expected.
 
           <h1 id="authentication">Authentication</h1>
 
-<p>The Mondo API implements <a href="http://oauth.net/2/">OAuth 2.0</a> to allow users to log in to applications without exposing their credentials. Several authentication flows are available, and the one you use will depend on the use-case. All flows broadly follow the same pattern:</p>
+<p>The Mondo API implements <a href="http://oauth.net/2/">OAuth 2.0</a> to allow users to log in to applications without exposing their credentials. The process involves several steps:</p>
 
 <ol>
-<li><strong>Acquire</strong> an access token, and optionally a refresh token</li>
-<li><strong>Use</strong> the access token to make authenticated requests</li>
-<li>If you were issued a refresh token: <strong>refresh</strong> the access token when it expires</li>
+<li><a href="#acquire-an-access-token"><strong>Acquire</strong></a> an access token, and optionally a refresh token</li>
+<li><a href="#authenticating-requests"><strong>Use</strong></a> the access token to make authenticated requests</li>
+<li>If you were issued a refresh token: <a href="#refreshing-access"><strong>refresh</strong></a> the access token when it expires</li>
 </ol>
 
-<p>To start integrating with the Mondo API, obtain client credentials through the <a href="https://developers.getmondo.co.uk">Mondo Developer Tools</a>. These client credentials uniquely identify your application.</p>
+<aside class="notice">
+To get started quickly, you can use the access token from the API playground and avoid implementing the OAuth login flow.
+</aside>
+
+<p>Before you begin, you will need to create a client in the <a href="https://developer.getmondo.co.uk">developer tools</a>.</p>
 
 <h3 id="client-confidentiality">Client confidentiality</h3>
 
@@ -87,9 +91,9 @@ The Mondo API is under active development. Breaking changes should be expected.
 <p>Non-confidential clients are not issued refresh tokens.</p></li>
 </ul>
 
-<h2 id="authorization-code-grant">Authorization code grant</h2>
+<h2 id="acquire-an-access-token">Acquire an access token</h2>
 
-<p>The authorization code grant is the primary way to get an access token. This three-step process is often called &ldquo;three-legged&rdquo; authorisation:</p>
+<p>Acquiring an access token is a three-step process:</p>
 
 <ol>
 <li><a href="#redirect-the-user-to-mondo">Redirect the user</a> to Mondo to authorise your app</li>
@@ -206,68 +210,6 @@ The Mondo API is under active development. Breaking changes should be expected.
 <tr>
 <td><code class="prettyprint">code</code><br><span class="label notice">Required</span></td>
 <td>The authorization code you received when the user was redirected back to your app.</td>
-</tr>
-</tbody></table>
-
-<h2 id="password-grant">Password grant</h2>
-
-<p>Using the password grant involves:</p>
-
-<ol>
-<li><a href="#acquiring-an-access-token">Acquiring</a> an access token.</li>
-<li><a href="#authenticating-requests">Using</a> the access token to make authenticated requests.</li>
-<li><a href="#refreshing-access">Refreshing</a> the access token when it expires.</li>
-</ol>
-
-<p>The Password Grant flow can <em>only</em> be used to access your own account. Use the <a href="#web-application-flow-authorization-code-grant">Authorization Code Grant</a> to request access to another Mondo user&rsquo;s account.</p>
-
-<h3 id="acquire-an-access-token">Acquire an access token</h3>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/oauth2/token"</span> <span class="se">\</span>
-    <span class="s2">"grant_type=password"</span> <span class="se">\</span>
-    <span class="s2">"client_id=</span><span class="nv">$client_id</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"client_secret=</span><span class="nv">$client_secret</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"username=</span><span class="nv">$user_email</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"password=</span><span class="nv">$user_password</span><span class="s2">"</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"access_token"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client_id"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">21600</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"refresh_token"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>An access token is tied to both your client and an individual Mondo user and is valid for several hours.</p>
-
-<h5 id="request-arguments">Request arguments</h5>
-
-<table><thead>
-<tr>
-<th><span class="hide">Parameter</span></th>
-<th><span class="hide">Description</span></th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">grant_type</code><br><span class="label notice">Required</span></td>
-<td>Should be <code class="prettyprint">password</code>.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">client_id</code><br><span class="label notice">Required</span></td>
-<td>Your client ID.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">client_secret</code><br><span class="label notice">Required</span></td>
-<td>Your client secret.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">username</code><br><span class="label notice">Required</span></td>
-<td>The user&rsquo;s email address.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">password</code><br><span class="label notice">Required</span></td>
-<td>The user&rsquo;s password.</td>
 </tr>
 </tbody></table>
 
@@ -481,7 +423,7 @@ The Mondo API is under active development. Breaking changes should be expected.
 <pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="c"># Here we are expanding the merchant \</span>
-    <span class="s2">"expand[]=merchant"</span>
+    <span class="s2">"expand[]==merchant"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -512,7 +454,7 @@ The Mondo API is under active development. Breaking changes should be expected.
         </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
         </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Salmon sandwich 🍞"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"is_load"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-23T12:20:18Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -534,9 +476,8 @@ The Mondo API is under active development. Breaking changes should be expected.
 </tbody></table>
 
 <h2 id="list-transactions">List transactions</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/transactions"</span> <span class="se">\</span>
-    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"account_id=</span><span class="nv">$account_id</span><span class="s2">"</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/transactions?account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"transactions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -551,7 +492,7 @@ The Mondo API is under active development. Breaking changes should be expected.
             </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
             </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Salmon sandwich 🍞"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"is_load"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-23T12:20:18Z"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eating_out"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
@@ -565,7 +506,7 @@ The Mondo API is under active development. Breaking changes should be expected.
             </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
             </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
             </span><span class="nt">"is_load"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-24T16:15:03Z"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eating_out"</span><span class="w">
         </span><span class="p">},</span><span class="w">
     </span><span class="p">]</span><span class="w">
@@ -613,7 +554,7 @@ The Mondo API is under active development. Breaking changes should be expected.
         </span><span class="p">},</span><span class="w">
         </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
         </span><span class="nt">"is_load"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-24T16:15:03Z"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eating_out"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
