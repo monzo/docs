@@ -3,7 +3,7 @@ Mondo API Docs
 
 [Mondo is a new kind of bank](https://getmondo.co.uk). We try to keep as much of our code open source, so you can check the quality of your bank and how we work (apart from the security features). 
 
-This is the repo for the[Mondo API documentation](https://getmondo.co.uk/docs) and the docs are also open-source, so you can fork them, raise issues and send pull requests. 
+This is the repo for the [Mondo API documentation](https://getmondo.co.uk/docs), which are open-source, so you can fork them, raise issues and send pull requests. 
 
 It was generated using [Slate](http://tripit.github.io/slate).
 
@@ -17,6 +17,7 @@ It was generated using [Slate](http://tripit.github.io/slate).
 
 - Fork this repository on Github.
 - Clone your forked repository (not our original one) to your hard drive with 
+
 ```git clone https://github.com/<YOURUSERNAME>/docs.git```
 - ```cd mondocs```
 - Install all dependencies: 
