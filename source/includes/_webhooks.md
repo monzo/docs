@@ -33,8 +33,9 @@ Each time a matching event occurs, we will make a POST call to the URL you provi
 ## List webhooks
 
 ```shell
-$ http "https://api.getmondo.co.uk/webhooks?account_id=$account_id" \
-    "Authorization: Bearer $access_token"
+$ http "https://api.getmondo.co.uk/webhooks" \
+    "Authorization: Bearer $access_token" \
+    "account_id==$account_id"
 ```
 
 ```json
