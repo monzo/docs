@@ -14,7 +14,7 @@ If you are hosting the attachment, you can simply register the attachment with t
 
 1. [Register](#register-attachment) the attachment against a `transaction`.
 
-## Upload attachment
+## (POST) Upload attachment
 
 The first step when uploading an attachment is to obtain a temporary URL to which the file can be uploaded. The response will include a `file_url` which will be the URL of the resulting file, and an `upload_url` to which the file should be uploaded to.
 
@@ -47,7 +47,7 @@ $ http --form POST "https://api.getmondo.co.uk/attachment/upload" \
 `upload_url`|The URL to `POST` the file to when uploading
 
 
-## Register attachment
+## (POST) Register attachment
 
 Once you have obtained a URL for an attachment, either by uploading to the `upload_url` obtained from the `upload` endpoint above or by hosting a remote image, this URL can then be registered against a transaction. Once an attachment is registered against a transaction this will be displayed on the detail page of a transaction within the Mondo app.
 
@@ -91,7 +91,7 @@ $ http --form POST "https://api.getmondo.co.uk/attachment/register" \
 `file_type`|The file type of the `attachment`.
 `created`|The timestamp *in UTC* when the attachment was created.
 
-## Deregister attachment
+## (POST) Deregister attachment
 
 To remove an `attachment`, simply deregister this using its `id`
 

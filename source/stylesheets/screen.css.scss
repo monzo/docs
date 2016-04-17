@@ -274,7 +274,7 @@ html, body {
   }
 
   .lang-selector {
-    visibility: hidden;
+    visibility: visible;
     position: fixed;
     z-index: 50;
     border-bottom: 5px solid $lang-select-active-bg;
@@ -333,6 +333,10 @@ html, body {
       display: none;
   }
 
+  .type-get {
+  background-position: 8px -12px;
+  background-color: #6bbd5b;
+}
   &>h1, &>h2, &>h3, &>h4, &>h5, &>h6, &>p, &>table, &>ul, &>ol, &>aside, &>dl {
     margin-right: $examples-width;
     padding: 0 $main-padding;

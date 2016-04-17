@@ -8,7 +8,7 @@ It's important to keep a few principals in mind when creating feed items:
 2. Because of their prominence within the Mondo app, feed items should contain information of *high value*.
 3. While the appearance of feed items can be customised, care should be taken to match the style of the Mondo app so that your feed items feel part of the experience.
 
-## Create feed item
+## (POST) Create feed item
 
 ```shell
 $ http --form POST "https://api.getmondo.co.uk/feed" \

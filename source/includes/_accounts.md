@@ -2,7 +2,7 @@
 
 Accounts represent a store of funds, and have a list of transactions.
 
-## List accounts
+## (GET) List accounts
 
 Returns a list of accounts owned by the currently authorised user.
 

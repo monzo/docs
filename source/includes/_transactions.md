@@ -68,11 +68,12 @@ Returns an individual transaction, fetched by its id.
 [`expand[]`](#expanding-objects)<br><span class="label">Repeated</span>|Can be `merchant`.
 
 
-## List transactions
+## (GET) List transactions
 
 ```shell
-$ http "https://api.getmondo.co.uk/transactions?account_id=$account_id" \
-    "Authorization: Bearer $access_token"
+$ http "https://api.getmondo.co.uk/transactions" \
+    "Authorization: Bearer $access_token" \
+    "account_id==$account_id"
 ```
 
 ```json
@@ -119,7 +120,7 @@ Returns a list of transactions on the user's account.
 `account_id`<br><span class="label notice">Required</span>|The account to retrieve transactions from.
 Pagination<br><span class="label">Optional</span>|This endpoint can be [paginated](#pagination).
 
-## Annotate transaction
+## (PATCH) Annotate transaction
 
 ```shell
 $ http --form PATCH "https://api.getmondo.co.uk/transactions/$transaction_id" \

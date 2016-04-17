@@ -2,7 +2,7 @@
 
 Webhooks allow your application to receive real-time, push notification of events in an account.
 
-## Registering a webhook
+## (POST) Registering a webhook
 
 ```shell
 $ http --form POST "https://api.getmondo.co.uk/webhooks" \
@@ -30,11 +30,12 @@ Each time a matching event occurs, we will make a POST call to the URL you provi
 `account_id`<br><span class="label notice">Required</span>|The account to receive notifications for.
 `url`<br><span class="label notice">Required</span>|The URL we will send notifications to.
 
-## List webhooks
+## (GET) List webhooks
 
 ```shell
-$ http "https://api.getmondo.co.uk/webhooks?account_id=$account_id" \
-    "Authorization: Bearer $access_token"
+$ http "https://api.getmondo.co.uk/webhooks" \
+    "Authorization: Bearer $access_token" \
+    "account_id==$account_id"
 ```
 
 ```json
@@ -63,7 +64,7 @@ List the webhooks your application has registered on an account.
 `account_id`<br><span class="label notice">Required</span>|The account to list registered webhooks for.
 
 
-## Deleting a webhook
+## (DELETE) Deleting a webhook
 
 ```shell
 $ http DELETE "https://api.getmondo.co.uk/webhooks/$webhook_id" \

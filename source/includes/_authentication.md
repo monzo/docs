@@ -1,12 +1,16 @@
 # Authentication
 
-The Mondo API implements [OAuth 2.0](http://oauth.net/2/) to allow users to log in to applications without exposing their credentials. Several authentication flows are available, and the one you use will depend on the use-case. All flows broadly follow the same pattern:
+The Mondo API implements [OAuth 2.0](http://oauth.net/2/) to allow users to log in to applications without exposing their credentials. The process involves several steps:
 
-1. **Acquire** an access token, and optionally a refresh token
-2. **Use** the access token to make authenticated requests
-3. If you were issued a refresh token: **refresh** the access token when it expires
+1. [**Acquire**](#acquire-an-access-token) an access token, and optionally a refresh token
+2. [**Use**](#authenticating-requests) the access token to make authenticated requests
+3. If you were issued a refresh token: [**refresh**](#refreshing-access) the access token when it expires
 
-To start integrating with the Mondo API, obtain client credentials through the [Mondo Developer Tools](https://developers.getmondo.co.uk). These client credentials uniquely identify your application.
+<aside class="notice">
+To get started quickly, you can use the access token from the API playground and avoid implementing the OAuth login flow.
+</aside>
+
+Before you begin, you will need to create a client in the [developer tools](https://developer.getmondo.co.uk).
 
 ### Client confidentiality
 
@@ -17,9 +21,9 @@ Clients are designated either confidential or non-confidential.
 
     Non-confidential clients are not issued refresh tokens.
 
-## Authorization code grant
+## (GET) Acquire an access token
 
-The authorization code grant is the primary way to get an access token. This three-step process is often called "three-legged" authorisation:
+Acquiring an access token is a three-step process:
 
 1. [Redirect the user](#redirect-the-user-to-mondo) to Mondo to authorise your app
 2. [Mondo redirects the user](#mondo-redirects-back-to-your-app) back to your app with an authorization code
@@ -98,7 +102,8 @@ When you receive an authorization code, exchange it for an access token. The res
 `redirect_uri`<br><span class="label notice">Required</span>|The URL in your app where users were sent after authorisation.
 `code`<br><span class="label notice">Required</span>|The authorization code you received when the user was redirected back to your app.
 
-## Password grant
+
+## (POST) Password grant
 
 Using the password grant involves:
 
@@ -141,7 +146,9 @@ An access token is tied to both your client and an individual Mondo user and is 
 `username`<br><span class="label notice">Required</span>|The user's email address.
 `password`<br><span class="label notice">Required</span>|The user's password.
 
-## Authenticating requests
+
+## (GET) Authenticating requests
+
 
 ```shell
 $ http "https://api.getmondo.co.uk/ping/whoami" \
@@ -160,7 +167,7 @@ $ http "https://api.getmondo.co.uk/ping/whoami" \
 To get information about an access token, you can call the `/ping/whoami` endpoint.
 
 
-## Refreshing access
+## (POST) Refreshing access
 
 ```shell
 $ http --form POST "https://api.getmondo.co.uk/oauth2/token" \
