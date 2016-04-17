@@ -18,7 +18,7 @@ It was generated using [Slate](http://tripit.github.io/slate).
 - Fork this repository on Github.
 - Clone your forked repository (not our original one) to your hard drive with  
 ```git clone https://github.com/<YOURUSERNAME>/docs.git```
-- ```cd mondocs```
+- ```cd docs```
 - Install all dependencies: 
 ```shell
 bundle install
