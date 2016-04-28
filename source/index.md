@@ -2,7 +2,8 @@
 title: Mondo API Reference
 
 language_tabs:
-  - shell
+  - shell: cURL
+  - python: Python
 
 includes:
   - authentication
@@ -37,6 +38,6 @@ Our developers' community in Slack is the place to get help with our API, discus
 
 <script async defer src="https://devslack.getmondo.co.uk/slackin.js"></script>
 
-<aside class="notice">
+<aside class="warning">
 The Mondo API is under active development. Breaking changes should be expected.
 </aside>
