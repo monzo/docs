@@ -10,7 +10,7 @@ The Mondo API implements [OAuth 2.0](http://oauth.net/2/) to allow users to log 
 To get started quickly, you can use the access token from the API playground and avoid implementing the OAuth login flow.
 </aside>
 
-Before you begin, you will need to create a client in the [developer tools](https://developer.getmondo.co.uk).
+Before you begin, you will need to create a client in the [developer tools](https://developers.getmondo.co.uk).
 
 ### Client confidentiality
 
