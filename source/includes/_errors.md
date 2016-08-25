@@ -1,6 +1,6 @@
 # Errors
 
-The Mondo API uses conventional HTTP response codes to indicate errors, and includes more detailed information on the exact nature of an error in the HTTP response.
+The Monzo API uses conventional HTTP response codes to indicate errors, and includes more detailed information on the exact nature of an error in the HTTP response.
 
 ##### HTTP response codes
 

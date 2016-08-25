@@ -1,6 +1,6 @@
 # Authentication
 
-The Mondo API implements [OAuth 2.0](http://oauth.net/2/) to allow users to log in to applications without exposing their credentials. The process involves several steps:
+The Monzo API implements [OAuth 2.0](http://oauth.net/2/) to allow users to log in to applications without exposing their credentials. The process involves several steps:
 
 1. [**Acquire**](#acquire-an-access-token) an access token, and optionally a refresh token
 2. [**Use**](#authenticating-requests) the access token to make authenticated requests
@@ -25,11 +25,11 @@ Clients are designated either confidential or non-confidential.
 
 Acquiring an access token is a three-step process:
 
-1. [Redirect the user](#redirect-the-user-to-mondo) to Mondo to authorise your app
-2. [Mondo redirects the user](#mondo-redirects-back-to-your-app) back to your app with an authorization code
+1. [Redirect the user](#redirect-the-user-to-monzo) to Monzo to authorise your app
+2. [Monzo redirects the user](#monzo-redirects-back-to-your-app) back to your app with an authorization code
 3. [Exchange](#exchange-the-authorization-code) the authorization code for an access token
 
-### Redirect the user to Mondo
+### Redirect the user to Monzo
 
 ```shell
 "https://auth.getmondo.co.uk/?
@@ -39,7 +39,7 @@ Acquiring an access token is a three-step process:
     state=$state_token"
 ```
 
-Send the user to Mondo in a web browser, where they will log in and grant access to their account.
+Send the user to Monzo in a web browser, where they will log in and grant access to their account.
 
 ##### URL arguments
 
@@ -51,7 +51,7 @@ Send the user to Mondo in a web browser, where they will log in and grant access
 `state`|An unguessable random string used to protect against [cross-site request forgery attacks](http://www.twobotechnologies.com/blog/2014/02/importance-of-state-in-oauth2.html).
 
 
-### Mondo redirects back to your app
+### Monzo redirects back to your app
 
 ```shell
 "http://your.exampe.com/oauth/callback?
@@ -59,14 +59,14 @@ Send the user to Mondo in a web browser, where they will log in and grant access
     state=$state_token"
 ```
 
-If the user allows access to their account, Mondo redirects them back to your app.
+If the user allows access to their account, Monzo redirects them back to your app.
 
 ##### URL arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `code`|A temporary authorization code which will be exchanged for an access token in the next step.
-`state`|The same string you provided as `state` when sending the user to Mondo. If this value differs from what you sent, you **must** abort the authentication process.
+`state`|The same string you provided as `state` when sending the user to Monzo. If this value differs from what you sent, you **must** abort the authentication process.
 
 ### Exchange the authorization code
 
@@ -90,15 +90,15 @@ $ http --form POST "https://api.getmondo.co.uk/oauth2/token" \
 }
 ```
 
-When you receive an authorization code, exchange it for an access token. The resulting access token is tied to both your client and an individual Mondo user, and is valid for several hours.
+When you receive an authorization code, exchange it for an access token. The resulting access token is tied to both your client and an individual Monzo user, and is valid for several hours.
 
 ##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `grant_type`<br><span class="label notice">Required</span>|This must be set to `authorization_code`
-`client_id`<br><span class="label notice">Required</span>|The client ID you received from Mondo.
-`client_secret`<br><span class="label notice">Required</span>|The client secret which you received from Mondo.
+`client_id`<br><span class="label notice">Required</span>|The client ID you received from Monzo.
+`client_secret`<br><span class="label notice">Required</span>|The client secret which you received from Monzo.
 `redirect_uri`<br><span class="label notice">Required</span>|The URL in your app where users were sent after authorisation.
 `code`<br><span class="label notice">Required</span>|The authorization code you received when the user was redirected back to your app.
 
