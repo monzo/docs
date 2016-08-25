@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Mondo API Reference</title>
+    <title>Monzo API Reference</title>
 
-    <meta property="og:title" content="Mondo API Reference" />
+    <meta property="og:title" content="Monzo API Reference" />
     <meta property="og:type" content="website" />
     <meta property="og:description" content="The Mondo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and webhooks." />
 
@@ -30,7 +30,7 @@
       </span>
     </a>
     <div class="tocify-wrapper">
-      <span class="logo"><a href="https://getmondo.co.uk"><img src="images/logo-6cef8dc1.svg" /></a></span>
+      <span class="logo"><a href="https://getmondo.co.uk"><img src="images/logo-46fdcf49.svg" /></a></span>
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
         </div>
@@ -54,19 +54,19 @@
 <p>To install <code class="prettyprint">httpie</code> on OS X run <code class="prettyprint">brew install httpie</code></p>
 </blockquote>
 
-<p>The Mondo API is designed to be a predictable and intuitive interface for interacting with users&rsquo; accounts. We offer both a REST API and webhooks.</p>
+<p>The Monzo API is designed to be a predictable and intuitive interface for interacting with users&rsquo; accounts. We offer both a REST API and webhooks.</p>
 
 <p>Our developers&rsquo; community in Slack is the place to get help with our API, discuss ideas, and show off what you build. Hit the button to join:</p>
 
 <script async defer src="https://devslack.getmondo.co.uk/slackin.js"></script>
 
 <aside class="notice">
-The Mondo API is under active development. Breaking changes should be expected.
+The Monzo API is under active development. Breaking changes should be expected.
 </aside>
 
           <h1 id="authentication">Authentication</h1>
 
-<p>The Mondo API implements <a href="http://oauth.net/2/">OAuth 2.0</a> to allow users to log in to applications without exposing their credentials. The process involves several steps:</p>
+<p>The Monzo API implements <a href="http://oauth.net/2/">OAuth 2.0</a> to allow users to log in to applications without exposing their credentials. The process involves several steps:</p>
 
 <ol>
 <li><a href="#acquire-an-access-token"><strong>Acquire</strong></a> an access token, and optionally a refresh token</li>
@@ -78,7 +78,7 @@ The Mondo API is under active development. Breaking changes should be expected.
 To get started quickly, you can use the access token from the API playground and avoid implementing the OAuth login flow.
 </aside>
 
-<p>Before you begin, you will need to create a client in the <a href="https://developers.getmondo.co.uk">developer tools</a>.</p>
+<p>Before you begin, you will need to create a client in the <a href="https://developer.getmondo.co.uk">developer tools</a>.</p>
 
 <h3 id="client-confidentiality">Client confidentiality</h3>
 
@@ -96,12 +96,12 @@ To get started quickly, you can use the access token from the API playground and
 <p>Acquiring an access token is a three-step process:</p>
 
 <ol>
-<li><a href="#redirect-the-user-to-mondo">Redirect the user</a> to Mondo to authorise your app</li>
-<li><a href="#mondo-redirects-back-to-your-app">Mondo redirects the user</a> back to your app with an authorization code</li>
+<li><a href="#redirect-the-user-to-monzo">Redirect the user</a> to Monzo to authorise your app</li>
+<li><a href="#monzo-redirects-back-to-your-app">Monzo redirects the user</a> back to your app with an authorization code</li>
 <li><a href="#exchange-the-authorization-code">Exchange</a> the authorization code for an access token</li>
 </ol>
 
-<h3 id="redirect-the-user-to-mondo">Redirect the user to Mondo</h3>
+<h3 id="redirect-the-user-to-monzo">Redirect the user to Monzo</h3>
 <pre class="highlight shell"><code><span class="s2">"https://auth.getmondo.co.uk/?
     client_id=</span><span class="nv">$client_id</span><span class="s2">&amp;
     redirect_uri=</span><span class="nv">$redirect_uri</span><span class="s2">&amp;
@@ -109,7 +109,7 @@ To get started quickly, you can use the access token from the API playground and
     state=</span><span class="nv">$state_token</span><span class="s2">"</span>
 </code></pre>
 
-<p>Send the user to Mondo in a web browser, where they will log in and grant access to their account.</p>
+<p>Send the user to Monzo in a web browser, where they will log in and grant access to their account.</p>
 
 <h5 id="url-arguments">URL arguments</h5>
 
@@ -137,13 +137,13 @@ To get started quickly, you can use the access token from the API playground and
 </tr>
 </tbody></table>
 
-<h3 id="mondo-redirects-back-to-your-app">Mondo redirects back to your app</h3>
+<h3 id="monzo-redirects-back-to-your-app">Monzo redirects back to your app</h3>
 <pre class="highlight shell"><code><span class="s2">"http://your.exampe.com/oauth/callback?
     code=</span><span class="nv">$authorization_code</span><span class="s2">&amp;
     state=</span><span class="nv">$state_token</span><span class="s2">"</span>
 </code></pre>
 
-<p>If the user allows access to their account, Mondo redirects them back to your app.</p>
+<p>If the user allows access to their account, Monzo redirects them back to your app.</p>
 
 <h5 id="url-arguments">URL arguments</h5>
 
@@ -159,7 +159,7 @@ To get started quickly, you can use the access token from the API playground and
 </tr>
 <tr>
 <td><code class="prettyprint">state</code></td>
-<td>The same string you provided as <code class="prettyprint">state</code> when sending the user to Mondo. If this value differs from what you sent, you <strong>must</strong> abort the authentication process.</td>
+<td>The same string you provided as <code class="prettyprint">state</code> when sending the user to Monzo. If this value differs from what you sent, you <strong>must</strong> abort the authentication process.</td>
 </tr>
 </tbody></table>
 
@@ -181,7 +181,7 @@ To get started quickly, you can use the access token from the API playground and
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>When you receive an authorization code, exchange it for an access token. The resulting access token is tied to both your client and an individual Mondo user, and is valid for several hours.</p>
+<p>When you receive an authorization code, exchange it for an access token. The resulting access token is tied to both your client and an individual Monzo user, and is valid for several hours.</p>
 
 <h5 id="request-arguments">Request arguments</h5>
 
@@ -197,11 +197,11 @@ To get started quickly, you can use the access token from the API playground and
 </tr>
 <tr>
 <td><code class="prettyprint">client_id</code><br><span class="label notice">Required</span></td>
-<td>The client ID you received from Mondo.</td>
+<td>The client ID you received from Monzo.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">client_secret</code><br><span class="label notice">Required</span></td>
-<td>The client secret which you received from Mondo.</td>
+<td>The client secret which you received from Monzo.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">redirect_uri</code><br><span class="label notice">Required</span></td>
@@ -412,7 +412,7 @@ To get started quickly, you can use the access token from the API playground and
 </tr>
 <tr>
 <td><code class="prettyprint">category</code></td>
-<td>The category can be set for each transaction by the user. Over time we learn which merchant goes in which category and auto-assign the category of a transaction. If the user hasn&rsquo;t set a category, we&rsquo;ll return the default category of the merchant on this transactions. Top-ups have category &ldquo;mondo&rdquo;. Valid values are <code class="prettyprint">general</code>, <code class="prettyprint">eating_out</code>, <code class="prettyprint">expenses</code>, <code class="prettyprint">transport</code>, <code class="prettyprint">cash</code>, <code class="prettyprint">bills</code>, <code class="prettyprint">entertainment</code>, <code class="prettyprint">shopping</code>, <code class="prettyprint">holidays</code>, <code class="prettyprint">groceries</code>.</td>
+<td>The category can be set for each transaction by the user. Over time we learn which merchant goes in which category and auto-assign the category of a transaction. If the user hasn&rsquo;t set a category, we&rsquo;ll return the default category of the merchant on this transactions. Top-ups have category <code class="prettyprint">mondo</code>. Valid values are <code class="prettyprint">general</code>, <code class="prettyprint">eating_out</code>, <code class="prettyprint">expenses</code>, <code class="prettyprint">transport</code>, <code class="prettyprint">cash</code>, <code class="prettyprint">bills</code>, <code class="prettyprint">entertainment</code>, <code class="prettyprint">shopping</code>, <code class="prettyprint">holidays</code>, <code class="prettyprint">groceries</code>.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">merchant</code></td>
@@ -584,14 +584,14 @@ Metadata is private to your application.
 
           <h1 id="feed-items">Feed items</h1>
 
-<p>The Mondo app is organised around the feed – a reverse-chronological stream of events. Transactions are one such feed item, and your application can create its own feed items to surface relevant information to the user.</p>
+<p>The Monzo app is organised around the feed – a reverse-chronological stream of events. Transactions are one such feed item, and your application can create its own feed items to surface relevant information to the user.</p>
 
 <p>It&rsquo;s important to keep a few principals in mind when creating feed items:</p>
 
 <ol>
 <li>Feed items are <em>discrete</em> events that happen at a <em>point in time</em>.</li>
-<li>Because of their prominence within the Mondo app, feed items should contain information of <em>high value</em>.</li>
-<li>While the appearance of feed items can be customised, care should be taken to match the style of the Mondo app so that your feed items feel part of the experience.</li>
+<li>Because of their prominence within the Monzo app, feed items should contain information of <em>high value</em>.</li>
+<li>While the appearance of feed items can be customised, care should be taken to match the style of the Monzo app so that your feed items feel part of the experience.</li>
 </ol>
 
 <h2 id="create-feed-item">Create feed item</h2>
@@ -807,11 +807,11 @@ Metadata is private to your application.
 
           <h1 id="attachments">Attachments</h1>
 
-<p>Images (eg. receipts) can be attached to transactions by uploading these via the <code class="prettyprint">attachment</code> API. Once an attachment is <em>registered</em> against a transaction, the image will be shown in the transaction detail screen within the Mondo app.</p>
+<p>Images (eg. receipts) can be attached to transactions by uploading these via the <code class="prettyprint">attachment</code> API. Once an attachment is <em>registered</em> against a transaction, the image will be shown in the transaction detail screen within the Monzo app.</p>
 
-<p>There are two options for attaching images to transactions - either Mondo can host the image, or remote images can be displayed.</p>
+<p>There are two options for attaching images to transactions - either Monzo can host the image, or remote images can be displayed.</p>
 
-<p>If Mondo is hosting the attachment the upload process consists of three steps:</p>
+<p>If Monzo is hosting the attachment the upload process consists of three steps:</p>
 
 <ol>
 <li>Obtain a temporary authorised URL to <a href="#upload-attachment">upload</a> the attachment to.</li>
@@ -877,7 +877,7 @@ Metadata is private to your application.
 
 <h2 id="register-attachment">Register attachment</h2>
 
-<p>Once you have obtained a URL for an attachment, either by uploading to the <code class="prettyprint">upload_url</code> obtained from the <code class="prettyprint">upload</code> endpoint above or by hosting a remote image, this URL can then be registered against a transaction. Once an attachment is registered against a transaction this will be displayed on the detail page of a transaction within the Mondo app.</p>
+<p>Once you have obtained a URL for an attachment, either by uploading to the <code class="prettyprint">upload_url</code> obtained from the <code class="prettyprint">upload</code> endpoint above or by hosting a remote image, this URL can then be registered against a transaction. Once an attachment is registered against a transaction this will be displayed on the detail page of a transaction within the Monzo app.</p>
 <pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/attachment/register"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"external_id=tx_00008zIcpb1TB4yeIFXMzx"</span> <span class="se">\</span>
@@ -978,7 +978,7 @@ Metadata is private to your application.
 
           <h1 id="errors">Errors</h1>
 
-<p>The Mondo API uses conventional HTTP response codes to indicate errors, and includes more detailed information on the exact nature of an error in the HTTP response.</p>
+<p>The Monzo API uses conventional HTTP response codes to indicate errors, and includes more detailed information on the exact nature of an error in the HTTP response.</p>
 
 <h5 id="http-response-codes">HTTP response codes</h5>
 
