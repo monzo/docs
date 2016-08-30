@@ -54,7 +54,7 @@ Send the user to Mondo in a web browser, where they will log in and grant access
 ### Mondo redirects back to your app
 
 ```shell
-"http://your.exampe.com/oauth/callback?
+"http://your.example.com/oauth/callback?
     code=$authorization_code&
     state=$state_token"
 ```
