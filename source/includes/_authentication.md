@@ -54,7 +54,7 @@ Send the user to Monzo in a web browser, where they will log in and grant access
 ### Monzo redirects back to your app
 
 ```shell
-"http://your.example.com/oauth/callback?
+"https://your.example.com/oauth/callback?
     code=$authorization_code&
     state=$state_token"
 ```
