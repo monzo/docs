@@ -10,7 +10,7 @@ The Monzo API implements [OAuth 2.0](http://oauth.net/2/) to allow users to log 
 To get started quickly, you can use the access token from the API playground and avoid implementing the OAuth login flow.
 </aside>
 
-Before you begin, you will need to create a client in the [developer tools](https://developer.getmondo.co.uk).
+Before you begin, you will need to create a client in the [developer tools](https://developers.getmondo.co.uk).
 
 ### Client confidentiality
 
@@ -54,7 +54,7 @@ Send the user to Monzo in a web browser, where they will log in and grant access
 ### Monzo redirects back to your app
 
 ```shell
-"http://your.exampe.com/oauth/callback?
+"http://your.example.com/oauth/callback?
     code=$authorization_code&
     state=$state_token"
 ```
