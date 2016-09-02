@@ -71,7 +71,7 @@ If the user allows access to their account, Monzo redirects them back to your ap
 ### Exchange the authorization code
 
 ```shell
-$ http --form POST "https://api.getmondo.co.uk/oauth2/token" \
+$ http --form POST "https://api.monzo.com/oauth2/token" \
     "grant_type=authorization_code" \
     "client_id=$client_id" \
     "client_secret=$client_secret" \
@@ -105,7 +105,7 @@ When you receive an authorization code, exchange it for an access token. The res
 ## Authenticating requests
 
 ```shell
-$ http "https://api.getmondo.co.uk/ping/whoami" \
+$ http "https://api.monzo.com/ping/whoami" \
     "Authorization: Bearer $access_token"
 ```
 ```json
@@ -124,7 +124,7 @@ To get information about an access token, you can call the `/ping/whoami` endpoi
 ## Refreshing access
 
 ```shell
-$ http --form POST "https://api.getmondo.co.uk/oauth2/token" \
+$ http --form POST "https://api.monzo.com/oauth2/token" \
     "grant_type=refresh_token" \
     "client_id=$client_id" \
     "client_secret=$client_secret" \
