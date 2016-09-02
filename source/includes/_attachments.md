@@ -19,7 +19,7 @@ If you are hosting the attachment, you can simply register the attachment with t
 The first step when uploading an attachment is to obtain a temporary URL to which the file can be uploaded. The response will include a `file_url` which will be the URL of the resulting file, and an `upload_url` to which the file should be uploaded to.
 
 ```shell
-$ http --form POST "https://api.getmondo.co.uk/attachment/upload" \
+$ http --form POST "https://api.monzo.com/attachment/upload" \
     "Authorization: Bearer $access_token" \
     "file_name=foo.png" \
   	"file_type=image/png"
@@ -52,7 +52,7 @@ $ http --form POST "https://api.getmondo.co.uk/attachment/upload" \
 Once you have obtained a URL for an attachment, either by uploading to the `upload_url` obtained from the `upload` endpoint above or by hosting a remote image, this URL can then be registered against a transaction. Once an attachment is registered against a transaction this will be displayed on the detail page of a transaction within the Monzo app.
 
 ```shell
-$ http --form POST "https://api.getmondo.co.uk/attachment/register" \
+$ http --form POST "https://api.monzo.com/attachment/register" \
     "Authorization: Bearer $access_token" \
     "external_id=tx_00008zIcpb1TB4yeIFXMzx" \
   	"file_type=image/png" \
@@ -96,7 +96,7 @@ $ http --form POST "https://api.getmondo.co.uk/attachment/register" \
 To remove an `attachment`, simply deregister this using its `id`
 
 ```shell
-$ http --form POST "https://api.getmondo.co.uk/attachment/deregister" \
+$ http --form POST "https://api.monzo.com/attachment/deregister" \
     "Authorization: Bearer $access_token" \
     "id=attach_00009238aOAIvVqfb9LrZh"
 ```

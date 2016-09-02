@@ -5,7 +5,7 @@ Webhooks allow your application to receive real-time, push notification of event
 ## Registering a webhook
 
 ```shell
-$ http --form POST "https://api.getmondo.co.uk/webhooks" \
+$ http --form POST "https://api.monzo.com/webhooks" \
     "Authorization: Bearer $access_token" \
     "account_id=$account_id" \
     "url=$url"
@@ -33,7 +33,7 @@ Each time a matching event occurs, we will make a POST call to the URL you provi
 ## List webhooks
 
 ```shell
-$ http "https://api.getmondo.co.uk/webhooks" \
+$ http "https://api.monzo.com/webhooks" \
     "Authorization: Bearer $access_token" \
     "account_id==$account_id"
 ```
@@ -67,7 +67,7 @@ List the webhooks your application has registered on an account.
 ## Deleting a webhook
 
 ```shell
-$ http DELETE "https://api.getmondo.co.uk/webhooks/$webhook_id" \
+$ http DELETE "https://api.monzo.com/webhooks/$webhook_id" \
     "Authorization: Bearer $access_token"
 ```
 

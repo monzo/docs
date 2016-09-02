@@ -24,7 +24,7 @@ search: false
 > **API endpoint**
 
 ```
-https://api.getmondo.co.uk
+https://api.monzo.com
 ```
 
 > Examples in this documentation are written using [httpie](https://github.com/jkbrzt/httpie) for clarity.
