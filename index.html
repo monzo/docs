@@ -13,7 +13,7 @@
     <link href="stylesheets/screen-35298d9c.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print-32bbdc25.css" rel="stylesheet" type="text/css" media="print" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-      <script src="javascripts/all_nosearch-5cf94f6f.js" type="text/javascript"></script>
+      <script src="javascripts/all_nosearch-a0d041e4.js" type="text/javascript"></script>
 
       <script>
         $(function() {
@@ -30,7 +30,7 @@
       </span>
     </a>
     <div class="tocify-wrapper">
-      <span class="logo"><a href="https://getmondo.co.uk"><img src="images/logo-46fdcf49.svg" /></a></span>
+      <span class="logo"><a href="https://monzo.com"><img src="images/logo-46fdcf49.svg" /></a></span>
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
         </div>
@@ -45,7 +45,7 @@
 <blockquote>
 <p><strong>API endpoint</strong></p>
 </blockquote>
-<pre class="highlight plaintext"><code>https://api.getmondo.co.uk
+<pre class="highlight plaintext"><code>https://api.monzo.com
 </code></pre>
 
 <blockquote>
@@ -164,7 +164,7 @@ To get started quickly, you can use the access token from the API playground and
 </tbody></table>
 
 <h3 id="exchange-the-authorization-code">Exchange the authorization code</h3>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/oauth2/token"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.monzo.com/oauth2/token"</span> <span class="se">\</span>
     <span class="s2">"grant_type=authorization_code"</span> <span class="se">\</span>
     <span class="s2">"client_id=</span><span class="nv">$client_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"client_secret=</span><span class="nv">$client_secret</span><span class="s2">"</span> <span class="se">\</span>
@@ -214,7 +214,7 @@ To get started quickly, you can use the access token from the API playground and
 </tbody></table>
 
 <h2 id="authenticating-requests">Authenticating requests</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/ping/whoami"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/ping/whoami"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
@@ -229,7 +229,7 @@ To get started quickly, you can use the access token from the API playground and
 <p>To get information about an access token, you can call the <code class="prettyprint">/ping/whoami</code> endpoint.</p>
 
 <h2 id="refreshing-access">Refreshing access</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/oauth2/token"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.monzo.com/oauth2/token"</span> <span class="se">\</span>
     <span class="s2">"grant_type=refresh_token"</span> <span class="se">\</span>
     <span class="s2">"client_id=</span><span class="nv">$client_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"client_secret=</span><span class="nv">$client_secret</span><span class="s2">"</span> <span class="se">\</span>
@@ -312,7 +312,7 @@ To get started quickly, you can use the access token from the API playground and
 <h2 id="list-accounts">List accounts</h2>
 
 <p>Returns a list of accounts owned by the currently authorised user.</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/accounts"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/accounts"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
@@ -331,7 +331,7 @@ To get started quickly, you can use the access token from the API playground and
 <p>Retrieve information about an account&rsquo;s balance.</p>
 
 <h2 id="read-balance">Read balance</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/balance"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/balance"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_id==</span><span class="nv">$account_id</span><span class="s2">"</span>
 </code></pre>
@@ -421,7 +421,7 @@ To get started quickly, you can use the access token from the API playground and
 </tbody></table>
 
 <h2 id="retrieve-transaction">Retrieve transaction</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="c"># Here we are expanding the merchant \</span>
     <span class="s2">"expand[]==merchant"</span>
@@ -477,7 +477,7 @@ To get started quickly, you can use the access token from the API playground and
 </tbody></table>
 
 <h2 id="list-transactions">List transactions</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/transactions"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/transactions"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_id==</span><span class="nv">$account_id</span><span class="s2">"</span>
 </code></pre>
@@ -536,7 +536,7 @@ To get started quickly, you can use the access token from the API playground and
 </tbody></table>
 
 <h2 id="annotate-transaction">Annotate transaction</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form PATCH <span class="s2">"https://api.getmondo.co.uk/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form PATCH <span class="s2">"https://api.monzo.com/transactions/</span><span class="nv">$transaction_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"metadata[</span><span class="nv">$key1</span><span class="s2">]=</span><span class="nv">$value1</span><span class="s2">"</span> <span class="se">\</span>
     <span class="c"># Set a key's value as empty to delete it</span>
@@ -595,7 +595,7 @@ Metadata is private to your application.
 </ol>
 
 <h2 id="create-feed-item">Create feed item</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/feed"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.monzo.com/feed"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"type=basic"</span> <span class="se">\</span>
@@ -688,7 +688,7 @@ Metadata is private to your application.
 <p>Webhooks allow your application to receive real-time, push notification of events in an account.</p>
 
 <h2 id="registering-a-webhook">Registering a webhook</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/webhooks"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.monzo.com/webhooks"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_id=</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"url=</span><span class="nv">$url</span><span class="s2">"</span>
@@ -723,7 +723,7 @@ Metadata is private to your application.
 </tbody></table>
 
 <h2 id="list-webhooks">List webhooks</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.getmondo.co.uk/webhooks"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/webhooks"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_id==</span><span class="nv">$account_id</span><span class="s2">"</span>
 </code></pre>
@@ -760,7 +760,7 @@ Metadata is private to your application.
 </tbody></table>
 
 <h2 id="deleting-a-webhook">Deleting a webhook</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http DELETE <span class="s2">"https://api.getmondo.co.uk/webhooks/</span><span class="nv">$webhook_id</span><span class="s2">"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http DELETE <span class="s2">"https://api.monzo.com/webhooks/</span><span class="nv">$webhook_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{}</span><span class="w">
@@ -828,7 +828,7 @@ Metadata is private to your application.
 <h2 id="upload-attachment">Upload attachment</h2>
 
 <p>The first step when uploading an attachment is to obtain a temporary URL to which the file can be uploaded. The response will include a <code class="prettyprint">file_url</code> which will be the URL of the resulting file, and an <code class="prettyprint">upload_url</code> to which the file should be uploaded to.</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/attachment/upload"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.monzo.com/attachment/upload"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"file_name=foo.png"</span> <span class="se">\</span>
     <span class="s2">"file_type=image/png"</span>
@@ -878,7 +878,7 @@ Metadata is private to your application.
 <h2 id="register-attachment">Register attachment</h2>
 
 <p>Once you have obtained a URL for an attachment, either by uploading to the <code class="prettyprint">upload_url</code> obtained from the <code class="prettyprint">upload</code> endpoint above or by hosting a remote image, this URL can then be registered against a transaction. Once an attachment is registered against a transaction this will be displayed on the detail page of a transaction within the Monzo app.</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/attachment/register"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.monzo.com/attachment/register"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"external_id=tx_00008zIcpb1TB4yeIFXMzx"</span> <span class="se">\</span>
     <span class="s2">"file_type=image/png"</span> <span class="se">\</span>
@@ -955,7 +955,7 @@ Metadata is private to your application.
 <h2 id="deregister-attachment">Deregister attachment</h2>
 
 <p>To remove an <code class="prettyprint">attachment</code>, simply deregister this using its <code class="prettyprint">id</code></p>
-<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.getmondo.co.uk/attachment/deregister"</span> <span class="se">\</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.monzo.com/attachment/deregister"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"id=attach_00009238aOAIvVqfb9LrZh"</span>
 </code></pre>
