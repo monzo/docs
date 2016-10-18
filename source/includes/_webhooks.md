@@ -16,12 +16,12 @@ $ http --form POST "https://api.monzo.com/webhooks" \
     "webhook": {
         "account_id": "account_id",
         "id": "webhook_id",
-        "url": "http://example.com"
+        "url": "http://example.com/webhook?password=hard-to-guess-password"
     }
 }
 ```
 
-Each time a matching event occurs, we will make a POST call to the URL you provide. If the call fails, we will retry up to a maximum of 5 attempts, with exponential backoff.
+Each time a matching event occurs, we will make a POST call to the URL you provide.If the call fails, we will retry up to a maximum of 5 attempts, with exponential backoff. The URL should contain a hard-to-guess "password" so that your application can know the request is coming from Monzo and not someone else.
 
 ##### Request arguments
 
