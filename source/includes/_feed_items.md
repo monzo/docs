@@ -28,7 +28,7 @@ $ http --form POST "https://api.monzo.com/feed" \
 {}
 ```
 
-Creates a new feed item on the user's feed
+Creates a new feed item on the user's feed. These can be dismissed.
 
 ##### Request arguments (for all feed item types)
 
