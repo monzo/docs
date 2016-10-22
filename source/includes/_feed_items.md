@@ -24,6 +24,8 @@ $ http --form POST "https://api.monzo.com/feed" \
     "params[body]=Some body text to display"
 ```
 
+Response:
+
 ```json
 {}
 ```
