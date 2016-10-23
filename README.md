@@ -1,11 +1,10 @@
-Mondo API Docs
+Monzo API Docs
 ========
 
-[Mondo is a new kind of bank](https://getmondo.co.uk). We try to keep as much of our code open source, so you can check the quality of your bank and how we work (apart from the security features). 
+[Monzo is a new kind of bank](https://monzo.com).
 
-This is the repo for the [Mondo API documentation](https://getmondo.co.uk/docs), which are open-source, so you can fork them, raise issues and send pull requests. 
+This is the public repo for the [Monzo API documentation](https://monzo.com/docs).
 
-It was generated using [Slate](http://tripit.github.io/slate).
 
 ## Prerequisites
 
@@ -34,4 +33,4 @@ Once you are happy with your additions - [send us a pull request](https://github
 Need Help? Found a bug?
 --------------------
 
-Just [submit an issue](https://github.com/mondough/docs/issues) to this GitHub repo if you need any help. 
+Just [submit an issue](https://github.com/monzo/docs/issues) to this GitHub repo if you need any help. And, of course, feel free to submit pull requests with bug fixes or changes.
