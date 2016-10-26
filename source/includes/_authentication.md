@@ -90,7 +90,7 @@ $ http --form POST "https://api.monzo.com/oauth2/token" \
 }
 ```
 
-When you receive an authorization code, exchange it for an access token. The resulting access token is tied to both your client and an individual Monzo user, and is valid for several hours.
+When you receive an authorization code, exchange it for an access token. The resulting access token is tied to both your client and an individual Monzo user, and is valid for several hours. `expires_in` is in seconds.
 
 ##### Request arguments
 
