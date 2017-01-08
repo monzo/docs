@@ -3,9 +3,8 @@ Monzo API Docs
 
 [Monzo is a new kind of bank](https://monzo.com).
 
-This is the public repo for the [Monzo API documentation](https://monzo.com/docs).
+This is the public repo for the [Monzo API documentation](https://monzo.com/docs). It was generated using [Slate](https://github.com/lord/slate).
 
-It was generated using Slate. Check it out at [tripit.github.io/slate](http://tripit.github.io/slate).
 
 
 Need Help? Found a bug?
