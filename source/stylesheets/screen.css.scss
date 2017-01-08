@@ -63,6 +63,28 @@ html, body {
   border-right: 1px solid #f0f4f7;
   box-sizing: border-box;
 
+  // github link
+  a#github {
+      margin: 4em $nav-padding 2em $nav-padding;
+      display: block;
+      font-size: .8em;
+      color: $nav-text;
+      text-decoration: none;
+      opacity: .7;
+
+      img {
+          width: 16px;
+          height: 16px;
+          position: relative;
+          top: 3px;
+          margin-right: .2em;
+      }
+
+      @media (max-width: $tablet-width) {
+          display: none;
+      }
+  }
+
   // language selector for mobile devices
   .lang-selector {
       display: none;
