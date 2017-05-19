@@ -38,5 +38,5 @@ Our developers' community in Slack is the place to get help with our API, discus
 <script async defer src="https://devslack.getmondo.co.uk/slackin.js"></script>
 
 <aside class="notice">
-The Monzo API is not stable. Please read our <a href="https://monzo.com/blog/2017/05/11/api-update/">blog post</a> for more detail.
+⚠️ **The Monzo API is yet not suitable for building public applications.** You may only connect to your own account or those of a small set of users you explicitly whitelist. Please read our [blog post](https://monzo.com/blog/2017/05/11/api-update/) for more detail.
 </aside>
