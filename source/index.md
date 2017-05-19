@@ -29,7 +29,7 @@ https://api.monzo.com
 
 > Examples in this documentation are written using [httpie](https://github.com/jkbrzt/httpie) for clarity.
 
-> To install `httpie` on OS X run `brew install httpie`
+> To install `httpie` on macOS run `brew install httpie`
 
 The Monzo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and webhooks.
 
