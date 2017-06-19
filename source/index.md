@@ -35,7 +35,7 @@ The Monzo API is designed to be a predictable and intuitive interface for intera
 
 Our developers' community in Slack is the place to get help with our API, discuss ideas, and show off what you build. Hit the button to join:
 
-<script async defer src="https://devslack.getmondo.co.uk/slackin.js"></script>
+<script async defer src="https://devslack.monzo.com/slackin.js"></script>
 
 <aside class="announce">
     <strong>The Monzo API is not yet suitable for building public applications.</strong><br>
