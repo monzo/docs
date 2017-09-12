@@ -328,6 +328,13 @@ To get started quickly, you can use the access token from the API playground and
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
+<p>To filter by either prepaid or current account, add <code class="prettyprint">account_type</code> as a url parameter.
+Valid <code class="prettyprint">account_type</code>s are <code class="prettyprint">uk_retail</code> and <code class="prettyprint">uk_prepaid</code>.</p>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/accounts"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nv">account_type</span><span class="o">==</span>uk_retail
+</code></pre>
+
           <h1 id="balance">Balance</h1>
 
 <p>Retrieve information about an account&rsquo;s balance.</p>
