@@ -1,6 +1,6 @@
 # Pots
 
-A Pot is a place to keep some money seperate from your main spending account.
+A Pot is a place to keep some money separate from your main spending account.
 
 ## List pots
 
