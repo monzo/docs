@@ -9,6 +9,7 @@ includes:
   - pagination
   - object_expansion
   - accounts
+  - pots
   - balance
   - transactions
   - feed_items
