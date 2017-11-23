@@ -4,7 +4,7 @@ A Pot is a place to keep some money separate from your main spending account.
 
 ## List pots
 
-Returns a list of accounts owned by the currently authorised user.
+Returns a list of pots owned by the currently authorised user.
 
 ```shell
 $ http "https://api.monzo.com/pots/listV1" \
