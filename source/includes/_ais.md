@@ -2,6 +2,10 @@
 
 Account Informations Services API for companies authorised as AISPs under PSD2.
 
+To apply for a `client_id` as an Authorised AISP contact help@monzo.com and ask to have your request forwarded to the partnerships team.
+
+Only firms which have been authorised by their local regulator will be granted access.
+
 ## List accounts
 
 Returns a list of accounts owned by the currently authorised user.
