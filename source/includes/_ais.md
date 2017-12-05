@@ -1,6 +1,12 @@
-# PSD2 AISP api
+# AISP Access
 
-Account Informations Services API for companies authorised as AISPs under PSD2.
+API access for companies authorised as AISPs under PSD2.
+
+This API is a limited subset of the *developer api*. Unlike the *developer api*, we'll keep it stable so it can be used for services provided to all Monzo customers.
+
+You do not have to have a Monzo account to apply for a `client_id` and `secret`.
+
+In the future we may implement the [Open Banking](https://www.openbanking.org.uk) API, as well as a more fully featured *V2 Developer API*.
 
 To apply for a `client_id` as an Authorised AISP contact help@monzo.com and ask to have your request forwarded to the partnerships team.
 
@@ -68,30 +74,6 @@ Most properties on transactions are self-explanatory. We'll eventually get aroun
 `settled`        | The timestamp at which the transaction [settled](http://blog.unibulmerchantservices.com/authorization-clearing-and-settlement-of-mastercard-transactions/). In most cases, this happens 24-48 hours after `created`. If this field is not present, the transaction is authorised but not yet "complete."
 `category`       | The category can be set for each transaction by the user. Over time we learn which merchant goes in which category and auto-assign the category of a transaction. If the user hasn't set a category, we'll return the default category of the merchant on this transactions. Top-ups have category `mondo`. Valid values are `general`, `eating_out`, `expenses`, `transport`, `cash`, `bills`, `entertainment`, `shopping`, `holidays`, `groceries`.
 `merchant`       | This contains the `merchant_id` of the merchant that this transaction was made at. Expanding merchant data is not supported via the AIS api.
-
-## Retrieve transaction
-
-```shell
-$ http "https://api.monzo.com/ais/transactions/$transaction_id" \
-    "Authorization: Bearer $access_token"
-```
-
-```json
-{
-    "transaction": {
-        "account_balance": 13013,
-        "amount": -510,
-        "created": "2015-08-22T12:20:18Z",
-        "currency": "GBP",
-        "description": "THE DE BEAUVOIR DELI C LONDON        GBR",
-        "id": "tx_00008zIcpb1TB4yeIFXMzx",
-        "is_load": false,
-        "settled": "2015-08-23T12:20:18Z"
-    }
-}
-```
-
-Returns an individual transaction, fetched by its id.
 
 ## List transactions
 
