@@ -8,7 +8,7 @@ You do not have to have a Monzo account to apply for a `client_id` and `secret`.
 
 In the future we may implement the [Open Banking](https://www.openbanking.org.uk) API, as well as a more fully featured *V2 Developer API*.
 
-To apply for a `client_id` as an Authorised AISP contact help@monzo.com and ask to have your request forwarded to the partnerships team.
+To apply for a `client_id` as an Authorised AISP contact openbanking@monzo.com.
 
 Only firms which have been authorised by their local regulator will be granted access.
 
