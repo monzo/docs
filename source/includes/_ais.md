@@ -44,6 +44,8 @@ $ http "https://api.monzo.com/ais/accounts" \
 
 ## Read balance
 
+Returns a customers account balance.
+
 ```shell
 $ http "https://api.monzo.com/ais/balance" \
     "Authorization: Bearer $access_token" \
