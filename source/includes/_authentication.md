@@ -48,7 +48,7 @@ Send the user to Monzo in a web browser, where they will log in and grant access
 `client_id`<br><span class="label notice">Required</span>|Your client ID.
 `redirect_uri`<br><span class="label notice">Required</span>|A URI to which users will be redirected after authorising your app.
 `response_type`<br><span class="label notice">Required</span>|Must be set to `code`.
-`state`|An unguessable random string used to protect against [cross-site request forgery attacks](http://www.twobotechnologies.com/blog/2014/02/importance-of-state-in-oauth2.html).
+`state`|An unguessable random string used to protect against [cross-site request forgery attacks](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)).
 
 
 ### Monzo redirects back to your app
