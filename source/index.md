@@ -44,5 +44,5 @@ Our developers' community in Slack is the place to get help with our API, discus
     You may only connect to your own account or those of a small set of users you explicitly whitelist. Please read our <a href="https://monzo.com/blog/2017/05/11/api-update/">blog post</a> for more detail.
 
 <br/><hr/>
-    For firms authorised as Account Information Service Providers under PSD2 we offer an <a href=#aisp-access>AIS api</a>.
+    For firms authorised as Account Information Service Providers under PSD2 we offer an <a href=#aisp-access>AIS api</a>. Read more about it <a href=https://monzo.com/blog/2018/01/12/api-update/>here</a>.
 </aside>
