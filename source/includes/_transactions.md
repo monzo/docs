@@ -21,7 +21,7 @@ Most properties on transactions are self-explanatory. We'll eventually get aroun
 $ http "https://api.monzo.com/transactions/$transaction_id" \
     "Authorization: Bearer $access_token" \
     # Here we are expanding the merchant \
-    "expand[]==merchant"
+    "expand[]=merchant"
 ```
 
 ```json
@@ -73,7 +73,7 @@ Returns an individual transaction, fetched by its id.
 ```shell
 $ http "https://api.monzo.com/transactions" \
     "Authorization: Bearer $access_token" \
-    "account_id==$account_id"
+    "account_id=$account_id"
 ```
 
 ```json

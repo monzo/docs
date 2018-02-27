@@ -39,7 +39,7 @@ Only `uk_retail` `account_type`s are visible on the AIS API.
 ```shell
 $ http "https://api.monzo.com/ais/accounts" \
     "Authorization: Bearer $access_token" \
-    account_type==uk_retail
+    "account_type=uk_retail"
 ```
 
 ## Read balance
@@ -49,7 +49,7 @@ Returns a customer's account balance.
 ```shell
 $ http "https://api.monzo.com/ais/balance" \
     "Authorization: Bearer $access_token" \
-    "account_id==$account_id"
+    "account_id=$account_id"
 ```
 
 ```json
@@ -82,7 +82,7 @@ Most properties on transactions are self-explanatory. We'll eventually get aroun
 ```shell
 $ http "https://api.monzo.com/ais/transactions" \
     "Authorization: Bearer $access_token" \
-    "account_id==$account_id"
+    "account_id=$account_id"
 ```
 
 ```json

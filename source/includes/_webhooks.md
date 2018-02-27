@@ -35,7 +35,7 @@ Each time a matching event occurs, we will make a POST call to the URL you provi
 ```shell
 $ http "https://api.monzo.com/webhooks" \
     "Authorization: Bearer $access_token" \
-    "account_id==$account_id"
+    "account_id=$account_id"
 ```
 
 ```json

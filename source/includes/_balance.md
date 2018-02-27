@@ -7,7 +7,7 @@ Retrieve information about an account's balance.
 ```shell
 $ http "https://api.monzo.com/balance" \
     "Authorization: Bearer $access_token" \
-    "account_id==$account_id"
+    "account_id=$account_id"
 ```
 
 ```json

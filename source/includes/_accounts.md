@@ -29,5 +29,5 @@ Valid `account_type`s are `uk_retail` and `uk_prepaid`.
 ```shell
 $ http "https://api.monzo.com/accounts" \
     "Authorization: Bearer $access_token" \
-    account_type==uk_retail
+    "account_type=uk_retail"
 ```
