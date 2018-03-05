@@ -1,10 +1,8 @@
 # Pots
 
-A Pot is a place to keep some money separate from your main spending account.
+A pot is a place to keep some money separate from the main spending account.
 
 ## List pots
-
-Returns a list of pots owned by the currently authorised user.
 
 ```shell
 $ http "https://api.monzo.com/pots" \
@@ -27,32 +25,55 @@ $ http "https://api.monzo.com/pots" \
   ]
 }
 ```
-## Deposit into a Pot
 
-Move money into a pot.
+Returns a list of pots owned by the currently authorised user.
 
-Replace :id with the pot id you're sending money to.
-
-Amount is in pennies.
-
-The Dedupe ID is any random string you choose, to ensure that your intentions are only acted on once. A timestamp is a good choice.
+## Deposit into a pot
 
 ```shell
-$ http --form PUT "https://api.monzo.com/pots/:id/deposit" \
-    "Authorization: Bearer $access_token"
+$ http --form PUT "https://api.monzo.com/pots/$pot_id/deposit" \
+    "Authorization: Bearer $access_token" \
     "source_account_id=$account_id" \
-    "amount"=1000 \
-    "dedupe_id"=$timestamp
+    "amount=$amount" \
+    "dedupe_id=$dedupe_id"
 ```
 
-## Withdraw from a Pot
+Move money from an account owned by the currently authorised user into one of their pots.
 
-Move money out of a pot and back to your main account.
+##### Request arguments
+
+<span class="hide">Parameter</span> | <span class="hide">Description</span>
+------------------------------------|--------------------------------------
+`source_account_id`<br><span class="label notice">Required</span>|The id of the account to withdraw from.
+`amount`<br><span class="label notice">Required</span>|
+`dedupe_id`<br><span class="label notice">Required</span>|A unique string used to de-duplicate deposits. Ensure this remains static between retries to ensure only one deposit is created.
+
+##### Response arguments
+
+<span class="hide">Parameter</span> | <span class="hide">Description</span>
+------------------------------------|--------------------------------------
+
+## Withdraw from a pot
 
 ```shell
-$ http --form PUT "https://api.monzo.com/pots/:id/withdraw" \
-    "Authorization: Bearer $access_token"
+$ http --form PUT "https://api.monzo.com/pots/$pot_id/withdraw" \
+    "Authorization: Bearer $access_token" \
     "destination_account_id=$account_id" \
-    "amount"=1000 \
-    "dedupe_id"=$timestamp
+    "amount=$amount" \
+    "dedupe_id=$dedupe_id"
 ```
+
+Move money from a pot owned by the currently authorised user into one of their accounts.
+
+##### Request arguments
+
+<span class="hide">Parameter</span> | <span class="hide">Description</span>
+------------------------------------|--------------------------------------
+`destination_account_id`<br><span class="label notice">Required</span>|The id of the account to deposit into.
+`amount`<br><span class="label notice">Required</span>|
+`dedupe_id`<br><span class="label notice">Required</span>|A unique string used to de-duplicate deposits. Ensure this remains static between retries to ensure only one withdrawal is created.
+
+##### Response arguments
+
+<span class="hide">Parameter</span> | <span class="hide">Description</span>
+------------------------------------|--------------------------------------
