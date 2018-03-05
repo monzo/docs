@@ -59,7 +59,7 @@ Move money from an account owned by the currently authorised user into one of th
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `source_account_id`<br><span class="label notice">Required</span>|The id of the account to withdraw from.
-`amount`<br><span class="label notice">Required</span>|The amount in pennies you wish to deposit.
+`amount`<br><span class="label notice">Required</span>|The amount to deposit, as a 64bit integer in minor units of the currency, eg. pennies for GBP, or cents for EUR and USD.
 `dedupe_id`<br><span class="label notice">Required</span>|A unique string used to de-duplicate deposits. Ensure this remains static between retries to ensure only one deposit is created.
 
 ##### Response arguments
@@ -105,7 +105,7 @@ Move money from a pot owned by the currently authorised user into one of their a
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `destination_account_id`<br><span class="label notice">Required</span>|The id of the account to deposit into.
-`amount`<br><span class="label notice">Required</span>|The amount in pennies you wish to withdraw.
+`amount`<br><span class="label notice">Required</span>|The amount to deposit, as a 64bit integer in minor units of the currency, eg. pennies for GBP, or cents for EUR and USD.
 `dedupe_id`<br><span class="label notice">Required</span>|A unique string used to de-duplicate deposits. Ensure this remains static between retries to ensure only one withdrawal is created.
 
 ##### Response arguments
