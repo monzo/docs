@@ -1,16 +1,10 @@
 # AISP Access
 
-API access for companies authorised as AISPs under PSD2.
+Access for companies authorised as [Account Information Service Providers (AISPs)](https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis) under PSD2. A more thorough introduction can be found [on our blog](https://monzo.com/blog/2018/01/12/api-update/).
 
-This API is a limited subset of the *developer api*. Unlike the *developer api*, we'll keep it stable so it can be used for services provided to all Monzo customers.
+This API is a limited subset of the developer API. Unlike the developer API, it is guaranteed to remain stable. You do not have to have a Monzo account to apply for AISP access, but only companies authorised by their local regulator as an AISP can be granted access. To apply for access, email `openbanking@monzo.com`.
 
-You do not have to have a Monzo account to apply for a `client_id` and `secret`.
-
-In the future we may implement the [Open Banking](https://www.openbanking.org.uk) API, as well as a more fully featured *V2 Developer API*.
-
-To apply for a `client_id` as an Authorised AISP contact openbanking@monzo.com.
-
-Only firms which have been authorised by their local regulator will be granted access.
+In the future we may implement the [Open Banking API](https://www.openbanking.org.uk), as well as a more fully featured v2 developer API.
 
 ## List accounts
 
@@ -33,13 +27,12 @@ $ http "https://api.monzo.com/ais/accounts" \
 }
 ```
 
-To filter by either prepaid or current account, add `account_type` as a url parameter.
-Only `uk_retail` `account_type`s are visible on the AIS API.
+To filter by either prepaid or current account, add `account_type` as a url parameter. Only `uk_retail` `account_type`s are visible on the AIS API.
 
 ```shell
 $ http "https://api.monzo.com/ais/accounts" \
     "Authorization: Bearer $access_token" \
-    account_type==uk_retail
+    "account_type==uk_retail"
 ```
 
 ## Read balance
