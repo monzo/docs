@@ -35,6 +35,8 @@ Replace :id with the pot id you're sending money to.
 
 Amount is in pennies.
 
+The Dedupe ID is any random string you choose, to ensure that your intentions are only acted on once. A timestamp is a good choice.
+
 ```shell
 $ http --form PUT "https://api.monzo.com/pots/:id/deposit" \
     "Authorization: Bearer $access_token"
