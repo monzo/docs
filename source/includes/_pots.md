@@ -30,6 +30,7 @@ Returns a list of pots owned by the currently authorised user.
 
 ## Deposit into a pot
 
+
 ```shell
 $ http --form PUT "https://api.monzo.com/pots/$pot_id/deposit" \
     "Authorization: Bearer $access_token" \
@@ -37,23 +38,45 @@ $ http --form PUT "https://api.monzo.com/pots/$pot_id/deposit" \
     "amount=$amount" \
     "dedupe_id=$dedupe_id"
 ```
-
 Move money from an account owned by the currently authorised user into one of their pots.
+
+```json
+{
+    "id": "pot_00009exampleP0tOxWb",
+    "name": "Wedding Fund",
+    "style": "beach_ball",
+    "balance": 550100,
+    "currency": "GBP",
+    "created": "2017-11-09T12:30:53.695Z",
+    "updated": "2018-02-26T07:12:04.925Z",
+    "deleted": false
+}
+```
+
 
 ##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `source_account_id`<br><span class="label notice">Required</span>|The id of the account to withdraw from.
-`amount`<br><span class="label notice">Required</span>|
+`amount`<br><span class="label notice">Required</span>|The amount in pennies you wish to deposit.
 `dedupe_id`<br><span class="label notice">Required</span>|A unique string used to de-duplicate deposits. Ensure this remains static between retries to ensure only one deposit is created.
 
 ##### Response arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
+`id`|The pot id.
+`name`|The pot name.
+`style`|The pot background image.
+`balance`|The new pot balance.
+`currency`|The pot currency.
+`created`|When this pot was created.
+`updated`|When this pot was last updated.
+`deleted`|Whether this pot is deleted. The API will be updated soon to not return deleted pots.
 
 ## Withdraw from a pot
+
 
 ```shell
 $ http --form PUT "https://api.monzo.com/pots/$pot_id/withdraw" \
@@ -62,18 +85,38 @@ $ http --form PUT "https://api.monzo.com/pots/$pot_id/withdraw" \
     "amount=$amount" \
     "dedupe_id=$dedupe_id"
 ```
-
 Move money from a pot owned by the currently authorised user into one of their accounts.
+
+```json
+{
+    "id": "pot_00009exampleP0tOxWb",
+    "name": "Flying Lessons",
+    "style": "blue",
+    "balance": 350000,
+    "currency": "GBP",
+    "created": "2017-11-09T12:30:53.695Z",
+    "updated": "2018-02-26T07:12:04.925Z",
+    "deleted": false
+}
+```
 
 ##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `destination_account_id`<br><span class="label notice">Required</span>|The id of the account to deposit into.
-`amount`<br><span class="label notice">Required</span>|
+`amount`<br><span class="label notice">Required</span>|The amount in pennies you wish to withdraw.
 `dedupe_id`<br><span class="label notice">Required</span>|A unique string used to de-duplicate deposits. Ensure this remains static between retries to ensure only one withdrawal is created.
 
 ##### Response arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
+`id`|The pot id.
+`name`|The pot name.
+`style`|The pot background image.
+`balance`|The new pot balance.
+`currency`|The pot currency.
+`created`|When this pot was created.
+`updated`|When this pot was last updated.
+`deleted`|Whether this pot is deleted. The API will be updated soon to not return deleted pots.
