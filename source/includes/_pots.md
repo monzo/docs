@@ -31,10 +31,26 @@ $ http "https://api.monzo.com/pots" \
 
 Move money into a pot.
 
+Replace :id with the pot id you're sending money to.
+
+Amount is in pennies.
+
 ```shell
-$ http --form PUT "https://api.monzo.com/pots" \
+$ http --form PUT "https://api.monzo.com/pots/:id/deposit" \
     "Authorization: Bearer $access_token"
     "source_account_id=$account_id" \
     "amount"=1000 \
-    "dedupe_id"=$(date -I)
+    "dedupe_id"=$timestamp
+```
+
+## Withdraw from a Pot
+
+Move money out of a pot and back to your main account.
+
+```shell
+$ http --form PUT "https://api.monzo.com/pots/:id/withdraw" \
+    "Authorization: Bearer $access_token"
+    "destination_account_id=$account_id" \
+    "amount"=1000 \
+    "dedupe_id"=$timestamp
 ```
