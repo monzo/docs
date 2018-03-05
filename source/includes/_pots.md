@@ -7,7 +7,7 @@ A Pot is a place to keep some money separate from your main spending account.
 Returns a list of pots owned by the currently authorised user.
 
 ```shell
-$ http "https://api.monzo.com/pots/listV1" \
+$ http "https://api.monzo.com/pots" \
     "Authorization: Bearer $access_token"
 ```
 
@@ -26,4 +26,15 @@ $ http "https://api.monzo.com/pots/listV1" \
     }
   ]
 }
+```
+## Deposit into a Pot
+
+Move money into a pot.
+
+```shell
+$ http --form PUT "https://api.monzo.com/pots" \
+    "Authorization: Bearer $access_token"
+    "source_account_id=$account_id" \
+    "amount"=1000 \
+    "dedupe_id"=$(date -I)
 ```
