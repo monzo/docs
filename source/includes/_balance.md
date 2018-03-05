@@ -20,7 +20,6 @@ $ http "https://api.monzo.com/balance" \
 
 Returns balance information for a specific account.
 
-
 ##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
