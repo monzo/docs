@@ -61,12 +61,13 @@
 
 <script async defer src="https://devslack.monzo.com/slackin.js"></script>
 
-<aside class="announce">
+<aside class="warning">
     <strong>The Monzo Developer API is not suitable for building public applications.</strong><br>
     You may only connect to your own account or those of a small set of users you explicitly whitelist. Please read our <a href="https://monzo.com/blog/2017/05/11/api-update/">blog post</a> for more detail.
+</aside>
 
-<br/><hr/>
-    For firms authorised as Account Information Service Providers under PSD2 we offer an <a href=#aisp-access>AIS api</a>. Read more about it <a href=https://monzo.com/blog/2018/01/12/api-update/>here</a>.
+<aside class="notice">
+    For firms authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Account Information Service Providers</a> under PSD2 we offer an <a href=#aisp-access>AISP API</a>.
 </aside>
 
           <h1 id="authentication">Authentication</h1>
@@ -1258,17 +1259,11 @@ Metadata is private to your application.
 
           <h1 id="aisp-access">AISP Access</h1>
 
-<p>API access for companies authorised as AISPs under PSD2.</p>
+<p>Access for companies authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Account Information Service Providers (AISPs)</a> under PSD2. A more thorough introduction can be found <a href="https://monzo.com/blog/2018/01/12/api-update/">on our blog</a>.</p>
 
-<p>This API is a limited subset of the <em>developer api</em>. Unlike the <em>developer api</em>, we&rsquo;ll keep it stable so it can be used for services provided to all Monzo customers.</p>
+<p>This API is a limited subset of the developer API. Unlike the developer API, it is guaranteed to remain stable. You do not have to have a Monzo account to apply for AISP access, but only companies authorised by their local regulator as an AISP can be granted access. To apply for access, email <code class="prettyprint">openbanking@monzo.com</code>.</p>
 
-<p>You do not have to have a Monzo account to apply for a <code class="prettyprint">client_id</code> and <code class="prettyprint">secret</code>.</p>
-
-<p>In the future we may implement the <a href="https://www.openbanking.org.uk">Open Banking</a> API, as well as a more fully featured <em>V2 Developer API</em>.</p>
-
-<p>To apply for a <code class="prettyprint">client_id</code> as an Authorised AISP contact openbanking@monzo.com.</p>
-
-<p>Only firms which have been authorised by their local regulator will be granted access.</p>
+<p>In the future we may implement the <a href="https://www.openbanking.org.uk">Open Banking API</a>, as well as a more fully featured v2 developer API.</p>
 
 <h2 id="list-accounts">List accounts</h2>
 
@@ -1287,11 +1282,10 @@ Metadata is private to your application.
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>To filter by either prepaid or current account, add <code class="prettyprint">account_type</code> as a url parameter.
-Only <code class="prettyprint">uk_retail</code> <code class="prettyprint">account_type</code>s are visible on the AIS API.</p>
+<p>To filter by either prepaid or current account, add <code class="prettyprint">account_type</code> as a url parameter. Only <code class="prettyprint">uk_retail</code> <code class="prettyprint">account_type</code>s are visible on the AIS API.</p>
 <pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/ais/accounts"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="nv">account_type</span><span class="o">==</span>uk_retail
+    <span class="s2">"account_type==uk_retail"</span>
 </code></pre>
 
 <h2 id="read-balance">Read balance</h2>
