@@ -121,3 +121,29 @@ Returns a list of transactions on the user's account.
 ------------------------------------|--------------------------------------
 `account_id`<br><span class="label notice">Required</span>|The account to retrieve transactions from.
 Pagination<br><span class="label">Optional</span>|This endpoint can be [paginated](#pagination).
+
+## List pots
+
+```shell
+$ http "https://api.monzo.com/ais/pots" \
+    "Authorization: Bearer $access_token"
+```
+
+```json
+{
+  "pots": [
+    {
+      "id": "pot_0000778xxfgh4iu8z83nWb",
+      "name": "Savings",
+      "style": "beach_ball",
+      "balance": 133700,
+      "currency": "GBP",
+      "created": "2017-11-09T12:30:53.695Z",
+      "updated": "2017-11-09T12:30:53.695Z",
+      "deleted": false
+    }
+  ]
+}
+```
+
+Returns a list of pots owned by the currently authorised user.
