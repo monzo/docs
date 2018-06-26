@@ -153,3 +153,14 @@ Refreshing an access token will invalidate the previous token, if it is still va
 `client_id`<br><span class="label notice">Required</span>|Your client ID.
 `client_secret`<br><span class="label notice">Required</span>|Your client secret.
 `refresh_token`<br><span class="label notice">Required</span>|The refresh token received along with the original access token.
+
+## Log Out
+
+```shell
+$ http --form POST "https://api.monzo.com/oauth2/logout" \
+    "Authorization: Bearer $access_token"
+```
+
+While access tokens do expire after a number of hours, you may wish to invalidate the token instantly at a specific time such as when a user chooses to log out of your application.
+
+Once invalidated, the user must go through the authentication process again. You will not be able to refresh the access token.
