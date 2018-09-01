@@ -27,7 +27,7 @@ $ http "https://api.monzo.com/ais/accounts" \
 }
 ```
 
-To filter by either prepaid or current account, add `account_type` as a url parameter. Only `uk_retail` `account_type`s are visible on the AIS API.
+To filter by either prepaid or current account, add `account_type` as a url parameter. Only `uk_retail` and `uk_retail_joint` `account_type`s are visible on the AIS API.
 
 ```shell
 $ http "https://api.monzo.com/ais/accounts" \
