@@ -138,6 +138,7 @@ $ http "https://api.monzo.com/ais/pots" \
       "style": "beach_ball",
       "balance": 133700,
       "currency": "GBP",
+      "round_up": true,
       "created": "2017-11-09T12:30:53.695Z",
       "updated": "2017-11-09T12:30:53.695Z",
       "deleted": false
