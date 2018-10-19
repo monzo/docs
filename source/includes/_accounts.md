@@ -24,7 +24,7 @@ $ http "https://api.monzo.com/accounts" \
 ```
 
 To filter by either prepaid or current account, add `account_type` as a url parameter.
-Valid `account_type`s are `uk_retail`, `uk_retail_joint` and `uk_prepaid`.
+Valid `account_type`s are `uk_retail`, `uk_retail_joint`.
 
 ```shell
 $ http "https://api.monzo.com/accounts" \
