@@ -91,7 +91,7 @@ When you delete a webhook, we will no longer send notifications to it.
         "id": "tx_00008zjky19HyFLAzlUk7t",
         "category": "eating_out",
         "is_load": false,
-        "settled": true,
+        "settled": "2015-09-05T14:28:40Z",
         "merchant": {
             "address": {
                 "address": "98 Southgate Road",
