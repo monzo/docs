@@ -26,17 +26,17 @@
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="images/navbar-cad8cdcb.png" />
+        <img src="images/navbar-cad8cdcb.png" alt="Navbar" />
       </span>
     </a>
     <div class="tocify-wrapper">
-      <span class="logo"><a href="https://monzo.com"><img src="images/logo-46fdcf49.svg" /></a></span>
+      <span class="logo"><a href="https://monzo.com"><img src="images/logo-46fdcf49.svg" alt="Logo" /></a></span>
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
         </div>
       <div id="toc">
       </div>
-      <a href="https://github.com/monzo/docs/" title="Edit these docs on GitHub" id="github"><img src="images/github-fabe53eb.png" /> Edit on GitHub</a>
+      <a href="https://github.com/monzo/docs/" title="Edit these docs on GitHub" id="github"><img src="images/github-fabe53eb.png" alt="Github" /> Edit on GitHub</a>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
@@ -281,6 +281,15 @@ To get started quickly, you can use the access token from the API playground and
 </tr>
 </tbody></table>
 
+<h2 id="log-out">Log Out</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.monzo.com/oauth2/logout"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
+</code></pre>
+
+<p>While access tokens do expire after a number of hours, you may wish to invalidate the token instantly at a specific time such as when a user chooses to log out of your application.</p>
+
+<p>Once invalidated, the user must go through the authentication process again. You will not be able to refresh the access token.</p>
+
           <h1 id="pagination">Pagination</h1>
 
 <p>Endpoints which enumerate objects support time-based and cursor-based pagination.</p>
@@ -333,7 +342,7 @@ To get started quickly, you can use the access token from the API playground and
 </span></code></pre>
 
 <p>To filter by either prepaid or current account, add <code class="prettyprint">account_type</code> as a url parameter.
-Valid <code class="prettyprint">account_type</code>s are <code class="prettyprint">uk_retail</code> and <code class="prettyprint">uk_prepaid</code>.</p>
+Valid <code class="prettyprint">account_type</code>s are <code class="prettyprint">uk_retail</code>, <code class="prettyprint">uk_retail_joint</code>.</p>
 <pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/accounts"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="nv">account_type</span><span class="o">==</span>uk_retail
@@ -350,6 +359,7 @@ Valid <code class="prettyprint">account_type</code>s are <code class="prettyprin
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"total_balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">6000</span><span class="p">,</span><span class="w">
     </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"spend_today"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -382,6 +392,10 @@ Valid <code class="prettyprint">account_type</code>s are <code class="prettyprin
 <tr>
 <td><code class="prettyprint">balance</code></td>
 <td>The currently available balance of the account, as a 64bit integer in minor units of the currency, eg. pennies for GBP, or cents for EUR and USD.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">total_balance</code></td>
+<td>The sum of the currently available balance of the account and the combined total of all <a href="https://monzo.com/docs/#list-pots">the user&rsquo;s pots</a>.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">currency</code></td>
@@ -609,7 +623,7 @@ Valid <code class="prettyprint">account_type</code>s are <code class="prettyprin
 </tr>
 <tr>
 <td><code class="prettyprint">decline_reason</code></td>
-<td><strong>This is only present on declined transactions!</strong> Valid values are <code class="prettyprint">INSUFFICIENT_FUNDS</code>, <code class="prettyprint">CARD_INACTIVE</code>, <code class="prettyprint">CARD_BLOCKED</code> or <code class="prettyprint">OTHER</code>.</td>
+<td><strong>This is only present on declined transactions!</strong> Valid values are <code class="prettyprint">INSUFFICIENT_FUNDS</code>, <code class="prettyprint">CARD_INACTIVE</code>, <code class="prettyprint">CARD_BLOCKED</code>, <code class="prettyprint">INVALID_CVC</code> or <code class="prettyprint">OTHER</code>.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">is_load</code></td>
@@ -617,7 +631,7 @@ Valid <code class="prettyprint">account_type</code>s are <code class="prettyprin
 </tr>
 <tr>
 <td><code class="prettyprint">settled</code></td>
-<td>The timestamp at which the transaction settled. In most cases, this happens 24-48 hours after <code class="prettyprint">created</code>. If this field is not present, the transaction is authorised but not yet &ldquo;complete.&rdquo;</td>
+<td>The timestamp at which the transaction <a href="http://blog.unibulmerchantservices.com/authorization-clearing-and-settlement-of-mastercard-transactions/">settled</a>. In most cases, this happens 24-48 hours after <code class="prettyprint">created</code>. If this field is an empty string, the transaction is authorised but not yet &ldquo;complete.&rdquo;</td>
 </tr>
 <tr>
 <td><code class="prettyprint">category</code></td>
@@ -788,7 +802,7 @@ Valid <code class="prettyprint">account_type</code>s are <code class="prettyprin
 </tbody></table>
 
 <aside class="notice">
-Metadata is private to your application.
+Metadata is private to your application. Updating the `notes` key applies the value to the transaction&rsquo;s top-level notes property.
 </aside>
 
           <h1 id="feed-items">Feed items</h1>
@@ -1160,7 +1174,7 @@ Metadata is private to your application.
         </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zjky19HyFLAzlUk7t"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eating_out"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"is_load"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-05T14:28:40Z"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
                 </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"98 Southgate Road"</span><span class="p">,</span><span class="w">
@@ -1282,7 +1296,7 @@ Metadata is private to your application.
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>To filter by either prepaid or current account, add <code class="prettyprint">account_type</code> as a url parameter. Only <code class="prettyprint">uk_retail</code> <code class="prettyprint">account_type</code>s are visible on the AIS API.</p>
+<p>To filter by either prepaid or current account, add <code class="prettyprint">account_type</code> as a url parameter. Only <code class="prettyprint">uk_retail</code> and <code class="prettyprint">uk_retail_joint</code> <code class="prettyprint">account_type</code>s are visible on the AIS API.</p>
 <pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/ais/accounts"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"account_type==uk_retail"</span>
@@ -1413,6 +1427,7 @@ Metadata is private to your application.
       </span><span class="nt">"style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"beach_ball"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">133700</span><span class="p">,</span><span class="w">
       </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"round_up"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-09T12:30:53.695Z"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-09T12:30:53.695Z"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
