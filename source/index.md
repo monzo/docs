@@ -35,9 +35,7 @@ https://api.monzo.com
 
 The Monzo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and webhooks.
 
-Our developers' community in Slack is the place to get help with our API, discuss ideas, and show off what you build. Hit the button to join:
-
-<script async defer src="https://devslack.monzo.com/slackin.js"></script>
+The [Developers category](https://community.monzo.com/c/developers) on our forum is the place to get help with our API, discuss ideas, and show off what you build.
 
 <aside class="warning">
     <strong>The Monzo Developer API is not suitable for building public applications.</strong><br>
