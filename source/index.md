@@ -14,6 +14,7 @@ includes:
   - transactions
   - feed_items
   - attachments
+  - receipts
   - webhooks
   - errors
   - ais
