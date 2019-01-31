@@ -194,7 +194,7 @@ The merchant gives us more information about where the purchase was made, to hel
 | `store_postcode` | The store’s postcode                                                                               |
 
 
-## Create a receipt
+## Create receipt
 
 ```shell
 $ http PUT "https://api.monzo.com/transaction-receipts" \
@@ -220,6 +220,13 @@ $ http PUT "https://api.monzo.com/transaction-receipts" \
 }
 ```
 
+```json
+{
+    "receipt_id": "receipt_00009NrKwNtI3gKqte",
+    ...
+}
+```
+
 To attach a receipt to a transaction, make a `PUT` request to the `/transaction-receipts` API. Your request should include a body containing the receipt encoded as JSON.
 
 <aside class="notice">
@@ -227,4 +234,62 @@ Unlike our earlier APIs, this API takes a JSON-encoded request body, rather than
 </aside>
 
 If you’re successful, you’ll get back a `200 OK` HTTP response, along with the `receipt_id` and the rest of the information you provided, repeated back to you. After that, the receipt will show up in your Monzo app!
+
+The `external_id` is used as an idempotency key, so if you call this endpoint again with the same external ID, it will **update** the existing receipt.
+
+
+
+## Retrieve receipt
+
+You can read back a receipt that you've created based on its external ID.
+
+Note that you'll only be able to read your own receipts in this way.
+
+
+```
+$ http GET "https://api.monzo.com/transaction-receipts" \
+    "Authorization: Bearer $access_token" \
+    "external_id==test-receipt-1"
+```
+
+```json
+{
+  "receipt": {
+    "id": "receipt_00009eNJqNeJvKeoQA",
+    "external_id": "test-receipt-1",
+    ...
+  }
+}
+```
+
+##### Request arguments
+
+<span class="hide">Parameter</span> | <span class="hide">Description</span>
+------------------------------------|--------------------------------------
+`external_id`<br><span class="label notice">Required</span>|The external ID of the receipt.
+
+
+## Delete receipt
+
+
+You can delete a receipt based on its external ID.
+
+Note that you can also **update** an existing receipt, by [creating it again](#create-a-receipt) with different values.
+
+```
+$ http DELETE "https://api.monzo.com/transaction-receipts" \
+    "Authorization: Bearer $access_token" \
+    "external_id==test-receipt-1"
+```
+
+```json
+{}
+```
+
+##### Request arguments
+
+<span class="hide">Parameter</span> | <span class="hide">Description</span>
+------------------------------------|--------------------------------------
+`external_id`<br><span class="label notice">Required</span>|The external ID of the receipt.
+
 
