@@ -1831,6 +1831,52 @@ Unlike our earlier APIs, this API takes a JSON-encoded request body, rather than
 
 <p>Returns a list of pots owned by the currently authorised user.</p>
 
+          <h1 id="pisp-access">PISP Access</h1>
+
+<p>Access for companies authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Payment Initiation Service Providers (AISPs)</a> under PSD2.</p>
+
+<p>Monzo provide Payments Initiation to firms authorised as Payment Initiation Service Providers. To request access, email <code class="prettyprint">openbanking@monzo.com</code>.</p>
+
+<p>Access to our PISP sandbox is available on request and onboarding takes 1 month.</p>
+
+<p>Our Payments API is based on Version 3.1 of the Open Banking Standard as documented <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/937754701/Payment+Initiation+API+Specification+-+v3.1">here</a></p>
+
+<h2 id="specifics">Specifics</h2>
+
+<ul>
+<li>The Monzo Payment Initiation api uses sort code and account number as identifiers</li>
+<li>OAuth2 and OpenID Connect are used</li>
+<li>Only client secret basic authentication is used for the token endpoint</li>
+<li>Our well known sandbox endpoint is: https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration</li>
+<li>Our well known production endpoint is: https://api.monzo.com/open-banking/.well-known/openid-configuration</li>
+<li>We implement the redirect flow, with authentication happening on the users mobile device</li>
+<li>Consents once created must be turned into payment orders within 24 hours</li>
+<li>Consents once approved by the PSU must be turned into payment orders within 1 hour</li>
+<li>All payments are sent by Faster Payments</li>
+<li>Domestic Single Immediate Payment is the only supported action currently</li>
+</ul>
+
+          <h1 id="cbpii-access">CBPII Access</h1>
+
+<p>Access for companies authorised as Card Based Payment Instrument Issuers (CBPIIs) under PSD2.</p>
+
+<p>Monzo provide Payments Initiation to firms authorised as Card Based Payment Instrument Issuers. To request access, email <code class="prettyprint">openbanking@monzo.com</code>.</p>
+
+<p>Access to our CBPII sandbox is available on request and onboarding takes 1 month.</p>
+
+<p>Our CBPII API is based on Version 3.1 of the Open Banking Standard as documented <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/937951380/Confirmation+of+Funds+API+Specification+-+v3.1">here</a></p>
+
+<h2 id="specifics">Specifics</h2>
+
+<ul>
+<li>The Monzo CBPII api uses sort code and account number as identifiers</li>
+<li>OAuth2 and OpenID Connect are used</li>
+<li>Only client secret basic authentication is used for the token endpoint</li>
+<li>Our well known sandbox endpoint is: https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration</li>
+<li>Our well known production endpoint is: https://api.monzo.com/open-banking/.well-known/openid-configuration</li>
+<li>We implement the redirect flow, with authentication happening on the users mobile device</li>
+</ul>
+
       </div>
       <div class="dark-box">
           <div class="lang-selector">
