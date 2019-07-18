@@ -233,7 +233,7 @@ To attach a receipt to a transaction, make a `PUT` request to the `/transaction-
 Unlike our earlier APIs, this API takes a JSON-encoded request body, rather than a form-encoded body.
 </aside>
 
-If you’re successful, you’ll get back a `200 OK` HTTP response, along with the `receipt_id` and the rest of the information you provided, repeated back to you. After that, the receipt will show up in your Monzo app!
+If you’re successful, you’ll get back a `200 OK` HTTP response with an empty body. After that, the receipt will show up in your Monzo app!
 
 The `external_id` is used as an idempotency key, so if you call this endpoint again with the same external ID, it will **update** the existing receipt.
 
