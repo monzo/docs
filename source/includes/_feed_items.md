@@ -20,7 +20,7 @@ $ http --form POST "https://api.monzo.com/feed" \
     "params[image_url]=www.example.com/image.png" \
     "params[background_color]=#FCF1EE" \
     "params[body_color]=#FCF1EE" \
-    "params[title_color]=#333" \
+    "params[title_color]=#333333" \
     "params[body]=Some body text to display"
 ```
 
