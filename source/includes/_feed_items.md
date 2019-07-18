@@ -58,6 +58,6 @@ The basic type displays an `image`, with `title` text and optional `body` text.
 `title`<br><span class="label notice">Required</span>|The title to display.
 `image_url`<br><span class="label notice">Required</span>|URL of the image to display. This will be displayed as an icon in the feed, and on the expanded page if no `url` has been provided.
 `body`<br><span class="label">Optional</span>|The body text of the feed item.
-`background_color`<br><span class="label">Optional</span>|Hex value for the background colour of the feed item. Defaults to to standard app colours (ie. white background).
-`title_color`<br><span class="label">Optional</span>|Hex value for the colour of the title text. Defaults to standard app colours.
-`body_color`<br><span class="label">Optional</span>|Hex value for the colour of the body text. Defaults to standard app colours.
+`background_color`<br><span class="label">Optional</span>|Hex value for the background colour of the feed item in the format `#RRGGBB`. Defaults to to standard app colours (ie. white background).
+`title_color`<br><span class="label">Optional</span>|Hex value for the colour of the title text in the format `#RRGGBB`. Defaults to standard app colours.
+`body_color`<br><span class="label">Optional</span>|Hex value for the colour of the body text in the format `#RRGGBB`. Defaults to standard app colours.
