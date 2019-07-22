@@ -7,7 +7,7 @@ API are sent through Faster Payments.
 ## Getting Access
 
 The Open Banking team at Monzo manage access to the Account Information Services API. To get in touch, email us at 
-openbanking@monzo.com.
+[openbanking@monzo.com](mailto:openbanking@monzo.com).
 
 ## Well-Known Endpoints
 

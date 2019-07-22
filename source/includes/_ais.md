@@ -1,7 +1,7 @@
 # Account Information Services API
 
-The Account Information Services API lets authorised Account Information Service Providers access account information 
-for our customers in the United Kingdom.
+The Account Information Services API lets authorised Account Information Service Providers access balances, transactions, 
+and more for our customers in the United Kingdom.
 
 ## Getting Access
 
@@ -54,7 +54,7 @@ that our customers see in the Monzo app, and it includes pending and settled tra
 We've implemented version 3.1.2 of the [Open Banking transactions specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805388/Transactions+v3.1.2).
 
 For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
-**RFC3339 format**.
+[**RFC3339 format**](https://www.ietf.org/rfc/rfc3339.txt).
 
 Your consent will need to have either the `ReadTransactionsBasic` or `ReadTransactionsDetail` permissions to access 
 this endpoint.
@@ -119,14 +119,14 @@ endpoint as an extension to the Open Banking specification.
             },
             {
                 "PotId": "pot_00009kIt8JXWB3R9bYUWkD",
-                "Name": "My Investec Pot",
+                "Name": "My Savings Pot",
                 "Type": "fixed_savings",
                 "CreditDebitIndicator": "Debit",
                 "Balance": {
                     "Amount": "1100.0000",
                     "Currency": "GBP"
                 },
-                "Style": "investec_blue",
+                "Style": "cassette",
                 "LockType": "until_date",
                 "LockedUntil": "2020-07-01T00:00:00Z",
                 "Created": "2019-06-28T11:11:44.195Z",
