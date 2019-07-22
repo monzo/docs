@@ -65,7 +65,7 @@
 </aside>
 
 <aside class="notice">
-    For firms authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Account Information Service Providers</a> under PSD2 we offer an <a href=#aisp-access>AISP API</a>.
+    For firms authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Account Information Service Providers</a> under PSD2 we offer an <a href=#account-information-services-api>AISP API</a>.
 </aside>
 
           <h1 id="authentication">Authentication</h1>
@@ -825,7 +825,7 @@ Metadata is private to your application. Updating the `notes` key applies the va
     <span class="s2">"params[image_url]=www.example.com/image.png"</span> <span class="se">\</span>
     <span class="s2">"params[background_color]=#FCF1EE"</span> <span class="se">\</span>
     <span class="s2">"params[body_color]=#FCF1EE"</span> <span class="se">\</span>
-    <span class="s2">"params[title_color]=#333"</span> <span class="se">\</span>
+    <span class="s2">"params[title_color]=#333333"</span> <span class="se">\</span>
     <span class="s2">"params[body]=Some body text to display"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{}</span><span class="w">
@@ -892,15 +892,15 @@ Metadata is private to your application. Updating the `notes` key applies the va
 </tr>
 <tr>
 <td><code class="prettyprint">background_color</code><br><span class="label">Optional</span></td>
-<td>Hex value for the background colour of the feed item. Defaults to to standard app colours (ie. white background).</td>
+<td>Hex value for the background colour of the feed item in the format <code class="prettyprint">#RRGGBB</code>. Defaults to to standard app colours (ie. white background).</td>
 </tr>
 <tr>
 <td><code class="prettyprint">title_color</code><br><span class="label">Optional</span></td>
-<td>Hex value for the colour of the title text. Defaults to standard app colours.</td>
+<td>Hex value for the colour of the title text in the format <code class="prettyprint">#RRGGBB</code>. Defaults to standard app colours.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">body_color</code><br><span class="label">Optional</span></td>
-<td>Hex value for the colour of the body text. Defaults to standard app colours.</td>
+<td>Hex value for the colour of the body text in the format <code class="prettyprint">#RRGGBB</code>. Defaults to standard app colours.</td>
 </tr>
 </tbody></table>
 
@@ -1408,7 +1408,7 @@ Metadata is private to your application. Updating the `notes` key applies the va
 Unlike our earlier APIs, this API takes a JSON-encoded request body, rather than a form-encoded body.
 </aside>
 
-<p>If you’re successful, you’ll get back a <code class="prettyprint">200 OK</code> HTTP response, along with the <code class="prettyprint">receipt_id</code> and the rest of the information you provided, repeated back to you. After that, the receipt will show up in your Monzo app!</p>
+<p>If you’re successful, you’ll get back a <code class="prettyprint">200 OK</code> HTTP response with an empty body. After that, the receipt will show up in your Monzo app!</p>
 
 <p>The <code class="prettyprint">external_id</code> is used as an idempotency key, so if you call this endpoint again with the same external ID, it will <strong>update</strong> the existing receipt.</p>
 
@@ -1664,218 +1664,379 @@ Unlike our earlier APIs, this API takes a JSON-encoded request body, rather than
 </tr>
 </tbody></table>
 
-          <h1 id="aisp-access">AISP Access</h1>
+          <h1 id="account-information-services-api">Account Information Services API</h1>
 
-<p>Access for companies authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Account Information Service Providers (AISPs)</a> under PSD2. A more thorough introduction can be found <a href="https://monzo.com/blog/2018/01/12/api-update/">on our blog</a>.</p>
+<p>The Account Information Services API lets authorised Account Information Service Providers access balances, transactions, 
+and more for our customers in the United Kingdom.</p>
 
-<p>This API is a limited subset of the developer API. Unlike the developer API, it is guaranteed to remain stable. You do not have to have a Monzo account to apply for AISP access, but only companies authorised by their local regulator as an AISP can be granted access. To apply for access, email <code class="prettyprint">openbanking@monzo.com</code>.</p>
+<h2 id="getting-access">Getting Access</h2>
 
-<p>In the future we may implement the <a href="https://www.openbanking.org.uk">Open Banking API</a>, as well as a more fully featured v2 developer API.</p>
+<p>The Open Banking team at Monzo manage access to the Account Information Services API. To get in touch, email us at 
+<a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
 
-<h2 id="list-accounts">List accounts</h2>
+<h2 id="well-known-endpoints">Well-Known Endpoints</h2>
 
-<p>Returns a list of accounts owned by the currently authorised user.</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/ais/accounts"</span> <span class="se">\</span>
-    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_00009237aqC8c5umZmrRdh"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Peter Pan's Account"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-11-13T12:17:42Z"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<p>We&rsquo;ve described the paths of our well-known endpoints for the Sandbox and Production environments below.</p>
 
-<p>To filter by either prepaid or current account, add <code class="prettyprint">account_type</code> as a url parameter. Only <code class="prettyprint">uk_retail</code> and <code class="prettyprint">uk_retail_joint</code> <code class="prettyprint">account_type</code>s are visible on the AIS API.</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/ais/accounts"</span> <span class="se">\</span>
-    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"account_type==uk_retail"</span>
-</code></pre>
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Path</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code class="prettyprint">https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code class="prettyprint">https://api.monzo.com/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+</tbody></table>
 
-<h2 id="read-balance">Read balance</h2>
+<h2 id="authentication">Authentication</h2>
 
-<p>Returns a customer&rsquo;s account balance.</p>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/ais/balance"</span> <span class="se">\</span>
-    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"account_id==</span><span class="nv">$account_id</span><span class="s2">"</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"spend_today"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<p>As per the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/83919096/Open+Banking+Security+Profile+-+Implementer+s+Draft+v1.1.2">Open Banking specification</a>, 
+we use OAuth 2 and OpenID connect for authentication. We have implemented the redirect flow, with authentication taking 
+place in the customer&rsquo;s Monzo app.</p>
+
+<p>Although we support <code class="prettyprint">client_secret_basic</code> authentication, our preferred authentication method is <code class="prettyprint">tls_client_auth</code> and 
+we won&rsquo;t issue you with a client secret unless you ask for one.</p>
+
+<h2 id="accounts">Accounts</h2>
+
+<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805362/Accounts+v3.1.2">Open Banking accounts specification</a>.</p>
+
+<p>Once you have a consent for a customer, you&rsquo;ll be able to see their:</p>
+
+<ul>
+<li>Personal (individual) accounts</li>
+<li>Joint accounts</li>
+<li>Business accounts</li>
+</ul>
+
+<p>If the account has been closed, it will still be returned in the response, but with an updated <code class="prettyprint">Status</code>.</p>
+
+<aside class="notice">
+To access a customer&rsquo;s Pots, use the Pots endpoint described further on in this documentation.
+</aside>
+
+<h2 id="balances">Balances</h2>
+
+<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805375/Balances+v3.1.2">Open Banking balances specification</a>.</p>
+
+<p>When you query this endpoint, you&rsquo;ll see the customer&rsquo;s <code class="prettyprint">InterimAvailable</code> balance. This is the same real-time balance 
+that our customers see in the Monzo app, and it includes pending and settled transactions.</p>
 
 <h2 id="transactions">Transactions</h2>
 
-<p>Transactions are movements of funds into or out of an account. Negative transactions represent debits (ie. <em>spending</em> money) and positive transactions represent credits (ie. <em>receiving</em> money).</p>
+<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805388/Transactions+v3.1.2">Open Banking transactions specification</a>.</p>
 
-<p>Most properties on transactions are self-explanatory. We&rsquo;ll eventually get around to documenting them all, but in the meantime let&rsquo;s discuss the most interesting/confusing ones:</p>
+<p>For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
+<a href="https://www.ietf.org/rfc/rfc3339.txt"><strong>RFC3339 format</strong></a>.</p>
 
-<h5 id="properties">Properties</h5>
+<p>Your consent will need to have either the <code class="prettyprint">ReadTransactionsBasic</code> or <code class="prettyprint">ReadTransactionsDetail</code> permissions to access 
+this endpoint.</p>
 
-<table><thead>
-<tr>
-<th><span class="hide">Property</span></th>
-<th><span class="hide">Description</span></th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">amount</code></td>
-<td>The amount of the transaction in minor units of <code class="prettyprint">currency</code>. For example pennies in the case of GBP. A negative amount indicates a debit (most card transactions will have a negative amount)</td>
-</tr>
-<tr>
-<td><code class="prettyprint">decline_reason</code></td>
-<td><strong>This is only present on declined transactions!</strong> Valid values are <code class="prettyprint">INSUFFICIENT_FUNDS</code>, <code class="prettyprint">CARD_INACTIVE</code>, <code class="prettyprint">CARD_BLOCKED</code> or <code class="prettyprint">OTHER</code>.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">is_load</code></td>
-<td>Top-ups to an account are represented as transactions with a positive amount and <code class="prettyprint">is_load = true</code>. Other transactions such as refunds, reversals or chargebacks may have a positive amount but <code class="prettyprint">is_load = false</code></td>
-</tr>
-<tr>
-<td><code class="prettyprint">settled</code></td>
-<td>The timestamp at which the transaction settled. In most cases, this happens 24-48 hours after <code class="prettyprint">created</code>. If this field is not present, the transaction is authorised but not yet &ldquo;complete.&rdquo;</td>
-</tr>
-<tr>
-<td><code class="prettyprint">category</code></td>
-<td>The category can be set for each transaction by the user. Over time we learn which merchant goes in which category and auto-assign the category of a transaction. If the user hasn&rsquo;t set a category, we&rsquo;ll return the default category of the merchant on this transactions. Top-ups have category <code class="prettyprint">mondo</code>. Valid values are <code class="prettyprint">general</code>, <code class="prettyprint">eating_out</code>, <code class="prettyprint">expenses</code>, <code class="prettyprint">transport</code>, <code class="prettyprint">cash</code>, <code class="prettyprint">bills</code>, <code class="prettyprint">entertainment</code>, <code class="prettyprint">shopping</code>, <code class="prettyprint">holidays</code>, <code class="prettyprint">groceries</code>.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">merchant</code></td>
-<td>This contains the <code class="prettyprint">merchant_id</code> of the merchant that this transaction was made at. Expanding merchant data is not supported via the AIS api.</td>
-</tr>
-</tbody></table>
+<p>When you query this endpoint, you&rsquo;ll receive all of the transactions that the customer made in the date range specified 
+in the request. Like in the Monzo app, we organise transactions in this response based on creation (presentment) time,
+not the time the transaction settles.</p>
 
-<h2 id="list-transactions">List transactions</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/ais/transactions"</span> <span class="se">\</span>
-    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"account_id==</span><span class="nv">$account_id</span><span class="s2">"</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"transactions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"account_balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">13013</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-510</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-22T12:20:18Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"THE DE BEAUVOIR DELI C LONDON        GBR"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zIcpb1TB4yeIFXMzx"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="s2">"merch_00008zIcpbAKe8shBxXUtl"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-            </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Salmon sandwich 🍞"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"is_load"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-23T12:20:18Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eating_out"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"account_balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">12334</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-679</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-23T16:15:03Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VUE BSL LTD            ISLINGTON     GBR"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_00008zL2INM3xZ41THuRF3"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"merchant"</span><span class="p">:</span><span class="w"> </span><span class="s2">"merch_00008z6uFVhVBcaZzSQwCX"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-            </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"is_load"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"settled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-24T16:15:03Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eating_out"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<p>Transaction amounts can change after the transaction is first created, and you can use the <code class="prettyprint">Status</code> field to help 
+identify transactions that are still pending.</p>
 
-<p>Returns a list of transactions on the user&rsquo;s account.</p>
+<p>You&rsquo;ll only be allowed to fetch transactions that were made in the range defined by <code class="prettyprint">TransactionFromDateTime</code> and 
+<code class="prettyprint">TransactionToDateTime</code> in your consent. If you try to access transactions outside this range, it won&rsquo;t work.</p>
 
-<h5 id="request-arguments">Request arguments</h5>
+<h2 id="pots">Pots</h2>
 
-<table><thead>
-<tr>
-<th><span class="hide">Parameter</span></th>
-<th><span class="hide">Description</span></th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">account_id</code><br><span class="label notice">Required</span></td>
-<td>The account to retrieve transactions from.</td>
-</tr>
-<tr>
-<td>Pagination<br><span class="label">Optional</span></td>
-<td>This endpoint can be <a href="#pagination">paginated</a>.</td>
-</tr>
-</tbody></table>
+<p>Since Pots on Monzo have lots of additional properties that AISPs might find useful, we have implemented a Pots 
+endpoint as an extension to the Open Banking specification.</p>
 
-<h2 id="list-pots">List pots</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/ais/pots"</span> <span class="se">\</span>
-    <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"pots"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pot_0000778xxfgh4iu8z83nWb"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Savings"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"beach_ball"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">133700</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"round_up"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-09T12:30:53.695Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-09T12:30:53.695Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+<h3 id="list-pots">List Pots</h3>
+<pre class="highlight json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"Pot"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"PotId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pot_00009g4AB7nItyHI3R7CVt"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Savings"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"CreditDebitIndicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Debit"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.0000"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nt">"Style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cassette"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Goal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.0000"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nt">"Created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-02-21T17:13:39.315Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-02-21T17:13:39.315Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Open"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"PotId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pot_00009kIt1QKIXu98cu1RM9"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bobs And Bits"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flexible_savings"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"CreditDebitIndicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Debit"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.0000"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nt">"Style"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"ImageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Goal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9999.0000"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nt">"Created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-28T11:10:29.478Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-28T11:11:09.173Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Open"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"PotId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pot_00009kIt8JXWB3R9bYUWkD"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Savings Pot"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fixed_savings"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"CreditDebitIndicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Debit"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1100.0000"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nt">"Style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cassette"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"LockType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"until_date"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"LockedUntil"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-07-01T00:00:00Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-28T11:11:44.195Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-28T11:11:44.195Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Open"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Returns a list of pots owned by the currently authorised user.</p>
+<h4 id="endpoint">Endpoint</h4>
 
-          <h1 id="pisp-access">PISP Access</h1>
+<table><thead>
+<tr>
+<th><span class="hide"></span></th>
+<th><span class="hide"></span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Path</td>
+<td><code class="prettyprint">GET https://openbanking.monzo.com/open-banking/v3.1/pots</code></td>
+</tr>
+</tbody></table>
 
-<p>Access for companies authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Payment Initiation Service Providers (AISPs)</a> under PSD2.</p>
+<p>Note that the fields we return as part of the response depend on whether your consent has the  <code class="prettyprint">ReadAccountsBasic</code> 
+or <code class="prettyprint">ReadAccountsDetailed</code> permission. In the former case, we will omit the Pot name and Image URL from the response.</p>
 
-<p>Monzo provide Payments Initiation to firms authorised as Payment Initiation Service Providers. To request access, email <code class="prettyprint">openbanking@monzo.com</code>.</p>
+<p>We&rsquo;ll only return open pots as part of our response.</p>
 
-<p>Access to our PISP sandbox is available on request and onboarding takes 1 month.</p>
+<h2 id="customers">Customers</h2>
 
-<p>Our Payments API is based on Version 3.1 of the Open Banking Standard as documented <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/937754701/Payment+Initiation+API+Specification+-+v3.1">here</a></p>
+<p>We have implemented a Customer endpoint to return a user&rsquo;s legal and preferred names as an extension to the Open Banking
+specification.</p>
 
-<h2 id="specifics">Specifics</h2>
+<aside class="notice">
+You should use the customer&rsquo;s preferred name when you talk to them.
+</aside>
 
-<ul>
-<li>The Monzo Payment Initiation api uses sort code and account number as identifiers</li>
-<li>OAuth2 and OpenID Connect are used</li>
-<li>Only client secret basic authentication is used for the token endpoint</li>
-<li>Our well known sandbox endpoint is: https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration</li>
-<li>Our well known production endpoint is: https://api.monzo.com/open-banking/.well-known/openid-configuration</li>
-<li>We implement the redirect flow, with authentication happening on the users mobile device</li>
-<li>Consents once created must be turned into payment orders within 24 hours</li>
-<li>Consents once approved by the PSU must be turned into payment orders within 1 hour</li>
-<li>All payments are sent by Faster Payments</li>
-<li>Domestic Single Immediate Payment is the only supported action currently</li>
-</ul>
+<h3 id="read-customer">Read Customer</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"Customer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"PreferredName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe Penbanking"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"LegalName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joseph Penbanking"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
-          <h1 id="cbpii-access">CBPII Access</h1>
+<h4 id="endpoint">Endpoint</h4>
 
-<p>Access for companies authorised as Card Based Payment Instrument Issuers (CBPIIs) under PSD2.</p>
+<table><thead>
+<tr>
+<th><span class="hide"></span></th>
+<th><span class="hide"></span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Path</td>
+<td><code class="prettyprint">GET https://openbanking.monzo.com/open-banking/v3.1/aisp/customer</code></td>
+</tr>
+</tbody></table>
 
-<p>Monzo provide Payments Initiation to firms authorised as Card Based Payment Instrument Issuers. To request access, email <code class="prettyprint">openbanking@monzo.com</code>.</p>
+<p>You&rsquo;ll need to have an approved consent with the <code class="prettyprint">ReadAccountsDetail</code> permission to call this endpoint.</p>
 
-<p>Access to our CBPII sandbox is available on request and onboarding takes 1 month.</p>
+          <h1 id="payment-initiation-services-api">Payment Initiation Services API</h1>
 
-<p>Our CBPII API is based on Version 3.1 of the Open Banking Standard as documented <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/937951380/Confirmation+of+Funds+API+Specification+-+v3.1">here</a></p>
+<p>The Payment Initiation Services API lets authorised Payment Initiation Service Providers make outbound payments from 
+the accounts of our customers in the United Kingdom. All payments initiated through our Payment Initiation Services 
+API are sent through Faster Payments.</p>
 
-<h2 id="specifics">Specifics</h2>
+<h2 id="getting-access">Getting Access</h2>
 
-<ul>
-<li>The Monzo CBPII api uses sort code and account number as identifiers</li>
-<li>OAuth2 and OpenID Connect are used</li>
-<li>Only client secret basic authentication is used for the token endpoint</li>
-<li>Our well known sandbox endpoint is: https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration</li>
-<li>Our well known production endpoint is: https://api.monzo.com/open-banking/.well-known/openid-configuration</li>
-<li>We implement the redirect flow, with authentication happening on the users mobile device</li>
-</ul>
+<p>The Open Banking team at Monzo manage access to the Account Information Services API. To get in touch, email us at 
+<a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+
+<h2 id="well-known-endpoints">Well-Known Endpoints</h2>
+
+<p>We&rsquo;ve described the paths of our well-known endpoints for the Sandbox and Production environments below.</p>
+
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Path</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code class="prettyprint">https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code class="prettyprint">https://api.monzo.com/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="authentication">Authentication</h2>
+
+<p>As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
+redirect flow, with authentication taking place in the customer&rsquo;s Monzo app.</p>
+
+<p>Although we support <code class="prettyprint">client_secret_basic</code> authentication, our preferred authentication method is <code class="prettyprint">tls_client_auth</code> and 
+we won&rsquo;t issue you with a client secret unless you ask for one.</p>
+
+<p>Once created, you&rsquo;ll need to turn any consent into a payment order within 24 hours. Once the consent is approved, you&rsquo;ll
+have one hour.</p>
+
+<h2 id="domestic-payments">Domestic Payments</h2>
+
+<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805881/Domestic+Payments+v3.1.2">Open Banking Domestic Payments specification</a>.</p>
+
+<p>When you request a consent for Domestic Payments, you should provide <code class="prettyprint">UK.OBIE.FPS</code> as the <code class="prettyprint">LocalInstrument</code>.</p>
+
+<p>We support account identification using <code class="prettyprint">UK.OBIE.SortCodeAccountNumber</code>. We don&rsquo;t support identification using 
+<code class="prettyprint">UK.OBIE.IBAN</code>.</p>
+
+<p>You can only make payments in <code class="prettyprint">GBP</code>. We don&rsquo;t support other currencies.</p>
+
+<aside class="notice">
+In the <b>sandbox</b> environment, you can automatically have domestic payment requests approved or declined to help with 
+testing. When creating the payment consent, you can add a <code>DesiredStatus</code> field to the 
+<code>Data/Initiation/SupplementaryData</code> object in the consent request. You can set this field to 
+<code>Authorised</code> or <code>Rejected</code>, depending on the behaviour you want.
+</aside>
+
+<h2 id="scheduled-payments">Scheduled Payments</h2>
+
+<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805996/Domestic+Scheduled+Payment+v3.1.2">Open Banking Scheduled Payments specification</a>.</p>
+
+<p>For consistency with our internal systems and the rest of our API, you will need to provide times in <strong>RFC3339 format.</strong></p>
+
+<p>When you request a consent for Domestic Payments, you should provide <code class="prettyprint">UK.OBIE.FPS</code> as the <code class="prettyprint">LocalInstrument</code>.</p>
+
+<p>We support account identification using <code class="prettyprint">UK.OBIE.SortCodeAccountNumber</code>. We don&rsquo;t support identification using 
+<code class="prettyprint">UK.OBIE.IBAN</code>.</p>
+
+<p>At the moment, we don&rsquo;t support the <code class="prettyprint">payment-details</code> endpoint.</p>
+
+<p>You can only make payments in <code class="prettyprint">GBP</code>. We don&rsquo;t support other currencies.</p>
+
+<aside class="notice">
+All of our scheduled payments are sent in the early hours of the morning on the day you request.
+</aside>
+
+<h2 id="standing-orders">Standing Orders</h2>
+
+<p>We have implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077806077/Domestic+Standing+Orders+v3.1.2">Open Banking Standing Order specification</a>.</p>
+
+<p>For consistency with our internal systems and the rest of our API, you will need to provide times in <strong>RFC3339 format.</strong></p>
+
+<p>We support a subset of the standing order frequencies laid out in the specification. These are the same as the 
+frequencies we support in the Monzo app.</p>
+
+<table><thead>
+<tr>
+<th><span class="hide">Supported Frequency</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">EvryDay</code></td>
+<td>Every day (including weekends)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">IntrvlWkDay</code></td>
+<td>We allow the week interval to be <code class="prettyprint">1</code> (every week), <code class="prettyprint">2</code> (every 2 weeks) or <code class="prettyprint">4</code> (every 4 weeks). We ignore the day specified, and instead repeat based on the day of the week of the <code class="prettyprint">FirstPaymentDate</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">IntrvlMnthDay</code></td>
+<td>We allow the month interval to be <code class="prettyprint">1</code> (every month), <code class="prettyprint">3</code> (every quarter) or <code class="prettyprint">12</code> (every year). We ignore the day of month and repeat based on the day of month of the <code class="prettyprint">FirstPaymentDate</code>.</td>
+</tr>
+</tbody></table>
+
+<p>We support account identification using <code class="prettyprint">UK.OBIE.SortCodeAccountNumber</code>. We don&rsquo;t support identification using 
+<code class="prettyprint">UK.OBIE.IBAN</code>.</p>
+
+<p>Since we use the <code class="prettyprint">FirstPaymentDate</code> to decide when payments will repeat, we don&rsquo;t use the <code class="prettyprint">RecurringPaymentDateTime</code> or 
+<code class="prettyprint">RecurringPaymentAmount</code> fields. We&rsquo;ll return an error if you include them.</p>
+
+<p>You can make standing orders with an end date by specifying either a <code class="prettyprint">NumberOfPayments</code> or a <code class="prettyprint">FinalPaymentDateTime</code>, but
+we don&rsquo;t let you include both.</p>
+
+<p>At the moment, we don&rsquo;t support the <code class="prettyprint">payment-details</code> endpoint.</p>
+
+<p>You can only make payments in <code class="prettyprint">GBP</code>. We don&rsquo;t support other currencies.</p>
+
+          <h1 id="confirmation-of-funds-api">Confirmation of Funds API</h1>
+
+<p>The Confirmation of Funds API lets authorised Card Based Payment Instrument Issuers check that Monzo customers have 
+enough money for a purchase. </p>
+
+<h2 id="getting-access">Getting Access</h2>
+
+<p>The Open Banking team at Monzo manage access to the Confirmation of Funds API. To get in touch, email us at 
+<a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+
+<h2 id="well-known-endpoints">Well-Known Endpoints</h2>
+
+<p>We&rsquo;ve described the paths of our well-known endpoints for the Sandbox and Production environments below.</p>
+
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Path</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code class="prettyprint">https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code class="prettyprint">https://api.monzo.com/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="authentication">Authentication</h2>
+
+<p>As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
+redirect flow, with authentication taking place in the customer&rsquo;s Monzo app.</p>
+
+<p>Although we support <code class="prettyprint">client_secret_basic</code> authentication, our preferred authentication method is <code class="prettyprint">tls_client_auth</code> and
+we won&rsquo;t issue you with a client secret unless you ask for one.</p>
+
+<h2 id="confirmation-of-funds">Confirmation of Funds</h2>
+
+<p>We have implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077806537/Confirmation+of+Funds+API+Specification+-+v3.1.2">Open Banking Confirmation of Funds Specification</a>.</p>
+
+<p>We use the <strong>redirection flow</strong> for approving consents.</p>
+
+<p>You can identify a <code class="prettyprint">DebtorAccount</code> using the <code class="prettyprint">UK.OBIE.SortCodeAccountNumber</code> scheme. We&rsquo;ll return an error for any 
+other <code class="prettyprint">SchemeName</code>.</p>
 
       </div>
       <div class="dark-box">
