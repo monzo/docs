@@ -46,5 +46,5 @@ The [Developers category](https://community.monzo.com/c/developers) on our forum
 </aside>
 
 <aside class="notice">
-    For firms authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Account Information Service Providers</a> under PSD2 we offer an <a href=#aisp-access>AISP API</a>.
+    For firms authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Account Information Service Providers</a> under PSD2 we offer an <a href=#account-information-services-api>AISP API</a>.
 </aside>

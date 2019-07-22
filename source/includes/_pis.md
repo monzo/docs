@@ -1,22 +1,95 @@
-# PISP Access
+# Payment Initiation Services API
 
-Access for companies authorised as [Payment Initiation Service Providers (AISPs)](https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis) under PSD2.
+The Payment Initiation Services API lets authorised Payment Initiation Service Providers make outbound payments from 
+the accounts of our customers in the United Kingdom. All payments initiated through our Payment Initiation Services 
+API are sent through Faster Payments.
 
-Monzo provide Payments Initiation to firms authorised as Payment Initiation Service Providers. To request access, email `openbanking@monzo.com`.
+## Getting Access
 
-Access to our PISP sandbox is available on request and onboarding takes 1 month.
+The Open Banking team at Monzo manage access to the Account Information Services API. To get in touch, email us at 
+[openbanking@monzo.com](mailto:openbanking@monzo.com).
 
-Our Payments API is based on Version 3.1 of the Open Banking Standard as documented [here](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/937754701/Payment+Initiation+API+Specification+-+v3.1)
+## Well-Known Endpoints
 
-## Specifics
+We've described the paths of our well-known endpoints for the Sandbox and Production environments below.
 
-* The Monzo Payment Initiation api uses sort code and account number as identifiers
-* OAuth2 and OpenID Connect are used
-* Only client secret basic authentication is used for the token endpoint
-* Our well known sandbox endpoint is: https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration
-* Our well known production endpoint is: https://api.monzo.com/open-banking/.well-known/openid-configuration
-* We implement the redirect flow, with authentication happening on the users mobile device
-* Consents once created must be turned into payment orders within 24 hours
-* Consents once approved by the PSU must be turned into payment orders within 1 hour
-* All payments are sent by Faster Payments
-* Domestic Single Immediate Payment is the only supported action currently
+<span class="hide">Environment</span> | <span class="hide">Path</span>
+------------------------------------|--------------------------------------
+Sandbox | `https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration`
+Production | `https://api.monzo.com/open-banking/.well-known/openid-configuration`
+
+## Authentication
+
+As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
+redirect flow, with authentication taking place in the customer's Monzo app.
+
+Although we support `client_secret_basic` authentication, our preferred authentication method is `tls_client_auth` and 
+we won't issue you with a client secret unless you ask for one.
+
+Once created, you'll need to turn any consent into a payment order within 24 hours. Once the consent is approved, you'll
+have one hour.
+
+## Domestic Payments
+
+We've implemented version 3.1.2 of the [Open Banking Domestic Payments specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805881/Domestic+Payments+v3.1.2).
+
+When you request a consent for Domestic Payments, you should provide `UK.OBIE.FPS` as the `LocalInstrument`.
+
+We support account identification using `UK.OBIE.SortCodeAccountNumber`. We don't support identification using 
+`UK.OBIE.IBAN`.
+
+You can only make payments in `GBP`. We don't support other currencies.
+
+<aside class="notice">
+In the <b>sandbox</b> environment, you can automatically have domestic payment requests approved or declined to help with 
+testing. When creating the payment consent, you can add a <code>DesiredStatus</code> field to the 
+<code>Data/Initiation/SupplementaryData</code> object in the consent request. You can set this field to 
+<code>Authorised</code> or <code>Rejected</code>, depending on the behaviour you want.
+</aside>
+
+## Scheduled Payments
+
+We've implemented version 3.1.2 of the [Open Banking Scheduled Payments specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805996/Domestic+Scheduled+Payment+v3.1.2).
+
+For consistency with our internal systems and the rest of our API, you will need to provide times in **RFC3339 format.**
+
+When you request a consent for Domestic Payments, you should provide `UK.OBIE.FPS` as the `LocalInstrument`.
+
+We support account identification using `UK.OBIE.SortCodeAccountNumber`. We don't support identification using 
+`UK.OBIE.IBAN`.
+
+At the moment, we don't support the `payment-details` endpoint.
+
+You can only make payments in `GBP`. We don't support other currencies.
+
+<aside class="notice">
+All of our scheduled payments are sent in the early hours of the morning on the day you request.
+</aside>
+
+## Standing Orders
+
+We have implemented version 3.1.2 of the [Open Banking Standing Order specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077806077/Domestic+Standing+Orders+v3.1.2).
+
+For consistency with our internal systems and the rest of our API, you will need to provide times in **RFC3339 format.**
+
+We support a subset of the standing order frequencies laid out in the specification. These are the same as the 
+frequencies we support in the Monzo app.
+
+<span class="hide">Supported Frequency</span> | <span class="hide">Description</span>
+------------------------------------|--------------------------------------
+`EvryDay` | Every day (including weekends)
+`IntrvlWkDay` | We allow the week interval to be `1` (every week), `2` (every 2 weeks) or `4` (every 4 weeks). We ignore the day specified, and instead repeat based on the day of the week of the `FirstPaymentDate`.
+`IntrvlMnthDay` | We allow the month interval to be `1` (every month), `3` (every quarter) or `12` (every year). We ignore the day of month and repeat based on the day of month of the `FirstPaymentDate`.
+
+We support account identification using `UK.OBIE.SortCodeAccountNumber`. We don't support identification using 
+`UK.OBIE.IBAN`.
+
+Since we use the `FirstPaymentDate` to decide when payments will repeat, we don't use the `RecurringPaymentDateTime` or 
+`RecurringPaymentAmount` fields. We'll return an error if you include them.
+
+You can make standing orders with an end date by specifying either a `NumberOfPayments` or a `FinalPaymentDateTime`, but
+we don't let you include both.
+
+At the moment, we don't support the `payment-details` endpoint.
+
+You can only make payments in `GBP`. We don't support other currencies.

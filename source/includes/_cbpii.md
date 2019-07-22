@@ -1,18 +1,33 @@
-# CBPII Access
+# Confirmation of Funds API
 
-Access for companies authorised as Card Based Payment Instrument Issuers (CBPIIs) under PSD2.
+The Confirmation of Funds API lets authorised Card Based Payment Instrument Issuers check that Monzo customers have 
+enough money for a purchase. 
 
-Monzo provide Payments Initiation to firms authorised as Card Based Payment Instrument Issuers. To request access, email `openbanking@monzo.com`.
+## Getting Access
 
-Access to our CBPII sandbox is available on request and onboarding takes 1 month.
+The Open Banking team at Monzo manage access to the Confirmation of Funds API. To get in touch, email us at 
+[openbanking@monzo.com](mailto:openbanking@monzo.com).
 
-Our CBPII API is based on Version 3.1 of the Open Banking Standard as documented [here](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/937951380/Confirmation+of+Funds+API+Specification+-+v3.1)
+## Well-Known Endpoints
 
-## Specifics
+We've described the paths of our well-known endpoints for the Sandbox and Production environments below.
 
-* The Monzo CBPII api uses sort code and account number as identifiers
-* OAuth2 and OpenID Connect are used
-* Only client secret basic authentication is used for the token endpoint
-* Our well known sandbox endpoint is: https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration
-* Our well known production endpoint is: https://api.monzo.com/open-banking/.well-known/openid-configuration
-* We implement the redirect flow, with authentication happening on the users mobile device
+<span class="hide">Environment</span> | <span class="hide">Path</span>
+------------------------------------|--------------------------------------
+Sandbox | `https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration`
+Production | `https://api.monzo.com/open-banking/.well-known/openid-configuration`
+
+## Authentication
+As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
+redirect flow, with authentication taking place in the customer's Monzo app.
+
+Although we support `client_secret_basic` authentication, our preferred authentication method is `tls_client_auth` and
+we won't issue you with a client secret unless you ask for one.
+
+## Confirmation of Funds
+We have implemented version 3.1.2 of the [Open Banking Confirmation of Funds Specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077806537/Confirmation+of+Funds+API+Specification+-+v3.1.2).
+
+We use the **redirection flow** for approving consents.
+
+You can identify a `DebtorAccount` using the `UK.OBIE.SortCodeAccountNumber` scheme. We'll return an error for any 
+other `SchemeName`.
