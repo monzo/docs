@@ -66,6 +66,7 @@
 
 <aside class="notice">
     For firms authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Account Information Service Providers</a> under PSD2 we offer an <a href=#account-information-services-api>AISP API</a>.
+    We also offer an <a href=#payment-initiation-services-api>API for authorised PISPs</a> and <a href=#confirmation-of-funds-api>CBPIIs</a>.
 </aside>
 
           <h1 id="authentication">Authentication</h1>
@@ -1678,6 +1679,8 @@ and more for our customers in the United Kingdom.</p>
 
 <p>We&rsquo;ve described the paths of our well-known endpoints for the Sandbox and Production environments below.</p>
 
+<h5 id="endpoints">Endpoints</h5>
+
 <table><thead>
 <tr>
 <th><span class="hide">Environment</span></th>
@@ -1691,6 +1694,28 @@ and more for our customers in the United Kingdom.</p>
 <tr>
 <td>Production</td>
 <td><code class="prettyprint">https://api.monzo.com/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="base-urls">Base URLs</h2>
+
+<p>We&rsquo;ve included the Base URLs for our Sandbox and Production environments below.</p>
+
+<h5 id="base-urls">Base URLs</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Base URL</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code class="prettyprint">https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code class="prettyprint">https://openbanking.monzo.com/open-banking/v3.1/aisp</code></td>
 </tr>
 </tbody></table>
 
@@ -1815,7 +1840,7 @@ endpoint as an extension to the Open Banking specification.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<h4 id="endpoint">Endpoint</h4>
+<h5 id="endpoints">Endpoints</h5>
 
 <table><thead>
 <tr>
@@ -1824,8 +1849,12 @@ endpoint as an extension to the Open Banking specification.</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>Path</td>
-<td><code class="prettyprint">GET https://openbanking.monzo.com/open-banking/v3.1/pots</code></td>
+<td>Sandbox</td>
+<td><code class="prettyprint">https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/pots</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code class="prettyprint">https://openbanking.monzo.com/open-banking/v3.1/aisp/pots</code></td>
 </tr>
 </tbody></table>
 
@@ -1833,42 +1862,6 @@ endpoint as an extension to the Open Banking specification.</p>
 or <code class="prettyprint">ReadAccountsDetailed</code> permission. In the former case, we will omit the Pot name and Image URL from the response.</p>
 
 <p>We&rsquo;ll only return open pots as part of our response.</p>
-
-<h2 id="customers">Customers</h2>
-
-<p>We have implemented a Customer endpoint to return a user&rsquo;s legal and preferred names as an extension to the Open Banking
-specification.</p>
-
-<aside class="notice">
-You should use the customer&rsquo;s preferred name when you talk to them.
-</aside>
-
-<h3 id="read-customer">Read Customer</h3>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"Customer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"PreferredName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe Penbanking"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"LegalName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joseph Penbanking"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<h4 id="endpoint">Endpoint</h4>
-
-<table><thead>
-<tr>
-<th><span class="hide"></span></th>
-<th><span class="hide"></span></th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Path</td>
-<td><code class="prettyprint">GET https://openbanking.monzo.com/open-banking/v3.1/aisp/customer</code></td>
-</tr>
-</tbody></table>
-
-<p>You&rsquo;ll need to have an approved consent with the <code class="prettyprint">ReadAccountsDetail</code> permission to call this endpoint.</p>
 
           <h1 id="payment-initiation-services-api">Payment Initiation Services API</h1>
 
@@ -1898,6 +1891,28 @@ API are sent through Faster Payments.</p>
 <tr>
 <td>Production</td>
 <td><code class="prettyprint">https://api.monzo.com/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="base-urls">Base URLs</h2>
+
+<p>We&rsquo;ve included the Base URLs for our Sandbox and Production environments below.</p>
+
+<h5 id="base-urls">Base URLs</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Base URL</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code class="prettyprint">https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/pisp</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code class="prettyprint">https://openbanking.monzo.com/open-banking/v3.1/pisp</code></td>
 </tr>
 </tbody></table>
 
@@ -2018,6 +2033,28 @@ enough money for a purchase. </p>
 <tr>
 <td>Production</td>
 <td><code class="prettyprint">https://api.monzo.com/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="base-urls">Base URLs</h2>
+
+<p>We&rsquo;ve included the Base URLs for our Sandbox and Production environments below.</p>
+
+<h5 id="base-urls">Base URLs</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Base URL</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code class="prettyprint">https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/cbpii</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code class="prettyprint">https://openbanking.monzo.com/open-banking/v3.1/cbpii</code></td>
 </tr>
 </tbody></table>
 
