@@ -12,10 +12,23 @@ The Open Banking team at Monzo manage access to the Account Information Services
 
 We've described the paths of our well-known endpoints for the Sandbox and Production environments below.
 
+##### Endpoints
+
 <span class="hide">Environment</span> | <span class="hide">Path</span>
 ------------------------------------|--------------------------------------
 Sandbox | `https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration`
 Production | `https://api.monzo.com/open-banking/.well-known/openid-configuration`
+
+## Base URLs
+
+We've included the Base URLs for our Sandbox and Production environments below.
+
+##### Base URLs
+
+<span class="hide">Environment</span> | <span class="hide">Base URL</span>
+------------------------------------|--------------------------------------
+Sandbox | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp`
+Production | `https://openbanking.monzo.com/open-banking/v3.1/aisp`
 
 ## Authentication
 
@@ -138,42 +151,14 @@ endpoint as an extension to the Open Banking specification.
 }
 ```
 
-#### Endpoint
+##### Endpoints
+
 <span class="hide"></span> | <span class="hide"></span>
 ------------------------------------|--------------------------------------
-Path | `GET https://openbanking.monzo.com/open-banking/v3.1/pots`
+Sandbox | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/pots`
+Production | `https://openbanking.monzo.com/open-banking/v3.1/aisp/pots`
 
 Note that the fields we return as part of the response depend on whether your consent has the  `ReadAccountsBasic` 
 or `ReadAccountsDetailed` permission. In the former case, we will omit the Pot name and Image URL from the response.
 
 We'll only return open pots as part of our response.
-
-## Customers
-
-We have implemented a Customer endpoint to return a user's legal and preferred names as an extension to the Open Banking
-specification.
-
-<aside class="notice">
-You should use the customer's preferred name when you talk to them.
-</aside>
-
-### Read Customer
-
-```json
-{
-    "Data": {
-        "Customer": {
-            "PreferredName": "Joe Penbanking",
-            "LegalName": "Joseph Penbanking"
-        }
-    }
-}
-```
-
-#### Endpoint
-<span class="hide"></span> | <span class="hide"></span>
-------------------------------------|--------------------------------------
-Path | `GET https://openbanking.monzo.com/open-banking/v3.1/aisp/customer`
-
-
-You'll need to have an approved consent with the `ReadAccountsDetail` permission to call this endpoint.

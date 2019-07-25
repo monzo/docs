@@ -17,6 +17,17 @@ We've described the paths of our well-known endpoints for the Sandbox and Produc
 Sandbox | `https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration`
 Production | `https://api.monzo.com/open-banking/.well-known/openid-configuration`
 
+## Base URLs
+
+We've included the Base URLs for our Sandbox and Production environments below.
+
+##### Base URLs
+
+<span class="hide">Environment</span> | <span class="hide">Base URL</span>
+------------------------------------|--------------------------------------
+Sandbox | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/cbpii`
+Production | `https://openbanking.monzo.com/open-banking/v3.1/cbpii`
+
 ## Authentication
 As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
 redirect flow, with authentication taking place in the customer's Monzo app.
