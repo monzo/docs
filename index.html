@@ -1760,7 +1760,7 @@ that our customers see in the Monzo app, and it includes pending and settled tra
 <p>For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
 <a href="https://www.ietf.org/rfc/rfc3339.txt"><strong>RFC3339 format</strong></a>.</p>
 
-<p>Your consent will need to have either the <code class="prettyprint">ReadTransactionsBasic</code> or <code class="prettyprint">ReadTransactionsDetail</code> permissions to access 
+<p>Your consent needs to have either the <code class="prettyprint">ReadTransactionsBasic</code> or <code class="prettyprint">ReadTransactionsDetail</code> permissions to access 
 this endpoint.</p>
 
 <p>When you query this endpoint, you&rsquo;ll receive all of the transactions that the customer made in the date range specified 
@@ -1772,6 +1772,18 @@ identify transactions that are still pending.</p>
 
 <p>You&rsquo;ll only be allowed to fetch transactions that were made in the range defined by <code class="prettyprint">TransactionFromDateTime</code> and 
 <code class="prettyprint">TransactionToDateTime</code> in your consent. If you try to access transactions outside this range, it won&rsquo;t work.</p>
+
+<h2 id="parties">Parties</h2>
+
+<p>We&rsquo;ve implemented version 3.1.2. of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805687/Parties+v3.1.2">Open Banking parties specification</a></p>
+
+<p>Of the three endpoints defined we have implemented the third: <code class="prettyprint">GET /party</code>. This returns the customer&rsquo;s ID, their preferred name and their legal name.</p>
+
+<aside class="notice">
+You should use the customer&rsquo;s preferred name when you talk to them.
+</aside>
+
+<p>Your consent needs to have the <code class="prettyprint">ReadPartyPSU</code> permission to access this endpoint.</p>
 
 <h2 id="pots">Pots</h2>
 
