@@ -69,7 +69,7 @@ We've implemented version 3.1.2 of the [Open Banking transactions specification]
 For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
 [**RFC3339 format**](https://www.ietf.org/rfc/rfc3339.txt).
 
-Your consent will need to have either the `ReadTransactionsBasic` or `ReadTransactionsDetail` permissions to access 
+Your consent needs to have either the `ReadTransactionsBasic` or `ReadTransactionsDetail` permissions to access 
 this endpoint.
 
 When you query this endpoint, you'll receive all of the transactions that the customer made in the date range specified 
@@ -81,6 +81,18 @@ identify transactions that are still pending.
 
 You'll only be allowed to fetch transactions that were made in the range defined by `TransactionFromDateTime` and 
 `TransactionToDateTime` in your consent. If you try to access transactions outside this range, it won't work.
+
+## Parties
+
+We've implemented version 3.1.2. of the [Open Banking parties specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805687/Parties+v3.1.2)
+
+Of the three endpoints defined we have implemented the third: `GET /party`. This returns the customer's ID, their preferred name and their legal name.
+
+<aside class="notice">
+You should use the customer's preferred name when you talk to them.
+</aside>
+
+Your consent needs to have the `ReadPartyPSU` permission to access this endpoint.
 
 ## Pots
 
