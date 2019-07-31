@@ -51,13 +51,6 @@ We support account identification using `UK.OBIE.SortCodeAccountNumber`. We don'
 
 You can only make payments in `GBP`. We don't support other currencies.
 
-<aside class="notice">
-In the <b>sandbox</b> environment, you can automatically have domestic payment requests approved or declined to help with 
-testing. When creating the payment consent, you can add a <code>DesiredStatus</code> field to the 
-<code>Data/Initiation/SupplementaryData</code> object in the consent request. You can set this field to 
-<code>Authorised</code> or <code>Rejected</code>, depending on the behaviour you want.
-</aside>
-
 ## Scheduled Payments
 
 We've implemented version 3.1.2 of the [Open Banking Scheduled Payments specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805996/Domestic+Scheduled+Payment+v3.1.2).
@@ -104,3 +97,7 @@ we don't let you include both.
 At the moment, we don't support the `payment-details` endpoint.
 
 You can only make payments in `GBP`. We don't support other currencies.
+
+## Testing in the Sandbox
+
+In the **sandbox** environment, you can automatically have domestic payment requests approved or declined to help with testing. When creating the payment consent, you can add a `DesiredStatus` field to the `Data/Initiation/SupplementaryData` object in the consent request. You can set this field to `Authorised` or `Rejected`, depending on the behaviour you want.
