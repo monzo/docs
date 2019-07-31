@@ -179,9 +179,10 @@ We'll only return open pots as part of our response.
 
 In the **sandbox** environment, you can automatically have account information consents approved or declined to help with testing. To do this, you should set some specific fields in the `Data/Initiation/SupplementaryData` object:
 
-<code>
+
+```
 {
   "DesiredStatus: "Authorised", // You can also set this to "Rejected"
   "UserID": "user_000xxx" // You should use the UserID of your test user
 }
-</code>
+```
