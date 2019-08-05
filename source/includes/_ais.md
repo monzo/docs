@@ -174,3 +174,19 @@ Note that the fields we return as part of the response depend on whether your co
 or `ReadAccountsDetailed` permission. In the former case, we will omit the Pot name and Image URL from the response.
 
 We'll only return open pots as part of our response.
+
+## Testing in the Sandbox
+
+In the **sandbox** environment, you can automatically have account information consents approved or declined to help with testing. To do this, you should set some specific fields in the `Data/SupplementaryData` object:
+
+
+```
+{
+  "DesiredStatus: "Authorised", // You can also set this to "Rejected"
+  "UserID": "user_000xxx" // You should use the UserID of your test user
+}
+```
+
+<aside class="notice">
+The <code>Data/SupplementaryData</code> object in an Account Consent request is not part of the Open Banking specification, but we accept it specifically in the Sandbox environment to mirror how we allow consent automatic approval in the Payment Initiation API.
+</aside>
