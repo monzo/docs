@@ -5,6 +5,28 @@ Monzo API Docs
 
 This is the public repo for the [Monzo API documentation](https://monzo.com/docs). It was generated using [Slate](https://github.com/lord/slate).
 
+Testing Locally
+-----------------------
+You'll need Docker.
+
+From the root of the repo:
+```
+> docker build .
+```
+
+Once you've built your image, make note of the image hash:
+```
+...
+Successfully built abcdef1234
+```
+
+And run it, forwarding the port, including the first few characters of the image:
+```
+> docker run -p 4567:4567 abcde
+```
+
+Then just visit http://localhost:4567 in your browser!
+
 
 Need help? Found a bug?
 -----------------------

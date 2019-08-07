@@ -177,13 +177,14 @@ We'll only return open pots as part of our response.
 
 ## Testing in the Sandbox
 
-In the **sandbox** environment, you can automatically have account information consents approved or declined to help with testing. To do this, you should set some specific fields in the `Data/SupplementaryData` object:
+Our Sandbox environment is a handy playground where you can test your integration before putting it live. **We run exactly the same code in our sandbox environment as we do production** to make switching between them as easy as possible.
 
+In the **sandbox** environment, you can automatically have account information consents approved or declined to help with testing. To do this, you should set some specific fields in the `Data/SupplementaryData` object:
 
 ```
 {
-  "DesiredStatus: "Authorised", // You can also set this to "Rejected"
-  "UserID": "user_000xxx" // You should use the UserID of your test user
+  "DesiredStatus": "Authorised",
+  "UserID": "user_000xxx"
 }
 ```
 
