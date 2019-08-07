@@ -1877,11 +1877,13 @@ or <code class="prettyprint">ReadAccountsDetailed</code> permission. In the form
 
 <h2 id="testing-in-the-sandbox">Testing in the Sandbox</h2>
 
+<p>Our Sandbox environment is a handy playground where you can test your integration before putting it live. <strong>We run exactly the same code in our sandbox environment as we do production</strong> to make switching between them as easy as possible.</p>
+
 <p>In the <strong>sandbox</strong> environment, you can automatically have account information consents approved or declined to help with testing. To do this, you should set some specific fields in the <code class="prettyprint">Data/SupplementaryData</code> object:</p>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"DesiredStatus: "</span><span class="err">Authorised</span><span class="nt">", // You can also set this to "</span><span class="err">Rejected</span><span class="nt">"
-  "</span><span class="err">UserID</span><span class="nt">": "</span><span class="err">user_000xxx"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">You</span><span class="w"> </span><span class="err">should</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">UserID</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">your</span><span class="w"> </span><span class="err">test</span><span class="w"> </span><span class="err">user</span><span class="w">
-</span><span class="err">}</span><span class="w">
+  </span><span class="nt">"DesiredStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Authorised"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"UserID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_000xxx"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <aside class="notice">
@@ -2027,6 +2029,18 @@ we don&rsquo;t let you include both.</p>
 <h2 id="testing-in-the-sandbox">Testing in the Sandbox</h2>
 
 <p>In the <strong>sandbox</strong> environment, you can automatically have domestic payment requests approved or declined to help with testing. When creating the payment consent, you can add a <code class="prettyprint">DesiredStatus</code> field to the <code class="prettyprint">Data/Initiation/SupplementaryData</code> object in the consent request. You can set this field to <code class="prettyprint">Authorised</code> or <code class="prettyprint">Rejected</code>, depending on the behaviour you want.</p>
+
+<p>If you want your payment to come from a specific User and Account then you can also add those values, but you must add <strong>both</strong> or a random test User and Account is used instead.</p>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"DesiredStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Authorised"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"DesiredStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rejected"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"UserID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_000xxx"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"AccountID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account_000yyy"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
           <h1 id="confirmation-of-funds-api">Confirmation of Funds API</h1>
 
