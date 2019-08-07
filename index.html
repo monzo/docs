@@ -1875,6 +1875,19 @@ or <code class="prettyprint">ReadAccountsDetailed</code> permission. In the form
 
 <p>We&rsquo;ll only return open pots as part of our response.</p>
 
+<h2 id="testing-in-the-sandbox">Testing in the Sandbox</h2>
+
+<p>In the <strong>sandbox</strong> environment, you can automatically have account information consents approved or declined to help with testing. To do this, you should set some specific fields in the <code class="prettyprint">Data/SupplementaryData</code> object:</p>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"DesiredStatus: "</span><span class="err">Authorised</span><span class="nt">", // You can also set this to "</span><span class="err">Rejected</span><span class="nt">"
+  "</span><span class="err">UserID</span><span class="nt">": "</span><span class="err">user_000xxx"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">You</span><span class="w"> </span><span class="err">should</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">UserID</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">your</span><span class="w"> </span><span class="err">test</span><span class="w"> </span><span class="err">user</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code></pre>
+
+<aside class="notice">
+The <code>Data/SupplementaryData</code> object in an Account Consent request is not part of the Open Banking specification, but we accept it specifically in the Sandbox environment to mirror how we allow consent automatic approval in the Payment Initiation API.
+</aside>
+
           <h1 id="payment-initiation-services-api">Payment Initiation Services API</h1>
 
 <p>The Payment Initiation Services API lets authorised Payment Initiation Service Providers make outbound payments from 
@@ -1950,13 +1963,6 @@ have one hour.</p>
 
 <p>You can only make payments in <code class="prettyprint">GBP</code>. We don&rsquo;t support other currencies.</p>
 
-<aside class="notice">
-In the <b>sandbox</b> environment, you can automatically have domestic payment requests approved or declined to help with 
-testing. When creating the payment consent, you can add a <code>DesiredStatus</code> field to the 
-<code>Data/Initiation/SupplementaryData</code> object in the consent request. You can set this field to 
-<code>Authorised</code> or <code>Rejected</code>, depending on the behaviour you want.
-</aside>
-
 <h2 id="scheduled-payments">Scheduled Payments</h2>
 
 <p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805996/Domestic+Scheduled+Payment+v3.1.2">Open Banking Scheduled Payments specification</a>.</p>
@@ -2017,6 +2023,10 @@ we don&rsquo;t let you include both.</p>
 <p>At the moment, we don&rsquo;t support the <code class="prettyprint">payment-details</code> endpoint.</p>
 
 <p>You can only make payments in <code class="prettyprint">GBP</code>. We don&rsquo;t support other currencies.</p>
+
+<h2 id="testing-in-the-sandbox">Testing in the Sandbox</h2>
+
+<p>In the <strong>sandbox</strong> environment, you can automatically have domestic payment requests approved or declined to help with testing. When creating the payment consent, you can add a <code class="prettyprint">DesiredStatus</code> field to the <code class="prettyprint">Data/Initiation/SupplementaryData</code> object in the consent request. You can set this field to <code class="prettyprint">Authorised</code> or <code class="prettyprint">Rejected</code>, depending on the behaviour you want.</p>
 
           <h1 id="confirmation-of-funds-api">Confirmation of Funds API</h1>
 
