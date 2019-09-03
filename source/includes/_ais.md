@@ -189,7 +189,7 @@ any more.
 
 We've implemented version 3.1.2 of the [Open Banking Direct Debits specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805417/Direct+Debits+v3.1.2).
 
-We have only implemented `GET /direct-debits` endpoint, and not the account-specific endpoints.
+We have only implemented `GET /accounts/{AccountId}/direct-debits` endpoint.
 
 Your consent needs to have the `ReadDirectDebits` permission to access this endpoint.
 
@@ -203,7 +203,7 @@ access Direct Debits that were collected within the last 90 days.
 
 We've implemented version 3.1.2 of the [Open Banking Scheduled Payments specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805716/Scheduled+Payments+v3.1.2).
 
-We have only implemented `GET /scheduled-payments` endpoint, and not the account-specific endpoints.
+We have only implemented `GET /accounts/{AccountId}/scheduled-payments` endpoint.
 
 Your consent needs to have either the `ReadScheduledPaymentsBasic` or `ReadScheduledPaymentsDetail` permissions to access this endpoint.
 
@@ -217,7 +217,7 @@ You can access all scheduled payments as long as the customer has completed Stro
 
 We've implemented version 3.1.2 of the [Open Banking Standing Orders specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805430/Standing+Orders+v3.1.2).
 
-We have only implemented `GET /standing-orders` endpoint, and not the account-specific endpoints.
+We have only implemented `GET /accounts/{AccountId}/standing-orders` endpoint.
 
 Your consent needs to have either the `ReadStandingOrdersBasic` or `ReadStandingOrdersDetail` permissions to access this endpoint.
 
