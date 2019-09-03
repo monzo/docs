@@ -32,8 +32,7 @@ Production | `https://openbanking.monzo.com/open-banking/v3.1/cbpii`
 As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
 redirect flow, with authentication taking place in the customer's Monzo app.
 
-Although we support `client_secret_basic` authentication, our preferred authentication method is `tls_client_auth` and
-we won't issue you with a client secret unless you ask for one.
+We only support the `tls_client_auth` authentication method.
 
 ## Confirmation of Funds
 We have implemented version 3.1.2 of the [Open Banking Confirmation of Funds Specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077806537/Confirmation+of+Funds+API+Specification+-+v3.1.2).
@@ -42,3 +41,10 @@ We use the **redirection flow** for approving consents.
 
 You can identify a `DebtorAccount` using the `UK.OBIE.SortCodeAccountNumber` scheme. We'll return an error for any 
 other `SchemeName`.
+
+<aside class="info">
+<strong>Strong Customer Authentication and Confirmation of Funds (CBPII)</strong><br/>
+Monzo will apply Strong Customer Authentication the first time we authenticate a customer for Confirmation of Funds
+(CBPII) consents. Since access is limited to information about the customer's balance, consents can be ongoing 
+and do <b>not</b> require the customer to regularly re-authenticate.
+</aside>

@@ -34,8 +34,7 @@ Production | `https://openbanking.monzo.com/open-banking/v3.1/pisp`
 As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
 redirect flow, with authentication taking place in the customer's Monzo app.
 
-Although we support `client_secret_basic` authentication, our preferred authentication method is `tls_client_auth` and 
-we won't issue you with a client secret unless you ask for one.
+We only support the `tls_client_auth` authentication method.
 
 Once created, you'll need to turn any consent into a payment order within 24 hours. Once the consent is approved, you'll
 have one hour.

@@ -36,8 +36,7 @@ As per the [Open Banking specification](https://openbanking.atlassian.net/wiki/s
 we use OAuth 2 and OpenID connect for authentication. We have implemented the redirect flow, with authentication taking 
 place in the customer's Monzo app.
 
-Although we support `client_secret_basic` authentication, our preferred authentication method is `tls_client_auth` and 
-we won't issue you with a client secret unless you ask for one.
+We only support the `tls_client_auth` authentication method.
 
 ## Accounts
 
@@ -86,13 +85,20 @@ You'll only be allowed to fetch transactions that were made in the range defined
 
 We've implemented version 3.1.2. of the [Open Banking parties specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805687/Parties+v3.1.2)
 
-Of the three endpoints defined we have implemented the third: `GET /party`. This returns the customer's ID, their preferred name and their legal name.
+We have only implemented `GET /party` endpoint, and not the account-specific endpoints. This returns the customer's 
+ID, their preferred name, and their legal name.
 
 <aside class="notice">
 You should use the customer's preferred name when you talk to them.
 </aside>
 
 Your consent needs to have the `ReadPartyPSU` permission to access this endpoint.
+
+<aside class="warning">
+<strong>Strong Customer Authentication Needed</strong><br/>
+If it's been more than 5 minutes since the customer completed Strong Customer Authentication with 
+your client, you'll get a Forbidden error when you try to access this endpoint.  
+</aside>
 
 ## Pots
 
@@ -107,6 +113,7 @@ endpoint as an extension to the Open Banking specification.
         "Pot": [
             {
                 "PotId": "pot_00009g4AB7nItyHI3R7CVt",
+                "AccountId": "acc_00009JrJEKwJrNqKfjwSS",
                 "Name": "Savings",
                 "Type": "default",
                 "CreditDebitIndicator": "Debit",
@@ -125,6 +132,7 @@ endpoint as an extension to the Open Banking specification.
             },
             {
                 "PotId": "pot_00009kIt1QKIXu98cu1RM9",
+                "AccountId": "acc_00009JrJEKwJrNqKfjwSS",
                 "Name": "Bobs And Bits",
                 "Type": "flexible_savings",
                 "CreditDebitIndicator": "Debit",
@@ -144,6 +152,7 @@ endpoint as an extension to the Open Banking specification.
             },
             {
                 "PotId": "pot_00009kIt8JXWB3R9bYUWkD",
+                "AccountId": "acc_00009JrJEKwJrNqKfjwSS",
                 "Name": "My Savings Pot",
                 "Type": "fixed_savings",
                 "CreditDebitIndicator": "Debit",
@@ -173,13 +182,60 @@ Production | `https://openbanking.monzo.com/open-banking/v3.1/aisp/pots`
 Note that the fields we return as part of the response depend on whether your consent has the  `ReadAccountsBasic` 
 or `ReadAccountsDetailed` permission. In the former case, we will omit the Pot name and Image URL from the response.
 
-We'll only return open pots as part of our response.
+We'll only return open pots as part of our response. If a customer closes a pot, it won't appear in the response
+any more.
+
+## Direct Debits
+
+We've implemented version 3.1.2 of the [Open Banking Direct Debits specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805417/Direct+Debits+v3.1.2).
+
+We have only implemented `GET /accounts/{AccountId}/direct-debits` endpoint.
+
+Your consent needs to have the `ReadDirectDebits` permission to access this endpoint.
+
+<aside class="warning">
+<strong>Strong Customer Authentication and Direct Debits</strong><br/>
+If it's been more than 5 minutes since the customer completed Strong Customer Authentication, you'll only be able to
+access Direct Debits that were collected within the last 90 days.
+</aside>
+
+## Scheduled Payments
+
+We've implemented version 3.1.2 of the [Open Banking Scheduled Payments specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805716/Scheduled+Payments+v3.1.2).
+
+We have only implemented `GET /accounts/{AccountId}/scheduled-payments` endpoint.
+
+Your consent needs to have either the `ReadScheduledPaymentsBasic` or `ReadScheduledPaymentsDetail` permissions to access this endpoint.
+
+<aside class="info">
+<strong>Strong Customer Authentication and Scheduled Payments</strong><br/>
+You can access all scheduled payments as long as the customer has completed Strong Customer Authentication in the last
+90 days. 
+</aside>
+
+## Standing Orders
+
+We've implemented version 3.1.2 of the [Open Banking Standing Orders specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805430/Standing+Orders+v3.1.2).
+
+We have only implemented `GET /accounts/{AccountId}/standing-orders` endpoint.
+
+Your consent needs to have either the `ReadStandingOrdersBasic` or `ReadStandingOrdersDetail` permissions to access this endpoint.
+
+<aside class="warning">
+<strong>Strong Customer Authentication and Standing Orders</strong><br/>
+If it's been more than 5 minutes since the customer completed Strong Customer Authentication, you'll only be able to
+access standing orders that have been executed in the last 90 days. You'll also be able to access any standing orders
+where the first payment is in the future and hasn't yet been executed. 
+</aside>
 
 ## Testing in the Sandbox
 
-Our Sandbox environment is a handy playground where you can test your integration before putting it live. **We run exactly the same code in our sandbox environment as we do production** to make switching between them as easy as possible.
+Our Sandbox environment is a handy playground where you can test your integration before putting it live.
+**We run exactly the same code in our sandbox environment as we do production** to make switching between 
+them as easy as possible.
 
-In the **sandbox** environment, you can automatically have account information consents approved or declined to help with testing. To do this, you should set some specific fields in the `Data/SupplementaryData` object:
+In the **sandbox** environment, you can automatically have account information consents approved or declined to 
+help with testing. To do this, you should set some specific fields in the `Data/SupplementaryData` object:
 
 ```
 {
@@ -189,5 +245,7 @@ In the **sandbox** environment, you can automatically have account information c
 ```
 
 <aside class="notice">
-The <code>Data/SupplementaryData</code> object in an Account Consent request is not part of the Open Banking specification, but we accept it specifically in the Sandbox environment to mirror how we allow consent automatic approval in the Payment Initiation API.
+The <code>Data/SupplementaryData</code> object in an Account Consent request is not part of the Open Banking 
+specification, but we accept it specifically in the Sandbox environment to mirror how we allow consent automatic 
+approval in the Payment Initiation API.
 </aside>
