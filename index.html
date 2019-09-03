@@ -1725,8 +1725,7 @@ and more for our customers in the United Kingdom.</p>
 we use OAuth 2 and OpenID connect for authentication. We have implemented the redirect flow, with authentication taking 
 place in the customer&rsquo;s Monzo app.</p>
 
-<p>Although we support <code class="prettyprint">client_secret_basic</code> authentication, our preferred authentication method is <code class="prettyprint">tls_client_auth</code> and 
-we won&rsquo;t issue you with a client secret unless you ask for one.</p>
+<p>We only support the <code class="prettyprint">tls_client_auth</code> authentication method.</p>
 
 <h2 id="accounts">Accounts</h2>
 
@@ -1777,13 +1776,20 @@ identify transactions that are still pending.</p>
 
 <p>We&rsquo;ve implemented version 3.1.2. of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805687/Parties+v3.1.2">Open Banking parties specification</a></p>
 
-<p>Of the three endpoints defined we have implemented the third: <code class="prettyprint">GET /party</code>. This returns the customer&rsquo;s ID, their preferred name and their legal name.</p>
+<p>We have only implemented <code class="prettyprint">GET /party</code> endpoint, and not the account-specific endpoints. This returns the customer&rsquo;s 
+ID, their preferred name, and their legal name.</p>
 
 <aside class="notice">
 You should use the customer&rsquo;s preferred name when you talk to them.
 </aside>
 
 <p>Your consent needs to have the <code class="prettyprint">ReadPartyPSU</code> permission to access this endpoint.</p>
+
+<aside class="warning">
+<strong>Strong Customer Authentication Needed</strong><br/>
+If it&rsquo;s been more than 5 minutes since the customer completed Strong Customer Authentication with 
+your client, you&rsquo;ll get a Forbidden error when you try to access this endpoint.  
+</aside>
 
 <h2 id="pots">Pots</h2>
 
@@ -1796,6 +1802,7 @@ endpoint as an extension to the Open Banking specification.</p>
         </span><span class="nt">"Pot"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="p">{</span><span class="w">
                 </span><span class="nt">"PotId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pot_00009g4AB7nItyHI3R7CVt"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_00009JrJEKwJrNqKfjwSS"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Savings"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"CreditDebitIndicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Debit"</span><span class="p">,</span><span class="w">
@@ -1814,6 +1821,7 @@ endpoint as an extension to the Open Banking specification.</p>
             </span><span class="p">},</span><span class="w">
             </span><span class="p">{</span><span class="w">
                 </span><span class="nt">"PotId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pot_00009kIt1QKIXu98cu1RM9"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_00009JrJEKwJrNqKfjwSS"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bobs And Bits"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flexible_savings"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"CreditDebitIndicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Debit"</span><span class="p">,</span><span class="w">
@@ -1833,6 +1841,7 @@ endpoint as an extension to the Open Banking specification.</p>
             </span><span class="p">},</span><span class="w">
             </span><span class="p">{</span><span class="w">
                 </span><span class="nt">"PotId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pot_00009kIt8JXWB3R9bYUWkD"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_00009JrJEKwJrNqKfjwSS"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Savings Pot"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fixed_savings"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"CreditDebitIndicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Debit"</span><span class="p">,</span><span class="w">
@@ -1873,13 +1882,60 @@ endpoint as an extension to the Open Banking specification.</p>
 <p>Note that the fields we return as part of the response depend on whether your consent has the  <code class="prettyprint">ReadAccountsBasic</code> 
 or <code class="prettyprint">ReadAccountsDetailed</code> permission. In the former case, we will omit the Pot name and Image URL from the response.</p>
 
-<p>We&rsquo;ll only return open pots as part of our response.</p>
+<p>We&rsquo;ll only return open pots as part of our response. If a customer closes a pot, it won&rsquo;t appear in the response
+any more.</p>
+
+<h2 id="direct-debits">Direct Debits</h2>
+
+<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805417/Direct+Debits+v3.1.2">Open Banking Direct Debits specification</a>.</p>
+
+<p>We have only implemented <code class="prettyprint">GET /accounts/{AccountId}/direct-debits</code> endpoint.</p>
+
+<p>Your consent needs to have the <code class="prettyprint">ReadDirectDebits</code> permission to access this endpoint.</p>
+
+<aside class="warning">
+<strong>Strong Customer Authentication and Direct Debits</strong><br/>
+If it&rsquo;s been more than 5 minutes since the customer completed Strong Customer Authentication, you&rsquo;ll only be able to
+access Direct Debits that were collected within the last 90 days.
+</aside>
+
+<h2 id="scheduled-payments">Scheduled Payments</h2>
+
+<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805716/Scheduled+Payments+v3.1.2">Open Banking Scheduled Payments specification</a>.</p>
+
+<p>We have only implemented <code class="prettyprint">GET /accounts/{AccountId}/scheduled-payments</code> endpoint.</p>
+
+<p>Your consent needs to have either the <code class="prettyprint">ReadScheduledPaymentsBasic</code> or <code class="prettyprint">ReadScheduledPaymentsDetail</code> permissions to access this endpoint.</p>
+
+<aside class="info">
+<strong>Strong Customer Authentication and Scheduled Payments</strong><br/>
+You can access all scheduled payments as long as the customer has completed Strong Customer Authentication in the last
+90 days. 
+</aside>
+
+<h2 id="standing-orders">Standing Orders</h2>
+
+<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805430/Standing+Orders+v3.1.2">Open Banking Standing Orders specification</a>.</p>
+
+<p>We have only implemented <code class="prettyprint">GET /accounts/{AccountId}/standing-orders</code> endpoint.</p>
+
+<p>Your consent needs to have either the <code class="prettyprint">ReadStandingOrdersBasic</code> or <code class="prettyprint">ReadStandingOrdersDetail</code> permissions to access this endpoint.</p>
+
+<aside class="warning">
+<strong>Strong Customer Authentication and Standing Orders</strong><br/>
+If it&rsquo;s been more than 5 minutes since the customer completed Strong Customer Authentication, you&rsquo;ll only be able to
+access standing orders that have been executed in the last 90 days. You&rsquo;ll also be able to access any standing orders
+where the first payment is in the future and hasn&rsquo;t yet been executed. 
+</aside>
 
 <h2 id="testing-in-the-sandbox">Testing in the Sandbox</h2>
 
-<p>Our Sandbox environment is a handy playground where you can test your integration before putting it live. <strong>We run exactly the same code in our sandbox environment as we do production</strong> to make switching between them as easy as possible.</p>
+<p>Our Sandbox environment is a handy playground where you can test your integration before putting it live.
+<strong>We run exactly the same code in our sandbox environment as we do production</strong> to make switching between 
+them as easy as possible.</p>
 
-<p>In the <strong>sandbox</strong> environment, you can automatically have account information consents approved or declined to help with testing. To do this, you should set some specific fields in the <code class="prettyprint">Data/SupplementaryData</code> object:</p>
+<p>In the <strong>sandbox</strong> environment, you can automatically have account information consents approved or declined to 
+help with testing. To do this, you should set some specific fields in the <code class="prettyprint">Data/SupplementaryData</code> object:</p>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"DesiredStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Authorised"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"UserID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_000xxx"</span><span class="w">
@@ -1887,7 +1943,9 @@ or <code class="prettyprint">ReadAccountsDetailed</code> permission. In the form
 </span></code></pre>
 
 <aside class="notice">
-The <code>Data/SupplementaryData</code> object in an Account Consent request is not part of the Open Banking specification, but we accept it specifically in the Sandbox environment to mirror how we allow consent automatic approval in the Payment Initiation API.
+The <code>Data/SupplementaryData</code> object in an Account Consent request is not part of the Open Banking 
+specification, but we accept it specifically in the Sandbox environment to mirror how we allow consent automatic 
+approval in the Payment Initiation API.
 </aside>
 
           <h1 id="payment-initiation-services-api">Payment Initiation Services API</h1>
@@ -1948,8 +2006,7 @@ API are sent through Faster Payments.</p>
 <p>As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
 redirect flow, with authentication taking place in the customer&rsquo;s Monzo app.</p>
 
-<p>Although we support <code class="prettyprint">client_secret_basic</code> authentication, our preferred authentication method is <code class="prettyprint">tls_client_auth</code> and 
-we won&rsquo;t issue you with a client secret unless you ask for one.</p>
+<p>We only support the <code class="prettyprint">tls_client_auth</code> authentication method.</p>
 
 <p>Once created, you&rsquo;ll need to turn any consent into a payment order within 24 hours. Once the consent is approved, you&rsquo;ll
 have one hour.</p>
@@ -2099,8 +2156,7 @@ enough money for a purchase. </p>
 <p>As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
 redirect flow, with authentication taking place in the customer&rsquo;s Monzo app.</p>
 
-<p>Although we support <code class="prettyprint">client_secret_basic</code> authentication, our preferred authentication method is <code class="prettyprint">tls_client_auth</code> and
-we won&rsquo;t issue you with a client secret unless you ask for one.</p>
+<p>We only support the <code class="prettyprint">tls_client_auth</code> authentication method.</p>
 
 <h2 id="confirmation-of-funds">Confirmation of Funds</h2>
 
@@ -2110,6 +2166,13 @@ we won&rsquo;t issue you with a client secret unless you ask for one.</p>
 
 <p>You can identify a <code class="prettyprint">DebtorAccount</code> using the <code class="prettyprint">UK.OBIE.SortCodeAccountNumber</code> scheme. We&rsquo;ll return an error for any 
 other <code class="prettyprint">SchemeName</code>.</p>
+
+<aside class="info">
+<strong>Strong Customer Authentication and Confirmation of Funds (CBPII)</strong><br/>
+Monzo will apply Strong Customer Authentication the first time we authenticate a customer for Confirmation of Funds
+(CBPII) consents. Since access is limited to information about the customer&rsquo;s balance, consents can be ongoing 
+and do <b>not</b> require the customer to regularly re-authenticate.
+</aside>
 
       </div>
       <div class="dark-box">
