@@ -85,7 +85,8 @@ You'll only be allowed to fetch transactions that were made in the range defined
 
 We've implemented version 3.1.2. of the [Open Banking parties specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805687/Parties+v3.1.2)
 
-Of the three endpoints defined we have implemented the third: `GET /party`. This returns the customer's ID, their preferred name and their legal name.
+We have only implemented `GET /party` endpoint, and not the account-specific endpoints. This returns the customer's 
+ID, their preferred name, and their legal name.
 
 <aside class="notice">
 You should use the customer's preferred name when you talk to them.
@@ -112,6 +113,7 @@ endpoint as an extension to the Open Banking specification.
         "Pot": [
             {
                 "PotId": "pot_00009g4AB7nItyHI3R7CVt",
+                "AccountId": "acc_00009JrJEKwJrNqKfjwSS",
                 "Name": "Savings",
                 "Type": "default",
                 "CreditDebitIndicator": "Debit",
@@ -130,6 +132,7 @@ endpoint as an extension to the Open Banking specification.
             },
             {
                 "PotId": "pot_00009kIt1QKIXu98cu1RM9",
+                "AccountId": "acc_00009JrJEKwJrNqKfjwSS",
                 "Name": "Bobs And Bits",
                 "Type": "flexible_savings",
                 "CreditDebitIndicator": "Debit",
@@ -149,6 +152,7 @@ endpoint as an extension to the Open Banking specification.
             },
             {
                 "PotId": "pot_00009kIt8JXWB3R9bYUWkD",
+                "AccountId": "acc_00009JrJEKwJrNqKfjwSS",
                 "Name": "My Savings Pot",
                 "Type": "fixed_savings",
                 "CreditDebitIndicator": "Debit",
@@ -185,6 +189,10 @@ any more.
 
 We've implemented version 3.1.2 of the [Open Banking Direct Debits specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805417/Direct+Debits+v3.1.2).
 
+We have only implemented `GET /direct-debits` endpoint, and not the account-specific endpoints.
+
+Your consent needs to have the `ReadDirectDebits` permission to access this endpoint.
+
 <aside class="warning">
 <strong>Strong Customer Authentication and Direct Debits</strong><br/>
 If it's been more than 5 minutes since the customer completed Strong Customer Authentication, you'll only be able to
@@ -195,6 +203,10 @@ access Direct Debits that were collected within the last 90 days.
 
 We've implemented version 3.1.2 of the [Open Banking Scheduled Payments specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805716/Scheduled+Payments+v3.1.2).
 
+We have only implemented `GET /scheduled-payments` endpoint, and not the account-specific endpoints.
+
+Your consent needs to have either the `ReadScheduledPaymentsBasic` or `ReadScheduledPaymentsDetail` permissions to access this endpoint.
+
 <aside class="info">
 <strong>Strong Customer Authentication and Scheduled Payments</strong><br/>
 You can access all scheduled payments as long as the customer has completed Strong Customer Authentication in the last
@@ -204,6 +216,10 @@ You can access all scheduled payments as long as the customer has completed Stro
 ## Standing Orders
 
 We've implemented version 3.1.2 of the [Open Banking Standing Orders specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805430/Standing+Orders+v3.1.2).
+
+We have only implemented `GET /standing-orders` endpoint, and not the account-specific endpoints.
+
+Your consent needs to have either the `ReadStandingOrdersBasic` or `ReadStandingOrdersDetail` permissions to access this endpoint.
 
 <aside class="warning">
 <strong>Strong Customer Authentication and Standing Orders</strong><br/>
