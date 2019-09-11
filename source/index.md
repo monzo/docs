@@ -48,7 +48,7 @@ The [Developers category](https://community.monzo.com/c/developers) on our forum
 <aside class="warning">
     <strong>Upcoming Strong Customer Authentication changes</strong><br>
 New rules for all banks, including Monzo, mean we’ll start increasing security around third party integrations with customers' accounts. 
-Please see the <a href=#authentication>Authentication</a> and  <a href=#list-transactions>Transactions</a> sections for more details.
+Please see the <a href=#authentication>Authentication</a> and <a href=#list-transactions>Transactions</a> sections for more details.
 </aside>
 
 <aside class="notice">

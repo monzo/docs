@@ -8,7 +8,7 @@ The Monzo API implements [OAuth 2.0](http://oauth.net/2/) to allow users to log 
 
 <aside class="warning">
 <strong>Strong Customer Authentication</strong><br/>
-We don't grant any permissions to the access token util the owner of the account your client wants to access has approved access to their data in the Monzo app. Your user will receive a push notification after autheticating with their email.
+We don't grant any permissions to the access token until the owner of the account that your client wants to access has approved access to their data in the Monzo app. Your user will receive a push notification after authenticating with their email.
 </aside>
 
 <aside class="notice">
