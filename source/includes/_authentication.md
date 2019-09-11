@@ -2,7 +2,7 @@
 
 The Monzo API implements [OAuth 2.0](http://oauth.net/2/) to allow users to log in to applications without exposing their credentials. The process involves several steps:
 
-1. [**Acquire**](#acquire-an-access-token) an access token, and optionally a refresh token.
+1. [**Acquire**](#acquire-an-access-token) an access token, and optionally a refresh token
 2. [**Use**](#authenticating-requests) the access token to make authenticated requests
 3. If you were issued a refresh token: [**refresh**](#refreshing-access) the access token when it expires
 
