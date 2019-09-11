@@ -64,6 +64,12 @@
     You may only connect to your own account or those of a small set of users you explicitly whitelist. Please read our <a href="https://monzo.com/blog/2017/05/11/api-update/">blog post</a> for more detail.
 </aside>
 
+<aside class="warning">
+    <strong>Upcoming Strong Customer Authentication changes</strong><br>
+New rules for all banks, including Monzo, mean we’ll start increasing security around third party integrations with customers&rsquo; accounts. 
+Please see the <a href=#authentication>Authentication</a> and <a href=#list-transactions>Transactions</a> sections for more details.
+</aside>
+
 <aside class="notice">
     For firms authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Account Information Service Providers</a> under PSD2 we offer an <a href=#account-information-services-api>AISP API</a>.
     We also offer an <a href=#payment-initiation-services-api>API for authorised PISPs</a> and <a href=#confirmation-of-funds-api>CBPIIs</a>.
@@ -78,6 +84,11 @@
 <li><a href="#authenticating-requests"><strong>Use</strong></a> the access token to make authenticated requests</li>
 <li>If you were issued a refresh token: <a href="#refreshing-access"><strong>refresh</strong></a> the access token when it expires</li>
 </ol>
+
+<aside class="warning">
+<strong>Strong Customer Authentication</strong><br/>
+We don&rsquo;t grant any permissions to the access token until the owner of the account that your client wants to access has approved access to their data in the Monzo app. Your user will receive a push notification after authenticating with their email.
+</aside>
 
 <aside class="notice">
 To get started quickly, you can use the access token from the API playground and avoid implementing the OAuth login flow.
@@ -103,8 +114,10 @@ To get started quickly, you can use the access token from the API playground and
 <ol>
 <li><a href="#redirect-the-user-to-monzo">Redirect the user</a> to Monzo to authorise your app</li>
 <li><a href="#monzo-redirects-back-to-your-app">Monzo redirects the user</a> back to your app with an authorization code</li>
-<li><a href="#exchange-the-authorization-code">Exchange</a> the authorization code for an access token</li>
+<li><a href="#exchange-the-authorization-code">Exchange</a> the authorization code for an access token.</li>
 </ol>
+
+<p><em>This access token doesn&rsquo;t have any permissions until your user has approved access to their data in the Monzo app.</em></p>
 
 <h3 id="redirect-the-user-to-monzo">Redirect the user to Monzo</h3>
 <pre class="highlight shell"><code><span class="s2">"https://auth.monzo.com/?
@@ -114,7 +127,10 @@ To get started quickly, you can use the access token from the API playground and
     state=</span><span class="nv">$state_token</span><span class="s2">"</span>
 </code></pre>
 
-<p>Send the user to Monzo in a web browser, where they will log in and grant access to their account.</p>
+<p>Send the user to Monzo in a web browser, where they will log in and grant access to their account. 
+<aside class="warning">
+<strong>Strong Customer Authentication</strong><br/>
+In addition to authenticating with email, the user will receive a notification in their Monzo app to ask them to authenticate with their card PIN, fingerprint or Face ID.</aside></p>
 
 <h5 id="url-arguments">URL arguments</h5>
 
@@ -737,7 +753,13 @@ Valid <code class="prettyprint">account_type</code>s are <code class="prettyprin
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Returns a list of transactions on the user&rsquo;s account.</p>
+<p>Returns a list of transactions on the user&rsquo;s account. </p>
+
+<aside class="warning">
+<strong>Strong Customer Authentication</strong><br/>
+After a user has authenticated, your client can fetch all of their transactions, and after 5 minutes, it can only sync the last 90 days of transactions. 
+If you need the user’s entire transaction history, you should consider fetching and storing it right after authentication.
+</aside>
 
 <h5 id="request-arguments">Request arguments</h5>
 
@@ -750,6 +772,14 @@ Valid <code class="prettyprint">account_type</code>s are <code class="prettyprin
 <tr>
 <td><code class="prettyprint">account_id</code><br><span class="label notice">Required</span></td>
 <td>The account to retrieve transactions from.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">since</code><br><span class="label">Optional</span></td>
+<td>Start time as RFC3339 encoded timestamp (<code class="prettyprint">2009-11-10T23:00:00Z</code>)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">before</code><br><span class="label">Optional</span></td>
+<td>End time time as RFC3339 encoded timestamp (<code class="prettyprint">2009-11-10T23:00:00Z</code>)</td>
 </tr>
 <tr>
 <td>Pagination<br><span class="label">Optional</span></td>
