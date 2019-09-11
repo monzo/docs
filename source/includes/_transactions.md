@@ -111,13 +111,22 @@ $ http "https://api.monzo.com/transactions" \
 }
 ```
 
-Returns a list of transactions on the user's account.
+Returns a list of transactions on the user's account. 
+
+<aside class="warning">
+<strong>Strong Customer Authentication</strong><br/>
+After a user has authenticated, your client can fetch all of their transactions, and after 5 minutes, it can only sync the last 90 days of transactions. 
+If you need the user’s entire transaction history, you should consider fetching and storing it right after authentication.
+</aside>
+
 
 ##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `account_id`<br><span class="label notice">Required</span>|The account to retrieve transactions from.
+`since`<br><span class="label">Optional</span>|Start time as RFC3339 encoded timestamp (`2009-11-10T23:00:00Z`)
+`before`<br><span class="label">Optional</span>|End time time as RFC3339 encoded timestamp (`2009-11-10T23:00:00Z`)
 Pagination<br><span class="label">Optional</span>|This endpoint can be [paginated](#pagination).
 
 ## Annotate transaction
