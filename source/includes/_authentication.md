@@ -2,9 +2,14 @@
 
 The Monzo API implements [OAuth 2.0](http://oauth.net/2/) to allow users to log in to applications without exposing their credentials. The process involves several steps:
 
-1. [**Acquire**](#acquire-an-access-token) an access token, and optionally a refresh token
+1. [**Acquire**](#acquire-an-access-token) an access token, and optionally a refresh token.
 2. [**Use**](#authenticating-requests) the access token to make authenticated requests
 3. If you were issued a refresh token: [**refresh**](#refreshing-access) the access token when it expires
+
+<aside class="warning">
+<strong>Strong Customer Authentication</strong><br/>
+We don't grant any permissions to the access token util the owner of the account your client wants to access has approved access to their data in the Monzo app. Your user will receive a push notification after autheticating with their email.
+</aside>
 
 <aside class="notice">
 To get started quickly, you can use the access token from the API playground and avoid implementing the OAuth login flow.
@@ -27,7 +32,10 @@ Acquiring an access token is a three-step process:
 
 1. [Redirect the user](#redirect-the-user-to-monzo) to Monzo to authorise your app
 2. [Monzo redirects the user](#monzo-redirects-back-to-your-app) back to your app with an authorization code
-3. [Exchange](#exchange-the-authorization-code) the authorization code for an access token
+3. [Exchange](#exchange-the-authorization-code) the authorization code for an access token.
+
+*This access token doesn't have any permissions until your user has approved access to their data in the Monzo app.*
+
 
 ### Redirect the user to Monzo
 
@@ -39,8 +47,10 @@ Acquiring an access token is a three-step process:
     state=$state_token"
 ```
 
-Send the user to Monzo in a web browser, where they will log in and grant access to their account.
-
+Send the user to Monzo in a web browser, where they will log in and grant access to their account. 
+<aside class="warning">
+<strong>Strong Customer Authentication</strong><br/>
+In addition to authenticating with email, the user will receive a notification in their Monzo app to ask them to authenticate with their card PIN, fingerprint or Face ID.</aside>
 ##### URL arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
