@@ -5,8 +5,7 @@ enough money for a purchase.
 
 ## Getting Access
 
-The Open Banking team at Monzo manage access to the Confirmation of Funds API. To get in touch, email us at 
-[openbanking@monzo.com](mailto:openbanking@monzo.com).
+To get access to our Open Banking APIs, see the **Dynamic Client Registration** section below.
 
 ## Well-Known Endpoints
 
@@ -28,6 +27,12 @@ We've included the Base URLs for our Sandbox and Production environments below.
 Sandbox | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/cbpii`
 Production | `https://openbanking.monzo.com/open-banking/v3.1/cbpii`
 
+## Dynamic Client Registration
+
+We have implemented version 3.2 of the Open Banking Dynamic Client Registration specification. You can find the [full specification here](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1078034771/Dynamic+Client+Registration+-+v3.2).
+
+You can find the appropriate URL and supported configuration in our well-known endpoints for each environment.
+
 ## Authentication
 As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
 redirect flow, with authentication taking place in the customer's Monzo app.
@@ -48,3 +53,8 @@ Monzo will apply Strong Customer Authentication the first time we authenticate a
 (CBPII) consents. Since access is limited to information about the customer's balance, consents can be ongoing 
 and do <b>not</b> require the customer to regularly re-authenticate.
 </aside>
+
+## Additional Help
+
+The Open Banking team at Monzo manage the Confirmation of Funds API. If you require additional assistance, email us at 
+[openbanking@monzo.com](mailto:openbanking@monzo.com).
