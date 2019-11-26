@@ -6,8 +6,7 @@ API are sent through Faster Payments.
 
 ## Getting Access
 
-The Open Banking team at Monzo manage access to the Account Information Services API. To get in touch, email us at 
-[openbanking@monzo.com](mailto:openbanking@monzo.com).
+To get access to our Open Banking APIs, see the **Dynamic Client Registration** section below.
 
 ## Well-Known Endpoints
 
@@ -28,6 +27,12 @@ We've included the Base URLs for our Sandbox and Production environments below.
 ------------------------------------|--------------------------------------
 Sandbox | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/pisp`
 Production | `https://openbanking.monzo.com/open-banking/v3.1/pisp`
+
+## Dynamic Client Registration
+
+We have implemented the `POST /register` endpoint in version 3.2 of the Open Banking Dynamic Client Registration specification. You can find the [full specification here](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1078034771/Dynamic+Client+Registration+-+v3.2).
+
+You can find the appropriate URL and supported configuration in our well-known endpoints for each environment.
 
 ## Authentication
 
@@ -116,3 +121,8 @@ If you want your payment to come from a specific User and Account then you can a
   "AccountID": "account_000yyy"
 }
 ```
+
+## Additional Help
+
+The Open Banking team at Monzo manage the Payment Initiation Services API. If you require additional assistance, email us at 
+[openbanking@monzo.com](mailto:openbanking@monzo.com).
