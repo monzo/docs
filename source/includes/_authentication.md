@@ -58,7 +58,7 @@ In addition to authenticating with email, the user will receive a notification i
 `client_id`<br><span class="label notice">Required</span>|Your client ID.
 `redirect_uri`<br><span class="label notice">Required</span>|A URI to which users will be redirected after authorising your app.
 `response_type`<br><span class="label notice">Required</span>|Must be set to `code`.
-`state`|An unguessable random string used to protect against [cross-site request forgery attacks](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)).
+`state`|An unguessable random string used to protect against [cross-site request forgery attacks](https://owasp.org/www-community/attacks/csrf).
 
 
 ### Monzo redirects back to your app
