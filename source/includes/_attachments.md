@@ -22,7 +22,8 @@ The first step when uploading an attachment is to obtain a temporary URL to whic
 $ http --form POST "https://api.monzo.com/attachment/upload" \
     "Authorization: Bearer $access_token" \
     "file_name=foo.png" \
-  	"file_type=image/png"
+    "file_type=image/png" \
+    "content_length=12345"
 ```
 
 ```json
@@ -38,6 +39,7 @@ $ http --form POST "https://api.monzo.com/attachment/upload" \
 ------------------------------------|--------------------------------------
 `file_name`<br><span class="label">Required</span>|The name of the file to be uploaded
 `file_type`<br><span class="label">Required</span>|The content type of the file
+`content_length`<br><span class="label">Required</span>|The HTTP Content-Length of the upload request body, in bytes.
 
 ##### Response arguments
 
