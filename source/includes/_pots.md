@@ -6,6 +6,7 @@ A pot is a place to keep some money separate from the main spending account.
 
 ```shell
 $ http "https://api.monzo.com/pots" \
+    "current_account_id==$account_id" \
     "Authorization: Bearer $access_token"
 ```
 
@@ -26,7 +27,7 @@ $ http "https://api.monzo.com/pots" \
 }
 ```
 
-Returns a list of pots owned by the currently authorised user.
+Returns a list of pots owned by the currently authorised user that are associated with the specified account.
 
 ## Deposit into a pot
 
