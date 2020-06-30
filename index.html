@@ -428,6 +428,7 @@ Valid <code class="prettyprint">account_type</code>s are <code class="prettyprin
 
 <h2 id="list-pots">List pots</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.monzo.com/pots"</span> <span class="se">\</span>
+    <span class="s2">"current_account_id==</span><span class="nv">$account_id</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
@@ -446,7 +447,7 @@ Valid <code class="prettyprint">account_type</code>s are <code class="prettyprin
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Returns a list of pots owned by the currently authorised user.</p>
+<p>Returns a list of pots owned by the currently authorised user that are associated with the specified account.</p>
 
 <h2 id="deposit-into-a-pot">Deposit into a pot</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http --form PUT <span class="s2">"https://api.monzo.com/pots/</span><span class="nv">$pot_id</span><span class="s2">/deposit"</span> <span class="se">\</span>
@@ -961,7 +962,8 @@ Metadata is private to your application. Updating the `notes` key applies the va
 <pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.monzo.com/attachment/upload"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
     <span class="s2">"file_name=foo.png"</span> <span class="se">\</span>
-    <span class="s2">"file_type=image/png"</span>
+    <span class="s2">"file_type=image/png"</span> <span class="se">\</span>
+    <span class="s2">"content_length=12345"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"file_url"</span><span class="p">:</span><span class="s2">"https://s3-eu-west-1.amazonaws.com/mondo-image-uploads/user_00009237hliZellUicKuG1/LcCu4ogv1xW28OCcvOTL-foo.png"</span><span class="p">,</span><span class="w">
@@ -984,6 +986,10 @@ Metadata is private to your application. Updating the `notes` key applies the va
 <tr>
 <td><code class="prettyprint">file_type</code><br><span class="label">Required</span></td>
 <td>The content type of the file</td>
+</tr>
+<tr>
+<td><code class="prettyprint">content_length</code><br><span class="label">Required</span></td>
+<td>The HTTP Content-Length of the upload request body, in bytes.</td>
 </tr>
 </tbody></table>
 
