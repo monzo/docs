@@ -255,6 +255,13 @@ specification, but we accept it specifically in the Sandbox environment to mirro
 approval in the Payment Initiation API.
 </aside>
 
+### Sandbox Users
+
+<span class="hide">UserID</span> | <span class="hide">AccountID</span> | <span class="hide">Account Usage</span>
+user_0000A4C4ZChWNMEvew2U77 | acc_0000A4C4ZSskDOixqNPfpR | Heavy
+user_0000A4C4nqORb7K9YYW3r0 | acc_0000A4C4o66FCYJoERQhHN | Medium
+user_0000A4C4wkPFE7x9at8Ujp | acc_0000A4C4wz4Ail0f3sONTV | Light
+
 ## Additional Help
 
 The Open Banking team at Monzo manage the Account Information Services API. If you require additional assistance, email us at 
