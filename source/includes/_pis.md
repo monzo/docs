@@ -124,11 +124,17 @@ If you want your payment to come from a specific User and Account then you can a
 
 ### Sandbox Users
 
-<span class="hide">UserID</span> | <span class="hide">AccountID</span> | <span class="hide">Account Usage</span>
-user_0000A4C4ZChWNMEvew2U77 | acc_0000A4C4ZSskDOixqNPfpR | Heavy
-user_0000A4C4nqORb7K9YYW3r0 | acc_0000A4C4o66FCYJoERQhHN | Medium
-user_0000A4C4wkPFE7x9at8Ujp | acc_0000A4C4wz4Ail0f3sONTV | Light
+#### Heavy User
+UserID: `user_0000A4C4ZChWNMEvew2U77`
+AccountID: `acc_0000A4C4ZSskDOixqNPfpR`
 
+#### Medium User
+UserID: `user_0000A4C4nqORb7K9YYW3r0`
+AccountID: `acc_0000A4C4o66FCYJoERQhHN`
+
+#### Light User
+UserID: `user_0000A4C4wkPFE7x9at8Ujp`
+AccountID: `acc_0000A4C4wz4Ail0f3sONTV`
 
 ## Additional Help
 
