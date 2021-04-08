@@ -90,7 +90,7 @@ You'll only be allowed to fetch transactions that were made in the range defined
 
 We've implemented version 3.1.2. of the [Open Banking parties specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805687/Parties+v3.1.2)
 
-We have implemented the `GET /party` and `GET /accounts/{accountId}/party` endpoints for reading details of the consent authoriser and `GET /accounts/{accountId}/parties` for reading the details of all account holders/owners. All of these endpooints return the IDs, preferred names, and legal names of account holders/owners.
+We have implemented the `GET /party` and `GET /accounts/{accountId}/party` endpoints for reading details of the consent authoriser and `GET /accounts/{accountId}/parties` for reading the details of all account holders/owners. These endpoints return the IDs, preferred names, and legal names of account holders/owners.
 
 <aside class="notice">
 You should use the customer's preferred name when you talk to them.
