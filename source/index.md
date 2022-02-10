@@ -42,7 +42,7 @@ The [Developers category](https://community.monzo.com/c/developers) on our forum
 
 <aside class="warning">
     <strong>The Monzo Developer API is not suitable for building public applications.</strong><br>
-    You may only connect to your own account or those of a small set of users you explicitly whitelist. Please read our <a href="https://monzo.com/blog/2017/05/11/api-update/">blog post</a> for more detail.
+    You may only connect to your own account or those of a small set of users you explicitly allow. Please read our <a href="https://monzo.com/blog/2017/05/11/api-update/">blog post</a> for more detail.
 </aside>
 
 <aside class="warning">
