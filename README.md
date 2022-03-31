@@ -32,3 +32,7 @@ Need help? Found a bug?
 -----------------------
 
 Just [submit an issue](https://github.com/monzo/docs/issues) to this GitHub repo if you need any help. And, of course, feel free to submit pull requests with bug fixes or changes.
+
+Deploying changes
+----------------------
+Follow the deployment guide [here](https://www.notion.so/monzo/Deploying-Monzo-API-Docs-f18f80a4b12d4811af83c4aa6a77dfe2)
