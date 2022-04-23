@@ -2,7 +2,7 @@
 
 ## Version 2.13.0
 
-*April 22, 2022**
+*April 22, 2022*
 
 * __Drop support for ruby 2.5__
 * Bump rouge from 3.27.0 to 3.28.0
