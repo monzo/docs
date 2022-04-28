@@ -46,7 +46,7 @@ have one hour.
 
 ## Domestic Payments
 
-We've implemented version 3.1.2 of the [Open Banking Domestic Payments specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805881/Domestic+Payments+v3.1.2).
+We've implemented version 3.1.3 of the [Open Banking Domestic Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/pisp/domestic-payments.html).
 
 When you request a consent for Domestic Payments, you should provide `UK.OBIE.FPS` as the `LocalInstrument`.
 
@@ -57,7 +57,7 @@ You can only make payments in `GBP`. We don't support other currencies.
 
 ## Scheduled Payments
 
-We've implemented version 3.1.2 of the [Open Banking Scheduled Payments specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805996/Domestic+Scheduled+Payment+v3.1.2).
+We've implemented version 3.1.3 of the [Open Banking Scheduled Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/scheduled-payments.html).
 
 For consistency with our internal systems and the rest of our API, you will need to provide times in **RFC3339 format.**
 
@@ -76,7 +76,7 @@ All of our scheduled payments are sent in the early hours of the morning on the 
 
 ## Standing Orders
 
-We have implemented version 3.1.2 of the [Open Banking Standing Order specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077806077/Domestic+Standing+Orders+v3.1.2).
+We have implemented version 3.1.3 of the [Open Banking Standing Order specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/standing-orders.html).
 
 For consistency with our internal systems and the rest of our API, you will need to provide times in **RFC3339 format.**
 
