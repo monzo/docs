@@ -2,7 +2,7 @@ FROM ubuntu
 
 RUN apt-get update
 RUN apt-get install -yq ruby-full ruby-dev build-essential git
-RUN gem install -v 1.17.3 --no-ri --no-rdoc bundler
+RUN gem install -v 1.17.3 --no-document bundler
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
 RUN cd /app && bundle install --system
