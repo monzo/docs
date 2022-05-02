@@ -3,7 +3,7 @@ Monzo API Docs
 
 [Monzo is a new kind of bank](https://monzo.com).
 
-This is the public repo for the [Monzo API documentation](https://monzo.com/docs). It was generated using [Slate](https://github.com/lord/slate).
+This is the public repo for the [Monzo API documentation](https://monzo.com/docs). It was generated using [Slate](https://github.com/slatedocs/slate).
 
 Testing Locally
 -----------------------
@@ -11,21 +11,15 @@ You'll need Docker.
 
 From the root of the repo:
 ```
-> docker build .
-```
-
-Once you've built your image, make note of the image hash:
-```
-...
-Successfully built abcdef1234
-```
-
-And run it, forwarding the port, including the first few characters of the image:
-```
-> docker run -p 4567:4567 abcde
+> docker run --rm --name slate -p 4567:4567 -v $(pwd)/source:/srv/slate/source slatedocs/slate serve
 ```
 
 Then just visit http://localhost:4567 in your browser!
+
+Upgrading Slate
+-----------------------
+
+Follow the instructions on [Slate's GitHub page](https://github.com/slatedocs/slate/wiki/Updating-Slate)
 
 
 Need help? Found a bug?
