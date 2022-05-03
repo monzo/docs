@@ -59,6 +59,52 @@ If the account has been closed, it will still be returned in the response, but w
 To access a customer's Pots, use the Pots endpoint described further on in this documentation.
 </aside>
 
+### List Accounts
+```json
+ {
+  "Data": {
+    "Account": [
+      {
+        "AccountId": "acc_0000AAca1egQMHUQX14Mt7",
+        "Status": "Enabled",
+        "StatusUpdateDateTime": "2021-08-23T15:46:29.775Z",
+        "Currency": "GBP",
+        "AccountType": "Personal",
+        "AccountSubType": "CurrentAccount",
+        "Description": "Personal Account",
+        "Account": [
+          {
+            "SchemeName": "UK.OBIE.SortCodeAccountNumber",
+            "Identification": "12345699155454",
+            "Name": "Camila McSimpburg"
+          },
+          {
+            "SchemeName": "UK.OBIE.IBAN",
+            "Identification": "GB25MONZ12345699155454",
+            "Name": "Camila McSimpburg"
+          }
+        ],
+        "OpeningDate": "2021-08-23"
+      }
+    ]
+  },
+  "Links": {
+    "Self": "https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts"
+  },
+  "Meta": {}
+}
+```
+
+##### Endpoints
+
+<span class="hide"></span> | <span class="hide"></span>
+------------------------------------|--------------------------------------
+Sandbox | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts`
+Production | `https://openbanking.monzo.com/open-banking/v3.1/aisp/accounts`
+
+Note that the fields we return as part of the response depend on whether your consent has the  `ReadAccountsBasic`
+or `ReadAccountsDetail` permission. In the former case, we will omit the account scheme data such as account number and sort code or IBAN.
+
 ## Balances
 
 We've implemented version 3.1.3 of the [Open Banking balances specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/balances.html).
@@ -85,6 +131,54 @@ identify transactions that are still pending.
 
 You'll only be allowed to fetch transactions that were made in the range defined by `TransactionFromDateTime` and 
 `TransactionToDateTime` in your consent. If you try to access transactions outside this range, it won't work.
+
+### List Transactions
+```json
+ {
+  "Data": {
+    "Transaction": [
+      {
+        "AccountId": "acc_0000AAca1egQMHUQX14Mt7",
+        "TransactionId": "tx_0000AGpfr2kVwbONyQ4XFR",
+        "CreditDebitIndicator": "Credit",
+        "Status": "Booked",
+        "BookingDateTime": "2022-02-25T10:35:39.636Z",
+        "TransactionInformation": "Mr. Payroll Services",
+        "Amount": {
+          "Amount": "150.0000",
+          "Currency": "GBP"
+        },
+        "ProprietaryBankTransactionCode": {
+          "Code": "bacs",
+          "Issuer": "Monzo"
+        },
+        "DebtorAccount": {
+          "SchemeName": "UK.OBIE.SortCodeAccountNumber",
+          "Identification": "12345612345678",
+          "Name": "Mr Payroll Service"
+        },
+        "SupplementaryData": {
+          "Declined": false,
+          "RawTransactionDescription": "MR PAYROLL SERVICE"
+        }
+      },
+      // more transactions here
+    ]
+  },
+  "Links": {
+    "Self": "https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts/acc_0000AAca1egQMHUQX14Mt7/transactions?fromBookingDateTime=2022-02-03T00%3A00%3A00"
+  },
+  "Meta": {}
+}
+
+```
+
+##### Endpoints
+
+<span class="hide"></span> | <span class="hide"></span>
+------------------------------------|--------------------------------------
+Sandbox | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts/acc_0000AAca1egQMHUQX14Mt7/transactions?fromBookingDateTime=2022-02-03T00%3A00%3A00`
+Production | `https://openbanking.monzo.com/open-banking/v3.1/aisp/accounts/acc_0000AAca1egQMHUQX14Mt7/transactions?fromBookingDateTime=2022-02-03T00%3A00%3A00 `
 
 ## Parties
 
