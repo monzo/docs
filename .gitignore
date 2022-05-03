@@ -20,3 +20,6 @@ build/
 _yardoc
 doc/
 .idea/
+
+# rbenv
+vendor
