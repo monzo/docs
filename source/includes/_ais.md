@@ -95,13 +95,6 @@ To access a customer's Pots, use the Pots endpoint described further on in this 
 }
 ```
 
-##### Endpoints
-
-<span class="hide"></span> | <span class="hide"></span>
-------------------------------------|--------------------------------------
-Sandbox | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts`
-Production | `https://openbanking.monzo.com/open-banking/v3.1/aisp/accounts`
-
 Note that the fields we return as part of the response depend on whether your consent has the  `ReadAccountsBasic`
 or `ReadAccountsDetail` permission. In the former case, we will omit the account scheme data such as account number and sort code or IBAN.
 
@@ -161,8 +154,7 @@ You'll only be allowed to fetch transactions that were made in the range defined
           "Declined": false,
           "RawTransactionDescription": "MR PAYROLL SERVICE"
         }
-      },
-      // more transactions here
+      }
     ]
   },
   "Links": {
@@ -172,13 +164,6 @@ You'll only be allowed to fetch transactions that were made in the range defined
 }
 
 ```
-
-##### Endpoints
-
-<span class="hide"></span> | <span class="hide"></span>
-------------------------------------|--------------------------------------
-Sandbox | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts/acc_0000AAca1egQMHUQX14Mt7/transactions?fromBookingDateTime=2022-02-03T00%3A00%3A00`
-Production | `https://openbanking.monzo.com/open-banking/v3.1/aisp/accounts/acc_0000AAca1egQMHUQX14Mt7/transactions?fromBookingDateTime=2022-02-03T00%3A00%3A00 `
 
 ## Parties
 
