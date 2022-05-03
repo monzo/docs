@@ -45,21 +45,6 @@ We only support the `tls_client_auth` authentication method.
 
 ## Accounts
 
-We've implemented version 3.1.3 of the [Open Banking accounts specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/accounts.html).
-
-Once you have a consent for a customer, you'll be able to see their:
-
-* Personal (individual) accounts
-* Joint accounts
-* Business accounts
-
-If the account has been closed, it will still be returned in the response, but with an updated `Status`.
-
-<aside class="notice">
-To access a customer's Pots, use the Pots endpoint described further on in this documentation.
-</aside>
-
-### List Accounts
 ```json
  {
   "Data": {
@@ -95,6 +80,20 @@ To access a customer's Pots, use the Pots endpoint described further on in this 
 }
 ```
 
+We've implemented version 3.1.3 of the [Open Banking accounts specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/accounts.html).
+
+Once you have a consent for a customer, you'll be able to see their:
+
+* Personal (individual) accounts
+* Joint accounts
+* Business accounts
+
+If the account has been closed, it will still be returned in the response, but with an updated `Status`.
+
+<aside class="notice">
+To access a customer's Pots, use the Pots endpoint described further on in this documentation.
+</aside>
+
 Note that the fields we return as part of the response depend on whether your consent has the  `ReadAccountsBasic`
 or `ReadAccountsDetail` permission. In the former case, we will omit the account scheme data such as account number and sort code or IBAN.
 
@@ -107,25 +106,6 @@ that our customers see in the Monzo app, and it includes pending and settled tra
 
 ## Transactions
 
-We've implemented version 3.1.3 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/transactions.html).
-
-For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
-[**RFC3339 format**](https://www.ietf.org/rfc/rfc3339.txt).
-
-Your consent needs to have either the `ReadTransactionsBasic` or `ReadTransactionsDetail` permissions to access 
-this endpoint.
-
-When you query this endpoint, you'll receive all of the transactions that the customer made in the date range specified 
-in the request. Like in the Monzo app, we organise transactions in this response based on creation (presentment) time,
-not the time the transaction settles.
-
-Transaction amounts can change after the transaction is first created, and you can use the `Status` field to help 
-identify transactions that are still pending.
-
-You'll only be allowed to fetch transactions that were made in the range defined by `TransactionFromDateTime` and 
-`TransactionToDateTime` in your consent. If you try to access transactions outside this range, it won't work.
-
-### List Transactions
 ```json
  {
   "Data": {
@@ -162,8 +142,25 @@ You'll only be allowed to fetch transactions that were made in the range defined
   },
   "Meta": {}
 }
-
 ```
+
+We've implemented version 3.1.3 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/transactions.html).
+
+For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
+[**RFC3339 format**](https://www.ietf.org/rfc/rfc3339.txt).
+
+Your consent needs to have either the `ReadTransactionsBasic` or `ReadTransactionsDetail` permissions to access 
+this endpoint.
+
+When you query this endpoint, you'll receive all of the transactions that the customer made in the date range specified 
+in the request. Like in the Monzo app, we organise transactions in this response based on creation (presentment) time,
+not the time the transaction settles.
+
+Transaction amounts can change after the transaction is first created, and you can use the `Status` field to help 
+identify transactions that are still pending.
+
+You'll only be allowed to fetch transactions that were made in the range defined by `TransactionFromDateTime` and 
+`TransactionToDateTime` in your consent. If you try to access transactions outside this range, it won't work.
 
 ## Parties
 
