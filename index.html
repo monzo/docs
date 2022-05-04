@@ -61,7 +61,7 @@
 
 <aside class="warning">
     <strong>The Monzo Developer API is not suitable for building public applications.</strong><br>
-    You may only connect to your own account or those of a small set of users you explicitly whitelist. Please read our <a href="https://monzo.com/blog/2017/05/11/api-update/">blog post</a> for more detail.
+    You may only connect to your own account or those of a small set of users you explicitly allow. Please read our <a href="https://monzo.com/blog/2017/05/11/api-update/">blog post</a> for more detail.
 </aside>
 
 <aside class="warning">
@@ -1769,8 +1769,41 @@ place in the customer&rsquo;s Monzo app.</p>
 <p>We only support the <code class="prettyprint">tls_client_auth</code> authentication method.</p>
 
 <h2 id="accounts">Accounts</h2>
+<pre class="highlight json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nt">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"Account"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_0000AAca1egQMHUQX14Mt7"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Enabled"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"StatusUpdateDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-08-23T15:46:29.775Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"AccountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"AccountSubType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CurrentAccount"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"Description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal Account"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"Account"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.SortCodeAccountNumber"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345699155454"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Camila McSimpburg"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.IBAN"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB25MONZ12345699155454"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Camila McSimpburg"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nt">"OpeningDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-08-23"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"Links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"Self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
-<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805362/Accounts+v3.1.2">Open Banking accounts specification</a>.</p>
+<p>We&rsquo;ve implemented version 3.1.3 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/accounts.html">Open Banking accounts specification</a>.</p>
 
 <p>Once you have a consent for a customer, you&rsquo;ll be able to see their:</p>
 
@@ -1786,16 +1819,55 @@ place in the customer&rsquo;s Monzo app.</p>
 To access a customer&rsquo;s Pots, use the Pots endpoint described further on in this documentation.
 </aside>
 
+<p>Note that the fields we return as part of the response depend on whether your consent has the  <code class="prettyprint">ReadAccountsBasic</code>
+or <code class="prettyprint">ReadAccountsDetail</code> permission. In the former case, we will omit the account scheme data such as account number and sort code or IBAN.</p>
+
 <h2 id="balances">Balances</h2>
 
-<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805375/Balances+v3.1.2">Open Banking balances specification</a>.</p>
+<p>We&rsquo;ve implemented version 3.1.3 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/balances.html">Open Banking balances specification</a>.</p>
 
 <p>When you query this endpoint, you&rsquo;ll see the customer&rsquo;s <code class="prettyprint">InterimAvailable</code> balance. This is the same real-time balance 
 that our customers see in the Monzo app, and it includes pending and settled transactions.</p>
 
 <h2 id="transactions">Transactions</h2>
+<pre class="highlight json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nt">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"Transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_0000AAca1egQMHUQX14Mt7"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"TransactionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_0000AGpfr2kVwbONyQ4XFR"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"CreditDebitIndicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Credit"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Booked"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"BookingDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-02-25T10:35:39.636Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"TransactionInformation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mr. Payroll Services"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"150.0000"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"ProprietaryBankTransactionCode"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"Code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bacs"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"Issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Monzo"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"DebtorAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.SortCodeAccountNumber"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345612345678"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mr Payroll Service"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"SupplementaryData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"Declined"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"RawTransactionDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MR PAYROLL SERVICE"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"Links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"Self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts/acc_0000AAca1egQMHUQX14Mt7/transactions?fromBookingDateTime=2022-02-03T00%3A00%3A00"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
-<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805388/Transactions+v3.1.2">Open Banking transactions specification</a>.</p>
+<p>We&rsquo;ve implemented version 3.1.3 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/transactions.html">Open Banking transactions specification</a>.</p>
 
 <p>For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
 <a href="https://www.ietf.org/rfc/rfc3339.txt"><strong>RFC3339 format</strong></a>.</p>
@@ -1815,7 +1887,7 @@ identify transactions that are still pending.</p>
 
 <h2 id="parties">Parties</h2>
 
-<p>We&rsquo;ve implemented version 3.1.2. of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805687/Parties+v3.1.2">Open Banking parties specification</a></p>
+<p>We&rsquo;ve implemented version 3.1.3. of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/parties.html">Open Banking parties specification</a></p>
 
 <p>We have only implemented <code class="prettyprint">GET /party</code> endpoint, and not the account-specific endpoints. This returns the customer&rsquo;s 
 ID, their preferred name, and their legal name.</p>
@@ -1928,7 +2000,7 @@ any more.</p>
 
 <h2 id="direct-debits">Direct Debits</h2>
 
-<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805417/Direct+Debits+v3.1.2">Open Banking Direct Debits specification</a>.</p>
+<p>We&rsquo;ve implemented version 3.1.3 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/direct-debits.html">Open Banking Direct Debits specification</a>.</p>
 
 <p>We have only implemented <code class="prettyprint">GET /accounts/{AccountId}/direct-debits</code> endpoint.</p>
 
@@ -1942,7 +2014,7 @@ access Direct Debits that were collected within the last 90 days.
 
 <h2 id="scheduled-payments">Scheduled Payments</h2>
 
-<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805716/Scheduled+Payments+v3.1.2">Open Banking Scheduled Payments specification</a>.</p>
+<p>We&rsquo;ve implemented version 3.1.3 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/scheduled-payments.html">Open Banking Scheduled Payments specification</a>.</p>
 
 <p>We have only implemented <code class="prettyprint">GET /accounts/{AccountId}/scheduled-payments</code> endpoint.</p>
 
@@ -1956,7 +2028,7 @@ You can access all scheduled payments as long as the customer has completed Stro
 
 <h2 id="standing-orders">Standing Orders</h2>
 
-<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805430/Standing+Orders+v3.1.2">Open Banking Standing Orders specification</a>.</p>
+<p>We&rsquo;ve implemented version 3.1.3 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/standing-orders.html">Open Banking Standing Orders specification</a>.</p>
 
 <p>We have only implemented <code class="prettyprint">GET /accounts/{AccountId}/standing-orders</code> endpoint.</p>
 
@@ -2081,7 +2153,7 @@ have one hour.</p>
 
 <h2 id="domestic-payments">Domestic Payments</h2>
 
-<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805881/Domestic+Payments+v3.1.2">Open Banking Domestic Payments specification</a>.</p>
+<p>We&rsquo;ve implemented version 3.1.3 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/pisp/domestic-payments.html">Open Banking Domestic Payments specification</a>.</p>
 
 <p>When you request a consent for Domestic Payments, you should provide <code class="prettyprint">UK.OBIE.FPS</code> as the <code class="prettyprint">LocalInstrument</code>.</p>
 
@@ -2092,7 +2164,7 @@ have one hour.</p>
 
 <h2 id="scheduled-payments">Scheduled Payments</h2>
 
-<p>We&rsquo;ve implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805996/Domestic+Scheduled+Payment+v3.1.2">Open Banking Scheduled Payments specification</a>.</p>
+<p>We&rsquo;ve implemented version 3.1.3 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/scheduled-payments.html">Open Banking Scheduled Payments specification</a>.</p>
 
 <p>For consistency with our internal systems and the rest of our API, you will need to provide times in <strong>RFC3339 format.</strong></p>
 
@@ -2111,7 +2183,7 @@ All of our scheduled payments are sent in the early hours of the morning on the 
 
 <h2 id="standing-orders">Standing Orders</h2>
 
-<p>We have implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077806077/Domestic+Standing+Orders+v3.1.2">Open Banking Standing Order specification</a>.</p>
+<p>We have implemented version 3.1.3 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/standing-orders.html">Open Banking Standing Order specification</a>.</p>
 
 <p>For consistency with our internal systems and the rest of our API, you will need to provide times in <strong>RFC3339 format.</strong></p>
 
@@ -2255,7 +2327,7 @@ redirect flow, with authentication taking place in the customer&rsquo;s Monzo ap
 
 <h2 id="confirmation-of-funds">Confirmation of Funds</h2>
 
-<p>We have implemented version 3.1.2 of the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077806537/Confirmation+of+Funds+API+Specification+-+v3.1.2">Open Banking Confirmation of Funds Specification</a>.</p>
+<p>We have implemented version 3.1.3 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.3/profiles/confirmation-of-funds-api-profile.html">Open Banking Confirmation of Funds Specification</a>.</p>
 
 <p>We use the <strong>redirection flow</strong> for approving consents.</p>
 
