@@ -45,7 +45,42 @@ We only support the `tls_client_auth` authentication method.
 
 ## Accounts
 
-We've implemented version 3.1.2 of the [Open Banking accounts specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805362/Accounts+v3.1.2).
+```json
+ {
+  "Data": {
+    "Account": [
+      {
+        "AccountId": "acc_0000AAca1egQMHUQX14Mt7",
+        "Status": "Enabled",
+        "StatusUpdateDateTime": "2021-08-23T15:46:29.775Z",
+        "Currency": "GBP",
+        "AccountType": "Personal",
+        "AccountSubType": "CurrentAccount",
+        "Description": "Personal Account",
+        "Account": [
+          {
+            "SchemeName": "UK.OBIE.SortCodeAccountNumber",
+            "Identification": "12345699155454",
+            "Name": "Camila McSimpburg"
+          },
+          {
+            "SchemeName": "UK.OBIE.IBAN",
+            "Identification": "GB25MONZ12345699155454",
+            "Name": "Camila McSimpburg"
+          }
+        ],
+        "OpeningDate": "2021-08-23"
+      }
+    ]
+  },
+  "Links": {
+    "Self": "https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts"
+  },
+  "Meta": {}
+}
+```
+
+We've implemented version 3.1.3 of the [Open Banking accounts specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/accounts.html).
 
 Once you have a consent for a customer, you'll be able to see their:
 
@@ -59,16 +94,57 @@ If the account has been closed, it will still be returned in the response, but w
 To access a customer's Pots, use the Pots endpoint described further on in this documentation.
 </aside>
 
+Note that the fields we return as part of the response depend on whether your consent has the  `ReadAccountsBasic`
+or `ReadAccountsDetail` permission. In the former case, we will omit the account scheme data such as account number and sort code or IBAN.
+
 ## Balances
 
-We've implemented version 3.1.2 of the [Open Banking balances specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805375/Balances+v3.1.2).
+We've implemented version 3.1.3 of the [Open Banking balances specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/balances.html).
 
 When you query this endpoint, you'll see the customer's `InterimAvailable` balance. This is the same real-time balance 
 that our customers see in the Monzo app, and it includes pending and settled transactions.
 
 ## Transactions
 
-We've implemented version 3.1.2 of the [Open Banking transactions specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805388/Transactions+v3.1.2).
+```json
+ {
+  "Data": {
+    "Transaction": [
+      {
+        "AccountId": "acc_0000AAca1egQMHUQX14Mt7",
+        "TransactionId": "tx_0000AGpfr2kVwbONyQ4XFR",
+        "CreditDebitIndicator": "Credit",
+        "Status": "Booked",
+        "BookingDateTime": "2022-02-25T10:35:39.636Z",
+        "TransactionInformation": "Mr. Payroll Services",
+        "Amount": {
+          "Amount": "150.0000",
+          "Currency": "GBP"
+        },
+        "ProprietaryBankTransactionCode": {
+          "Code": "bacs",
+          "Issuer": "Monzo"
+        },
+        "DebtorAccount": {
+          "SchemeName": "UK.OBIE.SortCodeAccountNumber",
+          "Identification": "12345612345678",
+          "Name": "Mr Payroll Service"
+        },
+        "SupplementaryData": {
+          "Declined": false,
+          "RawTransactionDescription": "MR PAYROLL SERVICE"
+        }
+      }
+    ]
+  },
+  "Links": {
+    "Self": "https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts/acc_0000AAca1egQMHUQX14Mt7/transactions?fromBookingDateTime=2022-02-03T00%3A00%3A00"
+  },
+  "Meta": {}
+}
+```
+
+We've implemented version 3.1.3 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/transactions.html).
 
 For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
 [**RFC3339 format**](https://www.ietf.org/rfc/rfc3339.txt).
@@ -88,7 +164,7 @@ You'll only be allowed to fetch transactions that were made in the range defined
 
 ## Parties
 
-We've implemented version 3.1.2. of the [Open Banking parties specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805687/Parties+v3.1.2)
+We've implemented version 3.1.3. of the [Open Banking parties specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/parties.html)
 
 We have only implemented `GET /party` endpoint, and not the account-specific endpoints. This returns the customer's 
 ID, their preferred name, and their legal name.
@@ -192,7 +268,7 @@ any more.
 
 ## Direct Debits
 
-We've implemented version 3.1.2 of the [Open Banking Direct Debits specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805417/Direct+Debits+v3.1.2).
+We've implemented version 3.1.3 of the [Open Banking Direct Debits specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/direct-debits.html).
 
 We have only implemented `GET /accounts/{AccountId}/direct-debits` endpoint.
 
@@ -206,7 +282,7 @@ access Direct Debits that were collected within the last 90 days.
 
 ## Scheduled Payments
 
-We've implemented version 3.1.2 of the [Open Banking Scheduled Payments specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805716/Scheduled+Payments+v3.1.2).
+We've implemented version 3.1.3 of the [Open Banking Scheduled Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/scheduled-payments.html).
 
 We have only implemented `GET /accounts/{AccountId}/scheduled-payments` endpoint.
 
@@ -220,7 +296,7 @@ You can access all scheduled payments as long as the customer has completed Stro
 
 ## Standing Orders
 
-We've implemented version 3.1.2 of the [Open Banking Standing Orders specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1077805430/Standing+Orders+v3.1.2).
+We've implemented version 3.1.3 of the [Open Banking Standing Orders specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/standing-orders.html).
 
 We have only implemented `GET /accounts/{AccountId}/standing-orders` endpoint.
 
