@@ -1,25 +1,26 @@
-# Start from the official Ruby image for 2.6.X, 2.7 works but spams a lot of warnings about stuff being deprecated
-# in 3.0, and indeex any Ruby 3 version won't work
-FROM ruby:2.6
+FROM ruby:2.6-slim
 
-# Install the highest version of bundler that is compatible with the Gemfile
-RUN gem install bundler -N -v 1.17.3
-# Install the latest version of Node LTS
-# taken from https://github.com/nodesource/distributions/blob/master/README.md#node-lts
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
-RUN apt-get install -y nodejs
+WORKDIR /srv/slate
 
-# Set our working directory
-WORKDIR /app
-
-# Add Gemfile and Gemfile.lock and install dependencies before adding the actual app so that
-# Docker can cache these layers and reuse them even when we change the app code
-ADD Gemfile Gemfile.lock /app/
-RUN bundle install
-
-# Finally add the actual app
-ADD . /app
-
-# Run the app locally
 EXPOSE 4567
-CMD ["bundle", "exec", "middleman", "server"]
+
+COPY Gemfile .
+COPY Gemfile.lock .
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        build-essential \
+        git \
+        nodejs \
+    && gem install bundler \
+    && bundle install \
+    && apt-get remove -y build-essential git \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY . /srv/slate
+
+RUN chmod +x /srv/slate/slate.sh
+
+ENTRYPOINT ["/srv/slate/slate.sh"]
+CMD ["build"]
