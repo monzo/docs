@@ -1109,7 +1109,6 @@ Valid <code>account_type</code>s are <code>uk_retail</code>, <code>uk_retail_joi
     <span class="s2">"expand[]==merchant"</span>
 </code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"account_balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">13013</span><span class="p">,</span><span class="w">
         </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-510</span><span class="p">,</span><span class="w">
         </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-22T12:20:18Z"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
@@ -1159,7 +1158,6 @@ Valid <code>account_type</code>s are <code>uk_retail</code>, <code>uk_retail_joi
 </code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"transactions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"account_balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">13013</span><span class="p">,</span><span class="w">
             </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-510</span><span class="p">,</span><span class="w">
             </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-22T12:20:18Z"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
@@ -1173,7 +1171,6 @@ Valid <code>account_type</code>s are <code>uk_retail</code>, <code>uk_retail_joi
             </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eating_out"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"account_balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">12334</span><span class="p">,</span><span class="w">
             </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-679</span><span class="p">,</span><span class="w">
             </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-23T16:15:03Z"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
@@ -1227,7 +1224,6 @@ If you need the user’s entire transaction history, you should consider fetchin
     <span class="s2">"metadata[</span><span class="nv">$key2</span><span class="s2">]="</span>
 </code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"account_balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">12334</span><span class="p">,</span><span class="w">
         </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-679</span><span class="p">,</span><span class="w">
         </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-23T16:15:03Z"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
@@ -1891,7 +1887,7 @@ Unlike our earlier APIs, this API takes a JSON-encoded request body, rather than
 </tbody></table>
 <h2 id='list-webhooks'>List webhooks</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">$ </span>http <span class="s2">"https://api.monzo.com/webhooks"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Bearer </span><span class="nv">$access_token</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"account_id==</span><span class="nv">$account_id</span><span class="s2">"</span>
+    <span class="s2">"account_id=</span><span class="nv">$account_id</span><span class="s2">"</span>
 </code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"webhooks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
@@ -2067,7 +2063,7 @@ and more for our customers in the United Kingdom.</p>
 <h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
 <p>We have implemented the <code>POST /register</code> endpoint in version 3.2 of the Open Banking Dynamic Client Registration specification. You can find the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1078034771/Dynamic+Client+Registration+-+v3.2">full specification here</a>.</p>
 
-<p>You can find the appropriate URL and supported configuration in our well-known endpoints for each environment.</p>
+<p>You can find the appropriate URL and supported configuration in our <a href="/#well-known-endpoints">well-known endpoints</a> for each environment.</p>
 <h2 id='authentication'>Authentication</h2>
 <p>As per the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/83919096/Open+Banking+Security+Profile+-+Implementer+s+Draft+v1.1.2">Open Banking specification</a>, 
 we use OAuth 2 and OpenID connect for authentication. We have implemented the redirect flow, with authentication taking 
@@ -2186,14 +2182,13 @@ identify transactions that are still pending.</p>
 <h2 id='parties'>Parties</h2>
 <p>We&#39;ve implemented version 3.1.4. of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.4/resources-and-data-models/aisp/parties.html">Open Banking parties specification</a></p>
 
-<p>We have only implemented <code>GET /party</code> endpoint, and not the account-specific endpoints. This returns the customer&#39;s 
-ID, their preferred name, and their legal name.</p>
+<p>We have implemented the <code>GET /party</code> and <code>GET /accounts/{accountId}/party</code> endpoints for reading details of the consent authoriser and <code>GET /accounts/{accountId}/parties</code> for reading the details of all account holders/owners. These endpoints return the IDs, preferred names, and legal names of account holders/owners.</p>
 
 <aside class="notice">
 You should use the customer's preferred name when you talk to them.
 </aside>
 
-<p>Your consent needs to have the <code>ReadPartyPSU</code> permission to access this endpoint.</p>
+<p>Your consent needs to have the <code>ReadPartyPSU</code> permission to access the <code>GET /party</code> endpoint and the <code>ReadParty</code> permission to access the <code>GET /account/{accountId}/parties</code> and <code>GET /account/{accountId}/party</code> endpoints.</p>
 
 <aside class="warning">
 <strong>Strong Customer Authentication Needed</strong><br/>
@@ -2398,7 +2393,7 @@ API are sent through Faster Payments.</p>
 <h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
 <p>We have implemented the <code>POST /register</code> endpoint in version 3.2 of the Open Banking Dynamic Client Registration specification. You can find the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1078034771/Dynamic+Client+Registration+-+v3.2">full specification here</a>.</p>
 
-<p>You can find the appropriate URL and supported configuration in our well-known endpoints for each environment.</p>
+<p>You can find the appropriate URL and supported configuration in our <a href="/#well-known-endpoints">well-known endpoints</a> for each environment.</p>
 <h2 id='authentication'>Authentication</h2>
 <p>As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
 redirect flow, with authentication taking place in the customer&#39;s Monzo app.</p>
@@ -2585,7 +2580,7 @@ enough money for a purchase. </p>
 <h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
 <p>We have implemented the <code>POST /register</code> endpoint in version 3.2 of the Open Banking Dynamic Client Registration specification. You can find the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1078034771/Dynamic+Client+Registration+-+v3.2">full specification here</a>.</p>
 
-<p>You can find the appropriate URL and supported configuration in our well-known endpoints for each environment.</p>
+<p>You can find the appropriate URL and supported configuration in our <a href="/#well-known-endpoints">well-known endpoints</a> for each environment.</p>
 <h2 id='authentication'>Authentication</h2>
 <p>As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
 redirect flow, with authentication taking place in the customer&#39;s Monzo app.</p>
