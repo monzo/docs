@@ -46,7 +46,7 @@ have one hour.
 
 ## Domestic Payments
 
-We've implemented version 3.1.3 of the [Open Banking Domestic Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/pisp/domestic-payments.html).
+We've implemented version 3.1.4 of the [Open Banking Domestic Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.4/resources-and-data-models/pisp/domestic-payments.html).
 
 When you request a consent for Domestic Payments, you should provide `UK.OBIE.FPS` as the `LocalInstrument`.
 
@@ -57,7 +57,7 @@ You can only make payments in `GBP`. We don't support other currencies.
 
 ## Scheduled Payments
 
-We've implemented version 3.1.3 of the [Open Banking Scheduled Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/scheduled-payments.html).
+We've implemented version 3.1.4 of the [Open Banking Scheduled Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.4/resources-and-data-models/aisp/scheduled-payments.html).
 
 For consistency with our internal systems and the rest of our API, you will need to provide times in **RFC3339 format.**
 
@@ -76,7 +76,7 @@ All of our scheduled payments are sent in the early hours of the morning on the 
 
 ## Standing Orders
 
-We have implemented version 3.1.3 of the [Open Banking Standing Order specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/standing-orders.html).
+We have implemented version 3.1.4 of the [Open Banking Standing Order specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.4/resources-and-data-models/aisp/standing-orders.html).
 
 For consistency with our internal systems and the rest of our API, you will need to provide times in **RFC3339 format.**
 
@@ -101,6 +101,57 @@ we don't let you include both.
 At the moment, we don't support the `payment-details` endpoint.
 
 You can only make payments in `GBP`. We don't support other currencies.
+
+## Refund Accounts
+```json
+{
+  "Data": {
+    "Initiation": {
+      "CreditorAccount": {
+        "Identification": "12345612345678",
+        "SchemeName": "UK.OBIE.SortCodeAccountNumber"
+      },
+      "ReadRefundAccount": "Yes"
+    }
+  }
+}
+```
+We have enabled reading refund account details as part of domestic payment consent resource creation, if requested by the PISP. To read the refund account details set the `ReadRefundAccount` field to `Yes` in the consent creation request. 
+
+The refund account data will be returned in the payment order creation response. The name on the refund account should pass any confirmation of payee checks.
+
+```json
+{
+  "Data": {
+    "Initiation": {
+      "CreditorAccount": {
+        "SchemeName": "UK.OBIE.SortCodeAccountNumber",
+        "Identification": "12345612345678"
+      }
+    },
+    "ConsentId": "obpispdomesticpaymentconsent_0000AJ93jc7CkiSo8cYCzx",
+    "DomesticPaymentId": "obdompayment_0000AJ93nDHX1aE8HE66YT",
+    "CreationDateTime": "2022-05-05T14:47:36.545Z",
+    "Status": "Pending",
+    "StatusUpdateDateTime": "2022-05-05T14:47:36.545Z",
+    "ExpectedExecutionDateTime": "2022-05-05T14:47:36.545Z",
+    "ExpectedSettlementDateTime": "2022-05-05T14:47:36.545Z",
+    "Refund": {
+      "Account": {
+        "SchemeName": "UK.OBIE.SortCodeAccountNumber",
+        "Identification": "12345612345678",
+        "Name": "First Last"
+      }
+    }
+  },
+  "Links": {
+    "Self": "https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/pisp/obpispdomesticpaymentconsent_0000AJ93jc7CkiSo8cYCzx"
+  },
+  "Meta": {}
+}
+
+```
+
 
 ## Testing in the Sandbox
 
