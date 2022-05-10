@@ -27,7 +27,6 @@ $ http "https://api.monzo.com/transactions/$transaction_id" \
 ```json
 {
     "transaction": {
-        "account_balance": 13013,
         "amount": -510,
         "created": "2015-08-22T12:20:18Z",
         "currency": "GBP",
@@ -80,7 +79,6 @@ $ http "https://api.monzo.com/transactions" \
 {
     "transactions": [
         {
-            "account_balance": 13013,
             "amount": -510,
             "created": "2015-08-22T12:20:18Z",
             "currency": "GBP",
@@ -94,7 +92,6 @@ $ http "https://api.monzo.com/transactions" \
             "category": "eating_out"
         },
         {
-            "account_balance": 12334,
             "amount": -679,
             "created": "2015-08-23T16:15:03Z",
             "currency": "GBP",
@@ -142,7 +139,6 @@ $ http --form PATCH "https://api.monzo.com/transactions/$transaction_id" \
 ```json
 {
     "transaction": {
-        "account_balance": 12334,
         "amount": -679,
         "created": "2015-08-23T16:15:03Z",
         "currency": "GBP",
