@@ -166,14 +166,13 @@ You'll only be allowed to fetch transactions that were made in the range defined
 
 We've implemented version 3.1.3. of the [Open Banking parties specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.3/resources-and-data-models/aisp/parties.html)
 
-We have only implemented `GET /party` endpoint, and not the account-specific endpoints. This returns the customer's 
-ID, their preferred name, and their legal name.
+We have implemented the `GET /party` and `GET /accounts/{accountId}/party` endpoints for reading details of the consent authoriser and `GET /accounts/{accountId}/parties` for reading the details of all account holders/owners. These endpoints return the IDs, preferred names, and legal names of account holders/owners.
 
 <aside class="notice">
 You should use the customer's preferred name when you talk to them.
 </aside>
 
-Your consent needs to have the `ReadPartyPSU` permission to access this endpoint.
+Your consent needs to have the `ReadPartyPSU` permission to access the `GET /party` endpoint and the `ReadParty` permission to access the `GET /account/{accountId}/parties` and `GET /account/{accountId}/party` endpoints.
 
 <aside class="warning">
 <strong>Strong Customer Authentication Needed</strong><br/>
