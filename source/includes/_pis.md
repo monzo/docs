@@ -46,7 +46,7 @@ have one hour.
 
 ## Domestic Payments
 
-We've implemented version 3.1.4 of the [Open Banking Domestic Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.4/resources-and-data-models/pisp/domestic-payments.html).
+We've implemented version 3.1.5 of the [Open Banking Domestic Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.5/resources-and-data-models/pisp/domestic-payments.html).
 
 When you request a consent for Domestic Payments, you should provide `UK.OBIE.FPS` as the `LocalInstrument`.
 
@@ -57,7 +57,7 @@ You can only make payments in `GBP`. We don't support other currencies.
 
 ## Scheduled Payments
 
-We've implemented version 3.1.4 of the [Open Banking Scheduled Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.4/resources-and-data-models/aisp/scheduled-payments.html).
+We've implemented version 3.1.5 of the [Open Banking Scheduled Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.5/resources-and-data-models/aisp/scheduled-payments.html).
 
 For consistency with our internal systems and the rest of our API, you will need to provide times in **RFC3339 format.**
 
@@ -76,7 +76,7 @@ All of our scheduled payments are sent in the early hours of the morning on the 
 
 ## Standing Orders
 
-We have implemented version 3.1.4 of the [Open Banking Standing Order specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.4/resources-and-data-models/aisp/standing-orders.html).
+We have implemented version 3.1.5 of the [Open Banking Standing Order specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.5/resources-and-data-models/aisp/standing-orders.html).
 
 For consistency with our internal systems and the rest of our API, you will need to provide times in **RFC3339 format.**
 
@@ -142,6 +142,9 @@ The refund account data will be returned in the payment order creation response.
         "Identification": "12345612345678",
         "Name": "First Last"
       }
+    },
+    "Debtor": {
+      "Name": "First Last"
     }
   },
   "Links": {
