@@ -40,7 +40,7 @@ redirect flow, with authentication taking place in the customer's Monzo app.
 We only support the `tls_client_auth` authentication method.
 
 ## Confirmation of Funds
-We have implemented version 3.1.4 of the [Open Banking Confirmation of Funds Specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.4/profiles/confirmation-of-funds-api-profile.html).
+We have implemented version 3.1.5 of the [Open Banking Confirmation of Funds Specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.5/profiles/confirmation-of-funds-api-profile.html).
 
 We use the **redirection flow** for approving consents.
 
