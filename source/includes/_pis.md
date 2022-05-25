@@ -120,6 +120,8 @@ We have enabled reading refund account details as part of domestic payment conse
 
 The refund account data will be returned in the payment order creation response. The name on the refund account should pass any confirmation of payee checks.
 
+`Debtor/Name` will only be returned for consents and payment orders created after the upgrade to version 3.1.5 on 25/05/2022 at 12:00. 
+
 ```json
 {
   "Data": {
