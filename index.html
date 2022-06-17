@@ -2104,7 +2104,7 @@ place in the customer&#39;s Monzo app.</p>
   </span><span class="nl">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>We&#39;ve implemented version 3.1.7 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.7/resources-and-data-models/aisp/Accounts.html">Open Banking accounts specification</a>.</p>
+<p>We&#39;ve implemented version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Accounts.html">Open Banking accounts specification</a>.</p>
 
 <p>Once you have a consent for a customer, you&#39;ll be able to see their:</p>
 
@@ -2123,7 +2123,7 @@ To access a customer's Pots, use the Pots endpoint described further on in this 
 <p>Note that the fields we return as part of the response depend on whether your consent has the  <code>ReadAccountsBasic</code>
 or <code>ReadAccountsDetail</code> permission. In the former case, we will omit the account scheme data such as account number and sort code or IBAN.</p>
 <h2 id='balances'>Balances</h2>
-<p>We&#39;ve implemented version 3.1.7 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.7/resources-and-data-models/aisp/Balances.html">Open Banking balances specification</a>.</p>
+<p>We&#39;ve implemented version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Balances.html">Open Banking balances specification</a>.</p>
 
 <p>When you query this endpoint, you&#39;ll see the customer&#39;s <code>InterimAvailable</code> balance. This is the same real-time balance 
 that our customers see in the Monzo app, and it includes pending and settled transactions.</p>
@@ -2164,7 +2164,7 @@ that our customers see in the Monzo app, and it includes pending and settled tra
   </span><span class="nl">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>We&#39;ve implemented version 3.1.7 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.7/resources-and-data-models/aisp/Transactions.html">Open Banking transactions specification</a>.</p>
+<p>We&#39;ve implemented version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html">Open Banking transactions specification</a>.</p>
 
 <p>For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
 <a href="https://www.ietf.org/rfc/rfc3339.txt"><strong>RFC3339 format</strong></a>.</p>
@@ -2182,10 +2182,10 @@ identify transactions that are still pending.</p>
 <p>You&#39;ll only be allowed to fetch transactions that were made in the range defined by <code>TransactionFromDateTime</code> and 
 <code>TransactionToDateTime</code> in your consent. If you try to access transactions outside this range, it won&#39;t work.</p>
 
-<p><code>TransactionMutability</code> was added in version 3.1.7 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.7/resources-and-data-models/aisp/Transactions.html">Open Banking transactions specification</a>. 
+<p><code>TransactionMutability</code> was added in version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html">Open Banking transactions specification</a>. 
 This field will always be set to <code>Mutable</code> because Merchant data and foreign exchange rate between authorisation and presentment for a card payment may vary between fetches.</p>
 <h2 id='parties'>Parties</h2>
-<p>We&#39;ve implemented version 3.1.7. of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.7/resources-and-data-models/aisp/Parties.html">Open Banking parties specification</a></p>
+<p>We&#39;ve implemented version 3.1.8. of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Parties.html">Open Banking parties specification</a></p>
 
 <p>We have implemented the <code>GET /party</code> and <code>GET /accounts/{accountId}/party</code> endpoints for reading details of the consent authoriser and <code>GET /accounts/{accountId}/parties</code> for reading the details of all account holders/owners. These endpoints return the IDs, preferred names, and legal names of account holders/owners.</p>
 
@@ -2288,7 +2288,7 @@ or <code>ReadAccountsDetailed</code> permission. In the former case, we will omi
 <p>We&#39;ll only return open pots as part of our response. If a customer closes a pot, it won&#39;t appear in the response
 any more.</p>
 <h2 id='direct-debits'>Direct Debits</h2>
-<p>We&#39;ve implemented version 3.1.7 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.7/resources-and-data-models/aisp/direct-debits.html">Open Banking Direct Debits specification</a>.</p>
+<p>We&#39;ve implemented version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/direct-debits.html">Open Banking Direct Debits specification</a>.</p>
 
 <p>We have only implemented <code>GET /accounts/{AccountId}/direct-debits</code> endpoint.</p>
 
@@ -2300,7 +2300,7 @@ If it's been more than 5 minutes since the customer completed Strong Customer Au
 access Direct Debits that were collected within the last 90 days.
 </aside>
 <h2 id='scheduled-payments'>Scheduled Payments</h2>
-<p>We&#39;ve implemented version 3.1.7 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.7/resources-and-data-models/aisp/scheduled-payments.html">Open Banking Scheduled Payments specification</a>.</p>
+<p>We&#39;ve implemented version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/scheduled-payments.html">Open Banking Scheduled Payments specification</a>.</p>
 
 <p>We have only implemented <code>GET /accounts/{AccountId}/scheduled-payments</code> endpoint.</p>
 
@@ -2312,7 +2312,7 @@ You can access all scheduled payments as long as the customer has completed Stro
 90 days. 
 </aside>
 <h2 id='standing-orders'>Standing Orders</h2>
-<p>We&#39;ve implemented version 3.1.7 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.7/resources-and-data-models/aisp/standing-orders.html">Open Banking Standing Orders specification</a>.</p>
+<p>We&#39;ve implemented version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/standing-orders.html">Open Banking Standing Orders specification</a>.</p>
 
 <p>We have only implemented <code>GET /accounts/{AccountId}/standing-orders</code> endpoint.</p>
 
@@ -2408,7 +2408,7 @@ redirect flow, with authentication taking place in the customer&#39;s Monzo app.
 <p>Once created, you&#39;ll need to turn any consent into a payment order within 24 hours. Once the consent is approved, you&#39;ll
 have one hour.</p>
 <h2 id='domestic-payments'>Domestic Payments</h2>
-<p>We&#39;ve implemented version 3.1.7 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.7/resources-and-data-models/pisp/domestic-payments.html">Open Banking Domestic Payments specification</a>.</p>
+<p>We&#39;ve implemented version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/pisp/domestic-payments.html">Open Banking Domestic Payments specification</a>.</p>
 
 <p>When you request a consent for Domestic Payments, you should provide <code>UK.OBIE.FPS</code> as the <code>LocalInstrument</code>.</p>
 
@@ -2417,7 +2417,7 @@ have one hour.</p>
 
 <p>You can only make payments in <code>GBP</code>. We don&#39;t support other currencies.</p>
 <h2 id='scheduled-payments'>Scheduled Payments</h2>
-<p>We&#39;ve implemented version 3.1.7 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.7/resources-and-data-models/aisp/scheduled-payments.html">Open Banking Scheduled Payments specification</a>.</p>
+<p>We&#39;ve implemented version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/scheduled-payments.html">Open Banking Scheduled Payments specification</a>.</p>
 
 <p>For consistency with our internal systems and the rest of our API, you will need to provide times in <strong>RFC3339 format.</strong></p>
 
@@ -2434,7 +2434,7 @@ have one hour.</p>
 All of our scheduled payments are sent in the early hours of the morning on the day you request.
 </aside>
 <h2 id='standing-orders'>Standing Orders</h2>
-<p>We have implemented version 3.1.7 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.7/resources-and-data-models/aisp/standing-orders.html">Open Banking Standing Order specification</a>.</p>
+<p>We have implemented version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/standing-orders.html">Open Banking Standing Order specification</a>.</p>
 
 <p>For consistency with our internal systems and the rest of our API, you will need to provide times in <strong>RFC3339 format.</strong></p>
 
@@ -2597,7 +2597,7 @@ redirect flow, with authentication taking place in the customer&#39;s Monzo app.
 
 <p>We only support the <code>tls_client_auth</code> authentication method.</p>
 <h2 id='confirmation-of-funds'>Confirmation of Funds</h2>
-<p>We have implemented version 3.1.7 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.7/profiles/confirmation-of-funds-api-profile.html">Open Banking Confirmation of Funds Specification</a>.</p>
+<p>We have implemented version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/profiles/confirmation-of-funds-api-profile.html">Open Banking Confirmation of Funds Specification</a>.</p>
 
 <p>We use the <strong>redirection flow</strong> for approving consents.</p>
 
