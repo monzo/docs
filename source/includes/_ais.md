@@ -82,7 +82,7 @@ We only support the `tls_client_auth` authentication method.
 }
 ```
 
-We've implemented version 3.1.8 of the [Open Banking accounts specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Accounts.html).
+We've implemented version 3.1.9 of the [Open Banking accounts specification](https://openbankinguk.github.io/read-write-api-site3/3.1.9/resources-and-data-models/aisp/Accounts.html).
 
 Once you have a consent for a customer, you'll be able to see their:
 
@@ -101,7 +101,7 @@ or `ReadAccountsDetail` permission. In the former case, we will omit the account
 
 ## Balances
 
-We've implemented version 3.1.8 of the [Open Banking balances specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Balances.html).
+We've implemented version 3.1.9 of the [Open Banking balances specification](https://openbankinguk.github.io/read-write-api-site3/3.1.9/resources-and-data-models/aisp/Balances.html).
 
 When you query this endpoint, you'll see the customer's `InterimAvailable` balance. This is the same real-time balance 
 that our customers see in the Monzo app, and it includes pending and settled transactions.
@@ -147,7 +147,7 @@ that our customers see in the Monzo app, and it includes pending and settled tra
 }
 ```
 
-We've implemented version 3.1.8 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html).
+We've implemented version 3.1.9 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/3.1.9/resources-and-data-models/aisp/Transactions.html).
 
 For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
 [**RFC3339 format**](https://www.ietf.org/rfc/rfc3339.txt).
@@ -165,12 +165,12 @@ identify transactions that are still pending.
 You'll only be allowed to fetch transactions that were made in the range defined by `TransactionFromDateTime` and 
 `TransactionToDateTime` in your consent. If you try to access transactions outside this range, it won't work.
 
-`TransactionMutability` was added in version 3.1.8 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html). 
+`TransactionMutability` was added in version 3.1.9 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/3.1.9/resources-and-data-models/aisp/Transactions.html). 
 This field will always be set to `Mutable` because Merchant data and foreign exchange rate between authorisation and presentment for a card payment may vary between fetches.
 
 ## Parties
 
-We've implemented version 3.1.8. of the [Open Banking parties specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Parties.html)
+We've implemented version 3.1.9. of the [Open Banking parties specification](https://openbankinguk.github.io/read-write-api-site3/3.1.9/resources-and-data-models/aisp/Parties.html)
 
 We have implemented the `GET /party` and `GET /accounts/{accountId}/party` endpoints for reading details of the consent authoriser and `GET /accounts/{accountId}/parties` for reading the details of all account holders/owners. These endpoints return the IDs, preferred names, and legal names of account holders/owners.
 
@@ -273,7 +273,7 @@ any more.
 
 ## Direct Debits
 
-We've implemented version 3.1.8 of the [Open Banking Direct Debits specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/direct-debits.html).
+We've implemented version 3.1.9 of the [Open Banking Direct Debits specification](https://openbankinguk.github.io/read-write-api-site3/3.1.9/resources-and-data-models/aisp/direct-debits.html).
 
 We have only implemented `GET /accounts/{AccountId}/direct-debits` endpoint.
 
@@ -287,7 +287,7 @@ access Direct Debits that were collected within the last 90 days.
 
 ## Scheduled Payments
 
-We've implemented version 3.1.8 of the [Open Banking Scheduled Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/scheduled-payments.html).
+We've implemented version 3.1.9 of the [Open Banking Scheduled Payments specification](https://openbankinguk.github.io/read-write-api-site3/3.1.9/resources-and-data-models/aisp/scheduled-payments.html).
 
 We have only implemented `GET /accounts/{AccountId}/scheduled-payments` endpoint.
 
@@ -301,7 +301,7 @@ You can access all scheduled payments as long as the customer has completed Stro
 
 ## Standing Orders
 
-We've implemented version 3.1.8 of the [Open Banking Standing Orders specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/standing-orders.html).
+We've implemented version 3.1.9 of the [Open Banking Standing Orders specification](https://openbankinguk.github.io/read-write-api-site3/3.1.9/resources-and-data-models/aisp/standing-orders.html).
 
 We have only implemented `GET /accounts/{AccountId}/standing-orders` endpoint.
 
