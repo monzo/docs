@@ -2153,8 +2153,7 @@ that our customers see in the Monzo app, and it includes pending and settled tra
         </span><span class="nl">"SupplementaryData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="nl">"Declined"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
           </span><span class="nl">"RawTransactionDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MR PAYROLL SERVICE"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"TransactionMutability"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mutable"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">},</span><span class="w">
@@ -2182,8 +2181,8 @@ identify transactions that are still pending.</p>
 <p>You&#39;ll only be allowed to fetch transactions that were made in the range defined by <code>TransactionFromDateTime</code> and 
 <code>TransactionToDateTime</code> in your consent. If you try to access transactions outside this range, it won&#39;t work.</p>
 
-<p><code>TransactionMutability</code> was added in version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html">Open Banking transactions specification</a>. 
-This field will always be set to <code>Mutable</code> because Merchant data and foreign exchange rate between authorisation and presentment for a card payment may vary between fetches.</p>
+<p><code>Rejected</code> transaction status was added in version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html">Open Banking transactions specification</a>.
+This status will begin to be returned from the AIS API on the 25th of September 2022.  </p>
 <h2 id='parties'>Parties</h2>
 <p>We&#39;ve implemented version 3.1.8. of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Parties.html">Open Banking parties specification</a></p>
 
