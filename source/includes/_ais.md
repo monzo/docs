@@ -135,8 +135,7 @@ that our customers see in the Monzo app, and it includes pending and settled tra
         "SupplementaryData": {
           "Declined": false,
           "RawTransactionDescription": "MR PAYROLL SERVICE"
-        },
-        "TransactionMutability": "Mutable"
+        }
       }
     ]
   },
@@ -165,8 +164,8 @@ identify transactions that are still pending.
 You'll only be allowed to fetch transactions that were made in the range defined by `TransactionFromDateTime` and 
 `TransactionToDateTime` in your consent. If you try to access transactions outside this range, it won't work.
 
-`TransactionMutability` was added in version 3.1.9 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.9/resources-and-data-models/aisp/Transactions.html). 
-This field will always be set to `Mutable` because Merchant data and foreign exchange rate between authorisation and presentment for a card payment may vary between fetches.
+`Rejected` transaction status was added in version 3.1.8 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html).
+This status will begin to be returned from the AIS API on the 25th of September 2022.  
 
 ## Parties
 
