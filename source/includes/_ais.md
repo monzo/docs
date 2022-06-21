@@ -135,8 +135,7 @@ that our customers see in the Monzo app, and it includes pending and settled tra
         "SupplementaryData": {
           "Declined": false,
           "RawTransactionDescription": "MR PAYROLL SERVICE"
-        },
-        "TransactionMutability": "Mutable"
+        }
       }
     ]
   },
