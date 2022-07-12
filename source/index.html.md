@@ -20,6 +20,7 @@ includes:
   - ais
   - pis
   - cbpii
+  - scarts
 
 search: false
 ---
