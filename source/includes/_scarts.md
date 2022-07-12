@@ -11,5 +11,5 @@ TPPs will still be able to provide an `ExpirationDateTime` on the consent reques
 
 ## Contact
 
-If you have any queries about these changes then please contact openbanking@monzo.com.
+If you have any queries about these changes then please contact [openbanking@monzo.com](mailto:openbanking@monzo.com).
 
