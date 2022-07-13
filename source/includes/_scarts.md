@@ -5,7 +5,7 @@ In November 2021, the FCA set out new rules for standards on Strong Customer Aut
 
 We (Monzo) will release these changes as of 2022-08-01. This will not be a breaking change.
 
-All user authenticated 90-day consents will continue to be valid (unless expired as of 2022-08-01). After this date, when a 90-day consent expires the user will be required to re-authenticate which will create a “long-lived” consent.
+Consents created before this date will expire after 90-days, as before. Consents created after this date will be long-lived.
 
 TPPs will still be able to provide an `ExpirationDateTime` on the consent request at which time the consent will expire. If this is not populated, the permissions will be long-lived.
 
