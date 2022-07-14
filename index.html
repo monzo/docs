@@ -565,6 +565,17 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#sca-rts-ps21-19" class="toc-h1 toc-link" data-title="SCA-RTS (PS21/19)">SCA-RTS (PS21/19)</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#overview" class="toc-h2 toc-link" data-title="Overview">Overview</a>
+                  </li>
+                  <li>
+                    <a href="#contact" class="toc-h2 toc-link" data-title="Contact">Contact</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
       <a href="https://github.com/monzo/docs/" title="Edit these docs on GitHub" id="github"><img src="images/github-fabe53eb.png" alt="" /> Edit on GitHub</a>
     </div>
@@ -2612,6 +2623,16 @@ and do <b>not</b> require the customer to regularly re-authenticate.
 <h2 id='additional-help'>Additional Help</h2>
 <p>The Open Banking team at Monzo manage the Confirmation of Funds API. If you require additional assistance, email us at 
 <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+<h1 id='sca-rts-ps21-19'>SCA-RTS (PS21/19)</h1><h2 id='overview'>Overview</h2>
+<p>In November 2021, the FCA set out new rules for standards on Strong Customer Authentication (SCA) in a change to the Regulatory Technical Standards on Strong Customer Authentication and Secure Communication (SCA-RTS).</p>
+
+<p>We (Monzo) will release these changes as of 2022-08-01. This will not be a breaking change.</p>
+
+<p>Consents created before this date will expire after 90-days, as before. Consents created after this date will be long-lived. Please note, this change is only applicable to AIS consents.</p>
+
+<p>TPPs will still be able to provide an <code>ExpirationDateTime</code> on the consent request at which time the consent will expire. If this is not populated, the permissions will be long-lived.</p>
+<h2 id='contact'>Contact</h2>
+<p>If you have any queries about these changes then please contact <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
 
       </div>
       <div class="dark-box">
