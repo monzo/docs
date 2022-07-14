@@ -5,7 +5,7 @@ In November 2021, the FCA set out new rules for standards on Strong Customer Aut
 
 We (Monzo) will release these changes as of 2022-08-01. This will not be a breaking change.
 
-Consents created before this date will expire after 90-days, as before. Consents created after this date will be long-lived.
+Consents created before this date will expire after 90-days, as before. Consents created after this date will be long-lived. Please note, this change is only applicable to AIS consents.
 
 TPPs will still be able to provide an `ExpirationDateTime` on the consent request at which time the consent will expire. If this is not populated, the permissions will be long-lived.
 
