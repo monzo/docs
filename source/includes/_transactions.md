@@ -116,6 +116,9 @@ After a user has authenticated, your client can fetch all of their transactions,
 If you need the user’s entire transaction history, you should consider fetching and storing it right after authentication.
 </aside>
 
+<aside class="notice">
+The list transactions API currently only supports transactions for Current Accounts and Flex Accounts.
+</aside>
 
 ##### Request arguments
 
