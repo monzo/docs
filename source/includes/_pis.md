@@ -164,13 +164,15 @@ In the **sandbox** environment, you can automatically have domestic payment requ
 
 If you want your payment to come from a specific User and Account then you can also add those values, but you must add **both** or a random test User and Account is used instead.
 
-```
+We require that the `SupplementaryData` content is provided in the same order between the consent creation request and the payment request.
+
+```json
 {
   "DesiredStatus": "Authorised"
 }
 ```
 
-```
+```json
 {
   "DesiredStatus": "Rejected",
   "UserID": "user_000xxx",
