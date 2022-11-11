@@ -8,6 +8,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:description" content="The Monzo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and webhooks." />
 
+    <link href="images/favicon-9e0041d5.ico" rel="icon" type="image/ico" />
     <title>Monzo API Reference</title>
 
     <style media="screen">
@@ -2536,15 +2537,17 @@ we don&#39;t let you include both.</p>
 <p>In the <strong>sandbox</strong> environment, you can automatically have domestic payment requests approved or declined to help with testing. When creating the payment consent, you can add a <code>DesiredStatus</code> field to the <code>Data/Initiation/SupplementaryData</code> object in the consent request. You can set this field to <code>Authorised</code> or <code>Rejected</code>, depending on the behaviour you want.</p>
 
 <p>If you want your payment to come from a specific User and Account then you can also add those values, but you must add <strong>both</strong> or a random test User and Account is used instead.</p>
-<div class="highlight"><pre class="highlight plaintext"><code>{
-  "DesiredStatus": "Authorised"
-}
-</code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>{
-  "DesiredStatus": "Rejected",
-  "UserID": "user_000xxx",
-  "AccountID": "account_000yyy"
-}
-</code></pre></div><h3 id='sandbox-users'>Sandbox Users</h3><h4 id='heavy-user'>Heavy User</h4>
+
+<p>We require that the <code>SupplementaryData</code> content is provided in the same order between the consent creation request and the payment request.</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"DesiredStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Authorised"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"DesiredStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rejected"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"UserID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_000xxx"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"AccountID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account_000yyy"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='sandbox-users'>Sandbox Users</h3><h4 id='heavy-user'>Heavy User</h4>
 <p>UserID: <code>user_0000A4C4ZChWNMEvew2U77</code>
 AccountID: <code>acc_0000A4C4ZSskDOixqNPfpR</code></p>
 <h4 id='medium-user'>Medium User</h4>
