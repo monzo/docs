@@ -1,6 +1,6 @@
 # Account Information Services API
 
-The Account Information Services API lets authorised Account Information Service Providers access balances, transactions,
+The Account Information Services API lets authorised Account Information Service Providers access balances, transactions, 
 and more for our customers in the United Kingdom.
 
 ## Getting Access
@@ -13,21 +13,22 @@ We've described the paths of our well-known endpoints for the Sandbox and Produc
 
 ##### Endpoints
 
-| <span class="hide">Environment</span> | <span class="hide">Path</span>                                                  |
-| ------------------------------------- | ------------------------------------------------------------------------------- |
-| Sandbox                               | `https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration` |
-| Production                            | `https://api.monzo.com/open-banking/.well-known/openid-configuration`           |
+<span class="hide">Environment</span> | <span class="hide">Path</span>
+------------------------------------|--------------------------------------
+Sandbox | `https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration`
+Production | `https://api.monzo.com/open-banking/.well-known/openid-configuration`
 
 ## Base URLs
 
 We've included the Base URLs for our Sandbox and Production environments below.
 
+
 ##### Base URLs
 
-| <span class="hide">Environment</span> | <span class="hide">Base URL</span>                               |
-| ------------------------------------- | ---------------------------------------------------------------- |
-| Sandbox                               | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp` |
-| Production                            | `https://openbanking.monzo.com/open-banking/v3.1/aisp`           |
+<span class="hide">Environment</span> | <span class="hide">Base URL</span>
+------------------------------------|--------------------------------------
+Sandbox | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp`
+Production | `https://openbanking.monzo.com/open-banking/v3.1/aisp`
 
 ## Dynamic Client Registration
 
@@ -37,8 +38,8 @@ You can find the appropriate URL and supported configuration in our [well-known 
 
 ## Authentication
 
-As per the [Open Banking specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/83919096/Open+Banking+Security+Profile+-+Implementer+s+Draft+v1.1.2),
-we use OAuth 2 and OpenID connect for authentication. We have implemented the redirect flow, with authentication taking
+As per the [Open Banking specification](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/83919096/Open+Banking+Security+Profile+-+Implementer+s+Draft+v1.1.2), 
+we use OAuth 2 and OpenID connect for authentication. We have implemented the redirect flow, with authentication taking 
 place in the customer's Monzo app.
 
 We only support the `tls_client_auth` authentication method.
@@ -46,7 +47,7 @@ We only support the `tls_client_auth` authentication method.
 ## Accounts
 
 ```json
-{
+ {
   "Data": {
     "Account": [
       {
@@ -85,9 +86,9 @@ We've implemented version 3.1.10 of the [Open Banking accounts specification](ht
 
 Once you have a consent for a customer, you'll be able to see their:
 
-- Personal (individual) accounts
-- Joint accounts
-- Business accounts
+* Personal (individual) accounts
+* Joint accounts
+* Business accounts
 
 If the account has been closed, it will still be returned in the response, but with an updated `Status`.
 
@@ -95,20 +96,20 @@ If the account has been closed, it will still be returned in the response, but w
 To access a customer's Pots, use the Pots endpoint described further on in this documentation.
 </aside>
 
-Note that the fields we return as part of the response depend on whether your consent has the `ReadAccountsBasic`
+Note that the fields we return as part of the response depend on whether your consent has the  `ReadAccountsBasic`
 or `ReadAccountsDetail` permission. In the former case, we will omit the account scheme data such as account number and sort code or IBAN.
 
 ## Balances
 
 We've implemented version 3.1.10 of the [Open Banking balances specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Balances.html).
 
-When you query this endpoint, you'll see the customer's `InterimAvailable` balance. This is the same real-time balance
+When you query this endpoint, you'll see the customer's `InterimAvailable` balance. This is the same real-time balance 
 that our customers see in the Monzo app, and it includes pending and settled transactions.
 
 ## Transactions
 
 ```json
-{
+ {
   "Data": {
     "Transaction": [
       {
@@ -147,26 +148,27 @@ that our customers see in the Monzo app, and it includes pending and settled tra
 
 We've implemented version 3.1.10 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Transactions.html).
 
-For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in
+For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
 [**RFC3339 format**](https://www.ietf.org/rfc/rfc3339.txt).
 
-Your consent needs to have either the `ReadTransactionsBasic` or `ReadTransactionsDetail` permissions to access
+Your consent needs to have either the `ReadTransactionsBasic` or `ReadTransactionsDetail` permissions to access 
 this endpoint.
 
-When you query this endpoint, you'll receive all of the transactions that the customer made in the date range specified
+When you query this endpoint, you'll receive all of the transactions that the customer made in the date range specified 
 in the request. Like in the Monzo app, we organise transactions in this response based on creation (presentment) time,
 not the time the transaction settles.
 
-Transaction amounts can change after the transaction is first created, and you can use the `Status` field to help
+Transaction amounts can change after the transaction is first created, and you can use the `Status` field to help 
 identify transactions that are still pending.
 
-You'll only be allowed to fetch transactions that were made in the range defined by `TransactionFromDateTime` and
+You'll only be allowed to fetch transactions that were made in the range defined by `TransactionFromDateTime` and 
 `TransactionToDateTime` in your consent. If you try to access transactions outside this range, it won't work.
 
 `Rejected` transaction status was added in version 3.1.8 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html).
-This status will begin to be returned from the AIS API on the 25th of September 2022.
+This status will begin to be returned from the AIS API on the 25th of September 2022.  
 
-The `ProprietaryBankTransactionCode` property has two sub properties `Issuer` and `Code`. `Issuer` will always be set to `Monzo` and all the values for `Code` are listed below:
+The `ProprietaryBankTransactionCode` property has two sub properties `Issuer` and `Code`. `Issuer` will always be set to `Monzo` and
+all the values for `Code` are listed below:
 
 - `3dsecure`
 - `account_interest`
@@ -219,84 +221,84 @@ your client, you'll get a Forbidden error when you try to access this endpoint.
 
 ## Pots
 
-Since Pots on Monzo have lots of additional properties that AISPs might find useful, we have implemented a Pots
+Since Pots on Monzo have lots of additional properties that AISPs might find useful, we have implemented a Pots 
 endpoint as an extension to the Open Banking specification.
 
 ### List Pots
 
 ```json
-{
-  "Data": {
-    "Pot": [
-      {
-        "PotId": "pot_00009g4AB7nItyHI3R7CVt",
-        "AccountId": "acc_00009JrJEKwJrNqKfjwSS",
-        "Name": "Savings",
-        "Type": "default",
-        "CreditDebitIndicator": "Debit",
-        "Balance": {
-          "Amount": "5.0000",
-          "Currency": "GBP"
-        },
-        "Style": "cassette",
-        "Goal": {
-          "Amount": "1000.0000",
-          "Currency": "GBP"
-        },
-        "Created": "2019-02-21T17:13:39.315Z",
-        "Updated": "2019-02-21T17:13:39.315Z",
-        "Status": "Open"
-      },
-      {
-        "PotId": "pot_00009kIt1QKIXu98cu1RM9",
-        "AccountId": "acc_00009JrJEKwJrNqKfjwSS",
-        "Name": "Bobs And Bits",
-        "Type": "flexible_savings",
-        "CreditDebitIndicator": "Debit",
-        "Balance": {
-          "Amount": "1000.0000",
-          "Currency": "GBP"
-        },
-        "Style": "",
-        "ImageUrl": "...",
-        "Goal": {
-          "Amount": "9999.0000",
-          "Currency": "GBP"
-        },
-        "Created": "2019-06-28T11:10:29.478Z",
-        "Updated": "2019-06-28T11:11:09.173Z",
-        "Status": "Open"
-      },
-      {
-        "PotId": "pot_00009kIt8JXWB3R9bYUWkD",
-        "AccountId": "acc_00009JrJEKwJrNqKfjwSS",
-        "Name": "My Savings Pot",
-        "Type": "fixed_savings",
-        "CreditDebitIndicator": "Debit",
-        "Balance": {
-          "Amount": "1100.0000",
-          "Currency": "GBP"
-        },
-        "Style": "cassette",
-        "LockType": "until_date",
-        "LockedUntil": "2020-07-01T00:00:00Z",
-        "Created": "2019-06-28T11:11:44.195Z",
-        "Updated": "2019-06-28T11:11:44.195Z",
-        "Status": "Open"
-      }
-    ]
-  }
+ {
+    "Data": {
+        "Pot": [
+            {
+                "PotId": "pot_00009g4AB7nItyHI3R7CVt",
+                "AccountId": "acc_00009JrJEKwJrNqKfjwSS",
+                "Name": "Savings",
+                "Type": "default",
+                "CreditDebitIndicator": "Debit",
+                "Balance": {
+                    "Amount": "5.0000",
+                    "Currency": "GBP"
+                },
+                "Style": "cassette",
+                "Goal": {
+                    "Amount": "1000.0000",
+                    "Currency": "GBP"
+                },
+                "Created": "2019-02-21T17:13:39.315Z",
+                "Updated": "2019-02-21T17:13:39.315Z",
+                "Status": "Open"
+            },
+            {
+                "PotId": "pot_00009kIt1QKIXu98cu1RM9",
+                "AccountId": "acc_00009JrJEKwJrNqKfjwSS",
+                "Name": "Bobs And Bits",
+                "Type": "flexible_savings",
+                "CreditDebitIndicator": "Debit",
+                "Balance": {
+                    "Amount": "1000.0000",
+                    "Currency": "GBP"
+                },
+                "Style": "",
+                "ImageUrl": "...",
+                "Goal": {
+                    "Amount": "9999.0000",
+                    "Currency": "GBP"
+                },
+                "Created": "2019-06-28T11:10:29.478Z",
+                "Updated": "2019-06-28T11:11:09.173Z",
+                "Status": "Open"
+            },
+            {
+                "PotId": "pot_00009kIt8JXWB3R9bYUWkD",
+                "AccountId": "acc_00009JrJEKwJrNqKfjwSS",
+                "Name": "My Savings Pot",
+                "Type": "fixed_savings",
+                "CreditDebitIndicator": "Debit",
+                "Balance": {
+                    "Amount": "1100.0000",
+                    "Currency": "GBP"
+                },
+                "Style": "cassette",
+                "LockType": "until_date",
+                "LockedUntil": "2020-07-01T00:00:00Z",
+                "Created": "2019-06-28T11:11:44.195Z",
+                "Updated": "2019-06-28T11:11:44.195Z",
+                "Status": "Open"
+            }
+        ]
+    }
 }
 ```
 
 ##### Endpoints
 
-| <span class="hide"></span> | <span class="hide"></span>                                            |
-| -------------------------- | --------------------------------------------------------------------- |
-| Sandbox                    | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/pots` |
-| Production                 | `https://openbanking.monzo.com/open-banking/v3.1/aisp/pots`           |
+<span class="hide"></span> | <span class="hide"></span>
+------------------------------------|--------------------------------------
+Sandbox | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/pots`
+Production | `https://openbanking.monzo.com/open-banking/v3.1/aisp/pots`
 
-Note that the fields we return as part of the response depend on whether your consent has the `ReadAccountsBasic`
+Note that the fields we return as part of the response depend on whether your consent has the  `ReadAccountsBasic` 
 or `ReadAccountsDetailed` permission. In the former case, we will omit the Pot name and Image URL from the response.
 
 We'll only return open pots as part of our response. If a customer closes a pot, it won't appear in the response
@@ -348,10 +350,10 @@ where the first payment is in the future and hasn't yet been executed.
 ## Testing in the Sandbox
 
 Our Sandbox environment is a handy playground where you can test your integration before putting it live.
-**We run exactly the same code in our sandbox environment as we do production** to make switching between
+**We run exactly the same code in our sandbox environment as we do production** to make switching between 
 them as easy as possible.
 
-In the **sandbox** environment, you can automatically have account information consents approved or declined to
+In the **sandbox** environment, you can automatically have account information consents approved or declined to 
 help with testing. To do this, you should set some specific fields in the `Data/SupplementaryData` object:
 
 ```
@@ -370,21 +372,18 @@ approval in the Payment Initiation API.
 ### Sandbox Users
 
 #### Heavy User
-
 UserID: `user_0000A4C4ZChWNMEvew2U77`
 AccountID: `acc_0000A4C4ZSskDOixqNPfpR`
 
 #### Medium User
-
 UserID: `user_0000A4C4nqORb7K9YYW3r0`
 AccountID: `acc_0000A4C4o66FCYJoERQhHN`
 
 #### Light User
-
 UserID: `user_0000A4C4wkPFE7x9at8Ujp`
 AccountID: `acc_0000A4C4wz4Ail0f3sONTV`
 
 ## Additional Help
 
-The Open Banking team at Monzo manage the Account Information Services API. If you require additional assistance, email us at
+The Open Banking team at Monzo manage the Account Information Services API. If you require additional assistance, email us at 
 [openbanking@monzo.com](mailto:openbanking@monzo.com).
