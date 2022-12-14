@@ -171,14 +171,12 @@ The `ProprietaryBankTransactionCode` property has two sub properties `Issuer` an
 
 - `3dsecure`
 - `account_interest`
-- `ach`
 - `bacs`
 - `card_delivery`
 - `chaps`
 - `collections_settlement`
 - `emergency_cash`
 - `faster_payments`
-- `galileo_mastercard`
 - `instalment_loan`
 - `ledger_adjustment`
 - `locked_money`
@@ -197,9 +195,6 @@ The `ProprietaryBankTransactionCode` property has two sub properties `Issuer` an
 - `uk_business_pot`
 - `uk_cash_deposits_paypoint`
 - `uk_retail_pot`
-- `us_partner_pot`
-- `usa_ach`
-
 ## Parties
 
 We've implemented version 3.1.10. of the [Open Banking parties specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Parties.html)
