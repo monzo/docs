@@ -55,6 +55,10 @@ We support account identification using `UK.OBIE.SortCodeAccountNumber`. We don'
 
 You can only make payments in `GBP`. We don't support other currencies.
 
+<aside class="notice">
+If there are insufficient funds in the account, the error on redirection is returned with the code `access_denied` and description "Insufficient funds in selected account to make requested payment."
+</aside>
+
 ## Scheduled Payments
 
 We've implemented version 3.1.10 of the [Open Banking Scheduled Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/scheduled-payments.html).
