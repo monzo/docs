@@ -167,6 +167,34 @@ You'll only be allowed to fetch transactions that were made in the range defined
 `Rejected` transaction status was added in version 3.1.8 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html).
 This status will begin to be returned from the AIS API on the 25th of September 2022.  
 
+The `ProprietaryBankTransactionCode` property has two sub-properties: `Issuer` and `Code`. `Issuer` will always be set to Monzo, and the possible values for `Code` are listed below.
+
+- `3dsecure`
+- `account_interest`
+- `bacs`
+- `card_delivery`
+- `chaps`
+- `collections_settlement`
+- `emergency_cash`
+- `faster_payments`
+- `instalment_loan`
+- `ledger_adjustment`
+- `locked_money`
+- `mastercard`
+- `monzo_business_account_billing`
+- `monzo_flex`
+- `monzo_paid`
+- `overdraft`
+- `p2p_payment`
+- `payport_faster_payments`
+- `rbs_cheque`
+- `sepa`
+- `signup_referral`
+- `spread_the_cost`
+- `topup`
+- `uk_business_pot`
+- `uk_cash_deposits_paypoint`
+- `uk_retail_pot`
 ## Parties
 
 We've implemented version 3.1.10. of the [Open Banking parties specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Parties.html)
