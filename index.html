@@ -480,6 +480,9 @@
                     <a href="#transactions" class="toc-h2 toc-link" data-title="Transactions">Transactions</a>
                   </li>
                   <li>
+                    <a href="#parties" class="toc-h2 toc-link" data-title="Parties">Parties</a>
+                  </li>
+                  <li>
                     <a href="#pots" class="toc-h2 toc-link" data-title="Pots">Pots</a>
                   </li>
                   <li>
@@ -2221,10 +2224,9 @@ This status will begin to be returned from the AIS API on the 25th of September 
 <li><code>topup</code></li>
 <li><code>uk_business_pot</code></li>
 <li><code>uk_cash_deposits_paypoint</code></li>
-<li><code>uk_retail_pot</code>
-## Parties</li>
+<li><code>uk_retail_pot</code></li>
 </ul>
-
+<h2 id='parties'>Parties</h2>
 <p>We&#39;ve implemented version 3.1.10. of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Parties.html">Open Banking parties specification</a></p>
 
 <p>We have implemented the <code>GET /party</code> and <code>GET /accounts/{accountId}/party</code> endpoints for reading details of the consent authoriser and <code>GET /accounts/{accountId}/parties</code> for reading the details of all account holders/owners. These endpoints return the IDs, preferred names, and legal names of account holders/owners.</p>
