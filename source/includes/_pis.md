@@ -56,7 +56,7 @@ We support account identification using `UK.OBIE.SortCodeAccountNumber`. We don'
 You can only make payments in `GBP`. We don't support other currencies.
 
 <aside class="notice">
-If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and description "Insufficient funds in selected account to make requested payment."
+If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
 </aside>
 
 ## Scheduled Payments
