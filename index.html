@@ -480,9 +480,6 @@
                     <a href="#transactions" class="toc-h2 toc-link" data-title="Transactions">Transactions</a>
                   </li>
                   <li>
-                    <a href="#parties" class="toc-h2 toc-link" data-title="Parties">Parties</a>
-                  </li>
-                  <li>
                     <a href="#pots" class="toc-h2 toc-link" data-title="Pots">Pots</a>
                   </li>
                   <li>
@@ -2195,7 +2192,39 @@ identify transactions that are still pending.</p>
 
 <p><code>Rejected</code> transaction status was added in version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html">Open Banking transactions specification</a>.
 This status will begin to be returned from the AIS API on the 25th of September 2022.  </p>
-<h2 id='parties'>Parties</h2>
+
+<p>The <code>ProprietaryBankTransactionCode</code> property has two sub-properties: <code>Issuer</code> and <code>Code</code>. <code>Issuer</code> will always be set to Monzo, and the possible values for <code>Code</code> are listed below.</p>
+
+<ul>
+<li><code>3dsecure</code></li>
+<li><code>account_interest</code></li>
+<li><code>bacs</code></li>
+<li><code>card_delivery</code></li>
+<li><code>chaps</code></li>
+<li><code>collections_settlement</code></li>
+<li><code>emergency_cash</code></li>
+<li><code>faster_payments</code></li>
+<li><code>instalment_loan</code></li>
+<li><code>ledger_adjustment</code></li>
+<li><code>locked_money</code></li>
+<li><code>mastercard</code></li>
+<li><code>monzo_business_account_billing</code></li>
+<li><code>monzo_flex</code></li>
+<li><code>monzo_paid</code></li>
+<li><code>overdraft</code></li>
+<li><code>p2p_payment</code></li>
+<li><code>payport_faster_payments</code></li>
+<li><code>rbs_cheque</code></li>
+<li><code>sepa</code></li>
+<li><code>signup_referral</code></li>
+<li><code>spread_the_cost</code></li>
+<li><code>topup</code></li>
+<li><code>uk_business_pot</code></li>
+<li><code>uk_cash_deposits_paypoint</code></li>
+<li><code>uk_retail_pot</code>
+## Parties</li>
+</ul>
+
 <p>We&#39;ve implemented version 3.1.10. of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Parties.html">Open Banking parties specification</a></p>
 
 <p>We have implemented the <code>GET /party</code> and <code>GET /accounts/{accountId}/party</code> endpoints for reading details of the consent authoriser and <code>GET /accounts/{accountId}/parties</code> for reading the details of all account holders/owners. These endpoints return the IDs, preferred names, and legal names of account holders/owners.</p>
