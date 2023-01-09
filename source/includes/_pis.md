@@ -59,12 +59,12 @@ You can only make payments in `GBP`. We don't support other currencies.
 
 There are default limits for daily outbound payments:
 
-| Account type               | Default limit |
-| ---------------------------| ------------- |
-| Personal                   | £10000        |
-| Joint                      | £10000        |
-| Business (sole trader)     | £25000        |
-| Business (limited company) | £50000        |
+| Account type                       | Default limit |
+| -----------------------------------| ------------- |
+| Personal                           | £10000        |
+| Joint                              | £10000        |
+| Business (sole trader)             | £25000        |
+| Business (private limited company) | £50000        |
 
 <aside class="notice">
 Please note that limits for business account are different depending on business company type.  See <a href="#business-account-company-types">Account Information Services API - Business company types</a> for details.

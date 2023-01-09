@@ -103,10 +103,10 @@ or `ReadAccountsDetail` permission. In the former case, we will omit the account
 
 Business account has company type, which is shown in the `Description` field:
 
-| Company type        | Description field              |
-| --------------------| ------------------------------ |
-| Sole trader         | "Sole Trader Business Account" |
-| Limited company     | "Business Account"             |
+| Company type            | Description field         |
+| ------------------------| ------------------------- |
+| Sole srader             | `Sole Trader`             |
+| Private limited company | `Private Limited Company` |
 
 Company type affects payment limits, see [Payment Initiation Services API - Domestic Payments Limits](#domestic-payments-limits) for details.
 
