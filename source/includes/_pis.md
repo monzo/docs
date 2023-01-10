@@ -71,7 +71,7 @@ Please note that limits for business account are different depending on business
 </aside>
 
 <aside class="notice">
-Please note that those are <b>default</b> limits applied to payments and can be increased if asked by customer.
+Please note that these are <b>default</b> limits applied to payments and can be increased if asked by the customer.
 </aside>
 
 
