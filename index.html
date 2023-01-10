@@ -2134,6 +2134,26 @@ To access a customer's Pots, use the Pots endpoint described further on in this 
 
 <p>Note that the fields we return as part of the response depend on whether your consent has the  <code>ReadAccountsBasic</code>
 or <code>ReadAccountsDetail</code> permission. In the former case, we will omit the account scheme data such as account number and sort code or IBAN.</p>
+<h3 id='business-account-company-types'>Business Account - Company types</h3>
+<p>Business account has company type, which is shown in the <code>Description</code> field:</p>
+
+<table><thead>
+<tr>
+<th>Company type</th>
+<th>Description field</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sole srader</td>
+<td><code>Sole Trader</code></td>
+</tr>
+<tr>
+<td>Private limited company</td>
+<td><code>Private Limited Company</code></td>
+</tr>
+</tbody></table>
+
+<p>Company type affects payment limits, see <a href="#domestic-payments-limits">Payment Initiation Services API - Domestic Payments Limits</a> for details.</p>
 <h2 id='balances'>Balances</h2>
 <p>We&#39;ve implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Balances.html">Open Banking balances specification</a>.</p>
 
@@ -2458,6 +2478,44 @@ have one hour.</p>
 <code>UK.OBIE.IBAN</code>.</p>
 
 <p>You can only make payments in <code>GBP</code>. We don&#39;t support other currencies.</p>
+
+<aside class="notice">
+If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
+</aside>
+<h3 id='domestic-payments-limits'>Domestic Payments Limits</h3>
+<p>There are default limits for daily outbound payments:</p>
+
+<table><thead>
+<tr>
+<th>Account type</th>
+<th>Default limit</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Personal</td>
+<td>£10000</td>
+</tr>
+<tr>
+<td>Joint</td>
+<td>£10000</td>
+</tr>
+<tr>
+<td>Business (sole trader)</td>
+<td>£25000</td>
+</tr>
+<tr>
+<td>Business (private limited company)</td>
+<td>£50000</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Please note that limits for business account are different depending on business company type.  See <a href="#business-account-company-types">Account Information Services API - Business company types</a> for details.
+</aside>
+
+<aside class="notice">
+Please note that these are <b>default</b> limits applied to payments and can be increased if asked by the customer.
+</aside>
 <h2 id='scheduled-payments'>Scheduled Payments</h2>
 <p>We&#39;ve implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/scheduled-payments.html">Open Banking Scheduled Payments specification</a>.</p>
 
