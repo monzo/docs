@@ -59,6 +59,25 @@ You can only make payments in `GBP`. We don't support other currencies.
 If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
 </aside>
 
+### Domestic Payments Limits
+
+There are default limits for daily outbound payments:
+
+| Account type                       | Default limit |
+| -----------------------------------| ------------- |
+| Personal                           | £10000        |
+| Joint                              | £10000        |
+| Business (sole trader)             | £25000        |
+| Business (private limited company) | £50000        |
+
+<aside class="notice">
+Please note that limits for business account are different depending on business company type.  See <a href="#business-account-company-types">Account Information Services API - Business company types</a> for details.
+</aside>
+
+<aside class="notice">
+Please note that these are <b>default</b> limits applied to payments and can be increased if asked by the customer.
+</aside>
+
 ## Scheduled Payments
 
 We've implemented version 3.1.10 of the [Open Banking Scheduled Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/scheduled-payments.html).

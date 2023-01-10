@@ -99,6 +99,17 @@ To access a customer's Pots, use the Pots endpoint described further on in this 
 Note that the fields we return as part of the response depend on whether your consent has the  `ReadAccountsBasic`
 or `ReadAccountsDetail` permission. In the former case, we will omit the account scheme data such as account number and sort code or IBAN.
 
+### Business Account - Company types
+
+Business account has company type, which is shown in the `Description` field:
+
+| Company type            | Description field         |
+| ------------------------| ------------------------- |
+| Sole srader             | `Sole Trader`             |
+| Private limited company | `Private Limited Company` |
+
+Company type affects payment limits, see [Payment Initiation Services API - Domestic Payments Limits](#domestic-payments-limits) for details.
+
 ## Balances
 
 We've implemented version 3.1.10 of the [Open Banking balances specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Balances.html).
@@ -166,6 +177,35 @@ You'll only be allowed to fetch transactions that were made in the range defined
 
 `Rejected` transaction status was added in version 3.1.8 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html).
 This status will begin to be returned from the AIS API on the 25th of September 2022.  
+
+The `ProprietaryBankTransactionCode` property has two sub-properties: `Issuer` and `Code`. `Issuer` will always be set to Monzo, and the possible values for `Code` are listed below.
+
+- `3dsecure`
+- `account_interest`
+- `bacs`
+- `card_delivery`
+- `chaps`
+- `collections_settlement`
+- `emergency_cash`
+- `faster_payments`
+- `instalment_loan`
+- `ledger_adjustment`
+- `locked_money`
+- `mastercard`
+- `monzo_business_account_billing`
+- `monzo_flex`
+- `monzo_paid`
+- `overdraft`
+- `p2p_payment`
+- `payport_faster_payments`
+- `rbs_cheque`
+- `sepa`
+- `signup_referral`
+- `spread_the_cost`
+- `topup`
+- `uk_business_pot`
+- `uk_cash_deposits_paypoint`
+- `uk_retail_pot`
 
 ## Parties
 
