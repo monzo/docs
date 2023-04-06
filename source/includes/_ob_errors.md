@@ -37,17 +37,17 @@ Due to limitations with `OBErrorResponseError1Code` we've added two additional c
 
 The status code returned is determined by the `errPrefix` of `OBErrorResponse1.Code` as per the below table.
 
-| Prefix Code          | Status Code |
-| -------------------- | ----------- |
-| `bad_request`        | 400         |
-| `bad_response`       | 406         |
-| `forbidden`          | 403         |
-| `internal_serice`    | 500         |
-| `not_found`          | 404         |
-| `preconditin_failed` | 412         |
-| `timeout`            | 504         |
-| `unauthorizd`        | 401         |
-| `rate_limited`       | 429         |
+| Prefix Code           | Status Code |
+| --------------------- | ----------- |
+| `bad_request`         | 400         |
+| `bad_response`        | 406         |
+| `forbidden`           | 403         |
+| `internal_service`    | 500         |
+| `not_found`           | 404         |
+| `precondition_failed` | 412         |
+| `timeout`             | 504         |
+| `unauthorized`        | 401         |
+| `rate_limited`        | 429         |
 
 ### Legacy Errors
 
