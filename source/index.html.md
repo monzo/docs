@@ -20,6 +20,7 @@ includes:
   - ais
   - pis
   - cbpii
+  - ob_errors
   - scarts
 
 search: false
