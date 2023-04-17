@@ -1,24 +1,24 @@
 # Open Banking Errors
 
-Our open banking APIs return errors inline with the [open banking specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/profiles/read-write-data-api-profile.html#error-response-structure).
+Our Open Banking APIs return errors inline with the [Open Banking specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/profiles/read-write-data-api-profile.html#error-response-structure).
 
 ## OBErrorResponse1
 
-| Name    | Type         | Description                                              |
-| ------- | ------------ | -------------------------------------------------------- |
-| Code    | Max40Text    | Custom error code with a format of `errPrefix`.`errType` |
-| Id      | Max40Text    | Internal trace identifier                                |
-| Message | Max500Text   | High level human readable category message               |
-| Errors  | `[]OBError1` | One element array containing both a `Code` & `Message`   |
+| Name    | Type         | Description                                                                                            | Monzo Use                                                                   |
+| ------- | ------------ | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| Code    | Max40Text    | High level textual error code, to help categorise the errors.                                          | Custom error code with a format of `<prefix.type>`                          |
+| Id      | Max40Text    | A unique reference for the error instance, for audit purposes, in case of unknown/unclassified errors. | Internal trace identifier                                                   |
+| Message | Max500Text   | Brief Error message, e.g., 'There is something wrong with the request parameters provided'             | High level human readable category message                                  |
+| Errors  | `[]OBError1` |                                                                                                        | Array with one `OBError1` element containing only a `ErrorCode` & `Message` |
 
 ## OBError1
 
-A full list of `OBErrorResponseError1Code` can be found [here](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/references/namespaced-enumerations.html#oberrorresponseerror1code).
+| Name      | Type                        | Description                                                                                                                                                               | Monzo Use                                                             |
+| --------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| ErrorCode | `OBErrorResponseError1Code` | Low level textual error code, e.g., UK.OBIE.Field.Missing                                                                                                                 | OBIE error code (`UK.OBIE.XYZ`) or custom error code (`UK.MONZO.XYZ`) |
+| Message   | Max500Text                  | A description of the error that occurred. e.g., 'A mandatory field isn't supplied' or 'RequestedExecutionDateTime must be in future'. OBIE doesn't standardise this field | Human readable message that details the cause of the error            |
 
-| Name      | Type                        | Description                                                           |
-| --------- | --------------------------- | --------------------------------------------------------------------- |
-| ErrorCode | `OBErrorResponseError1Code` | OBIE error code (`UK.OBIE.XYZ`) or custom error code (`UK.MONZO.XYZ`) |
-| Message   | Max500Text                  | Human readable message that details the cause of the error            |
+A full list of `OBErrorResponseError1Code` can be found [here](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/references/namespaced-enumerations.html#oberrorresponseerror1code).
 
 <aside class="notice">
 We've chosen not to implement the `Path` or `Url` properties of `OBError1`
@@ -28,14 +28,14 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 
 Due to limitations with `OBErrorResponseError1Code` we've added two additional codes:
 
-| Error Code           | Description                                                                |
-| -------------------- | -------------------------------------------------------------------------- |
-| `UK.MONZO.Generic`   | A generic code used when no specific code is suitable                      |
-| `UK.MONZO.Forbidden` | Code used when a request is authenticated but has insufficient permissions |
+| Error Code           | Description                                                           |
+| -------------------- | --------------------------------------------------------------------- |
+| `UK.MONZO.Generic`   | A generic code used when no specific code is suitable                 |
+| `UK.MONZO.Forbidden` | Used when a request is authenticated but has insufficient permissions |
 
 ## Status Codes
 
-The status code returned is determined by the `errPrefix` of `OBErrorResponse1.Code` as per the below table.
+The error prefix of `OBErrorResponse1.Code` will always be paired with a status codes as follows:
 
 | Prefix Code           | Status Code |
 | --------------------- | ----------- |
@@ -49,15 +49,25 @@ The status code returned is determined by the `errPrefix` of `OBErrorResponse1.C
 | `unauthorized`        | 401         |
 | `rate_limited`        | 429         |
 
-### Legacy Errors
+### Mapping Errors
 
-Our previous error structure was made up of a `code` and a `message` we've ensured that these properties map
-to `OBErrorResponse1`.
+Our previous error structure included a `code` and `message`. These are now mapped to the new `OBErrorResponse1` as follows:
 
-| Error Code              | Description |
-| ----------------------- | ----------- |
-| `OBErrorResponse1.Code` | `code`      |
-| `OBError1.Message`      | `message`   |
+| Previous Feild | New Feild                              |
+| -------------- | -------------------------------------- |
+| `code`         | `OBErrorResponse1.Code`                |
+| `message`      | `OBErrorResponse1.OBError1[0].Message` |
+
+> Previous Error Structure
+
+```json
+{
+  "Code": "bad_request.consent_status",
+  "Message": "Consent is not authorised"
+}
+```
+
+> New Error Structure
 
 ```json
 {
@@ -72,3 +82,9 @@ to `OBErrorResponse1`.
   ]
 }
 ```
+
+## Using Previous Errors
+
+To revert to the previous error behavior, you can include an additional header `X-Open-Banking-Legacy-Errors` on each request. If this option does not meet your needs, please contact us at [openbanking@monzo.com](mailto:openbanking@monzo.com).
+
+Once we are confident that TPPs have successfully migrated to the new error behavior, we will remove the opt-out functionality.
