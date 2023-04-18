@@ -1,15 +1,15 @@
 # Open Banking Errors
 
-Our Open Banking APIs return errors inline with the [Open Banking specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/profiles/read-write-data-api-profile.html#error-response-structure).
+Our Open Banking APIs return errors in line with the [Open Banking specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/profiles/read-write-data-api-profile.html#error-response-structure).
 
 ## OBErrorResponse1
 
-| Name    | Type         | Description                                                                                            | Monzo Use                                                                   |
-| ------- | ------------ | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
-| Code    | Max40Text    | High level textual error code, to help categorise the errors.                                          | Custom error code with a format of `<prefix.type>`                          |
-| Id      | Max40Text    | A unique reference for the error instance, for audit purposes, in case of unknown/unclassified errors. | Internal trace identifier                                                   |
-| Message | Max500Text   | Brief Error message, e.g., 'There is something wrong with the request parameters provided'             | High level human readable category message                                  |
-| Errors  | `[]OBError1` |                                                                                                        | Array with one `OBError1` element containing only a `ErrorCode` & `Message` |
+| Name    | Type         | Description                                                                                            | Monzo Use                                          |
+| ------- | ------------ | ------------------------------------------------------------------------------------------------------ | -------------------------------------------------- |
+| Code    | Max40Text    | High level textual error code, to help categorise the errors.                                          | Custom error code with a format of `<prefix.type>` |
+| Id      | Max40Text    | A unique reference for the error instance, for audit purposes, in case of unknown/unclassified errors. | Internal trace identifier                          |
+| Message | Max500Text   | Brief Error message, e.g., 'There is something wrong with the request parameters provided'             | High level human readable category message         |
+| Errors  | `[]OBError1` |                                                                                                        | Array with one `OBError1` element                  |
 
 ## OBError1
 
@@ -35,7 +35,7 @@ Due to limitations with `OBErrorResponseError1Code` we've added two additional c
 
 ## Status Codes
 
-The error prefix of `OBErrorResponse1.Code` will always be paired with a status codes as follows:
+The error prefix of `OBErrorResponse1.Code` will always be paired with a status code as follows:
 
 | Prefix Code           | Status Code |
 | --------------------- | ----------- |
