@@ -1,5 +1,9 @@
 # Open Banking Errors
 
+<aside class="notice">
+    Currently this new error behaviour is only available in our sandbox environment with a production release to be scheduled at a later date. 
+</aside>
+
 Our Open Banking APIs return errors in line with the [Open Banking specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/profiles/read-write-data-api-profile.html#error-response-structure).
 
 ## OBErrorResponse1
