@@ -567,6 +567,26 @@
               </ul>
           </li>
           <li>
+            <a href="#open-banking-errors" class="toc-h1 toc-link" data-title="Open Banking Errors">Open Banking Errors</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#oberrorresponse1" class="toc-h2 toc-link" data-title="OBErrorResponse1">OBErrorResponse1</a>
+                  </li>
+                  <li>
+                    <a href="#oberror1" class="toc-h2 toc-link" data-title="OBError1">OBError1</a>
+                  </li>
+                  <li>
+                    <a href="#custom-codes" class="toc-h2 toc-link" data-title="Custom Codes">Custom Codes</a>
+                  </li>
+                  <li>
+                    <a href="#status-codes" class="toc-h2 toc-link" data-title="Status Codes">Status Codes</a>
+                  </li>
+                  <li>
+                    <a href="#using-previous-errors" class="toc-h2 toc-link" data-title="Using Previous Errors">Using Previous Errors</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#sca-rts-ps21-19" class="toc-h1 toc-link" data-title="SCA-RTS (PS21/19)">SCA-RTS (PS21/19)</a>
               <ul class="toc-list-h2">
                   <li>
@@ -2715,6 +2735,183 @@ and do <b>not</b> require the customer to regularly re-authenticate.
 <h2 id='additional-help'>Additional Help</h2>
 <p>The Open Banking team at Monzo manage the Confirmation of Funds API. If you require additional assistance, email us at 
 <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+<h1 id='open-banking-errors'>Open Banking Errors</h1>
+<aside class="notice">
+    Currently this new error behaviour is only available in our sandbox environment with a production release to be scheduled at a later date. 
+</aside>
+
+<p>Our Open Banking APIs return errors in line with the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/profiles/read-write-data-api-profile.html#error-response-structure">Open Banking specification</a>.</p>
+<h2 id='oberrorresponse1'>OBErrorResponse1</h2>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Monzo Use</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Code</td>
+<td>Max40Text</td>
+<td>High level textual error code, to help categorise the errors.</td>
+<td>Custom error code with a format of <code>&lt;prefix.type&gt;</code></td>
+</tr>
+<tr>
+<td>Id</td>
+<td>Max40Text</td>
+<td>A unique reference for the error instance, for audit purposes, in case of unknown/unclassified errors.</td>
+<td>Internal trace identifier</td>
+</tr>
+<tr>
+<td>Message</td>
+<td>Max500Text</td>
+<td>Brief Error message, e.g., &#39;There is something wrong with the request parameters provided&#39;</td>
+<td>High level human readable category message</td>
+</tr>
+<tr>
+<td>Errors</td>
+<td><code>[]OBError1</code></td>
+<td></td>
+<td>Array with one <code>OBError1</code> element</td>
+</tr>
+</tbody></table>
+<h2 id='oberror1'>OBError1</h2>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Monzo Use</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ErrorCode</td>
+<td><code>OBErrorResponseError1Code</code></td>
+<td>Low level textual error code, e.g., UK.OBIE.Field.Missing</td>
+<td>OBIE error code (<code>UK.OBIE.XYZ</code>) or custom error code (<code>UK.MONZO.XYZ</code>)</td>
+</tr>
+<tr>
+<td>Message</td>
+<td>Max500Text</td>
+<td>A description of the error that occurred. e.g., &#39;A mandatory field isn&#39;t supplied&#39; or &#39;RequestedExecutionDateTime must be in future&#39;. OBIE doesn&#39;t standardise this field</td>
+<td>Human readable message that details the cause of the error</td>
+</tr>
+</tbody></table>
+
+<p>A full list of <code>OBErrorResponseError1Code</code> can be found <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/references/namespaced-enumerations.html#oberrorresponseerror1code">here</a>.</p>
+
+<aside class="notice">
+We've chosen not to implement the `Path` or `Url` properties of `OBError1`
+</aside>
+<h2 id='custom-codes'>Custom Codes</h2>
+<p>Due to limitations with <code>OBErrorResponseError1Code</code> we&#39;ve added two additional codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>UK.MONZO.Generic</code></td>
+<td>A generic code used when no specific code is suitable</td>
+</tr>
+<tr>
+<td><code>UK.MONZO.Forbidden</code></td>
+<td>Used when a request is authenticated but has insufficient permissions</td>
+</tr>
+</tbody></table>
+<h2 id='status-codes'>Status Codes</h2>
+<p>The error prefix of <code>OBErrorResponse1.Code</code> will always be paired with a status code as follows:</p>
+
+<table><thead>
+<tr>
+<th>Prefix Code</th>
+<th>Status Code</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>bad_request</code></td>
+<td>400</td>
+</tr>
+<tr>
+<td><code>bad_response</code></td>
+<td>406</td>
+</tr>
+<tr>
+<td><code>forbidden</code></td>
+<td>403</td>
+</tr>
+<tr>
+<td><code>internal_service</code></td>
+<td>500</td>
+</tr>
+<tr>
+<td><code>not_found</code></td>
+<td>404</td>
+</tr>
+<tr>
+<td><code>precondition_failed</code></td>
+<td>412</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td>504</td>
+</tr>
+<tr>
+<td><code>unauthorized</code></td>
+<td>401</td>
+</tr>
+<tr>
+<td><code>rate_limited</code></td>
+<td>429</td>
+</tr>
+</tbody></table>
+<h3 id='mapping-errors'>Mapping Errors</h3>
+<p>Our previous error structure included a <code>code</code> and <code>message</code>. These are now mapped to the new <code>OBErrorResponse1</code> as follows:</p>
+
+<table><thead>
+<tr>
+<th>Previous Feild</th>
+<th>New Feild</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>code</code></td>
+<td><code>OBErrorResponse1.Code</code></td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td><code>OBErrorResponse1.OBError1[0].Message</code></td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Previous Error Structure</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad_request.consent_status"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Consent is not authorised"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>New Error Structure</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad_request.consent_status"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d3628722-749f-4fe9-76f9-f59844ad3714"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid consent status"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"ErrorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.Resource.InvalidConsentStatus"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Consent is not authorised"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='using-previous-errors'>Using Previous Errors</h2>
+<p>To revert to the previous error behavior, you can include an additional header <code>X-Open-Banking-Legacy-Errors</code> on each request. If this option does not meet your needs, please contact us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+
+<p>Once we are confident that TPPs have successfully migrated to the new error behavior, we will remove the opt-out functionality.</p>
 <h1 id='sca-rts-ps21-19'>SCA-RTS (PS21/19)</h1><h2 id='overview'>Overview</h2>
 <p>In November 2021, the FCA set out new rules for standards on Strong Customer Authentication (SCA) in a change to the Regulatory Technical Standards on Strong Customer Authentication and Secure Communication (SCA-RTS).</p>
 
