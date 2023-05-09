@@ -19,6 +19,7 @@ includes:
   - errors
   - ais
   - pis
+  - vrp
   - cbpii
   - ob_errors
   - scarts
