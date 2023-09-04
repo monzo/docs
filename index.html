@@ -541,23 +541,6 @@
               </ul>
           </li>
           <li>
-            <a href="#variable-recurring-payments-api" class="toc-h1 toc-link" data-title="Variable Recurring Payments API">Variable Recurring Payments API</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#base-urls" class="toc-h2 toc-link" data-title="Base URLs">Base URLs</a>
-                  </li>
-                  <li>
-                    <a href="#domestic-variable-recurring-payments" class="toc-h2 toc-link" data-title="Domestic Variable Recurring Payments">Domestic Variable Recurring Payments</a>
-                  </li>
-                  <li>
-                    <a href="#testing-in-the-sandbox" class="toc-h2 toc-link" data-title="Testing in the Sandbox">Testing in the Sandbox</a>
-                  </li>
-                  <li>
-                    <a href="#additional-help" class="toc-h2 toc-link" data-title="Additional Help">Additional Help</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
             <a href="#confirmation-of-funds-api" class="toc-h1 toc-link" data-title="Confirmation of Funds API">Confirmation of Funds API</a>
               <ul class="toc-list-h2">
                   <li>
@@ -2253,6 +2236,9 @@ identify transactions that are still pending.</p>
 <p><code>Rejected</code> transaction status was added in version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html">Open Banking transactions specification</a>.
 This status will begin to be returned from the AIS API on the 25th of September 2022.  </p>
 
+<p>By default, we return transactions oldest to newest - we refer to this as ascending order. To return transactions in reverse, or descending, order an additional query parameter can be provided as part of the <code>/transactions</code> request.
+Using <code>order=desc</code> will result in the transactions being returned newest to oldest. If you wish to keep transactions ordered oldest to newest then omit the <code>order</code> parameter or set <code>order=asc</code>. All <code>Links</code> will respect the omission or use of the <code>order</code> parameter.</p>
+
 <p>The <code>ProprietaryBankTransactionCode</code> property has two sub-properties: <code>Issuer</code> and <code>Code</code>. <code>Issuer</code> will always be set to Monzo, and the possible values for <code>Code</code> are listed below.</p>
 
 <ul>
@@ -2684,79 +2670,6 @@ AccountID: <code>acc_0000A4C4o66FCYJoERQhHN</code></p>
 AccountID: <code>acc_0000A4C4wz4Ail0f3sONTV</code></p>
 <h2 id='additional-help'>Additional Help</h2>
 <p>The Open Banking team at Monzo manage the Payment Initiation Services API. If you require additional assistance, email us at 
-<a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
-<h1 id='variable-recurring-payments-api'>Variable Recurring Payments API</h1>
-<p>The Variable Recurring Payments (VRP) API lets authorised Payment Initiation Service Providers make outbound payments
-from the accounts of our customers in the United Kingdom. Variable Recurring Payments enable multiple payments to be
-made under a single long-lived consent without the need for authenticating and approving each payment. Further
-information on Variable Recurring Payments can be
-found <a href="https://www.openbanking.org.uk/variable-recurring-payments-vrps/">here</a>.</p>
-
-<p>All payments initiated through our Variable Recurring Payments API are sent through Faster Payments.</p>
-
-<p>We&#39;ve implemented v3.1.10 of
-the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/profiles/vrp-profile.html">Open Banking Domestic Variable Recurring Payments specification</a>
-. All endpoints and models are as outlined in the specifications.</p>
-<h3 id='base-urls'>Base URLs</h3>
-<p>We&#39;ve included the Base URLs for our Sandbox and Production environments below.</p>
-
-<table><thead>
-<tr>
-<th><span class="hide">Environment</span></th>
-<th><span class="hide">Base URL</span></th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Sandbox</td>
-<td><code>https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/pisp</code></td>
-</tr>
-<tr>
-<td>Production</td>
-<td><code>https://openbanking.monzo.com/open-banking/v3.1/pisp</code></td>
-</tr>
-</tbody></table>
-<h2 id='domestic-variable-recurring-payments'>Domestic Variable Recurring Payments</h2>
-<p>We&#39;ve implemented version 3.1.10 of
-the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/profiles/vrp-profile.html">Open Banking Domestic Variable Recurring Payments specification</a>
-. All endpoints and models are as outlined in the specifications.</p>
-
-<p>We support account identification using <code>UK.OBIE.SortCodeAccountNumber</code>. We don&#39;t support identification using
-<code>UK.OBIE.IBAN</code>.</p>
-
-<p>You can only make payments in <code>GBP</code>. We don&#39;t support other currencies.</p>
-<h3 id='omitted-endpoints'>Omitted Endpoints</h3>
-<p>We have omitted the implementation of <code>GET /domestic-vrps/{DomesticVRPId}/payment-details</code>.</p>
-<h3 id='variable-recurring-payment-consent-creation'>Variable Recurring Payment Consent Creation</h3>
-<p>We only support creating consents with a <code>PeriodicAlignment</code> of <code>Consent</code>. Additionally, we currently only
-allow <code>PeriodType</code> of <code>Month</code> and <code>Year</code>.</p>
-<h3 id='authentication'>Authentication</h3>
-<p>As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the
-redirect flow, with authentication taking place in the customer&#39;s Monzo app.</p>
-
-<p>We only support the <code>tls_client_auth</code> authentication method.</p>
-<h3 id='oauth2-tokens'>OAuth2 Tokens</h3>
-<p>We have extended our refresh token expiry for tokens associated with Variable Recurring Payment Consents to account for their long-lived nature.
-Refresh tokens will have an expiry of 3 years (26,280 hours). Access tokens will continue to expire after 30 hours.</p>
-<h2 id='testing-in-the-sandbox'>Testing in the Sandbox</h2>
-<p>In the <strong>sandbox</strong> environment, you can automatically have Variable Recurring Payment Consent requests approved or
-declined to help with testing. When creating the consent, you can add a <code>DesiredStatus</code> field to
-the <code>Data/Initiation/SupplementaryData</code> object in the consent request. You can set this field to <code>Authorised</code>
-or <code>Rejected</code>, depending on the behaviour you want.</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"DesiredStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Authorised"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='sandbox-users'>Sandbox Users</h3><h4 id='heavy-user'>Heavy User</h4>
-<p>UserID: <code>user_0000A4C4ZChWNMEvew2U77</code>
-AccountID: <code>acc_0000A4C4ZSskDOixqNPfpR</code></p>
-<h4 id='medium-user'>Medium User</h4>
-<p>UserID: <code>user_0000A4C4nqORb7K9YYW3r0</code>
-AccountID: <code>acc_0000A4C4o66FCYJoERQhHN</code></p>
-<h4 id='light-user'>Light User</h4>
-<p>UserID: <code>user_0000A4C4wkPFE7x9at8Ujp</code>
-AccountID: <code>acc_0000A4C4wz4Ail0f3sONTV</code></p>
-<h2 id='additional-help'>Additional Help</h2>
-<p>The Open Banking team at Monzo manage the Variable Recurring Payment API. If you require additional assistance, email
-us at
 <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
 <h1 id='confirmation-of-funds-api'>Confirmation of Funds API</h1>
 <p>The Confirmation of Funds API lets authorised Card Based Payment Instrument Issuers check that Monzo customers have 
