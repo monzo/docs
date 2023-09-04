@@ -178,6 +178,9 @@ You'll only be allowed to fetch transactions that were made in the range defined
 `Rejected` transaction status was added in version 3.1.8 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html).
 This status will begin to be returned from the AIS API on the 25th of September 2022.  
 
+By default, we return transactions oldest to newest - we refer to this as ascending order. To return transactions in reverse, or descending, order an additional query parameter can be provided as part of the `/transactions` request.
+Using `order=desc` will result in the transactions being returned newest to oldest. If you wish to keep transactions ordered oldest to newest then omit the `order` parameter or set `order=asc`. All `Links` will respect the omission or use of the `order` parameter.
+
 The `ProprietaryBankTransactionCode` property has two sub-properties: `Issuer` and `Code`. `Issuer` will always be set to Monzo, and the possible values for `Code` are listed below.
 
 - `3dsecure`
