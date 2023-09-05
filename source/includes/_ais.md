@@ -117,6 +117,15 @@ We've implemented version 3.1.10 of the [Open Banking balances specification](ht
 When you query this endpoint, you'll see the customer's `InterimAvailable` balance. This is the same real-time balance 
 that our customers see in the Monzo app, and it includes pending and settled transactions.
 
+### Flex
+
+When querying a flex's balance, you'll be returned two balances:
+
+- The `InterimAvailable` balance: This is the current amount owed on the flex account. Its the amount the customer would need to pay today to pay off their flex.
+
+- The `Information` balance: This is the current flex balance plus all future interest. Its the balance displayed within the Monzo app.
+
+
 ## Transactions
 
 ```json
