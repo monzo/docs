@@ -2196,6 +2196,13 @@ or <code>ReadAccountsDetail</code> permission. In the former case, we will omit 
 
 <p>When you query this endpoint, you&#39;ll see the customer&#39;s <code>InterimAvailable</code> balance. This is the same real-time balance 
 that our customers see in the Monzo app, and it includes pending and settled transactions.</p>
+<h3 id='flex'>Flex</h3>
+<p>When querying a flex&#39;s balance, you&#39;ll be returned two balances:</p>
+
+<ul>
+<li><p>The <code>InterimAvailable</code> balance: This is the current amount owed on the flex account. Its the amount the customer would need to pay today to pay off their flex.</p></li>
+<li><p>The <code>Information</code> balance: This is the current flex balance plus all future interest. Its the balance displayed within the Monzo app.</p></li>
+</ul>
 <h2 id='transactions'>Transactions</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="nl">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"Transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
