@@ -2750,7 +2750,7 @@ Refresh tokens will have an expiry of 3 years (26,280 hours). Access tokens will
 <h2 id='testing-in-the-sandbox'>Testing in the Sandbox</h2>
 <p>In the <strong>sandbox</strong> environment, you can automatically have Variable Recurring Payment Consent requests approved or
 declined to help with testing. When creating the consent, you can add a <code>DesiredStatus</code> field to
-the <code>Data/Initiation/SupplementaryData</code> object in the consent request. You can set this field to <code>Authorised</code>
+the <code>Data/ControlParameters/SupplementaryData</code> object in the consent request. You can set this field to <code>Authorised</code>
 or <code>Rejected</code>, depending on the behaviour you want.</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"DesiredStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Authorised"</span><span class="w">
