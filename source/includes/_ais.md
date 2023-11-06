@@ -117,6 +117,8 @@ We've implemented version 3.1.10 of the [Open Banking balances specification](ht
 When you query this endpoint, you'll see the customer's `InterimAvailable` balance. This is the same real-time balance 
 that our customers see in the Monzo app, and it includes pending and settled transactions.
 
+We support an optional query param `includePots`. When set to `true` an additional `Information` balance type will be returned. This balance will be the aggregated account balance made up of the main account balance plus the balance of each pot owned by the account.
+
 ### Flex
 
 When querying a flex's balance, you'll be returned two balances:
