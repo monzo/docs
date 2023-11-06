@@ -2196,6 +2196,8 @@ or <code>ReadAccountsDetail</code> permission. In the former case, we will omit 
 
 <p>When you query this endpoint, you&#39;ll see the customer&#39;s <code>InterimAvailable</code> balance. This is the same real-time balance 
 that our customers see in the Monzo app, and it includes pending and settled transactions.</p>
+
+<p>We support an optional query param <code>includePots</code>. When set to <code>true</code> an additional <code>Information</code> balance type will be returned. This balance will be the aggregated account balance made up of the main account balance plus the balance of each pot owned by the account.</p>
 <h3 id='flex'>Flex</h3>
 <p>When querying a flex&#39;s balance, you&#39;ll be returned two balances:</p>
 
