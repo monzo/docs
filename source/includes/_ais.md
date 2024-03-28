@@ -89,6 +89,7 @@ Once you have a consent for a customer, you'll be able to see their:
 * Personal (individual) accounts
 * Joint accounts
 * Business accounts
+* Flex account
 
 If the account has been closed, it will still be returned in the response, but with an updated `Status`.
 
