@@ -326,23 +326,23 @@ We'll only return open pots as part of our response. If a customer closes a pot,
 any more.
 
 ##### Field Descriptions
-| Field name           | Mandatory | Description                                                                   | Type                                  |
+| Field name           | Optional  | Description                                                                   | Type                                  |
 | -------------------- | --------- | ----------------------------------------------------------------------------- | --------------------------------------|
-| PotId                | ✅         | Unique ID representing the pot                                                | string                                |
-| AccountId            | ✅         | Unique ID of the account that owns the pot                                    | string                                |
-| Name                 | ❌         | Pot's name                                                                    | string                                |
-| Type                 | ✅         | Type of pot: `default`, `flexible_savings`, `fixed_savings`, `instant_access` | string                                |
-| CreditDebitIndicator | ✅         | Indicates whether the pot's balance is positive or negative                   | `OBCreditDebitCode`                   |
-| Balance              | ✅         | The pot's currency & current balance                                          | `OBActiveOrHistoricCurrencyAndAmount` |
-| Style                | ✅         | Internal ID for the cover image of the pot, if a custom image isn't set       | string                                |
-| ImageUrl             | ❌         | URL to the pot's cover image                                                  | string                                |
-| Goal                 | ❌         | Customer's savings target for their pot                                       | `OBActiveOrHistoricCurrencyAndAmount` |
-| LockType             | ❌         | Pot's lock type, if  locked will return `until_date`                          | string                                |
-| LockedUntil          | ❌         | When the pot will unlock                                                      | string                                |
-| Created              | ✅         | When the pot was created                                                      | string                                |
-| Updated              | ✅         | When the pot was last updated                                                 | string                                |
-| Closed               | ❌         | When the pot was closed                                                       | string                                |
-| Status               | ✅         | Pot's current status: `Open` or `Closed`                                      | string                                |
+| PotId                | ❌         | Unique ID representing the pot                                                | string                                |
+| AccountId            | ❌         | Unique ID of the account that owns the pot                                    | string                                |
+| Name                 | ✅         | Pot's name                                                                    | string                                |
+| Type                 | ❌         | Type of pot: `default`, `flexible_savings`, `fixed_savings`, `instant_access` | string                                |
+| CreditDebitIndicator | ❌         | Indicates whether the pot's balance is positive or negative                   | `OBCreditDebitCode`                   |
+| Balance              | ❌         | The pot's currency & current balance                                          | `OBActiveOrHistoricCurrencyAndAmount` |
+| Style                | ❌         | Internal ID for the cover image of the pot, if a custom image isn't set       | string                                |
+| ImageUrl             | ✅         | URL to the pot's cover image                                                  | string                                |
+| Goal                 | ✅         | Customer's savings target for their pot                                       | `OBActiveOrHistoricCurrencyAndAmount` |
+| LockType             | ✅         | Pot's lock type, if  locked will return `until_date`                          | string                                |
+| LockedUntil          | ✅         | When the pot will unlock                                                      | string                                |
+| Created              | ❌         | When the pot was created                                                      | string                                |
+| Updated              | ❌         | When the pot was last updated                                                 | string                                |
+| Closed               | ✅         | When the pot was closed                                                       | string                                |
+| Status               | ❌         | Pot's current status: `Open` or `Closed`                                      | string                                |
 
 ## Direct Debits
 
