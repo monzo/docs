@@ -2399,6 +2399,106 @@ or <code>ReadAccountsDetailed</code> permission. In the former case, we will omi
 
 <p>We&#39;ll only return open pots as part of our response. If a customer closes a pot, it won&#39;t appear in the response
 any more.</p>
+<h5 id='field-descriptions'>Field Descriptions</h5>
+<table><thead>
+<tr>
+<th>Field name</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>PotId</td>
+<td>❌</td>
+<td>Unique ID representing the pot</td>
+<td>string</td>
+</tr>
+<tr>
+<td>AccountId</td>
+<td>❌</td>
+<td>Unique ID of the account that owns the pot</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>✅</td>
+<td>Pot&#39;s name</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>❌</td>
+<td>Type of pot: <code>default</code>, <code>flexible_savings</code>, <code>fixed_savings</code>, <code>instant_access</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td>CreditDebitIndicator</td>
+<td>❌</td>
+<td>Indicates whether the pot&#39;s balance is positive or negative</td>
+<td><code>OBCreditDebitCode</code></td>
+</tr>
+<tr>
+<td>Balance</td>
+<td>❌</td>
+<td>The pot&#39;s currency &amp; current balance</td>
+<td><code>OBActiveOrHistoricCurrencyAndAmount</code></td>
+</tr>
+<tr>
+<td>Style</td>
+<td>❌</td>
+<td>Internal ID for the cover image of the pot, if a custom image isn&#39;t set</td>
+<td>string</td>
+</tr>
+<tr>
+<td>ImageUrl</td>
+<td>✅</td>
+<td>URL to the pot&#39;s cover image</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Goal</td>
+<td>✅</td>
+<td>Customer&#39;s savings target for their pot</td>
+<td><code>OBActiveOrHistoricCurrencyAndAmount</code></td>
+</tr>
+<tr>
+<td>LockType</td>
+<td>✅</td>
+<td>Pot&#39;s lock type, if  locked will return <code>until_date</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td>LockedUntil</td>
+<td>✅</td>
+<td>When the pot will unlock</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Created</td>
+<td>❌</td>
+<td>When the pot was created</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Updated</td>
+<td>❌</td>
+<td>When the pot was last updated</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Closed</td>
+<td>✅</td>
+<td>When the pot was closed</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>❌</td>
+<td>Pot&#39;s current status: <code>Open</code> or <code>Closed</code></td>
+<td>string</td>
+</tr>
+</tbody></table>
 <h2 id='direct-debits'>Direct Debits</h2>
 <p>We&#39;ve implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/direct-debits.html">Open Banking Direct Debits specification</a>.</p>
 
