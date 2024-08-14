@@ -124,9 +124,9 @@ We support an optional query param `includePots`. When set to `true` an addition
 
 When querying a flex's balance, you'll be returned two balances:
 
-- The `InterimAvailable` balance: This is the current amount owed on the flex account. Its the amount the customer would need to pay today to pay off their flex.
+- The `InterimAvailable` balance: This is the current amount owed on the flex account. It is the amount the customer would need to pay today to pay off their flex.
 
-- The `Information` balance: This is the current flex balance plus all future interest. Its the balance displayed within the Monzo app.
+- The `Information` balance: This is the current flex balance plus all future interest. It is the balance displayed within the Monzo app.
 
 
 ## Transactions
