@@ -101,6 +101,11 @@ Move money from a pot owned by the currently authorised user into one of their a
 }
 ```
 
+<aside class="warning">
+<strong>Added Security</strong><br/>
+If the pot is protected with <a href="https://monzo.com/blog/introducing-our-industry-first-security-tools">added security</a>, withdrawals cannot be made via this API and must be made in-app.
+</aside>
+
 ##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
