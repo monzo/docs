@@ -533,6 +533,9 @@
                     <a href="#refund-accounts" class="toc-h2 toc-link" data-title="Refund Accounts">Refund Accounts</a>
                   </li>
                   <li>
+                    <a href="#rejected-payments" class="toc-h2 toc-link" data-title="Rejected Payments">Rejected Payments</a>
+                  </li>
+                  <li>
                     <a href="#testing-in-the-sandbox" class="toc-h2 toc-link" data-title="Testing in the Sandbox">Testing in the Sandbox</a>
                   </li>
                   <li>
@@ -2777,7 +2780,66 @@ we don&#39;t let you include both.</p>
   </span><span class="nl">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h2 id='testing-in-the-sandbox'>Testing in the Sandbox</h2>
+</span></code></pre></div><h2 id='rejected-payments'>Rejected Payments</h2>
+<p>When a payment is rejected, we aim to provide TPPs with as much detail as possible. If available, the specific reason for the rejection will be included in the response. TPPs can find the rejection reason within the <code>RejectionReason</code> field in the following locations, depending on the type of payment:</p>
+
+<ul>
+<li>Single Immediate Payments (SIPs)
+
+<ul>
+<li><code>Data/Initiation/SupplementaryData</code> <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/pisp/domestic-payment-consents.html#obdomestic2">OBDomestic2</a></li>
+</ul></li>
+<li>Variable Recurring Payments (VRPs)
+
+<ul>
+<li><code>Data/Instruction/SupplementaryData</code> <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/vrp/domestic-vrps.html#obdomesticvrpinstruction">OBDomesticVRPInstruction</a></li>
+</ul></li>
+</ul>
+
+<table><thead>
+<tr>
+<th>Rejection Reason</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>Insufficient funds</code></td>
+<td>The account does not have enough funds to make the transfer.</td>
+</tr>
+<tr>
+<td><code>Something went wrong</code></td>
+<td>We&#39;ve retired making the payment, but have failed too many times</td>
+</tr>
+<tr>
+<td><code>FPS not acknowledged</code></td>
+<td>The beneficiary bank hasn&#39;t accepted our FPS message</td>
+</tr>
+<tr>
+<td><code>Additional security checks were not completed</code></td>
+<td>The customer either abandoned or cancelled the additional security check flow</td>
+</tr>
+<tr>
+<td><code>Payment reference contains offensive language</code></td>
+<td>We don&#39;t allow references to contain offensive language</td>
+</tr>
+<tr>
+<td><code>Payment limits exceeded</code></td>
+<td>The payment would exceed the customer&#39;s limits</td>
+</tr>
+<tr>
+<td><code>Scheme limits exceeded</code></td>
+<td>The payment would exceed the scheme&#39;s limit</td>
+</tr>
+</tbody></table>
+<h3 id='other-rejection-scenarios'>Other Rejection Scenarios</h3>
+<p>In some cases, we may not be able to provide specific details about why a payment was rejected. If none of the listed rejection reasons apply, you may encounter the following messages:</p>
+
+<p><strong>Please ask the customer to contact customer support</strong>:<br>
+For further details on the rejection, the customer will need to get in touch with Monzo&#39;s customer support team which they can do via the in-app chat.</p>
+
+<p><strong>Sorry, we&#39;re unable to provide additional information on why this payment was rejected</strong>:<br>
+In certain circumstances, we&#39;re unable to share any further information regarding why the payment was rejected.</p>
+<h2 id='testing-in-the-sandbox'>Testing in the Sandbox</h2>
 <p>In the <strong>sandbox</strong> environment, you can automatically have domestic payment requests approved or declined to help with testing. When creating the payment consent, you can add a <code>DesiredStatus</code> field to the <code>Data/Initiation/SupplementaryData</code> object in the consent request. You can set this field to <code>Authorised</code> or <code>Rejected</code>, depending on the behaviour you want.</p>
 
 <p>If you want your payment to come from a specific User and Account then you can also add those values, but you must add <strong>both</strong> or a random test User and Account is used instead.</p>
