@@ -89,6 +89,7 @@ Once you have a consent for a customer, you'll be able to see their:
 * Personal (individual) accounts
 * Joint accounts
 * Business accounts
+* Flex account
 
 If the account has been closed, it will still be returned in the response, but with an updated `Status`.
 
@@ -116,6 +117,17 @@ We've implemented version 3.1.10 of the [Open Banking balances specification](ht
 
 When you query this endpoint, you'll see the customer's `InterimAvailable` balance. This is the same real-time balance 
 that our customers see in the Monzo app, and it includes pending and settled transactions.
+
+We support an optional query param `includePots`. When set to `true` an additional `Information` balance type will be returned. This balance will be the aggregated account balance made up of the main account balance plus the balance of each pot owned by the account.
+
+### Flex
+
+When querying a flex's balance, you'll be returned two balances:
+
+- The `InterimAvailable` balance: This is the current amount owed on the flex account. Its the amount the customer would need to pay today to pay off their flex.
+
+- The `Information` balance: This is the current flex balance plus all future interest. Its the balance displayed within the Monzo app.
+
 
 ## Transactions
 
@@ -177,6 +189,9 @@ You'll only be allowed to fetch transactions that were made in the range defined
 
 `Rejected` transaction status was added in version 3.1.8 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html).
 This status will begin to be returned from the AIS API on the 25th of September 2022.  
+
+By default, we return transactions oldest to newest - we refer to this as ascending order. To return transactions in reverse, or descending, order an additional query parameter can be provided as part of the `/transactions` request.
+Using `order=desc` will result in the transactions being returned newest to oldest. If you wish to keep transactions ordered oldest to newest then omit the `order` parameter or set `order=asc`. All `Links` will respect the omission or use of the `order` parameter.
 
 The `ProprietaryBankTransactionCode` property has two sub-properties: `Issuer` and `Code`. `Issuer` will always be set to Monzo, and the possible values for `Code` are listed below.
 
@@ -309,6 +324,25 @@ or `ReadAccountsDetailed` permission. In the former case, we will omit the Pot n
 
 We'll only return open pots as part of our response. If a customer closes a pot, it won't appear in the response
 any more.
+
+##### Field Descriptions
+| Field name           | Optional  | Description                                                                   | Type                                  |
+| -------------------- | --------- | ----------------------------------------------------------------------------- | --------------------------------------|
+| PotId                | ❌         | Unique ID representing the pot                                                | string                                |
+| AccountId            | ❌         | Unique ID of the account that owns the pot                                    | string                                |
+| Name                 | ✅         | Pot's name                                                                    | string                                |
+| Type                 | ❌         | Type of pot: `default`, `flexible_savings`, `fixed_savings`, `instant_access` | string                                |
+| CreditDebitIndicator | ❌         | Indicates whether the pot's balance is positive or negative                   | `OBCreditDebitCode`                   |
+| Balance              | ❌         | The pot's currency & current balance                                          | `OBActiveOrHistoricCurrencyAndAmount` |
+| Style                | ❌         | Internal ID for the cover image of the pot, if a custom image isn't set       | string                                |
+| ImageUrl             | ✅         | URL to the pot's cover image                                                  | string                                |
+| Goal                 | ✅         | Customer's savings target for their pot                                       | `OBActiveOrHistoricCurrencyAndAmount` |
+| LockType             | ✅         | Pot's lock type, if  locked will return `until_date`                          | string                                |
+| LockedUntil          | ✅         | When the pot will unlock                                                      | string                                |
+| Created              | ❌         | When the pot was created                                                      | string                                |
+| Updated              | ❌         | When the pot was last updated                                                 | string                                |
+| Closed               | ✅         | When the pot was closed                                                       | string                                |
+| Status               | ❌         | Pot's current status: `Open` or `Closed`                                      | string                                |
 
 ## Direct Debits
 
