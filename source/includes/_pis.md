@@ -180,6 +180,35 @@ The refund account data will be returned in the payment order creation response.
 
 ```
 
+## Rejected Payments
+
+When a payment is rejected, we aim to provide TPPs with as much detail as possible. If available, the specific reason for the rejection will be included in the response. TPPs can find the rejection reason within the `RejectionReason` field in the following locations, depending on the type of payment:
+
+- Single Immediate Payments (SIPs)
+  - `Data/Initiation/SupplementaryData` [OBDomestic2](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/pisp/domestic-payment-consents.html#obdomestic2)
+- Variable Recurring Payments (VRPs)
+  - `Data/Instruction/SupplementaryData` [OBDomesticVRPInstruction](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/vrp/domestic-vrps.html#obdomesticvrpinstruction)
+
+| Rejection Reason                                | Description                                                                   |
+| ----------------------------------------------- | ----------------------------------------------------------------------------- |
+| `Insufficient funds`                            | The account does not have enough funds to make the transfer.                  |
+| `Something went wrong`                          | We've retired making the payment, but have failed too many times              |
+| `FPS not acknowledged`                          | The beneficiary bank hasn't accepted our FPS message                          |
+| `Additional security checks were not completed` | The customer either abandoned or cancelled the additional security check flow |
+| `Payment reference contains offensive language` | We don't allow references to contain offensive language                       |
+| `Payment limits exceeded`                       | The payment would exceed the customer's limits                                |
+| `Scheme limits exceeded`                        | The payment would exceed the scheme's limit                                   |
+
+### Other Rejection Scenarios
+
+In some cases, we may not be able to provide specific details about why a payment was rejected. If none of the listed rejection reasons apply, you may encounter the following messages:
+
+**Please ask the customer to contact customer support**:  
+For further details on the rejection, the customer will need to get in touch with Monzo's customer support team which they can do via the in-app chat.
+
+**Sorry, we're unable to provide additional information on why this payment was rejected**:  
+In certain circumstances, we're unable to share any further information regarding why the payment was rejected.
+
 
 ## Testing in the Sandbox
 
