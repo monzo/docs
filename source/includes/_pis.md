@@ -207,7 +207,7 @@ In some cases, we may not be able to provide specific details about why a paymen
 For further details on the rejection, the customer will need to get in touch with Monzo's customer support team which they can do via the in-app chat.
 
 **Sorry, we're unable to provide additional information on why this payment was rejected**:  
-In certain circumstances, we're sadly unable to share any further information regarding why the payment was rejected.
+In certain circumstances, we're unable to share any further information regarding why the payment was rejected.
 
 
 ## Testing in the Sandbox
