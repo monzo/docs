@@ -38,7 +38,7 @@ We have omitted the implementation of `GET /domestic-vrps/{DomesticVRPId}/paymen
 ### Variable Recurring Payment Consent Creation
 
 We only support creating consents with a `PeriodicAlignment` of `Consent`. Additionally, we currently only
-allow `PeriodType` of `Month` and `Year`.
+allow `PeriodType` of `Day`, `Week`, `Month` and `Year`.
 
 ### Authentication
 
