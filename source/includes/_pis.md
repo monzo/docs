@@ -184,7 +184,7 @@ The refund account data will be returned in the payment order creation response.
 
 We've implemented version 3.1.11 of the [Open Banking International Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.11/resources-and-data-models/pisp/international-payments.html).
 
-## International Payment Consent
+### International Payment Consent
 ```json
 {
     "Data":
@@ -244,8 +244,23 @@ If there are insufficient funds in the account, authorisation will fail and an e
 </aside>
 
 
+### International Payment support currencies
 
-## International Payment Order
+| CurrencyOfTransfer | LocalInstrumentCode          | CreditorAccount.SchemeName | CreditorAccount.Identification | CreditorAccount.SecondaryIdentification | CreditorAgent.SchemeName  | CreditorAgent.Identification | Notes |
+| ------------------ | -----------------------------| -------------------------- | ------------------------------ | ----------------------------------------| ------------------------- | ---------------------------- | ----- |
+| AUD                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.AU`          | BSB Code                     |       |
+| AUD                | -                            | `UK.MONZO.BPAY`            | Biller Pay Code                | Customer Reference Number               | -                         | -                            |       |
+| INR                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.IN`          | IFSC Code                    |       |
+| INR                | -                            | `UK.MONZO.UPI`             | UPI ID                         | -                                       | -                         | -                            |       |
+| EUR                | `UK.OBIE.SEPACreditTransfer` | `UK.OBIE.IBAN`             | IBAN                           | -                                       | -                         | -                            |       |
+| EUR                | `UK.OBIE.SWIFT`              | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`           | BIC                          |       |
+| RON                | -                            | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`           | BIC                          |       |
+| USD                | `UK.MONZO.ABA`               | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`          | ABA Routing Number           |       |
+| USD                | `UK.MONZO.FEDWIRE`           | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`          | Fedwire Routing Number       |       |
+| USD                | `UK.OBIE.SWIFT`              | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.BICFI`           | BIC                          |       |
+
+
+### International Payment Order
 
 ```json
 {
