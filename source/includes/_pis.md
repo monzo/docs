@@ -180,6 +180,139 @@ The refund account data will be returned in the payment order creation response.
 
 ```
 
+## International Payments
+
+We've implemented version 3.1.11 of the [Open Banking International Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.11/resources-and-data-models/pisp/international-payments.html).
+
+## International Payment Consent
+```json
+{
+    "Data":
+    {
+        "Authorisation":
+        {
+            "AuthorisationType": "Any",
+            "CompletionDateTime": "2025-05-30T10:35:27Z"
+        },
+        "Initiation":
+        {
+            "CurrencyOfTransfer": "EUR",
+            "DestinationCountryCode": "GB",
+            "EndToEndIdentification": "FRESCO.21302.GFX.20",
+            "ExtendedPurpose": "",
+            "InstructionIdentification": "ACME413",
+            "InstructionPriority": "Normal",
+            "LocalInstrument": "UK.OBIE.SEPACreditTransfer",
+            "Purpose": "CCRD",
+            "Creditor":
+            {},
+            "CreditorAccount":
+            {
+                "SchemeName": "UK.OBIE.IBAN",
+                "Identification": "GB62MONZ12345708578920",
+                "Name": "Tom Blomfield"
+            },
+            "ExchangeRateInformation":
+            {
+                "RateType": "Indicative",
+                "UnitCurrency": "GBP"
+            },
+            "InstructedAmount":
+            {
+                "Amount": "100.00",
+                "Currency": "GBP"
+            },
+            "RemittanceInformation": {
+                "Reference": "FRESCO-101",
+                "Unstructured": "Internal ops code 5120101"
+            }
+        },
+        "ReadRefundAccount": "Yes"
+    },
+    "Risk":
+    {
+        "BeneficiaryAccountType": "Personal",
+        "PaymentContextCode": "TransferToThirdParty",
+        "PaymentPurposeCode": "EPAY"
+    }
+}
+```
+
+
+<aside class="notice">
+If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
+</aside>
+
+
+
+## International Payment Order
+
+```json
+{
+    "Data":
+    {
+        "ConsentId": "obpispinternationalpaymentconsent_0000Ar128pFItDBIlaJ9fd",
+        "Initiation":
+        {
+            "CurrencyOfTransfer": "EUR",
+            "DestinationCountryCode": "GB",
+            "EndToEndIdentification": "FRESCO.21302.GFX.20",
+            "ExtendedPurpose": "",
+            "InstructionIdentification": "ACME413",
+            "InstructionPriority": "Normal",
+            "LocalInstrument": "UK.OBIE.SEPACreditTransfer",
+            "Purpose": "CCRD",
+            "Creditor":
+            {},
+            "CreditorAccount":
+            {
+                "SchemeName": "UK.OBIE.IBAN",
+                "Identification": "GB62MONZ12345708578920",
+                "Name": "Tom Blomfield"
+            },
+            "ExchangeRateInformation":
+            {
+                "RateType": "Indicative",
+                "UnitCurrency": "GBP"
+            },
+            "InstructedAmount":
+            {
+                "Amount": "400.00",
+                "Currency": "GBP"
+            }
+        }
+    },
+    "Risk":
+    {
+        "BeneficiaryAccountType": "Personal",
+        "PaymentContextCode": "TransferToThirdParty",
+        "PaymentPurposeCode": "EPAY"
+    }
+}
+```
+
+### International Payments Limits
+
+TODO fill it in
+
+There are default limits for daily outbound payments:
+
+| Account type                       | Default limit |
+| -----------------------------------| ------------- |
+| Personal                           | £10000        |
+| Joint                              | £10000        |
+| Business (sole trader)             | £25000        |
+| Business (private limited company) | £50000        |
+
+<aside class="notice">
+Please note that limits for business account are different depending on business company type.  See <a href="#business-account-company-types">Account Information Services API - Business company types</a> for details.
+</aside>
+
+<aside class="notice">
+Please note that these are <b>default</b> limits applied to payments and can be increased if asked by the customer.
+</aside>
+
+
 ## Rejected Payments
 
 When a payment is rejected, we aim to provide TPPs with as much detail as possible. If available, the specific reason for the rejection will be included in the response. TPPs can find the rejection reason within the `RejectionReason` field in the following locations, depending on the type of payment:
