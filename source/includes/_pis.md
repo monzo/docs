@@ -384,4 +384,3 @@ AccountID: `acc_0000A4C4wz4Ail0f3sONTV`
 
 The Open Banking team at Monzo manage the Payment Initiation Services API. If you require additional assistance, email us at 
 [openbanking@monzo.com](mailto:openbanking@monzo.com).
-````
