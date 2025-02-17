@@ -129,6 +129,7 @@ You can only make payments in `GBP`. We don't support other currencies.
 
 We've implemented version 3.1.11 of the [Open Banking International Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.11/resources-and-data-models/pisp/international-payments.html).
 
+### International Payment Consent 
 ```json
 {
   "Data":
@@ -171,6 +172,9 @@ We've implemented version 3.1.11 of the [Open Banking International Payments spe
   }
 }
 ```
+
+* We only support indicative exchange rates (`ExchangeRateInformation.RateType` must be set to `Indicative`)
+* The consent's `CutOffDateTime` is set 30 minutes after creation. Payment must be initiated within this timeframe (otherwise the payment order will be automatically rejected)
 
 
 ### International Payment currencies support
