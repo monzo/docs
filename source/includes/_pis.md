@@ -245,37 +245,39 @@ If there are insufficient funds in the account, authorisation will fail and an e
 
 ### International Payment currencies support
 
-Please see the currencies and rails we support alongside with the `Initiation` object parameters that has to be filled in for it.
+The table below outlines the currencies and supported payment rails, along with the required parameters for the `Initiation` object.
 
-| CurrencyOfTransfer | LocalInstrumentCode          | CreditorAccount.SchemeName | CreditorAccount.Identification | CreditorAccount.SecondaryIdentification | CreditorAgent.SchemeName  | CreditorAgent.Identification | Creditor.PostalAddress  | Notes                                                                          |
-| ------------------ | -----------------------------| -------------------------- | ------------------------------ | ----------------------------------------| ------------------------- | ---------------------------- | ----------------------- |--------------------------------------------------------------------------------|
-| AUD                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.AU`          | BSB Code                     | -                       |                                                                                |
-| AUD                | -                            | `UK.MONZO.BPAY`            | Biller Pay Code                | Customer Reference Number               | -                         | -                            | -                       | Risk.BeneficiaryAccountType can be only `Business` or `BusinessSavingsAccount` |
-| INR                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.IN`          | IFSC Code                    | -                       |                                                                                |
-| INR                | -                            | `UK.MONZO.UPI`             | UPI ID                         | -                                       | -                         | -                            | -                       |                                                                                |
-| EUR                | `UK.OBIE.SEPACreditTransfer` | `UK.OBIE.IBAN`             | IBAN                           | -                                       | -                         | -                            | -                       |                                                                                |
-| EUR                | `UK.OBIE.SWIFT`              | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`           | BIC                          | -                       |                                                                                |
-| RON                | -                            | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`           | BIC                          | required                |                                                                                |
-| USD                | `UK.MONZO.ABA`               | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`          | ABA Routing Number           | required                |                                                                                |
-| USD                | `UK.MONZO.FEDWIRE`           | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`          | Fedwire Routing Number       | required                |                                                                                |
-| USD                | `UK.OBIE.SWIFT`              | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.BICFI`           | BIC                          | required                |                                                                                |
+| CurrencyOfTransfer | LocalInstrumentCode          | CreditorAccount.SchemeName | CreditorAccount.Identification | CreditorAccount.SecondaryIdentification | CreditorAgent.SchemeName  | CreditorAgent.Identification | Creditor.PostalAddress | Notes                                                                        |
+| ------------------ | -----------------------------| -------------------------- |-------------------------------| ----------------------------------------| ------------------------- | ---------------------------- |------------------------|------------------------------------------------------------------------------|
+| AUD                | -                            | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.AU`          | BSB Code                     | -                      |                                                                              |
+| AUD                | -                            | `UK.MONZO.BPAY`            | Biller Pay Code               | Customer Reference Number               | -                         | -                            | -                      | `Risk.BeneficiaryAccountType` must be `Business` or `BusinessSavingsAccount` |
+| INR                | -                            | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.IN`          | IFSC Code                    | -                      |                                                                              |
+| INR                | -                            | `UK.MONZO.UPI`             | UPI ID (`customername@bank`)  | -                                       | -                         | -                            | -                      |                                                                              |
+| EUR                | `UK.OBIE.SEPACreditTransfer` | `UK.OBIE.IBAN`             | IBAN                          | -                                       | -                         | -                            | -                      |                                                                              |
+| EUR                | `UK.OBIE.SWIFT`              | `UK.OBIE.IBAN`             | IBAN                          | -                                       | `UK.OBIE.BICFI`           | BIC                          | -                      |                                                                              |
+| RON                | -                            | `UK.OBIE.IBAN`             | IBAN                          | -                                       | `UK.OBIE.BICFI`           | BIC                          | Required               |                                                                              |
+| USD                | `UK.MONZO.ABA`               | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.US`          | ABA Routing Number           | Required               |                                                                              |
+| USD                | `UK.MONZO.FEDWIRE`           | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.US`          | Fedwire Routing Number       | Required               |                                                                              |
+| USD                | `UK.OBIE.SWIFT`              | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.BICFI`           | BIC                          | Required               |                                                                              |
 
-Notes: 
 
-* `-` means that parameter is not required
-* `CreditorAccount.Name` is required for all currencies
-* `Initation.DestinationCountryCode` is required for all currencies
-* When `Creditor.PostalAddres` is required, following fields are expected to be filled:
+**Additional Notes:**
+
+* `-` indicates that the parameter is not required.
+* `CreditorAccount.Name` is required for all currencies.
+* `Initiation.DestinationCountryCode` is required for all currencies.
+* If `Creditor.PostalAddress` is required, the following fields must be provided:
   * `TownName`
   * `PostCode`
-  * either `AddressLine` or `BuildingNumber` + `StreetName`
-* `Risk.BeneficiaryAccountType` is required and supports following values:
+  * Either `AddressLine` or `BuildingNumber` + `StreetName`
+* Risk.BeneficiaryAccountType is required and supports the following values:
   * `Personal`
   * `JointPersonal`
   * `PersonalSavingsAccount`
   * `Business`
   * `BusinessSavingsAccount`
-* USD - account type (Checking or Savings) is decided based on `Risk.BeneficiaryAccountType`
+* For USD payments, the account type (`Checking` or `Savings`) is determined based on `Risk.BeneficiaryAccountType`.
+
 
 
 ### International Payment Order
@@ -326,26 +328,7 @@ Please see example of international payment order object on the right.
 }
 ```
 
-### International Payments Limits
 
-TODO fill it in
-
-There are default limits for daily outbound payments:
-
-| Account type                       | Default limit |
-| -----------------------------------| ------------- |
-| Personal                           | £10000        |
-| Joint                              | £10000        |
-| Business (sole trader)             | £25000        |
-| Business (private limited company) | £50000        |
-
-<aside class="notice">
-Please note that limits for business account are different depending on business company type.  See <a href="#business-account-company-types">Account Information Services API - Business company types</a> for details.
-</aside>
-
-<aside class="notice">
-Please note that these are <b>default</b> limits applied to payments and can be increased if asked by the customer.
-</aside>
 
 
 ## Rejected Payments
