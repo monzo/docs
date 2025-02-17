@@ -184,7 +184,6 @@ The refund account data will be returned in the payment order creation response.
 
 We've implemented version 3.1.11 of the [Open Banking International Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.11/resources-and-data-models/pisp/international-payments.html).
 
-### International Payment Consent
 ```json
 {
     "Data":
@@ -244,23 +243,44 @@ If there are insufficient funds in the account, authorisation will fail and an e
 </aside>
 
 
-### International Payment support currencies
+### International Payment currencies support
 
-| CurrencyOfTransfer | LocalInstrumentCode          | CreditorAccount.SchemeName | CreditorAccount.Identification | CreditorAccount.SecondaryIdentification | CreditorAgent.SchemeName  | CreditorAgent.Identification | Notes |
-| ------------------ | -----------------------------| -------------------------- | ------------------------------ | ----------------------------------------| ------------------------- | ---------------------------- | ----- |
-| AUD                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.AU`          | BSB Code                     |       |
-| AUD                | -                            | `UK.MONZO.BPAY`            | Biller Pay Code                | Customer Reference Number               | -                         | -                            |       |
-| INR                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.IN`          | IFSC Code                    |       |
-| INR                | -                            | `UK.MONZO.UPI`             | UPI ID                         | -                                       | -                         | -                            |       |
-| EUR                | `UK.OBIE.SEPACreditTransfer` | `UK.OBIE.IBAN`             | IBAN                           | -                                       | -                         | -                            |       |
-| EUR                | `UK.OBIE.SWIFT`              | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`           | BIC                          |       |
-| RON                | -                            | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`           | BIC                          |       |
-| USD                | `UK.MONZO.ABA`               | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`          | ABA Routing Number           |       |
-| USD                | `UK.MONZO.FEDWIRE`           | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`          | Fedwire Routing Number       |       |
-| USD                | `UK.OBIE.SWIFT`              | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.BICFI`           | BIC                          |       |
+Please see the currencies and rails we support alongside with the `Initiation` object parameters that has to be filled in for it.
+
+| CurrencyOfTransfer | LocalInstrumentCode          | CreditorAccount.SchemeName | CreditorAccount.Identification | CreditorAccount.SecondaryIdentification | CreditorAgent.SchemeName  | CreditorAgent.Identification | Creditor.PostalAddress  | Notes                                                                          |
+| ------------------ | -----------------------------| -------------------------- | ------------------------------ | ----------------------------------------| ------------------------- | ---------------------------- | ----------------------- |--------------------------------------------------------------------------------|
+| AUD                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.AU`          | BSB Code                     | -                       |                                                                                |
+| AUD                | -                            | `UK.MONZO.BPAY`            | Biller Pay Code                | Customer Reference Number               | -                         | -                            | -                       | Risk.BeneficiaryAccountType can be only `Business` or `BusinessSavingsAccount` |
+| INR                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.IN`          | IFSC Code                    | -                       |                                                                                |
+| INR                | -                            | `UK.MONZO.UPI`             | UPI ID                         | -                                       | -                         | -                            | -                       |                                                                                |
+| EUR                | `UK.OBIE.SEPACreditTransfer` | `UK.OBIE.IBAN`             | IBAN                           | -                                       | -                         | -                            | -                       |                                                                                |
+| EUR                | `UK.OBIE.SWIFT`              | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`           | BIC                          | -                       |                                                                                |
+| RON                | -                            | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`           | BIC                          | required                |                                                                                |
+| USD                | `UK.MONZO.ABA`               | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`          | ABA Routing Number           | required                |                                                                                |
+| USD                | `UK.MONZO.FEDWIRE`           | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`          | Fedwire Routing Number       | required                |                                                                                |
+| USD                | `UK.OBIE.SWIFT`              | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.BICFI`           | BIC                          | required                |                                                                                |
+
+Notes: 
+
+* `-` means that parameter is not required
+* `CreditorAccount.Name` is required for all currencies
+* `Initation.DestinationCountryCode` is required for all currencies
+* When `Creditor.PostalAddres` is required, following fields are expected to be filled:
+  * `TownName`
+  * `PostCode`
+  * either `AddressLine` or `BuildingNumber` + `StreetName`
+* `Risk.BeneficiaryAccountType` is required and supports following values:
+  * `Personal`
+  * `JointPersonal`
+  * `PersonalSavingsAccount`
+  * `Business`
+  * `BusinessSavingsAccount`
+* USD - account type (Checking or Savings) is decided based on `Risk.BeneficiaryAccountType`
 
 
 ### International Payment Order
+
+Please see example of international payment order object on the right.
 
 ```json
 {
@@ -398,3 +418,4 @@ AccountID: `acc_0000A4C4wz4Ail0f3sONTV`
 
 The Open Banking team at Monzo manage the Payment Initiation Services API. If you require additional assistance, email us at 
 [openbanking@monzo.com](mailto:openbanking@monzo.com).
+````
