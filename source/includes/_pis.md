@@ -125,6 +125,140 @@ At the moment, we don't support the `payment-details` endpoint.
 
 You can only make payments in `GBP`. We don't support other currencies.
 
+## International Payments
+
+We've implemented version 3.1.11 of the [Open Banking International Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.11/resources-and-data-models/pisp/international-payments.html).
+
+```json
+{
+  "Data":
+  {
+    "Initiation":
+    {
+      "CurrencyOfTransfer": "EUR",
+      "DestinationCountryCode": "GB",
+      "EndToEndIdentification": "FRESCO.21302.GFX.20",
+      "InstructionIdentification": "ACME413",
+      "LocalInstrument": "UK.OBIE.SEPACreditTransfer",
+      "CreditorAccount":
+      {
+        "SchemeName": "UK.OBIE.IBAN",
+        "Identification": "GB62MONZ12345708578920",
+        "Name": "Name Surname"
+      },
+      "ExchangeRateInformation":
+      {
+        "RateType": "Indicative",
+        "UnitCurrency": "GBP"
+      },
+      "InstructedAmount":
+      {
+        "Amount": "100.00",
+        "Currency": "GBP"
+      },
+      "RemittanceInformation":
+      {
+        "Reference": "FRESCO-101",
+        "Unstructured": "Internal ops code 5120101"
+      }
+    },
+    "ReadRefundAccount": "Yes"
+  },
+  "Risk":
+  {
+    "PaymentContextCode": "TransferToThirdParty",
+    "BeneficiaryAccountType": "Personal"
+  }
+}
+```
+
+
+### International Payment currencies support
+
+The table below outlines the currencies and supported payment rails, along with the required parameters for the `Initiation` object.
+
+| CurrencyOfTransfer | LocalInstrumentCode          | CreditorAccount.SchemeName | CreditorAccount.Identification | CreditorAccount.SecondaryIdentification | CreditorAgent.SchemeName  | CreditorAgent.Identification | Creditor.PostalAddress | Notes                                                                        |
+| ------------------ | -----------------------------| -------------------------- |-------------------------------| ----------------------------------------| ------------------------- | ---------------------------- |------------------------|------------------------------------------------------------------------------|
+| AUD                | -                            | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.AU`          | BSB Code                     | -                      |                                                                              |
+| AUD                | -                            | `UK.MONZO.BPAY`            | Biller Pay Code               | Customer Reference Number               | -                         | -                            | -                      | `Risk.BeneficiaryAccountType` must be `Business` or `BusinessSavingsAccount` |
+| INR                | -                            | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.IN`          | IFSC Code                    | -                      |                                                                              |
+| INR                | -                            | `UK.MONZO.UPI`             | UPI ID (`customername@bank`)  | -                                       | -                         | -                            | -                      |                                                                              |
+| EUR                | `UK.OBIE.SEPACreditTransfer` | `UK.OBIE.IBAN`             | IBAN                          | -                                       | -                         | -                            | -                      |                                                                              |
+| EUR                | `UK.OBIE.SWIFT`              | `UK.OBIE.IBAN`             | IBAN                          | -                                       | `UK.OBIE.BICFI`           | BIC                          | -                      |                                                                              |
+| RON                | -                            | `UK.OBIE.IBAN`             | IBAN                          | -                                       | `UK.OBIE.BICFI`           | BIC                          | Required               |                                                                              |
+| USD                | `UK.MONZO.ABA`               | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.US`          | ABA Routing Number           | Required               |                                                                              |
+| USD                | `UK.MONZO.FEDWIRE`           | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.US`          | Fedwire Routing Number       | Required               |                                                                              |
+| USD                | `UK.OBIE.SWIFT`              | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.BICFI`           | BIC                          | Required               |                                                                              |
+
+
+**Additional Notes:**
+
+* `-` indicates that the parameter is not required.
+* `CreditorAccount.Name` is required for all currencies.
+* `Initiation.DestinationCountryCode` is required for all currencies.
+* If `Creditor.PostalAddress` is required, the following fields must be provided:
+  * `TownName`
+  * `PostCode`
+  * Either `AddressLine` or `BuildingNumber` + `StreetName`
+* Risk.BeneficiaryAccountType is required and supports the following values:
+  * `Personal`
+  * `JointPersonal`
+  * `PersonalSavingsAccount`
+  * `Business`
+  * `BusinessSavingsAccount`
+* For USD payments, the account type (`Checking` or `Savings`) is determined based on `Risk.BeneficiaryAccountType`.
+
+<aside class="notice">
+If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
+</aside>
+
+### International Payment Order
+
+Please see example of international payment order object on the right.
+
+```json
+{
+  "Data":
+  {
+    "ConsentId": "obpispinternationalpaymentconsent_0000Ar128pFItDBIlaJ9fd",
+    "Initiation":
+    {
+      "CurrencyOfTransfer": "EUR",
+      "DestinationCountryCode": "GB",
+      "EndToEndIdentification": "FRESCO.21302.GFX.20",
+      "InstructionIdentification": "ACME413",
+      "LocalInstrument": "UK.OBIE.SEPACreditTransfer",
+      "CreditorAccount":
+      {
+        "SchemeName": "UK.OBIE.IBAN",
+        "Identification": "GB62MONZ12345708578920",
+        "Name": "Name Surname"
+      },
+      "ExchangeRateInformation":
+      {
+        "RateType": "Indicative",
+        "UnitCurrency": "GBP"
+      },
+      "InstructedAmount":
+      {
+        "Amount": "100.00",
+        "Currency": "GBP"
+      },
+      "RemittanceInformation":
+      {
+        "Reference": "FRESCO-101",
+        "Unstructured": "Internal ops code 5120101"
+      }
+    }
+  },
+  "Risk":
+  {
+    "PaymentContextCode": "TransferToThirdParty",
+    "BeneficiaryAccountType": "Personal"
+  }
+}
+```
+
 ## Refund Accounts
 ```json
 {
@@ -139,7 +273,7 @@ You can only make payments in `GBP`. We don't support other currencies.
   }
 }
 ```
-We have enabled reading refund account details as part of domestic payment consent resource creation, if requested by the PISP. To read the refund account details set the `ReadRefundAccount` field to `Yes` in the consent creation request. 
+We have enabled reading refund account details as part of domestic and international payment consent resource creation, if requested by the PISP. To read the refund account details set the `ReadRefundAccount` field to `Yes` in the consent creation request.
 
 The refund account data will be returned in the payment order creation response. The name on the refund account should pass any confirmation of payee checks.
 
@@ -179,157 +313,6 @@ The refund account data will be returned in the payment order creation response.
 }
 
 ```
-
-## International Payments
-
-We've implemented version 3.1.11 of the [Open Banking International Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.11/resources-and-data-models/pisp/international-payments.html).
-
-```json
-{
-    "Data":
-    {
-        "Authorisation":
-        {
-            "AuthorisationType": "Any",
-            "CompletionDateTime": "2025-05-30T10:35:27Z"
-        },
-        "Initiation":
-        {
-            "CurrencyOfTransfer": "EUR",
-            "DestinationCountryCode": "GB",
-            "EndToEndIdentification": "FRESCO.21302.GFX.20",
-            "ExtendedPurpose": "",
-            "InstructionIdentification": "ACME413",
-            "InstructionPriority": "Normal",
-            "LocalInstrument": "UK.OBIE.SEPACreditTransfer",
-            "Purpose": "CCRD",
-            "Creditor":
-            {},
-            "CreditorAccount":
-            {
-                "SchemeName": "UK.OBIE.IBAN",
-                "Identification": "GB62MONZ12345708578920",
-                "Name": "Tom Blomfield"
-            },
-            "ExchangeRateInformation":
-            {
-                "RateType": "Indicative",
-                "UnitCurrency": "GBP"
-            },
-            "InstructedAmount":
-            {
-                "Amount": "100.00",
-                "Currency": "GBP"
-            },
-            "RemittanceInformation": {
-                "Reference": "FRESCO-101",
-                "Unstructured": "Internal ops code 5120101"
-            }
-        },
-        "ReadRefundAccount": "Yes"
-    },
-    "Risk":
-    {
-        "BeneficiaryAccountType": "Personal",
-        "PaymentContextCode": "TransferToThirdParty",
-        "PaymentPurposeCode": "EPAY"
-    }
-}
-```
-
-
-<aside class="notice">
-If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
-</aside>
-
-
-### International Payment currencies support
-
-The table below outlines the currencies and supported payment rails, along with the required parameters for the `Initiation` object.
-
-| CurrencyOfTransfer | LocalInstrumentCode          | CreditorAccount.SchemeName | CreditorAccount.Identification | CreditorAccount.SecondaryIdentification | CreditorAgent.SchemeName  | CreditorAgent.Identification | Creditor.PostalAddress | Notes                                                                        |
-| ------------------ | -----------------------------| -------------------------- |-------------------------------| ----------------------------------------| ------------------------- | ---------------------------- |------------------------|------------------------------------------------------------------------------|
-| AUD                | -                            | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.AU`          | BSB Code                     | -                      |                                                                              |
-| AUD                | -                            | `UK.MONZO.BPAY`            | Biller Pay Code               | Customer Reference Number               | -                         | -                            | -                      | `Risk.BeneficiaryAccountType` must be `Business` or `BusinessSavingsAccount` |
-| INR                | -                            | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.IN`          | IFSC Code                    | -                      |                                                                              |
-| INR                | -                            | `UK.MONZO.UPI`             | UPI ID (`customername@bank`)  | -                                       | -                         | -                            | -                      |                                                                              |
-| EUR                | `UK.OBIE.SEPACreditTransfer` | `UK.OBIE.IBAN`             | IBAN                          | -                                       | -                         | -                            | -                      |                                                                              |
-| EUR                | `UK.OBIE.SWIFT`              | `UK.OBIE.IBAN`             | IBAN                          | -                                       | `UK.OBIE.BICFI`           | BIC                          | -                      |                                                                              |
-| RON                | -                            | `UK.OBIE.IBAN`             | IBAN                          | -                                       | `UK.OBIE.BICFI`           | BIC                          | Required               |                                                                              |
-| USD                | `UK.MONZO.ABA`               | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.US`          | ABA Routing Number           | Required               |                                                                              |
-| USD                | `UK.MONZO.FEDWIRE`           | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.US`          | Fedwire Routing Number       | Required               |                                                                              |
-| USD                | `UK.OBIE.SWIFT`              | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.BICFI`           | BIC                          | Required               |                                                                              |
-
-
-**Additional Notes:**
-
-* `-` indicates that the parameter is not required.
-* `CreditorAccount.Name` is required for all currencies.
-* `Initiation.DestinationCountryCode` is required for all currencies.
-* If `Creditor.PostalAddress` is required, the following fields must be provided:
-  * `TownName`
-  * `PostCode`
-  * Either `AddressLine` or `BuildingNumber` + `StreetName`
-* Risk.BeneficiaryAccountType is required and supports the following values:
-  * `Personal`
-  * `JointPersonal`
-  * `PersonalSavingsAccount`
-  * `Business`
-  * `BusinessSavingsAccount`
-* For USD payments, the account type (`Checking` or `Savings`) is determined based on `Risk.BeneficiaryAccountType`.
-
-
-
-### International Payment Order
-
-Please see example of international payment order object on the right.
-
-```json
-{
-    "Data":
-    {
-        "ConsentId": "obpispinternationalpaymentconsent_0000Ar128pFItDBIlaJ9fd",
-        "Initiation":
-        {
-            "CurrencyOfTransfer": "EUR",
-            "DestinationCountryCode": "GB",
-            "EndToEndIdentification": "FRESCO.21302.GFX.20",
-            "ExtendedPurpose": "",
-            "InstructionIdentification": "ACME413",
-            "InstructionPriority": "Normal",
-            "LocalInstrument": "UK.OBIE.SEPACreditTransfer",
-            "Purpose": "CCRD",
-            "Creditor":
-            {},
-            "CreditorAccount":
-            {
-                "SchemeName": "UK.OBIE.IBAN",
-                "Identification": "GB62MONZ12345708578920",
-                "Name": "Tom Blomfield"
-            },
-            "ExchangeRateInformation":
-            {
-                "RateType": "Indicative",
-                "UnitCurrency": "GBP"
-            },
-            "InstructedAmount":
-            {
-                "Amount": "400.00",
-                "Currency": "GBP"
-            }
-        }
-    },
-    "Risk":
-    {
-        "BeneficiaryAccountType": "Personal",
-        "PaymentContextCode": "TransferToThirdParty",
-        "PaymentPurposeCode": "EPAY"
-    }
-}
-```
-
-
-
 
 ## Rejected Payments
 
