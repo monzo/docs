@@ -173,13 +173,11 @@ We've implemented version 3.1.11 of the [Open Banking International Payments spe
 }
 ```
 
-* We only support indicative exchange rates (`ExchangeRateInformation.RateType` must be set to `Indicative`)
-* The consent's `CutOffDateTime` is set 30 minutes after creation. Payment must be initiated within this timeframe (otherwise the payment order will be automatically rejected)
+Note that we only support indicative exchange rates (`ExchangeRateInformation.RateType` must be set to `Indicative`)
 
+### International Payment currencies and rails support
 
-### International Payment currencies support
-
-The table below outlines the currencies and supported payment rails, along with the required parameters for the `Initiation` object.
+The table below outlines the currencies and supported payment rails, along with the required parameters for the `Initiation` object (`-` indicates that the parameter is not required).
 
 | CurrencyOfTransfer | LocalInstrumentCode          | CreditorAccount.SchemeName | CreditorAccount.Identification | CreditorAccount.SecondaryIdentification | CreditorAgent.SchemeName  | CreditorAgent.Identification | Creditor.PostalAddress | Notes                                                                        |
 | ------------------ | -----------------------------| -------------------------- |-------------------------------| ----------------------------------------| ------------------------- | ---------------------------- |------------------------|------------------------------------------------------------------------------|
@@ -194,23 +192,23 @@ The table below outlines the currencies and supported payment rails, along with 
 | USD                | `UK.MONZO.FEDWIRE`           | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.US`          | Fedwire Routing Number       | Required               |                                                                              |
 | USD                | `UK.OBIE.SWIFT`              | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.BICFI`           | BIC                          | Required               |                                                                              |
 
+`CreditorAccount.Name` is required for all currencies.
 
-**Additional Notes:**
+`Initiation.DestinationCountryCode` is required for all currencies.
 
-* `-` indicates that the parameter is not required.
-* `CreditorAccount.Name` is required for all currencies.
-* `Initiation.DestinationCountryCode` is required for all currencies.
-* If `Creditor.PostalAddress` is required, the following fields must be provided:
+If `Creditor.PostalAddress` is required, the following fields must be provided:
   * `TownName`
   * `PostCode`
   * Either `AddressLine` or `BuildingNumber` + `StreetName`
-* Risk.BeneficiaryAccountType is required and supports the following values:
+
+Risk.BeneficiaryAccountType is required and supports the following values:
   * `Personal`
   * `JointPersonal`
   * `PersonalSavingsAccount`
   * `Business`
   * `BusinessSavingsAccount`
-* For USD payments, the account type (`Checking` or `Savings`) is determined based on `Risk.BeneficiaryAccountType`.
+
+For USD payments, the account type (`Checking` or `Savings`) is determined based on `Risk.BeneficiaryAccountType`.
 
 <aside class="notice">
 If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
@@ -218,7 +216,7 @@ If there are insufficient funds in the account, authorisation will fail and an e
 
 ### International Payment Order
 
-Please see example of international payment order object on the right.
+The consent's `CutOffDateTime` is set to 30 minutes after creation. Payment must be initiated within this timeframe (otherwise the payment order will be automatically rejected)
 
 ```json
 {
