@@ -173,7 +173,7 @@ We've implemented version 3.1.11 of the [Open Banking International Payments spe
 }
 ```
 
-Note that we only support indicative exchange rates (`ExchangeRateInformation.RateType` must be set to `Indicative`)
+Note that we only support indicative exchange rates (`ExchangeRateInformation.RateType` must be set to `Indicative`).
 
 ### International Payment currencies and rails support
 
@@ -197,6 +197,7 @@ The table below outlines the currencies and supported payment rails, along with 
 `Initiation.DestinationCountryCode` is required for all currencies.
 
 If `Creditor.PostalAddress` is required, the following fields must be provided:
+
   * `TownName`
   * `PostCode`
   * Either `AddressLine` or `BuildingNumber` + `StreetName`
@@ -216,7 +217,7 @@ If there are insufficient funds in the account, authorisation will fail and an e
 
 ### International Payment Order
 
-The consent's `CutOffDateTime` is set to 30 minutes after creation. Payment must be initiated within this timeframe (otherwise the payment order will be automatically rejected)
+The consent's `CutOffDateTime` is set to 30 minutes after creation. Payment must be initiated within this timeframe (otherwise the payment order will be automatically rejected).
 
 ```json
 {
