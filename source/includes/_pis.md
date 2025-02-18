@@ -202,7 +202,7 @@ If `Creditor.PostalAddress` is required, the following fields must be provided:
   * `PostCode`
   * Either `AddressLine` or `BuildingNumber` + `StreetName`
 
-Risk.BeneficiaryAccountType is required and supports the following values:
+`Risk.BeneficiaryAccountType` is required and supports the following values:
   * `Personal`
   * `JointPersonal`
   * `PersonalSavingsAccount`
@@ -217,7 +217,7 @@ If there are insufficient funds in the account, authorisation will fail and an e
 
 ### International Payment Order
 
-The consent's `CutOffDateTime` is set to 30 minutes after creation. Payment must be initiated within this timeframe (otherwise the payment order will be automatically rejected).
+The consent's `CutOffDateTime` is set to 30 minutes after creation. A payment must be initiated within this timeframe (otherwise the payment order will be automatically rejected).
 
 ```json
 {
