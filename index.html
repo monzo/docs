@@ -530,6 +530,9 @@
                     <a href="#standing-orders" class="toc-h2 toc-link" data-title="Standing Orders">Standing Orders</a>
                   </li>
                   <li>
+                    <a href="#international-payments" class="toc-h2 toc-link" data-title="International Payments">International Payments</a>
+                  </li>
+                  <li>
                     <a href="#refund-accounts" class="toc-h2 toc-link" data-title="Refund Accounts">Refund Accounts</a>
                   </li>
                   <li>
@@ -2731,7 +2734,245 @@ we don&#39;t let you include both.</p>
 <p>At the moment, we don&#39;t support the <code>payment-details</code> endpoint.</p>
 
 <p>You can only make payments in <code>GBP</code>. We don&#39;t support other currencies.</p>
-<h2 id='refund-accounts'>Refund Accounts</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<h2 id='international-payments'>International Payments</h2>
+<p>We&#39;ve implemented version 3.1.11 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.11/resources-and-data-models/pisp/international-payments.html">Open Banking International Payments specification</a>.</p>
+<h3 id='international-payment-consent'>International Payment Consent</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Data"</span><span class="p">:</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Initiation"</span><span class="p">:</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"CurrencyOfTransfer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"DestinationCountryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"EndToEndIdentification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FRESCO.21302.GFX.20"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"InstructionIdentification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACME413"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"LocalInstrument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.SEPACreditTransfer"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"CreditorAccount"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.IBAN"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB62MONZ12345708578920"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name Surname"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"ExchangeRateInformation"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"RateType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Indicative"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"UnitCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"InstructedAmount"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"RemittanceInformation"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FRESCO-101"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Unstructured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal ops code 5120101"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"ReadRefundAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yes"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"Risk"</span><span class="p">:</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"PaymentContextCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TransferToThirdParty"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"BeneficiaryAccountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Note that we only support indicative exchange rates (<code>ExchangeRateInformation.RateType</code> must be set to <code>Indicative</code>).</p>
+<h3 id='international-payment-currencies-and-rails-support'>International Payment currencies and rails support</h3>
+<p>The table below outlines the currencies and supported payment rails, along with the required parameters for the <code>Initiation</code> object (<code>-</code> indicates that the parameter is not required).</p>
+
+<table><thead>
+<tr>
+<th>CurrencyOfTransfer</th>
+<th>LocalInstrumentCode</th>
+<th>CreditorAccount.SchemeName</th>
+<th>CreditorAccount.Identification</th>
+<th>CreditorAccount.SecondaryIdentification</th>
+<th>CreditorAgent.SchemeName</th>
+<th>CreditorAgent.Identification</th>
+<th>Creditor.PostalAddress</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>AUD</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.NCC.AU</code></td>
+<td>BSB Code</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>AUD</td>
+<td>-</td>
+<td><code>UK.MONZO.BPAY</code></td>
+<td>Biller Pay Code</td>
+<td>Customer Reference Number</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td><code>Risk.BeneficiaryAccountType</code> must be <code>Business</code> or <code>BusinessSavingsAccount</code></td>
+</tr>
+<tr>
+<td>INR</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.NCC.IN</code></td>
+<td>IFSC Code</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>INR</td>
+<td>-</td>
+<td><code>UK.MONZO.UPI</code></td>
+<td>UPI ID (<code>customername@bank</code>)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>EUR</td>
+<td><code>UK.OBIE.SEPACreditTransfer</code></td>
+<td><code>UK.OBIE.IBAN</code></td>
+<td>IBAN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>EUR</td>
+<td><code>UK.OBIE.SWIFT</code></td>
+<td><code>UK.OBIE.IBAN</code></td>
+<td>IBAN</td>
+<td>-</td>
+<td><code>UK.OBIE.BICFI</code></td>
+<td>BIC</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>RON</td>
+<td>-</td>
+<td><code>UK.OBIE.IBAN</code></td>
+<td>IBAN</td>
+<td>-</td>
+<td><code>UK.OBIE.BICFI</code></td>
+<td>BIC</td>
+<td>Required</td>
+<td></td>
+</tr>
+<tr>
+<td>USD</td>
+<td><code>UK.MONZO.ABA</code></td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.NCC.US</code></td>
+<td>ABA Routing Number</td>
+<td>Required</td>
+<td></td>
+</tr>
+<tr>
+<td>USD</td>
+<td><code>UK.MONZO.FEDWIRE</code></td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.NCC.US</code></td>
+<td>Fedwire Routing Number</td>
+<td>Required</td>
+<td></td>
+</tr>
+<tr>
+<td>USD</td>
+<td><code>UK.OBIE.SWIFT</code></td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.BICFI</code></td>
+<td>BIC</td>
+<td>Required</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p><code>CreditorAccount.Name</code> is required for all currencies.</p>
+
+<p><code>Initiation.DestinationCountryCode</code> is required for all currencies.</p>
+
+<p>If <code>Creditor.PostalAddress</code> is required, the following fields must be provided:</p>
+
+<ul>
+<li><code>TownName</code></li>
+<li><code>PostCode</code></li>
+<li>Either <code>AddressLine</code> or <code>BuildingNumber</code> + <code>StreetName</code></li>
+</ul>
+
+<p><code>Risk.BeneficiaryAccountType</code> is required and supports the following values:
+  * <code>Personal</code>
+  * <code>JointPersonal</code>
+  * <code>PersonalSavingsAccount</code>
+  * <code>Business</code>
+  * <code>BusinessSavingsAccount</code></p>
+
+<p>For USD payments, the account type (<code>Checking</code> or <code>Savings</code>) is determined based on <code>Risk.BeneficiaryAccountType</code>.</p>
+
+<aside class="notice">
+If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
+</aside>
+<h3 id='international-payment-order'>International Payment Order</h3>
+<p>The consent&#39;s <code>CutOffDateTime</code> is set to 30 minutes after creation. A payment must be initiated within this timeframe (otherwise the payment order will be automatically rejected).</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Data"</span><span class="p">:</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ConsentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"obpispinternationalpaymentconsent_0000Ar128pFItDBIlaJ9fd"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Initiation"</span><span class="p">:</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"CurrencyOfTransfer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"DestinationCountryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"EndToEndIdentification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FRESCO.21302.GFX.20"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"InstructionIdentification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACME413"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"LocalInstrument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.SEPACreditTransfer"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"CreditorAccount"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.IBAN"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB62MONZ12345708578920"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name Surname"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"ExchangeRateInformation"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"RateType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Indicative"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"UnitCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"InstructedAmount"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"RemittanceInformation"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FRESCO-101"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Unstructured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal ops code 5120101"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"Risk"</span><span class="p">:</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"PaymentContextCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TransferToThirdParty"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"BeneficiaryAccountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='refund-accounts'>Refund Accounts</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"Initiation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"CreditorAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2743,7 +2984,7 @@ we don&#39;t let you include both.</p>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>We have enabled reading refund account details as part of domestic payment consent resource creation, if requested by the PISP. To read the refund account details set the <code>ReadRefundAccount</code> field to <code>Yes</code> in the consent creation request. </p>
+<p>We have enabled reading refund account details as part of domestic and international payment consent resource creation, if requested by the PISP. To read the refund account details set the <code>ReadRefundAccount</code> field to <code>Yes</code> in the consent creation request.</p>
 
 <p>The refund account data will be returned in the payment order creation response. The name on the refund account should pass any confirmation of payee checks.</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
