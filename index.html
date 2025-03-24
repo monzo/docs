@@ -605,6 +605,9 @@
                     <a href="#status-codes" class="toc-h2 toc-link" data-title="Status Codes">Status Codes</a>
                   </li>
                   <li>
+                    <a href="#rate-limiting" class="toc-h2 toc-link" data-title="Rate Limiting">Rate Limiting</a>
+                  </li>
+                  <li>
                     <a href="#using-previous-errors" class="toc-h2 toc-link" data-title="Using Previous Errors">Using Previous Errors</a>
                   </li>
               </ul>
@@ -3378,6 +3381,18 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 <td>429</td>
 </tr>
 </tbody></table>
+<h2 id='rate-limiting'>Rate Limiting</h2>
+<p>Monzo&#39;s Open Banking API enforces rate limits to maintain platform stability. We apply rate limits both at a platform-wide and TPP level.</p>
+<h3 id='tpp-rate-limiting'>TPP Rate Limiting</h3>
+<aside class="notice">
+100 requests per second per a TPP
+</aside>
+
+<p>This limit is shared across all endpoints of our Open Banking APIs and is applied collectively across all client IDs under the same organization ID.</p>
+<h3 id='platform-wide-rate-limiting'>Platform-Wide Rate Limiting</h3>
+<p>The platform-wide rate limit exists to prevent excessive load on our datastore. This type of rate limiting is not specific to an individual TPP but applies when the datastore is experiencing significantly high load and throttles traffic to reduce it.</p>
+
+<p>If your request is affected by platform-wide rate limiting, it is likely due to temporary high demand on our infrastructure. In this case, retrying the request after a short backoff period should work.</p>
 <h3 id='mapping-errors'>Mapping Errors</h3>
 <p>Our previous error structure included a <code>code</code> and <code>message</code>. These are now mapped to the new <code>OBErrorResponse1</code> as follows:</p>
 
