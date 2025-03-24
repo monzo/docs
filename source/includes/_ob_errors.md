@@ -53,6 +53,24 @@ The error prefix of `OBErrorResponse1.Code` will always be paired with a status 
 | `unauthorized`        | 401         |
 | `rate_limited`        | 429         |
 
+## Rate Limiting
+
+Monzo's Open Banking API enforces rate limits to maintain platform stability. We apply rate limits both at a platform-wide and TPP level.
+
+### TPP Rate Limiting
+
+<aside class="notice">
+100 requests per second per a TPP
+</aside>
+
+This limit is shared across all endpoints of our Open Banking APIs and is applied collectively across all client IDs under the same organization ID.
+
+### Platform-Wide Rate Limiting
+
+The platform-wide rate limit exists to prevent excessive load on our datastore. This type of rate limiting is not specific to an individual TPP but applies when the datastore is experiencing significantly high load and throttles traffic to reduce it.
+
+If your request is affected by platform-wide rate limiting, it is likely due to temporary high demand on our infrastructure. In this case, retrying the request after a short backoff period should work.
+
 ### Mapping Errors
 
 Our previous error structure included a `code` and `message`. These are now mapped to the new `OBErrorResponse1` as follows:
