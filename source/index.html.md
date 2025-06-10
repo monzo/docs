@@ -48,12 +48,6 @@ The [Developers category](https://community.monzo.com/c/developers) on our forum
     You may only connect to your own account or those of a small set of users you explicitly allow.
 </aside>
 
-<aside class="warning">
-    <strong>Upcoming Strong Customer Authentication changes</strong><br>
-New rules for all banks, including Monzo, mean we’ll start increasing security around third party integrations with customers' accounts. 
-Please see the <a href=#authentication>Authentication</a> and <a href=#list-transactions>Transactions</a> sections for more details.
-</aside>
-
 <aside class="notice">
     For firms authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Account Information Service Providers</a> under PSD2 we offer an <a href=#account-information-services-api>AISP API</a>.
     We also offer an <a href=#payment-initiation-services-api>API for authorised PISPs</a> and <a href=#confirmation-of-funds-api>CBPIIs</a>.
