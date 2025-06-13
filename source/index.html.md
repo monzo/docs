@@ -45,6 +45,6 @@ The [Developers category](https://community.monzo.com/c/developers) on our forum
 <aside class="notice">
     <strong>Looking for our Open Banking API documentation?</strong><br>
     This has now moved <a href="/open-banking">to a new page.</a>
-    For firms authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Account Information Service Providers</a> under PSD2 we offer an <a href=#account-information-services-api>AISP API</a>.
-    We also offer an <a href=#payment-initiation-services-api>API for authorised PISPs</a> and <a href=#confirmation-of-funds-api>CBPIIs</a>.
+    For firms authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Account Information Service Providers</a> under PSD2 we offer an <a href=/open-banking#account-information-services-api>AISP API</a>.
+    We also offer an <a href=/open-banking#payment-initiation-services-api>API for authorised PISPs</a> and <a href=/open-banking#confirmation-of-funds-api>CBPIIs</a>.
 </aside>

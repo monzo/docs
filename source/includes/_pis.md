@@ -32,7 +32,7 @@ Production | `https://openbanking.monzo.com/open-banking/v3.1/pisp`
 
 We have implemented the `POST /register` endpoint in version 3.2 of the Open Banking Dynamic Client Registration specification. You can find the [full specification here](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1078034771/Dynamic+Client+Registration+-+v3.2).
 
-You can find the appropriate URL and supported configuration in our [well-known endpoints](/#well-known-endpoints) for each environment.
+You can find the appropriate URL and supported configuration in our [well-known endpoints](#well-known-endpoints) for each environment.
 
 ## Authentication
 

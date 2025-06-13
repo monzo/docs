@@ -1,5 +1,5 @@
 ---
-title: Monzo API Reference
+title: Monzo Open Banking API Reference
 
 language_tabs:
   - shell
@@ -11,33 +11,18 @@ includes:
   - cbpii
   - ob_errors
   - scarts
+  - eu
 
 search: false
 ---
 
 # Introduction
 
-> **API endpoint**
+Monzo's Open Banking API allows licensed [Third Party Providers](https://www.openbanking.org.uk/glossary/third-party-provider/) to access customer's accounts, to provide account information services, or to initiate payments.
 
-```
-https://api.monzo.com
-```
-
-> Examples in this documentation are written using [httpie](https://github.com/jkbrzt/httpie) for clarity.
-
-> To install `httpie` on macOS run `brew install httpie`
-
-The Monzo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and webhooks.
-
-The [Developers category](https://community.monzo.com/c/developers) on our forum is the place to get help with our API, discuss ideas, and show off what you build.
+If you need support with Monzo's Open Banking API, please create a ticket on the [Open Banking Service Desk](https://directory.openbanking.org.uk/obieservicedesk/s/), or contact <openbanking@monzo.com>.
 
 <aside class="warning">
-    <strong>The Monzo Developer API is not suitable for building public applications.</strong><br>
-    You may only connect to your own account or those of a small set of users you explicitly allow.
-</aside>
-
-<aside class="notice">
-    <strong>Looking for our Open Banking API documentation?</strong><br>
-    For firms authorised as <a href="https://www.fca.org.uk/account-information-service-ais-payment-initiation-service-pis">Account Information Service Providers</a> under PSD2 we offer an <a href=#account-information-services-api>AISP API</a>.
-    We also offer an <a href=#payment-initiation-services-api>API for authorised PISPs</a> and <a href=#confirmation-of-funds-api>CBPIIs</a>.
+    <strong>Not a licensed Open Banking Third Party Provider?</strong><br>
+    These are the docs for Monzo's Open Banking API. Check out <a href="/">the docs for our public developer API</a> that anyone can use.
 </aside>
