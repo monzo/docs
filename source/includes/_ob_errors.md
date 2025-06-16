@@ -71,6 +71,30 @@ The platform-wide rate limit exists to prevent excessive load on our datastore. 
 
 If your request is affected by platform-wide rate limiting, it is likely due to temporary high demand on our infrastructure. In this case, retrying the request after a short backoff period should work.
 
+## Tokens
+
+| Token Type  | Expiry                   |
+| ----------- | ------------------------ |
+| Access      | 30 hours                 |
+| Refresh     | 4,320 hour ( ~6 months)  |
+| VRP Refresh | 26,280 hours ( ~3 years) |
+
+### Tokens Errors
+
+| Error                               | Description                                                                                                                       | Action               |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `bad_request.refresh_token.evicted` | Client's have a limited number of token slots, when a client exceeds it's limit the oldest token is evicted                       | Requires new consent |
+| `bad_request.refresh_token.invalid` | Platform security controls have invalid the token, we're unable to provider more information around why the token was invalidated | Requires new consent |
+
+#### How token eviction works
+
+Our OAuth system maintains a limited set of valid tokens for any given client, operating on a First-In, First-Out (FIFO) principle. When a new access token / refresh token is issued for a client, it occupies a slot in the system's internal token "ring."
+If this ring is full, the oldest token set in the ring is automatically evicted to make space for the new one.
+
+Clients register after 10:08 UTC on 2024-11-19 will have a ring size of 25, all other clients have a ring size of 10.
+
+Since 2020-07-23 we've disallowed new client registration requests to include both `payments` & `accounts` scopes, instead requiring TPPs to register mutiple client. This reduces the chances that the TPP will run into the 10 or 25 active session limit.
+
 ### Mapping Errors
 
 Our previous error structure included a `code` and `message`. These are now mapped to the new `OBErrorResponse1` as follows:
