@@ -1,0 +1,2147 @@
+<!doctype html>
+<html prefix="og: http://ogp.me/ns#">
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="Monzo Open Banking API Reference" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="The Monzo API is designed to be a predictable and intuitive interface for interacting with users' accounts. We offer both a REST API and webhooks." />
+
+    <link href="../images/favicon-9e0041d5.ico" rel="icon" type="image/ico" />
+    <title>Monzo Open Banking API Reference</title>
+
+    <style media="screen">
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cpf {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s, .highlight .sa, .highlight .dl {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf, .highlight .fm {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv, .highlight .vm {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #f92672;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <style media="print">
+      * {
+        -webkit-transition:none!important;
+        transition:none!important;
+      }
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #586e75;
+}
+.highlight .err {
+  color: #002b36;
+  background-color: #dc322f;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #657b83;
+}
+.highlight .cp {
+  color: #b58900;
+}
+.highlight .nt {
+  color: #b58900;
+}
+.highlight .o, .highlight .ow {
+  color: #93a1a1;
+}
+.highlight .p, .highlight .pi {
+  color: #93a1a1;
+}
+.highlight .gi {
+  color: #859900;
+}
+.highlight .gd {
+  color: #dc322f;
+}
+.highlight .gh {
+  color: #268bd2;
+  background-color: #002b36;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #6c71c4;
+}
+.highlight .kc {
+  color: #cb4b16;
+}
+.highlight .kt {
+  color: #cb4b16;
+}
+.highlight .kd {
+  color: #cb4b16;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #859900;
+}
+.highlight .sa {
+  color: #6c71c4;
+}
+.highlight .sr {
+  color: #2aa198;
+}
+.highlight .si {
+  color: #d33682;
+}
+.highlight .se {
+  color: #d33682;
+}
+.highlight .nn {
+  color: #b58900;
+}
+.highlight .nc {
+  color: #b58900;
+}
+.highlight .no {
+  color: #b58900;
+}
+.highlight .na {
+  color: #268bd2;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #859900;
+}
+.highlight .ss {
+  color: #859900;
+}
+    </style>
+    <link href="../stylesheets/screen-d1224be1.css" rel="stylesheet" media="screen" />
+    <link href="../stylesheets/print-d3ab1bae.css" rel="stylesheet" media="print" />
+
+      <script src="../javascripts/all_nosearch-18c3ed8e.js"></script>
+
+  </head>
+
+    <body class="open-banking open-banking_index" data-languages="[&quot;shell&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../images/navbar-cad8cdcb.png" alt="" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="../images/logo-2ef64d64.png" class="logo" alt="" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+        </div>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#account-information-services-api" class="toc-h1 toc-link" data-title="Account Information Services API">Account Information Services API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getting-access" class="toc-h2 toc-link" data-title="Getting Access">Getting Access</a>
+                  </li>
+                  <li>
+                    <a href="#well-known-endpoints" class="toc-h2 toc-link" data-title="Well-Known Endpoints">Well-Known Endpoints</a>
+                  </li>
+                  <li>
+                    <a href="#base-urls" class="toc-h2 toc-link" data-title="Base URLs">Base URLs</a>
+                  </li>
+                  <li>
+                    <a href="#dynamic-client-registration" class="toc-h2 toc-link" data-title="Dynamic Client Registration">Dynamic Client Registration</a>
+                  </li>
+                  <li>
+                    <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
+                  </li>
+                  <li>
+                    <a href="#accounts" class="toc-h2 toc-link" data-title="Accounts">Accounts</a>
+                  </li>
+                  <li>
+                    <a href="#balances" class="toc-h2 toc-link" data-title="Balances">Balances</a>
+                  </li>
+                  <li>
+                    <a href="#transactions" class="toc-h2 toc-link" data-title="Transactions">Transactions</a>
+                  </li>
+                  <li>
+                    <a href="#parties" class="toc-h2 toc-link" data-title="Parties">Parties</a>
+                  </li>
+                  <li>
+                    <a href="#pots" class="toc-h2 toc-link" data-title="Pots">Pots</a>
+                  </li>
+                  <li>
+                    <a href="#direct-debits" class="toc-h2 toc-link" data-title="Direct Debits">Direct Debits</a>
+                  </li>
+                  <li>
+                    <a href="#scheduled-payments" class="toc-h2 toc-link" data-title="Scheduled Payments">Scheduled Payments</a>
+                  </li>
+                  <li>
+                    <a href="#standing-orders" class="toc-h2 toc-link" data-title="Standing Orders">Standing Orders</a>
+                  </li>
+                  <li>
+                    <a href="#testing-in-the-sandbox" class="toc-h2 toc-link" data-title="Testing in the Sandbox">Testing in the Sandbox</a>
+                  </li>
+                  <li>
+                    <a href="#additional-help" class="toc-h2 toc-link" data-title="Additional Help">Additional Help</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#payment-initiation-services-api" class="toc-h1 toc-link" data-title="Payment Initiation Services API">Payment Initiation Services API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getting-access" class="toc-h2 toc-link" data-title="Getting Access">Getting Access</a>
+                  </li>
+                  <li>
+                    <a href="#well-known-endpoints" class="toc-h2 toc-link" data-title="Well-Known Endpoints">Well-Known Endpoints</a>
+                  </li>
+                  <li>
+                    <a href="#base-urls" class="toc-h2 toc-link" data-title="Base URLs">Base URLs</a>
+                  </li>
+                  <li>
+                    <a href="#dynamic-client-registration" class="toc-h2 toc-link" data-title="Dynamic Client Registration">Dynamic Client Registration</a>
+                  </li>
+                  <li>
+                    <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
+                  </li>
+                  <li>
+                    <a href="#domestic-payments" class="toc-h2 toc-link" data-title="Domestic Payments">Domestic Payments</a>
+                  </li>
+                  <li>
+                    <a href="#scheduled-payments" class="toc-h2 toc-link" data-title="Scheduled Payments">Scheduled Payments</a>
+                  </li>
+                  <li>
+                    <a href="#standing-orders" class="toc-h2 toc-link" data-title="Standing Orders">Standing Orders</a>
+                  </li>
+                  <li>
+                    <a href="#international-payments" class="toc-h2 toc-link" data-title="International Payments">International Payments</a>
+                  </li>
+                  <li>
+                    <a href="#refund-accounts" class="toc-h2 toc-link" data-title="Refund Accounts">Refund Accounts</a>
+                  </li>
+                  <li>
+                    <a href="#rejected-payments" class="toc-h2 toc-link" data-title="Rejected Payments">Rejected Payments</a>
+                  </li>
+                  <li>
+                    <a href="#testing-in-the-sandbox" class="toc-h2 toc-link" data-title="Testing in the Sandbox">Testing in the Sandbox</a>
+                  </li>
+                  <li>
+                    <a href="#additional-help" class="toc-h2 toc-link" data-title="Additional Help">Additional Help</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#variable-recurring-payments-api" class="toc-h1 toc-link" data-title="Variable Recurring Payments API">Variable Recurring Payments API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#base-urls" class="toc-h2 toc-link" data-title="Base URLs">Base URLs</a>
+                  </li>
+                  <li>
+                    <a href="#domestic-variable-recurring-payments" class="toc-h2 toc-link" data-title="Domestic Variable Recurring Payments">Domestic Variable Recurring Payments</a>
+                  </li>
+                  <li>
+                    <a href="#testing-in-the-sandbox" class="toc-h2 toc-link" data-title="Testing in the Sandbox">Testing in the Sandbox</a>
+                  </li>
+                  <li>
+                    <a href="#additional-help" class="toc-h2 toc-link" data-title="Additional Help">Additional Help</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#confirmation-of-funds-api" class="toc-h1 toc-link" data-title="Confirmation of Funds API">Confirmation of Funds API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getting-access" class="toc-h2 toc-link" data-title="Getting Access">Getting Access</a>
+                  </li>
+                  <li>
+                    <a href="#well-known-endpoints" class="toc-h2 toc-link" data-title="Well-Known Endpoints">Well-Known Endpoints</a>
+                  </li>
+                  <li>
+                    <a href="#base-urls" class="toc-h2 toc-link" data-title="Base URLs">Base URLs</a>
+                  </li>
+                  <li>
+                    <a href="#dynamic-client-registration" class="toc-h2 toc-link" data-title="Dynamic Client Registration">Dynamic Client Registration</a>
+                  </li>
+                  <li>
+                    <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
+                  </li>
+                  <li>
+                    <a href="#confirmation-of-funds" class="toc-h2 toc-link" data-title="Confirmation of Funds">Confirmation of Funds</a>
+                  </li>
+                  <li>
+                    <a href="#additional-help" class="toc-h2 toc-link" data-title="Additional Help">Additional Help</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#open-banking-errors" class="toc-h1 toc-link" data-title="Open Banking Errors">Open Banking Errors</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#oberrorresponse1" class="toc-h2 toc-link" data-title="OBErrorResponse1">OBErrorResponse1</a>
+                  </li>
+                  <li>
+                    <a href="#oberror1" class="toc-h2 toc-link" data-title="OBError1">OBError1</a>
+                  </li>
+                  <li>
+                    <a href="#custom-codes" class="toc-h2 toc-link" data-title="Custom Codes">Custom Codes</a>
+                  </li>
+                  <li>
+                    <a href="#status-codes" class="toc-h2 toc-link" data-title="Status Codes">Status Codes</a>
+                  </li>
+                  <li>
+                    <a href="#rate-limiting" class="toc-h2 toc-link" data-title="Rate Limiting">Rate Limiting</a>
+                  </li>
+                  <li>
+                    <a href="#using-previous-errors" class="toc-h2 toc-link" data-title="Using Previous Errors">Using Previous Errors</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#sca-rts-ps21-19" class="toc-h1 toc-link" data-title="SCA-RTS (PS21/19)">SCA-RTS (PS21/19)</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#overview" class="toc-h2 toc-link" data-title="Overview">Overview</a>
+                  </li>
+                  <li>
+                    <a href="#contact" class="toc-h2 toc-link" data-title="Contact">Contact</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#eu-psd2-api" class="toc-h1 toc-link" data-title="EU PSD2 API">EU PSD2 API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#api-specification" class="toc-h2 toc-link" data-title="API Specification">API Specification</a>
+                  </li>
+                  <li>
+                    <a href="#supported-endpoints" class="toc-h2 toc-link" data-title="Supported Endpoints">Supported Endpoints</a>
+                  </li>
+                  <li>
+                    <a href="#well-known-endpoints" class="toc-h2 toc-link" data-title="Well-Known Endpoints">Well-Known Endpoints</a>
+                  </li>
+                  <li>
+                    <a href="#base-urls" class="toc-h2 toc-link" data-title="Base URLs">Base URLs</a>
+                  </li>
+                  <li>
+                    <a href="#dynamic-client-registration" class="toc-h2 toc-link" data-title="Dynamic Client Registration">Dynamic Client Registration</a>
+                  </li>
+                  <li>
+                    <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
+                  </li>
+                  <li>
+                    <a href="#certificates" class="toc-h2 toc-link" data-title="Certificates">Certificates</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+      <a href="https://github.com/monzo/docs/" title="Edit these docs on GitHub" id="github"><img src="../images/github-fabe53eb.png" alt="" /> Edit on GitHub</a>
+    </div>
+
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p>Monzo&#39;s Open Banking API allows licensed <a href="https://www.openbanking.org.uk/glossary/third-party-provider/">Third Party Providers</a> to access customer&#39;s accounts, to provide account information services, or to initiate payments.</p>
+
+<p>If you need support with Monzo&#39;s Open Banking API, please create a ticket on the <a href="https://directory.openbanking.org.uk/obieservicedesk/s/">Open Banking Service Desk</a>, or contact <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+
+<aside class="warning">
+    <strong>Not a licensed Open Banking Third Party Provider?</strong><br>
+    These are the docs for Monzo's Open Banking API. Check out <a href="/">the docs for our public developer API</a> that anyone can use.
+</aside>
+<h1 id='account-information-services-api'>Account Information Services API</h1>
+<p>The Account Information Services API lets authorised Account Information Service Providers access balances, transactions, 
+and more for our customers in the United Kingdom.</p>
+<h2 id='getting-access'>Getting Access</h2>
+<p>To get access to our Open Banking APIs, see the <strong>Dynamic Client Registration</strong> section below.</p>
+<h2 id='well-known-endpoints'>Well-Known Endpoints</h2>
+<p>We&#39;ve described the paths of our well-known endpoints for the Sandbox and Production environments below.</p>
+<h5 id='endpoints'>Endpoints</h5>
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Path</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code>https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+<tr>
+<td>Sandbox (EU)</td>
+<td><code>https://api.s101.nonprod-ffs.io/open-banking/eu/.well-known/openid-configuration</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code>https://api.monzo.com/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+</tbody></table>
+<h2 id='base-urls'>Base URLs</h2>
+<p>We&#39;ve included the Base URLs for our Sandbox and Production environments below.</p>
+<h5 id='base-urls-2'>Base URLs</h5>
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Base URL</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code>https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp</code></td>
+</tr>
+<tr>
+<td>Sandbox (EU)</td>
+<td><code>https://openbanking-s101.eu.monzo.com/open-banking/v3.1/aisp</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code>https://openbanking.monzo.com/open-banking/v3.1/aisp</code></td>
+</tr>
+</tbody></table>
+<h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
+<p>We have implemented the <code>POST /register</code> endpoint in version 3.2 of the Open Banking Dynamic Client Registration specification. You can find the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1078034771/Dynamic+Client+Registration+-+v3.2">full specification here</a>.</p>
+
+<p>You can find the appropriate URL and supported configuration in our <a href="#well-known-endpoints">well-known endpoints</a> for each environment.</p>
+<h2 id='authentication'>Authentication</h2>
+<p>As per the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/83919096/Open+Banking+Security+Profile+-+Implementer+s+Draft+v1.1.2">Open Banking specification</a>, 
+we use OAuth 2 and OpenID connect for authentication. We have implemented the redirect flow, with authentication taking 
+place in the customer&#39;s Monzo app.</p>
+
+<p>We only support the <code>tls_client_auth</code> authentication method.</p>
+<h2 id='accounts'>Accounts</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Account"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_0000AAca1egQMHUQX14Mt7"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Enabled"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"StatusUpdateDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-08-23T15:46:29.775Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"AccountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"AccountSubType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CurrentAccount"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal Account"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Account"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.SortCodeAccountNumber"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345699155454"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Camila McSimpburg"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.IBAN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB25MONZ12345699155454"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Camila McSimpburg"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"OpeningDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-08-23"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"SwitchStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.CASS.NotSwitched"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"Links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>We&#39;ve implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Accounts.html">Open Banking accounts specification</a>.</p>
+
+<p>Once you have a consent for a customer, you&#39;ll be able to see their:</p>
+
+<ul>
+<li>Personal (individual) accounts</li>
+<li>Joint accounts</li>
+<li>Business accounts</li>
+<li>Flex account</li>
+</ul>
+
+<p>If the account has been closed, it will still be returned in the response, but with an updated <code>Status</code>.</p>
+
+<aside class="notice">
+To access a customer's Pots, use the Pots endpoint described further on in this documentation.
+</aside>
+
+<p>Note that the fields we return as part of the response depend on whether your consent has the  <code>ReadAccountsBasic</code>
+or <code>ReadAccountsDetail</code> permission. In the former case, we will omit the account scheme data such as account number and sort code or IBAN.</p>
+<h3 id='business-account-company-types'>Business Account - Company types</h3>
+<p>Business account has company type, which is shown in the <code>Description</code> field:</p>
+
+<table><thead>
+<tr>
+<th>Company type</th>
+<th>Description field</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sole srader</td>
+<td><code>Sole Trader</code></td>
+</tr>
+<tr>
+<td>Private limited company</td>
+<td><code>Private Limited Company</code></td>
+</tr>
+</tbody></table>
+
+<p>Company type affects payment limits, see <a href="#domestic-payments-limits">Payment Initiation Services API - Domestic Payments Limits</a> for details.</p>
+<h2 id='balances'>Balances</h2>
+<p>We&#39;ve implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Balances.html">Open Banking balances specification</a>.</p>
+
+<p>When you query this endpoint, you&#39;ll see the customer&#39;s <code>InterimAvailable</code> balance. This is the same real-time balance 
+that our customers see in the Monzo app, and it includes pending and settled transactions.</p>
+
+<p>We support an optional query param <code>includePots</code>. When set to <code>true</code> an additional <code>Information</code> balance type will be returned. This balance will be the aggregated account balance made up of the main account balance plus the balance of each pot owned by the account.</p>
+<h3 id='flex'>Flex</h3>
+<p>When querying a flex&#39;s balance, you&#39;ll be returned two balances:</p>
+
+<ul>
+<li><p>The <code>InterimAvailable</code> balance: This is the current amount owed on the flex account. Its the amount the customer would need to pay today to pay off their flex.</p></li>
+<li><p>The <code>Information</code> balance: This is the current flex balance plus all future interest. Its the balance displayed within the Monzo app.</p></li>
+</ul>
+<h2 id='transactions'>Transactions</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_0000AAca1egQMHUQX14Mt7"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"TransactionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tx_0000AGpfr2kVwbONyQ4XFR"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"CreditDebitIndicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Credit"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Booked"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"BookingDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-02-25T10:35:39.636Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"TransactionInformation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mr. Payroll Services"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"150.0000"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"ProprietaryBankTransactionCode"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"Code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bacs"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"Issuer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Monzo"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"DebtorAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.SortCodeAccountNumber"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345612345678"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mr Payroll Service"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"SupplementaryData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"Declined"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"RawTransactionDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MR PAYROLL SERVICE"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"Links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts/acc_0000AAca1egQMHUQX14Mt7/transactions?fromBookingDateTime=2022-02-03T00%3A00%3A00"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>We&#39;ve implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Transactions.html">Open Banking transactions specification</a>.</p>
+
+<p>For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
+<a href="https://www.ietf.org/rfc/rfc3339.txt"><strong>RFC3339 format</strong></a>.</p>
+
+<p>Your consent needs to have either the <code>ReadTransactionsBasic</code> or <code>ReadTransactionsDetail</code> permissions to access 
+this endpoint.</p>
+
+<p>When you query this endpoint, you&#39;ll receive all of the transactions that the customer made in the date range specified 
+in the request. Like in the Monzo app, we organise transactions in this response based on creation (presentment) time,
+not the time the transaction settles.</p>
+
+<p>Transaction amounts can change after the transaction is first created, and you can use the <code>Status</code> field to help 
+identify transactions that are still pending.</p>
+
+<p>You&#39;ll only be allowed to fetch transactions that were made in the range defined by <code>TransactionFromDateTime</code> and 
+<code>TransactionToDateTime</code> in your consent. If you try to access transactions outside this range, it won&#39;t work.</p>
+
+<p><code>Rejected</code> transaction status was added in version 3.1.8 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.8/resources-and-data-models/aisp/Transactions.html">Open Banking transactions specification</a>.
+This status will begin to be returned from the AIS API on the 25th of September 2022.  </p>
+
+<p>By default, we return transactions oldest to newest - we refer to this as ascending order. To return transactions in reverse, or descending, order an additional query parameter can be provided as part of the <code>/transactions</code> request.
+Using <code>order=desc</code> will result in the transactions being returned newest to oldest. If you wish to keep transactions ordered oldest to newest then omit the <code>order</code> parameter or set <code>order=asc</code>. All <code>Links</code> will respect the omission or use of the <code>order</code> parameter.</p>
+
+<p>The <code>ProprietaryBankTransactionCode</code> property has two sub-properties: <code>Issuer</code> and <code>Code</code>. <code>Issuer</code> will always be set to Monzo, and the possible values for <code>Code</code> are listed below.</p>
+
+<ul>
+<li><code>3dsecure</code></li>
+<li><code>account_interest</code></li>
+<li><code>bacs</code></li>
+<li><code>card_delivery</code></li>
+<li><code>chaps</code></li>
+<li><code>collections_settlement</code></li>
+<li><code>emergency_cash</code></li>
+<li><code>faster_payments</code></li>
+<li><code>instalment_loan</code></li>
+<li><code>ledger_adjustment</code></li>
+<li><code>locked_money</code></li>
+<li><code>mastercard</code></li>
+<li><code>monzo_business_account_billing</code></li>
+<li><code>monzo_flex</code></li>
+<li><code>monzo_paid</code></li>
+<li><code>overdraft</code></li>
+<li><code>p2p_payment</code></li>
+<li><code>payport_faster_payments</code></li>
+<li><code>rbs_cheque</code></li>
+<li><code>sepa</code></li>
+<li><code>signup_referral</code></li>
+<li><code>spread_the_cost</code></li>
+<li><code>topup</code></li>
+<li><code>uk_business_pot</code></li>
+<li><code>uk_cash_deposits_paypoint</code></li>
+<li><code>uk_retail_pot</code></li>
+</ul>
+<h2 id='parties'>Parties</h2>
+<p>We&#39;ve implemented version 3.1.10. of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Parties.html">Open Banking parties specification</a></p>
+
+<p>We have implemented the <code>GET /party</code> and <code>GET /accounts/{accountId}/party</code> endpoints for reading details of the consent authoriser and <code>GET /accounts/{accountId}/parties</code> for reading the details of all account holders/owners. These endpoints return the IDs, preferred names, and legal names of account holders/owners.</p>
+
+<aside class="notice">
+You should use the customer's preferred name when you talk to them.
+</aside>
+
+<p>Your consent needs to have the <code>ReadPartyPSU</code> permission to access the <code>GET /party</code> endpoint and the <code>ReadParty</code> permission to access the <code>GET /account/{accountId}/parties</code> and <code>GET /account/{accountId}/party</code> endpoints.</p>
+
+<aside class="warning">
+<strong>Strong Customer Authentication Needed</strong><br/>
+If it's been more than 5 minutes since the customer completed Strong Customer Authentication with 
+your client, you'll get a Forbidden error when you try to access this endpoint.  
+</aside>
+<h2 id='pots'>Pots</h2>
+<p>Since Pots on Monzo have lots of additional properties that AISPs might find useful, we have implemented a Pots 
+endpoint as an extension to the Open Banking specification.</p>
+<h3 id='list-pots'>List Pots</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Pot"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"PotId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pot_00009g4AB7nItyHI3R7CVt"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_00009JrJEKwJrNqKfjwSS"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Savings"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"CreditDebitIndicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Debit"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.0000"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"Style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cassette"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Goal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.0000"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"Created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-02-21T17:13:39.315Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-02-21T17:13:39.315Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Open"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"PotId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pot_00009kIt1QKIXu98cu1RM9"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_00009JrJEKwJrNqKfjwSS"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bobs And Bits"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flexible_savings"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"CreditDebitIndicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Debit"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.0000"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"Style"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"ImageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Goal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9999.0000"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"Created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-28T11:10:29.478Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-28T11:11:09.173Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Open"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"PotId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pot_00009kIt8JXWB3R9bYUWkD"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_00009JrJEKwJrNqKfjwSS"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Savings Pot"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fixed_savings"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"CreditDebitIndicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Debit"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1100.0000"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"Style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cassette"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"LockType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"until_date"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"LockedUntil"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-07-01T00:00:00Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-28T11:11:44.195Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-28T11:11:44.195Z"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Open"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h5 id='endpoints-2'>Endpoints</h5>
+<table><thead>
+<tr>
+<th><span class="hide"></span></th>
+<th><span class="hide"></span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code>https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/pots</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code>https://openbanking.monzo.com/open-banking/v3.1/aisp/pots</code></td>
+</tr>
+</tbody></table>
+
+<p>Note that the fields we return as part of the response depend on whether your consent has the  <code>ReadAccountsBasic</code> 
+or <code>ReadAccountsDetailed</code> permission. In the former case, we will omit the Pot name and Image URL from the response.</p>
+
+<p>We&#39;ll only return open pots as part of our response. If a customer closes a pot, it won&#39;t appear in the response
+any more.</p>
+<h5 id='field-descriptions'>Field Descriptions</h5>
+<table><thead>
+<tr>
+<th>Field name</th>
+<th>Optional</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>PotId</td>
+<td>❌</td>
+<td>Unique ID representing the pot</td>
+<td>string</td>
+</tr>
+<tr>
+<td>AccountId</td>
+<td>❌</td>
+<td>Unique ID of the account that owns the pot</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>✅</td>
+<td>Pot&#39;s name</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>❌</td>
+<td>Type of pot: <code>default</code>, <code>flexible_savings</code>, <code>fixed_savings</code>, <code>instant_access</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td>CreditDebitIndicator</td>
+<td>❌</td>
+<td>Indicates whether the pot&#39;s balance is positive or negative</td>
+<td><code>OBCreditDebitCode</code></td>
+</tr>
+<tr>
+<td>Balance</td>
+<td>❌</td>
+<td>The pot&#39;s currency &amp; current balance</td>
+<td><code>OBActiveOrHistoricCurrencyAndAmount</code></td>
+</tr>
+<tr>
+<td>Style</td>
+<td>❌</td>
+<td>Internal ID for the cover image of the pot, if a custom image isn&#39;t set</td>
+<td>string</td>
+</tr>
+<tr>
+<td>ImageUrl</td>
+<td>✅</td>
+<td>URL to the pot&#39;s cover image</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Goal</td>
+<td>✅</td>
+<td>Customer&#39;s savings target for their pot</td>
+<td><code>OBActiveOrHistoricCurrencyAndAmount</code></td>
+</tr>
+<tr>
+<td>LockType</td>
+<td>✅</td>
+<td>Pot&#39;s lock type, if  locked will return <code>until_date</code></td>
+<td>string</td>
+</tr>
+<tr>
+<td>LockedUntil</td>
+<td>✅</td>
+<td>When the pot will unlock</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Created</td>
+<td>❌</td>
+<td>When the pot was created</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Updated</td>
+<td>❌</td>
+<td>When the pot was last updated</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Closed</td>
+<td>✅</td>
+<td>When the pot was closed</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>❌</td>
+<td>Pot&#39;s current status: <code>Open</code> or <code>Closed</code></td>
+<td>string</td>
+</tr>
+</tbody></table>
+<h2 id='direct-debits'>Direct Debits</h2>
+<p>We&#39;ve implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/direct-debits.html">Open Banking Direct Debits specification</a>.</p>
+
+<p>We have only implemented <code>GET /accounts/{AccountId}/direct-debits</code> endpoint.</p>
+
+<p>Your consent needs to have the <code>ReadDirectDebits</code> permission to access this endpoint.</p>
+
+<aside class="warning">
+<strong>Strong Customer Authentication and Direct Debits</strong><br/>
+If it's been more than 5 minutes since the customer completed Strong Customer Authentication, you'll only be able to
+access Direct Debits that were collected within the last 90 days.
+</aside>
+<h2 id='scheduled-payments'>Scheduled Payments</h2>
+<p>We&#39;ve implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/scheduled-payments.html">Open Banking Scheduled Payments specification</a>.</p>
+
+<p>We have only implemented <code>GET /accounts/{AccountId}/scheduled-payments</code> endpoint.</p>
+
+<p>Your consent needs to have either the <code>ReadScheduledPaymentsBasic</code> or <code>ReadScheduledPaymentsDetail</code> permissions to access this endpoint.</p>
+
+<aside class="info">
+<strong>Strong Customer Authentication and Scheduled Payments</strong><br/>
+You can access all scheduled payments as long as the customer has completed Strong Customer Authentication in the last
+90 days. 
+</aside>
+<h2 id='standing-orders'>Standing Orders</h2>
+<p>We&#39;ve implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/standing-orders.html">Open Banking Standing Orders specification</a>.</p>
+
+<p>We have only implemented <code>GET /accounts/{AccountId}/standing-orders</code> endpoint.</p>
+
+<p>Your consent needs to have either the <code>ReadStandingOrdersBasic</code> or <code>ReadStandingOrdersDetail</code> permissions to access this endpoint.</p>
+
+<aside class="warning">
+<strong>Strong Customer Authentication and Standing Orders</strong><br/>
+If it's been more than 5 minutes since the customer completed Strong Customer Authentication, you'll only be able to
+access standing orders that have been executed in the last 90 days. You'll also be able to access any standing orders
+where the first payment is in the future and hasn't yet been executed. 
+</aside>
+<h2 id='testing-in-the-sandbox'>Testing in the Sandbox</h2>
+<p>Our Sandbox environment is a handy playground where you can test your integration before putting it live.
+<strong>We run exactly the same code in our sandbox environment as we do production</strong> to make switching between 
+them as easy as possible.</p>
+
+<p>In the <strong>sandbox</strong> environment, you can automatically have account information consents approved or declined to 
+help with testing. To do this, you should set some specific fields in the <code>Data/SupplementaryData</code> object:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>{
+  "DesiredStatus": "Authorised",
+  "UserID": "user_000xxx"
+}
+</code></pre></div>
+<aside class="notice">
+The <code>Data/SupplementaryData</code> object in an Account Consent request is not part of the Open Banking 
+specification, but we accept it specifically in the Sandbox environment to mirror how we allow consent automatic 
+approval in the Payment Initiation API.
+</aside>
+<h3 id='sandbox-users'>Sandbox Users</h3><h4 id='heavy-user'>Heavy User</h4>
+<p>UserID: <code>user_0000A4C4ZChWNMEvew2U77</code>
+AccountID: <code>acc_0000A4C4ZSskDOixqNPfpR</code></p>
+<h4 id='medium-user'>Medium User</h4>
+<p>UserID: <code>user_0000A4C4nqORb7K9YYW3r0</code>
+AccountID: <code>acc_0000A4C4o66FCYJoERQhHN</code></p>
+<h4 id='light-user'>Light User</h4>
+<p>UserID: <code>user_0000A4C4wkPFE7x9at8Ujp</code>
+AccountID: <code>acc_0000A4C4wz4Ail0f3sONTV</code></p>
+<h4 id='eu-ireland-user'>EU (Ireland) User</h4>
+<p>UserID: <code>user_0000Av3bpksv3AAmdybBCr</code>
+AccountID: <code>acc_0000Av3bry7sn2XsI3eZ3C</code></p>
+<h2 id='additional-help'>Additional Help</h2>
+<p>The Open Banking team at Monzo manage the Account Information Services API. If you require additional assistance, email us at 
+<a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+<h1 id='payment-initiation-services-api'>Payment Initiation Services API</h1>
+<p>The Payment Initiation Services API lets authorised Payment Initiation Service Providers make outbound payments from 
+the accounts of our customers in the United Kingdom. All payments initiated through our Payment Initiation Services 
+API are sent through Faster Payments.</p>
+<h2 id='getting-access'>Getting Access</h2>
+<p>To get access to our Open Banking APIs, see the <strong>Dynamic Client Registration</strong> section below.</p>
+<h2 id='well-known-endpoints'>Well-Known Endpoints</h2>
+<p>We&#39;ve described the paths of our well-known endpoints for the Sandbox and Production environments below.</p>
+
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Path</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code>https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code>https://api.monzo.com/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+</tbody></table>
+<h2 id='base-urls'>Base URLs</h2>
+<p>We&#39;ve included the Base URLs for our Sandbox and Production environments below.</p>
+<h5 id='base-urls-2'>Base URLs</h5>
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Base URL</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code>https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/pisp</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code>https://openbanking.monzo.com/open-banking/v3.1/pisp</code></td>
+</tr>
+</tbody></table>
+<h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
+<p>We have implemented the <code>POST /register</code> endpoint in version 3.2 of the Open Banking Dynamic Client Registration specification. You can find the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1078034771/Dynamic+Client+Registration+-+v3.2">full specification here</a>.</p>
+
+<p>You can find the appropriate URL and supported configuration in our <a href="#well-known-endpoints">well-known endpoints</a> for each environment.</p>
+<h2 id='authentication'>Authentication</h2>
+<p>As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
+redirect flow, with authentication taking place in the customer&#39;s Monzo app.</p>
+
+<p>We only support the <code>tls_client_auth</code> authentication method.</p>
+
+<p>Once created, you&#39;ll need to turn any consent into a payment order within 24 hours. Once the consent is approved, you&#39;ll
+have one hour.</p>
+<h2 id='domestic-payments'>Domestic Payments</h2>
+<p>We&#39;ve implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/pisp/domestic-payments.html">Open Banking Domestic Payments specification</a>.</p>
+
+<p>When you request a consent for Domestic Payments, you should provide <code>UK.OBIE.FPS</code> as the <code>LocalInstrument</code>.</p>
+
+<p>We support account identification using <code>UK.OBIE.SortCodeAccountNumber</code>. We don&#39;t support identification using 
+<code>UK.OBIE.IBAN</code>.</p>
+
+<p>You can only make payments in <code>GBP</code>. We don&#39;t support other currencies.</p>
+
+<aside class="notice">
+If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
+</aside>
+<h3 id='domestic-payments-limits'>Domestic Payments Limits</h3>
+<p>There are default limits for daily outbound payments:</p>
+
+<table><thead>
+<tr>
+<th>Account type</th>
+<th>Default limit</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Personal</td>
+<td>£10000</td>
+</tr>
+<tr>
+<td>Joint</td>
+<td>£10000</td>
+</tr>
+<tr>
+<td>Business (sole trader)</td>
+<td>£25000</td>
+</tr>
+<tr>
+<td>Business (private limited company)</td>
+<td>£50000</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Please note that limits for business account are different depending on business company type.  See <a href="#business-account-company-types">Account Information Services API - Business company types</a> for details.
+</aside>
+
+<aside class="notice">
+Please note that these are <b>default</b> limits applied to payments and can be increased if asked by the customer.
+</aside>
+<h2 id='scheduled-payments'>Scheduled Payments</h2>
+<p>We&#39;ve implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/scheduled-payments.html">Open Banking Scheduled Payments specification</a>.</p>
+
+<p>For consistency with our internal systems and the rest of our API, you will need to provide times in <strong>RFC3339 format.</strong></p>
+
+<p>When you request a consent for Domestic Payments, you should provide <code>UK.OBIE.FPS</code> as the <code>LocalInstrument</code>.</p>
+
+<p>We support account identification using <code>UK.OBIE.SortCodeAccountNumber</code>. We don&#39;t support identification using 
+<code>UK.OBIE.IBAN</code>.</p>
+
+<p>At the moment, we don&#39;t support the <code>payment-details</code> endpoint.</p>
+
+<p>You can only make payments in <code>GBP</code>. We don&#39;t support other currencies.</p>
+
+<aside class="notice">
+All of our scheduled payments are sent in the early hours of the morning on the day you request.
+</aside>
+<h2 id='standing-orders'>Standing Orders</h2>
+<p>We have implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/standing-orders.html">Open Banking Standing Order specification</a>.</p>
+
+<p>For consistency with our internal systems and the rest of our API, you will need to provide times in <strong>RFC3339 format.</strong></p>
+
+<p>We support a subset of the standing order frequencies laid out in the specification. These are the same as the 
+frequencies we support in the Monzo app.</p>
+
+<table><thead>
+<tr>
+<th><span class="hide">Supported Frequency</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>EvryDay</code></td>
+<td>Every day (including weekends)</td>
+</tr>
+<tr>
+<td><code>IntrvlWkDay</code></td>
+<td>We allow the week interval to be <code>1</code> (every week), <code>2</code> (every 2 weeks) or <code>4</code> (every 4 weeks). We ignore the day specified, and instead repeat based on the day of the week of the <code>FirstPaymentDate</code>.</td>
+</tr>
+<tr>
+<td><code>IntrvlMnthDay</code></td>
+<td>We allow the month interval to be <code>1</code> (every month), <code>3</code> (every quarter) or <code>12</code> (every year). We ignore the day of month and repeat based on the day of month of the <code>FirstPaymentDate</code>.</td>
+</tr>
+</tbody></table>
+
+<p>We support account identification using <code>UK.OBIE.SortCodeAccountNumber</code>. We don&#39;t support identification using 
+<code>UK.OBIE.IBAN</code>.</p>
+
+<p>Since we use the <code>FirstPaymentDate</code> to decide when payments will repeat, we don&#39;t use the <code>RecurringPaymentDateTime</code> or 
+<code>RecurringPaymentAmount</code> fields. We&#39;ll return an error if you include them.</p>
+
+<p>You can make standing orders with an end date by specifying either a <code>NumberOfPayments</code> or a <code>FinalPaymentDateTime</code>, but
+we don&#39;t let you include both.</p>
+
+<p>At the moment, we don&#39;t support the <code>payment-details</code> endpoint.</p>
+
+<p>You can only make payments in <code>GBP</code>. We don&#39;t support other currencies.</p>
+<h2 id='international-payments'>International Payments</h2>
+<p>We&#39;ve implemented version 3.1.11 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.11/resources-and-data-models/pisp/international-payments.html">Open Banking International Payments specification</a>.</p>
+<h3 id='international-payment-consent'>International Payment Consent</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Data"</span><span class="p">:</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Initiation"</span><span class="p">:</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"CurrencyOfTransfer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"DestinationCountryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"EndToEndIdentification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FRESCO.21302.GFX.20"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"InstructionIdentification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACME413"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"LocalInstrument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.SEPACreditTransfer"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"CreditorAccount"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.IBAN"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB62MONZ12345708578920"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name Surname"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"ExchangeRateInformation"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"RateType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Indicative"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"UnitCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"InstructedAmount"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"RemittanceInformation"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FRESCO-101"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Unstructured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal ops code 5120101"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"ReadRefundAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yes"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"Risk"</span><span class="p">:</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"PaymentContextCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TransferToThirdParty"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"BeneficiaryAccountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Note that we only support indicative exchange rates (<code>ExchangeRateInformation.RateType</code> must be set to <code>Indicative</code>).</p>
+<h3 id='international-payment-currencies-and-rails-support'>International Payment currencies and rails support</h3>
+<p>The table below outlines the currencies and supported payment rails, along with the required parameters for the <code>Initiation</code> object (<code>-</code> indicates that the parameter is not required).</p>
+
+<table><thead>
+<tr>
+<th>CurrencyOfTransfer</th>
+<th>LocalInstrumentCode</th>
+<th>CreditorAccount.SchemeName</th>
+<th>CreditorAccount.Identification</th>
+<th>CreditorAccount.SecondaryIdentification</th>
+<th>CreditorAgent.SchemeName</th>
+<th>CreditorAgent.Identification</th>
+<th>Creditor.PostalAddress</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>AUD</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.NCC.AU</code></td>
+<td>BSB Code</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>AUD</td>
+<td>-</td>
+<td><code>UK.MONZO.BPAY</code></td>
+<td>Biller Pay Code</td>
+<td>Customer Reference Number</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td><code>Risk.BeneficiaryAccountType</code> must be <code>Business</code> or <code>BusinessSavingsAccount</code></td>
+</tr>
+<tr>
+<td>INR</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.NCC.IN</code></td>
+<td>IFSC Code</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>INR</td>
+<td>-</td>
+<td><code>UK.MONZO.UPI</code></td>
+<td>UPI ID (<code>customername@bank</code>)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>EUR</td>
+<td><code>UK.OBIE.SEPACreditTransfer</code></td>
+<td><code>UK.OBIE.IBAN</code></td>
+<td>IBAN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>EUR</td>
+<td><code>UK.OBIE.SWIFT</code></td>
+<td><code>UK.OBIE.IBAN</code></td>
+<td>IBAN</td>
+<td>-</td>
+<td><code>UK.OBIE.BICFI</code></td>
+<td>BIC</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>RON</td>
+<td>-</td>
+<td><code>UK.OBIE.IBAN</code></td>
+<td>IBAN</td>
+<td>-</td>
+<td><code>UK.OBIE.BICFI</code></td>
+<td>BIC</td>
+<td>Required</td>
+<td></td>
+</tr>
+<tr>
+<td>USD</td>
+<td><code>UK.MONZO.ABA</code></td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.NCC.US</code></td>
+<td>ABA Routing Number</td>
+<td>Required</td>
+<td></td>
+</tr>
+<tr>
+<td>USD</td>
+<td><code>UK.MONZO.FEDWIRE</code></td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.NCC.US</code></td>
+<td>Fedwire Routing Number</td>
+<td>Required</td>
+<td></td>
+</tr>
+<tr>
+<td>USD</td>
+<td><code>UK.OBIE.SWIFT</code></td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.BICFI</code></td>
+<td>BIC</td>
+<td>Required</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p><code>CreditorAccount.Name</code> is required for all currencies.</p>
+
+<p><code>Initiation.DestinationCountryCode</code> is required for all currencies.</p>
+
+<p>If <code>Creditor.PostalAddress</code> is required, the following fields must be provided:</p>
+
+<ul>
+<li><code>TownName</code></li>
+<li><code>PostCode</code></li>
+<li>Either <code>AddressLine</code> or <code>BuildingNumber</code> + <code>StreetName</code></li>
+</ul>
+
+<p><code>Risk.BeneficiaryAccountType</code> is required and supports the following values:
+  * <code>Personal</code>
+  * <code>JointPersonal</code>
+  * <code>PersonalSavingsAccount</code>
+  * <code>Business</code>
+  * <code>BusinessSavingsAccount</code></p>
+
+<p>For USD payments, the account type (<code>Checking</code> or <code>Savings</code>) is determined based on <code>Risk.BeneficiaryAccountType</code>.</p>
+
+<aside class="notice">
+If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
+</aside>
+<h3 id='international-payment-order'>International Payment Order</h3>
+<p>The consent&#39;s <code>CutOffDateTime</code> is set to 30 minutes after creation. A payment must be initiated within this timeframe (otherwise the payment order will be automatically rejected).</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Data"</span><span class="p">:</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ConsentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"obpispinternationalpaymentconsent_0000Ar128pFItDBIlaJ9fd"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Initiation"</span><span class="p">:</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"CurrencyOfTransfer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"DestinationCountryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"EndToEndIdentification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FRESCO.21302.GFX.20"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"InstructionIdentification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACME413"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"LocalInstrument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.SEPACreditTransfer"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"CreditorAccount"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.IBAN"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB62MONZ12345708578920"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name Surname"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"ExchangeRateInformation"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"RateType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Indicative"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"UnitCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"InstructedAmount"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"RemittanceInformation"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FRESCO-101"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Unstructured"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal ops code 5120101"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"Risk"</span><span class="p">:</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"PaymentContextCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TransferToThirdParty"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"BeneficiaryAccountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='refund-accounts'>Refund Accounts</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Initiation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"CreditorAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345612345678"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.SortCodeAccountNumber"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"ReadRefundAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yes"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>We have enabled reading refund account details as part of domestic and international payment consent resource creation, if requested by the PISP. To read the refund account details set the <code>ReadRefundAccount</code> field to <code>Yes</code> in the consent creation request.</p>
+
+<p>The refund account data will be returned in the payment order creation response. The name on the refund account should pass any confirmation of payee checks.</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Initiation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"CreditorAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.SortCodeAccountNumber"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345612345678"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"ConsentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"obpispdomesticpaymentconsent_0000AJ93jc7CkiSo8cYCzx"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"DomesticPaymentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"obdompayment_0000AJ93nDHX1aE8HE66YT"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"CreationDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-05T14:47:36.545Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"StatusUpdateDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-05T14:47:36.545Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ExpectedExecutionDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-05T14:47:36.545Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ExpectedSettlementDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-05T14:47:36.545Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Refund"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"Account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.SortCodeAccountNumber"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345612345678"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"First Last"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"Debtor"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"First Last"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.SortCodeAccountNumber"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345612345678"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"Links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/pisp/obpispdomesticpaymentconsent_0000AJ93jc7CkiSo8cYCzx"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div><h2 id='rejected-payments'>Rejected Payments</h2>
+<p>When a payment is rejected, we aim to provide TPPs with as much detail as possible. If available, the specific reason for the rejection will be included in the response. TPPs can find the rejection reason within the <code>RejectionReason</code> field in the following locations, depending on the type of payment:</p>
+
+<ul>
+<li>Single Immediate Payments (SIPs)
+
+<ul>
+<li><code>Data/Initiation/SupplementaryData</code> <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/pisp/domestic-payment-consents.html#obdomestic2">OBDomestic2</a></li>
+</ul></li>
+<li>Variable Recurring Payments (VRPs)
+
+<ul>
+<li><code>Data/Instruction/SupplementaryData</code> <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/vrp/domestic-vrps.html#obdomesticvrpinstruction">OBDomesticVRPInstruction</a></li>
+</ul></li>
+</ul>
+
+<table><thead>
+<tr>
+<th>Rejection Reason</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>Insufficient funds</code></td>
+<td>The account does not have enough funds to make the transfer.</td>
+</tr>
+<tr>
+<td><code>Something went wrong</code></td>
+<td>We&#39;ve retired making the payment, but have failed too many times</td>
+</tr>
+<tr>
+<td><code>FPS not acknowledged</code></td>
+<td>The beneficiary bank hasn&#39;t accepted our FPS message</td>
+</tr>
+<tr>
+<td><code>Additional security checks were not completed</code></td>
+<td>The customer either abandoned or cancelled the additional security check flow</td>
+</tr>
+<tr>
+<td><code>Payment reference contains offensive language</code></td>
+<td>We don&#39;t allow references to contain offensive language</td>
+</tr>
+<tr>
+<td><code>Payment limits exceeded</code></td>
+<td>The payment would exceed the customer&#39;s limits</td>
+</tr>
+<tr>
+<td><code>Scheme limits exceeded</code></td>
+<td>The payment would exceed the scheme&#39;s limit</td>
+</tr>
+</tbody></table>
+<h3 id='other-rejection-scenarios'>Other Rejection Scenarios</h3>
+<p>In some cases, we may not be able to provide specific details about why a payment was rejected. If none of the listed rejection reasons apply, you may encounter the following messages:</p>
+
+<p><strong>Please ask the customer to contact customer support</strong>:<br>
+For further details on the rejection, the customer will need to get in touch with Monzo&#39;s customer support team which they can do via the in-app chat.</p>
+
+<p><strong>Sorry, we&#39;re unable to provide additional information on why this payment was rejected</strong>:<br>
+In certain circumstances, we&#39;re unable to share any further information regarding why the payment was rejected.</p>
+<h2 id='testing-in-the-sandbox'>Testing in the Sandbox</h2>
+<p>In the <strong>sandbox</strong> environment, you can automatically have domestic payment requests approved or declined to help with testing. When creating the payment consent, you can add a <code>DesiredStatus</code> field to the <code>Data/Initiation/SupplementaryData</code> object in the consent request. You can set this field to <code>Authorised</code> or <code>Rejected</code>, depending on the behaviour you want.</p>
+
+<p>If you want your payment to come from a specific User and Account then you can also add those values, but you must add <strong>both</strong> or a random test User and Account is used instead.</p>
+
+<p>We require that the <code>SupplementaryData</code> content is provided in the same order between the consent creation request and the payment request.</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"DesiredStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Authorised"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"DesiredStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rejected"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"UserID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_000xxx"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"AccountID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account_000yyy"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='sandbox-users'>Sandbox Users</h3><h4 id='heavy-user'>Heavy User</h4>
+<p>UserID: <code>user_0000A4C4ZChWNMEvew2U77</code>
+AccountID: <code>acc_0000A4C4ZSskDOixqNPfpR</code></p>
+<h4 id='medium-user'>Medium User</h4>
+<p>UserID: <code>user_0000A4C4nqORb7K9YYW3r0</code>
+AccountID: <code>acc_0000A4C4o66FCYJoERQhHN</code></p>
+<h4 id='light-user'>Light User</h4>
+<p>UserID: <code>user_0000A4C4wkPFE7x9at8Ujp</code>
+AccountID: <code>acc_0000A4C4wz4Ail0f3sONTV</code></p>
+<h2 id='additional-help'>Additional Help</h2>
+<p>The Open Banking team at Monzo manage the Payment Initiation Services API. If you require additional assistance, email us at 
+<a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+<h1 id='variable-recurring-payments-api'>Variable Recurring Payments API</h1>
+<p>The Variable Recurring Payments (VRP) API lets authorised Payment Initiation Service Providers make outbound payments
+from the accounts of our customers in the United Kingdom. Variable Recurring Payments enable multiple payments to be
+made under a single long-lived consent without the need for authenticating and approving each payment. Further
+information on Variable Recurring Payments can be
+found <a href="https://www.openbanking.org.uk/variable-recurring-payments-vrps/">here</a>.</p>
+
+<p>All payments initiated through our Variable Recurring Payments API are sent through Faster Payments.</p>
+
+<p>We&#39;ve implemented v3.1.10 of
+the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/profiles/vrp-profile.html">Open Banking Domestic Variable Recurring Payments specification</a>
+. All endpoints and models are as outlined in the specifications.</p>
+<h3 id='base-urls'>Base URLs</h3>
+<p>We&#39;ve included the Base URLs for our Sandbox and Production environments below.</p>
+
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Base URL</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code>https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/pisp</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code>https://openbanking.monzo.com/open-banking/v3.1/pisp</code></td>
+</tr>
+</tbody></table>
+<h2 id='domestic-variable-recurring-payments'>Domestic Variable Recurring Payments</h2>
+<p>We&#39;ve implemented version 3.1.10 of
+the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/profiles/vrp-profile.html">Open Banking Domestic Variable Recurring Payments specification</a>
+. All endpoints and models are as outlined in the specifications.</p>
+
+<p>We support account identification using <code>UK.OBIE.SortCodeAccountNumber</code>. We don&#39;t support identification using
+<code>UK.OBIE.IBAN</code>.</p>
+
+<p>You can only make payments in <code>GBP</code>. We don&#39;t support other currencies.</p>
+<h3 id='omitted-endpoints'>Omitted Endpoints</h3>
+<p>We have omitted the implementation of <code>GET /domestic-vrps/{DomesticVRPId}/payment-details</code>.</p>
+<h3 id='variable-recurring-payment-consent-creation'>Variable Recurring Payment Consent Creation</h3>
+<p>We only support creating consents with a <code>PeriodicAlignment</code> of <code>Consent</code>. Additionally, we currently only
+allow <code>PeriodType</code> of <code>Day</code>, <code>Week</code>, <code>Month</code> and <code>Year</code>.</p>
+<h3 id='authentication'>Authentication</h3>
+<p>As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the
+redirect flow, with authentication taking place in the customer&#39;s Monzo app.</p>
+
+<p>We only support the <code>tls_client_auth</code> authentication method.</p>
+<h3 id='oauth2-tokens'>OAuth2 Tokens</h3>
+<p>We have extended our refresh token expiry for tokens associated with Variable Recurring Payment Consents to account for their long-lived nature.
+Refresh tokens will have an expiry of 3 years (26,280 hours). Access tokens will continue to expire after 30 hours.</p>
+<h2 id='testing-in-the-sandbox'>Testing in the Sandbox</h2>
+<p>In the <strong>sandbox</strong> environment, you can automatically have Variable Recurring Payment Consent requests approved or
+declined to help with testing. When creating the consent, you can add a <code>DesiredStatus</code> field to
+the <code>Data/ControlParameters/SupplementaryData</code> object in the consent request. You can set this field to <code>Authorised</code>
+or <code>Rejected</code>, depending on the behaviour you want.</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"DesiredStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Authorised"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='sandbox-users'>Sandbox Users</h3><h4 id='heavy-user'>Heavy User</h4>
+<p>UserID: <code>user_0000A4C4ZChWNMEvew2U77</code>
+AccountID: <code>acc_0000A4C4ZSskDOixqNPfpR</code></p>
+<h4 id='medium-user'>Medium User</h4>
+<p>UserID: <code>user_0000A4C4nqORb7K9YYW3r0</code>
+AccountID: <code>acc_0000A4C4o66FCYJoERQhHN</code></p>
+<h4 id='light-user'>Light User</h4>
+<p>UserID: <code>user_0000A4C4wkPFE7x9at8Ujp</code>
+AccountID: <code>acc_0000A4C4wz4Ail0f3sONTV</code></p>
+<h2 id='additional-help'>Additional Help</h2>
+<p>The Open Banking team at Monzo manage the Variable Recurring Payment API. If you require additional assistance, email
+us at
+<a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+<h1 id='confirmation-of-funds-api'>Confirmation of Funds API</h1>
+<p>The Confirmation of Funds API lets authorised Card Based Payment Instrument Issuers check that Monzo customers have 
+enough money for a purchase. </p>
+<h2 id='getting-access'>Getting Access</h2>
+<p>To get access to our Open Banking APIs, see the <strong>Dynamic Client Registration</strong> section below.</p>
+<h2 id='well-known-endpoints'>Well-Known Endpoints</h2>
+<p>We&#39;ve described the paths of our well-known endpoints for the Sandbox and Production environments below.</p>
+
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Path</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code>https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code>https://api.monzo.com/open-banking/.well-known/openid-configuration</code></td>
+</tr>
+</tbody></table>
+<h2 id='base-urls'>Base URLs</h2>
+<p>We&#39;ve included the Base URLs for our Sandbox and Production environments below.</p>
+<h5 id='base-urls-2'>Base URLs</h5>
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Base URL</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code>https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/cbpii</code></td>
+</tr>
+<tr>
+<td>Production</td>
+<td><code>https://openbanking.monzo.com/open-banking/v3.1/cbpii</code></td>
+</tr>
+</tbody></table>
+<h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
+<p>We have implemented the <code>POST /register</code> endpoint in version 3.2 of the Open Banking Dynamic Client Registration specification. You can find the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1078034771/Dynamic+Client+Registration+-+v3.2">full specification here</a>.</p>
+
+<p>You can find the appropriate URL and supported configuration in our <a href="#well-known-endpoints">well-known endpoints</a> for each environment.</p>
+<h2 id='authentication'>Authentication</h2>
+<p>As per the Open Banking specification, we use OAuth 2 and OpenID connect for authentication. We have implemented the 
+redirect flow, with authentication taking place in the customer&#39;s Monzo app.</p>
+
+<p>We only support the <code>tls_client_auth</code> authentication method.</p>
+<h2 id='confirmation-of-funds'>Confirmation of Funds</h2>
+<p>We have implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/profiles/confirmation-of-funds-api-profile.html">Open Banking Confirmation of Funds Specification</a>.</p>
+
+<p>We use the <strong>redirection flow</strong> for approving consents.</p>
+
+<p>You can identify a <code>DebtorAccount</code> using the <code>UK.OBIE.SortCodeAccountNumber</code> scheme. We&#39;ll return an error for any 
+other <code>SchemeName</code>.</p>
+
+<aside class="info">
+<strong>Strong Customer Authentication and Confirmation of Funds (CBPII)</strong><br/>
+Monzo will apply Strong Customer Authentication the first time we authenticate a customer for Confirmation of Funds
+(CBPII) consents. Since access is limited to information about the customer's balance, consents can be ongoing 
+and do <b>not</b> require the customer to regularly re-authenticate.
+</aside>
+<h2 id='additional-help'>Additional Help</h2>
+<p>The Open Banking team at Monzo manage the Confirmation of Funds API. If you require additional assistance, email us at 
+<a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+<h1 id='open-banking-errors'>Open Banking Errors</h1>
+<aside class="notice">
+    Currently this new error behaviour is only available in our sandbox environment with a production release to be scheduled at a later date. 
+</aside>
+
+<p>Our Open Banking APIs return errors in line with the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/profiles/read-write-data-api-profile.html#error-response-structure">Open Banking specification</a>.</p>
+<h2 id='oberrorresponse1'>OBErrorResponse1</h2>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Monzo Use</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Code</td>
+<td>Max40Text</td>
+<td>High level textual error code, to help categorise the errors.</td>
+<td>Custom error code with a format of <code>&lt;prefix.type&gt;</code></td>
+</tr>
+<tr>
+<td>Id</td>
+<td>Max40Text</td>
+<td>A unique reference for the error instance, for audit purposes, in case of unknown/unclassified errors.</td>
+<td>Internal trace identifier</td>
+</tr>
+<tr>
+<td>Message</td>
+<td>Max500Text</td>
+<td>Brief Error message, e.g., &#39;There is something wrong with the request parameters provided&#39;</td>
+<td>High level human readable category message</td>
+</tr>
+<tr>
+<td>Errors</td>
+<td><code>[]OBError1</code></td>
+<td></td>
+<td>Array with one <code>OBError1</code> element</td>
+</tr>
+</tbody></table>
+<h2 id='oberror1'>OBError1</h2>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Monzo Use</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ErrorCode</td>
+<td><code>OBErrorResponseError1Code</code></td>
+<td>Low level textual error code, e.g., UK.OBIE.Field.Missing</td>
+<td>OBIE error code (<code>UK.OBIE.XYZ</code>) or custom error code (<code>UK.MONZO.XYZ</code>)</td>
+</tr>
+<tr>
+<td>Message</td>
+<td>Max500Text</td>
+<td>A description of the error that occurred. e.g., &#39;A mandatory field isn&#39;t supplied&#39; or &#39;RequestedExecutionDateTime must be in future&#39;. OBIE doesn&#39;t standardise this field</td>
+<td>Human readable message that details the cause of the error</td>
+</tr>
+</tbody></table>
+
+<p>A full list of <code>OBErrorResponseError1Code</code> can be found <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/references/namespaced-enumerations.html#oberrorresponseerror1code">here</a>.</p>
+
+<aside class="notice">
+We've chosen not to implement the `Path` or `Url` properties of `OBError1`
+</aside>
+<h2 id='custom-codes'>Custom Codes</h2>
+<p>Due to limitations with <code>OBErrorResponseError1Code</code> we&#39;ve added two additional codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>UK.MONZO.Generic</code></td>
+<td>A generic code used when no specific code is suitable</td>
+</tr>
+<tr>
+<td><code>UK.MONZO.Forbidden</code></td>
+<td>Used when a request is authenticated but has insufficient permissions</td>
+</tr>
+</tbody></table>
+<h2 id='status-codes'>Status Codes</h2>
+<p>The error prefix of <code>OBErrorResponse1.Code</code> will always be paired with a status code as follows:</p>
+
+<table><thead>
+<tr>
+<th>Prefix Code</th>
+<th>Status Code</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>bad_request</code></td>
+<td>400</td>
+</tr>
+<tr>
+<td><code>bad_response</code></td>
+<td>406</td>
+</tr>
+<tr>
+<td><code>forbidden</code></td>
+<td>403</td>
+</tr>
+<tr>
+<td><code>internal_service</code></td>
+<td>500</td>
+</tr>
+<tr>
+<td><code>not_found</code></td>
+<td>404</td>
+</tr>
+<tr>
+<td><code>precondition_failed</code></td>
+<td>412</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td>504</td>
+</tr>
+<tr>
+<td><code>unauthorized</code></td>
+<td>401</td>
+</tr>
+<tr>
+<td><code>rate_limited</code></td>
+<td>429</td>
+</tr>
+</tbody></table>
+<h2 id='rate-limiting'>Rate Limiting</h2>
+<p>Monzo&#39;s Open Banking API enforces rate limits to maintain platform stability. We apply rate limits both at a platform-wide and TPP level.</p>
+<h3 id='tpp-rate-limiting'>TPP Rate Limiting</h3>
+<aside class="notice">
+100 requests per second per a TPP
+</aside>
+
+<p>This limit is shared across all endpoints of our Open Banking APIs and is applied collectively across all client IDs under the same organization ID.</p>
+<h3 id='platform-wide-rate-limiting'>Platform-Wide Rate Limiting</h3>
+<p>The platform-wide rate limit exists to prevent excessive load on our datastore. This type of rate limiting is not specific to an individual TPP but applies when the datastore is experiencing significantly high load and throttles traffic to reduce it.</p>
+
+<p>If your request is affected by platform-wide rate limiting, it is likely due to temporary high demand on our infrastructure. In this case, retrying the request after a short backoff period should work.</p>
+<h3 id='mapping-errors'>Mapping Errors</h3>
+<p>Our previous error structure included a <code>code</code> and <code>message</code>. These are now mapped to the new <code>OBErrorResponse1</code> as follows:</p>
+
+<table><thead>
+<tr>
+<th>Previous Feild</th>
+<th>New Feild</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>code</code></td>
+<td><code>OBErrorResponse1.Code</code></td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td><code>OBErrorResponse1.OBError1[0].Message</code></td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Previous Error Structure</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad_request.consent_status"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Consent is not authorised"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>New Error Structure</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bad_request.consent_status"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d3628722-749f-4fe9-76f9-f59844ad3714"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid consent status"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"ErrorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.Resource.InvalidConsentStatus"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Consent is not authorised"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='using-previous-errors'>Using Previous Errors</h2>
+<p>To revert to the previous error behavior, you can include an additional header <code>X-Open-Banking-Legacy-Errors</code> on each request. If this option does not meet your needs, please contact us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+
+<p>Once we are confident that TPPs have successfully migrated to the new error behavior, we will remove the opt-out functionality.</p>
+<h1 id='sca-rts-ps21-19'>SCA-RTS (PS21/19)</h1><h2 id='overview'>Overview</h2>
+<p>In November 2021, the FCA set out new rules for standards on Strong Customer Authentication (SCA) in a change to the Regulatory Technical Standards on Strong Customer Authentication and Secure Communication (SCA-RTS).</p>
+
+<p>We (Monzo) will release these changes as of 2022-08-01. This will not be a breaking change.</p>
+
+<p>Consents created before this date will expire after 90-days, as before. Consents created after this date will be long-lived. Please note, this change is only applicable to AIS consents.</p>
+
+<p>TPPs will still be able to provide an <code>ExpirationDateTime</code> on the consent request at which time the consent will expire. If this is not populated, the permissions will be long-lived.</p>
+<h2 id='contact'>Contact</h2>
+<p>If you have any queries about these changes then please contact <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+<h1 id='eu-psd2-api'>EU PSD2 API</h1>
+<aside class="notice">
+    Monzo's EU PSD2 Dedicated Interface API is currently only available for testing in the sandbox environment. Please get in touch with us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a> if you'd like to test out our APIs. Production API access will be available at a later date.
+</aside>
+<h2 id='api-specification'>API Specification</h2>
+<p>Like our UK Open Banking API, our EU PSD2 Dedicated Interface is also built to the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.11/profiles/read-write-data-api-profile.html">Open Banking spec</a>. This means the structure of requests and responses is for the most part the same, with any differences reflecting product differences between UK and EU regions.</p>
+<h2 id='supported-endpoints'>Supported Endpoints</h2>
+<p>Monzo&#39;s EU PSD2 API currently only supports Account Information Services. Payment Initiation Services and the Confirmation of Funds API (CBPII) will be available at a later date.</p>
+<h2 id='well-known-endpoints'>Well-Known Endpoints</h2>
+<p>The Well-Known Endpoints differ from the UK API, and can be seen below:</p>
+<h5 id='endpoints'>Endpoints</h5>
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Path</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code>https://api.s101.nonprod-ffs.io/open-banking/eu/.well-known/openid-configuration</code></td>
+</tr>
+</tbody></table>
+<h2 id='base-urls'>Base URLs</h2>
+<p>The Base URLs also differ, with sandbox now on <code>openbanking-s101.eu.monzo.com</code></p>
+<h5 id='base-urls-2'>Base URLs</h5>
+<table><thead>
+<tr>
+<th><span class="hide">Environment</span></th>
+<th><span class="hide">Base URL</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox</td>
+<td><code>https://openbanking-s101.eu.monzo.com/open-banking/v3.1/aisp</code></td>
+</tr>
+</tbody></table>
+<h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
+<p>We have implemented the <code>POST /register</code> endpoint in version 3.2 of the Open Banking Dynamic Client Registration specification. You can find the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1078034771/Dynamic+Client+Registration+-+v3.2">full specification here</a>.</p>
+
+<p>You can find the appropriate URL and supported configuration in our well known endpoint above. </p>
+
+<p>Differing from DCR requests in the UK, TPPs not registered with the Open Banking directory must use a self-signed (or not signed) SSA. This is where the <code>alg</code> claim is set to <code>none</code></p>
+<h3 id='example-dcr-request'>Example DCR Request</h3>
+<blockquote>
+<p>Header</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8ilr3X9lD-oE19ggCRv_ITpSQQc"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"application_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"web"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"aud"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PSDIE-CBI-000000"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"exp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1742552600</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"grant_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"client_credentials"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"authorization_code"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"refresh_token"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1742549000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id_token_signed_response_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"278BE778-DCAE-4F7C-9713-89C338F7331C"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"jti"</span><span class="p">:</span><span class="w"> </span><span class="s2">"279B865B-554E-48E7-89A4-D2705BC607AF"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"redirect_uris"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"https://verify-s101.eu.monzo.com/open-banking/callback"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"request_object_signing_alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PS256"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"response_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"code id_token"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid accounts"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"278BE778-DCAE-4F7C-9713-89C338F7331C"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"software_statement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJub25lIiwia2lkIjoiIiwidHlwIjoiSldUIn0.eyJpc3MiOiJNb256byBCYW5rIEx0ZCIsImlhdCI6MTc0MjU0OTAwMCwianRpIjoiIiwic29mdHdhcmVfZW52aXJvbm1lbnQiOiJzYW5kYm94Iiwic29mdHdhcmVfbW9kZSI6IlRlc3QiLCJzb2Z0d2FyZV9pZCI6IjI3OEJFNzc4LURDQUUtNEY3Qy05NzEzLTg5QzMzOEY3MzMxQyIsInNvZnR3YXJlX2NsaWVudF9pZCI6IjI3OEJFNzc4LURDQUUtNEY3Qy05NzEzLTg5QzMzOEY3MzMxQyIsInNvZnR3YXJlX2NsaWVudF9uYW1lIjoiTW9uem8iLCJzb2Z0d2FyZV9jbGllbnRfZGVzY3JpcHRpb24iOiJNYW5hZ2UgeW91ciBtb25leSBpbiBvbmUgcGxhY2UiLCJzb2Z0d2FyZV92ZXJzaW9uIjoiMS4wIiwic29mdHdhcmVfY2xpZW50X3VyaSI6Imh0dHBzOi8vZGV2ZWxvcGVycy5tb256by5jb20iLCJzb2Z0d2FyZV9yZWRpcmVjdF91cmlzIjpbImh0dHBzOi8vdmVyaWZ5LXMxMDEuZXUubW9uem8uY29tL29wZW4tYmFua2luZy9jYWxsYmFjayJdLCJzb2Z0d2FyZV9yb2xlcyI6WyJBSVNQIl0sIm9yZ2FuaXNhdGlvbl9jb21wZXRlbnRfYXV0aG9yaXR5X2NsYWltcyI6eyJhdXRob3JpdHlfaWQiOiJGQ0FHQlIiLCJyZWdpc3RyYXRpb25faWQiOiI3MzA0MjciLCJzdGF0dXMiOiJBY3RpdmUiLCJhdXRob3Jpc2F0aW9ucyI6W3sibWVtYmVyX3N0YXRlIjoiR0IiLCJyb2xlcyI6WyJQSVNQIiwiQUlTUCIsIkFTUFNQIl19LHsibWVtYmVyX3N0YXRlIjoiSUUiLCJyb2xlcyI6WyJQSVNQIiwiQUlTUCIsIkFTUFNQIl19LHsibWVtYmVyX3N0YXRlIjoiTkwiLCJyb2xlcyI6WyJBU1BTUCIsIlBJU1AiLCJBSVNQIl19XX0sInNvZnR3YXJlX2xvZ29fdXJpIjoiaHR0cHM6Ly9wdWJsaWMtaW1hZ2VzLm1vbnpvLmNvbS9sb2dvL2F2YXRhcl9ibHVlLnBuZyIsIm9yZ19zdGF0dXMiOiJBY3RpdmUiLCJvcmdfaWQiOiJQU0RJRS1DQkktMDAwMDAwIiwib3JnX25hbWUiOiJNb256byBCYW5rIExpbWl0ZWQiLCJvcmdfY29udGFjdHMiOlt7Im5hbWUiOiJUZWNobmljYWwiLCJlbWFpbCI6Im9wZW5iYW5raW5nQG1vbnpvLmNvbSIsInBob25lIjoiMDc1NTMxMjM4MDciLCJ0eXBlIjoiVGVjaG5pY2FsIn0seyJuYW1lIjoiQnVzaW5lc3MiLCJlbWFpbCI6Im9wZW5iYW5raW5nQG1vbnpvLmNvbSIsInBob25lIjoiMDc1NTMxMjM4MDciLCJ0eXBlIjoiQnVzaW5lc3MifV0sIm9yZ19qd2tzX2VuZHBvaW50IjoiaHR0cHM6Ly9hcGkuczEwMS5ub25wcm9kLWZmcy5pby9vcGVuLWJhbmtpbmcvZXUvandrcy5qc29uIiwib3JnX2p3a3NfcmV2b2tlZF9lbmRwb2ludCI6IiIsInNvZnR3YXJlX2p3a3NfZW5kcG9pbnQiOiIiLCJzb2Z0d2FyZV9qd2tzX3Jldm9rZWRfZW5kcG9pbnQiOiIiLCJzb2Z0d2FyZV9wb2xpY3lfdXJpIjoiaHR0cHM6Ly9tb256by5jb20vbGVnYWwvdGVybXMtYW5kLWNvbmRpdGlvbnMiLCJzb2Z0d2FyZV90b3NfdXJpIjoiaHR0cHM6Ly9tb256by5jb20vbGVnYWwvdGVybXMtYW5kLWNvbmRpdGlvbnMiLCJzb2Z0d2FyZV9vbl9iZWhhbGZfb2Zfb3JnIjoiIn0."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tls_client_auth_subject_dn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C=GB,O=Monzo Bank Limited,organizationIdentifier=PSDIE-CBI-000000,CN=monzo.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"token_endpoint_auth_method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tls_client_auth"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Notes on specific fields: </p>
+<h4 id='header'>Header</h4>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>alg</code></td>
+<td>Must be <code>&quot;PS256&quot;</code></td>
+</tr>
+<tr>
+<td><code>typ</code></td>
+<td>Must be <code>&quot;jwt&quot;</code></td>
+</tr>
+</tbody></table>
+<h4 id='body'>Body</h4>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>software_id</code></td>
+<td>Must be a valid v4 UUID</td>
+</tr>
+<tr>
+<td><code>scope</code></td>
+<td>As only the AIS API is currently supported, must be <code>&quot;openid accounts&quot;</code></td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Header</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='example-ssa'>Example SSA</h3>
+<blockquote>
+<p>Body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Monzo Bank Ltd"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1742549000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"software_environment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sandbox"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"software_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"278BE778-DCAE-4F7C-9713-89C338F7331C"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"software_client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"278BE778-DCAE-4F7C-9713-89C338F7331C"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"software_client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Monzo"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"software_client_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Manage your money in one place"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"software_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"software_client_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://developers.monzo.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"software_redirect_uris"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"https://verify-s101.eu.monzo.com/open-banking/callback"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"software_roles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"AISP"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"organisation_competent_authority_claims"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"authority_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FCAGBR"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"registration_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"730427"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"authorisations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"member_state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IE"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"roles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"PISP"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"AISP"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"ASPSP"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"software_logo_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-images.monzo.com/logo/avatar_blue.png"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"org_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"org_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PSDIE-CBI-000000"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"org_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Monzo Bank Limited"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"org_contacts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Technical"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openbanking@monzo.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07553123807"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Technical"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Business"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openbanking@monzo.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07553123807"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Business"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"org_jwks_endpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.s101.nonprod-ffs.io/open-banking/eu/jwks.json"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"software_policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://monzo.com/legal/terms-and-conditions"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"software_tos_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://monzo.com/legal/terms-and-conditions"</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Notes on specific fields: </p>
+<h4 id='header-2'>Header</h4>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>alg</code></td>
+<td>Must be set to <code>&quot;none&quot;</code> for a self signed software statement, otherwise <code>&quot;PS256&quot;</code></td>
+</tr>
+<tr>
+<td><code>typ</code></td>
+<td>Must be <code>&quot;jwt&quot;</code></td>
+</tr>
+</tbody></table>
+<h4 id='body-2'>Body</h4>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>software_id</code></td>
+<td>Must be a valid v4 UUID</td>
+</tr>
+<tr>
+<td><code>org_id</code></td>
+<td>PSD2 Authorization Number, e.g. <code>&quot;PSDIE-CBI-123456&quot;</code></td>
+</tr>
+</tbody></table>
+
+<p>As per the example in the DCR request above, this should be included in base64 format, ending in <code>.</code> to signify a self signed SSA.</p>
+<h2 id='authentication'>Authentication</h2>
+<p>As per the <a href="https://openbanking.atlassian.net/wiki/spaces/DZ/pages/83919096/Open+Banking+Security+Profile+-+Implementer+s+Draft+v1.1.2">Open Banking specification</a>, 
+we use OAuth 2 and OpenID connect for authentication. We have implemented the redirect flow, with authentication taking 
+place in the customer&#39;s Monzo app.</p>
+
+<p>We only support the <code>tls_client_auth</code> authentication method. </p>
+
+<p>As per the Well-Known endpoint above, note the <code>authorization_endpoint</code> for the sandbox is <code>https://verify-s101.eu.monzo.com/open-banking/authorize</code></p>
+<h2 id='certificates'>Certificates</h2>
+<p>We expect the use of eIDAS QWAC and QSealC certificates issued by a QTSP. We currently have a manually maintained allow-list of trusted QTSPs. If we don&#39;t currently trust the QTSP that issues your certificate, then please get in touch at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+          </div>
+      </div>
+    </div>
+    <!-- Google Analytics -->
+    <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-63104269-1');ga('send','pageview');
+    </script>
+  </body>
+</html>
