@@ -16,6 +16,7 @@ We've described the paths of our well-known endpoints for the Sandbox and Produc
 <span class="hide">Environment</span> | <span class="hide">Path</span>
 ------------------------------------|--------------------------------------
 Sandbox | `https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration`
+Sandbox (EU) | `https://api.s101.nonprod-ffs.io/open-banking/eu/.well-known/openid-configuration`
 Production | `https://api.monzo.com/open-banking/.well-known/openid-configuration`
 
 ## Base URLs
@@ -28,13 +29,14 @@ We've included the Base URLs for our Sandbox and Production environments below.
 <span class="hide">Environment</span> | <span class="hide">Base URL</span>
 ------------------------------------|--------------------------------------
 Sandbox | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp`
+Sandbox (EU) | `https://openbanking-s101.eu.monzo.com/open-banking/v3.1/aisp`
 Production | `https://openbanking.monzo.com/open-banking/v3.1/aisp`
 
 ## Dynamic Client Registration
 
 We have implemented the `POST /register` endpoint in version 3.2 of the Open Banking Dynamic Client Registration specification. You can find the [full specification here](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/1078034771/Dynamic+Client+Registration+-+v3.2).
 
-You can find the appropriate URL and supported configuration in our [well-known endpoints](/#well-known-endpoints) for each environment.
+You can find the appropriate URL and supported configuration in our [well-known endpoints](#well-known-endpoints) for each environment.
 
 ## Authentication
 
@@ -422,6 +424,10 @@ AccountID: `acc_0000A4C4o66FCYJoERQhHN`
 #### Light User
 UserID: `user_0000A4C4wkPFE7x9at8Ujp`
 AccountID: `acc_0000A4C4wz4Ail0f3sONTV`
+
+#### EU (Ireland) User
+UserID: `user_0000Av3bpksv3AAmdybBCr`
+AccountID: `acc_0000Av3bry7sn2XsI3eZ3C`
 
 ## Additional Help
 
