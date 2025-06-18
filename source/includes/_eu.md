@@ -1,10 +1,9 @@
 # EU PSD2 API
 
 <aside class="notice">
-    Monzo's EU PSD2 Dedicated Interface API is currently only available for testing in the sandbox environment. Production API access will be available at a later date. 
+    Monzo's EU PSD2 Dedicated Interface API is currently only available for testing in the sandbox environment. Please get in touch with us at <openbanking@monzo.com> if you'd like to test out our APIs. Production API access will be available at a later date.
 </aside>
 
-Our Open Banking APIs return errors in line with the [Open Banking specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/profiles/read-write-data-api-profile.html#error-response-structure).
 
 ## API Specification
 
