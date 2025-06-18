@@ -16,6 +16,7 @@ We've described the paths of our well-known endpoints for the Sandbox and Produc
 <span class="hide">Environment</span> | <span class="hide">Path</span>
 ------------------------------------|--------------------------------------
 Sandbox | `https://api.s101.nonprod-ffs.io/open-banking/.well-known/openid-configuration`
+Sandbox (EU) | `https://api.s101.nonprod-ffs.io/open-banking/eu/.well-known/openid-configuration`
 Production | `https://api.monzo.com/open-banking/.well-known/openid-configuration`
 
 ## Base URLs
@@ -28,6 +29,7 @@ We've included the Base URLs for our Sandbox and Production environments below.
 <span class="hide">Environment</span> | <span class="hide">Base URL</span>
 ------------------------------------|--------------------------------------
 Sandbox | `https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp`
+Sandbox (EU) | `https://openbanking-s101.eu.monzo.com/open-banking/v3.1/aisp`
 Production | `https://openbanking.monzo.com/open-banking/v3.1/aisp`
 
 ## Dynamic Client Registration
