@@ -425,6 +425,10 @@ AccountID: `acc_0000A4C4o66FCYJoERQhHN`
 UserID: `user_0000A4C4wkPFE7x9at8Ujp`
 AccountID: `acc_0000A4C4wz4Ail0f3sONTV`
 
+#### EU (Ireland) User
+UserID: `user_0000Av3bpksv3AAmdybBCr`
+AccountID: `acc_0000Av3bry7sn2XsI3eZ3C`
+
 ## Additional Help
 
 The Open Banking team at Monzo manage the Account Information Services API. If you require additional assistance, email us at 
