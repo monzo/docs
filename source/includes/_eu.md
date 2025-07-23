@@ -205,3 +205,76 @@ As per the Well-Known endpoint above, note the `authorization_endpoint` for the 
 ## Certificates
 
 We expect the use of eIDAS QWAC and QSealC certificates issued by a QTSP. We currently have a manually maintained allow-list of trusted QTSPs. If we don't currently trust the QTSP that issues your certificate, then please get in touch at <openbanking@monzo.com>.
+
+## EU Account Information Services API
+
+It works in the same way as described in the <a href="/open-banking/#account-information-services-api">Account Information Services API</a>, with some differences outlined below.
+
+### EU Accounts
+
+See the <a href="/open-banking/#accounts">Accounts</a> section.
+
+* In the EU, a customer's pots are returned as accounts.
+
+> Example of a Current Account and Pot returned:
+
+```json
+ {
+  "Data": {
+    "Account": [
+      {
+        "AccountId": "acc_0000AvDK9NmomdubVdW9jd",
+        "Status": "Enabled",
+        "StatusUpdateDateTime": "2025-06-17T07:09:35.3Z",
+        "Currency": "EUR",
+        "AccountType": "Personal",
+        "AccountSubType": "CurrentAccount",
+        "Description": "Personal Account",
+        "Account":
+        [
+          {
+            "SchemeName": "UK.OBIE.IBAN",
+            "Identification": "IE05MONZ00000003102060",
+            "Name": "Camila McSimpburg"
+          }
+        ],
+        "OpeningDate": "2025-06-17",
+        "SwitchStatus": "UK.CASS.NotSwitched"
+      },
+      {
+        "AccountId": "acc_0000Avmn7n4tTdiAoOXbe5",
+        "Status": "Enabled",
+        "StatusUpdateDateTime": "2025-07-04T09:49:08.53Z",
+        "Currency": "EUR",
+        "AccountType": "Personal",
+        "AccountSubType": "Savings",
+        "Description": "Personal Pot",
+        "Account":
+        [
+          {
+            "SchemeName": "",
+            "Identification": "",
+            "Name": "Holiday"
+          }
+        ],
+        "OpeningDate": "2025-07-04",
+    },
+    ]
+  },
+  "Links": {
+    "Self": "https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts"
+  },
+  "Meta": {}
+}
+```
+
+### EU Balances
+See  <a href="/open-banking/#balances">Balances</a> section.
+
+* `includePots` parameter is not supported, as pots are presented as separate accounts in the EU.
+
+### EU Pots
+
+<aside class="warning">
+    We do not support the <a href="/open-banking/#pots">pots endpoint</a> for the EU. Please use the <a href="/open-banking/#eu-accounts">EU Accounts endpoint</a> to fetch the list of pots.
+</aside>
