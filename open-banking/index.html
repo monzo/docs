@@ -504,6 +504,9 @@
                   <li>
                     <a href="#certificates" class="toc-h2 toc-link" data-title="Certificates">Certificates</a>
                   </li>
+                  <li>
+                    <a href="#eu-account-information-services-api" class="toc-h2 toc-link" data-title="EU Account Information Services API">EU Account Information Services API</a>
+                  </li>
               </ul>
           </li>
       </ul>
@@ -2126,6 +2129,75 @@ place in the customer&#39;s Monzo app.</p>
 <p>As per the Well-Known endpoint above, note the <code>authorization_endpoint</code> for the sandbox is <code>https://verify-s101.eu.monzo.com/open-banking/authorize</code></p>
 <h2 id='certificates'>Certificates</h2>
 <p>We expect the use of eIDAS QWAC and QSealC certificates issued by a QTSP. We currently have a manually maintained allow-list of trusted QTSPs. If we don&#39;t currently trust the QTSP that issues your certificate, then please get in touch at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+<h2 id='eu-account-information-services-api'>EU Account Information Services API</h2>
+<p>It works in the same way as described in the <a href="/open-banking/#account-information-services-api">Account Information Services API</a>, with some differences outlined below.</p>
+<h3 id='eu-accounts'>EU Accounts</h3>
+<p>See the <a href="/open-banking/#accounts">Accounts</a> section.</p>
+
+<ul>
+<li>In the EU, a customer&#39;s pots are returned as accounts.</li>
+</ul>
+
+<blockquote>
+<p>Example of a Current Account and Pot returned:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Account"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_0000AvDK9NmomdubVdW9jd"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Enabled"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"StatusUpdateDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-06-17T07:09:35.3Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"AccountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"AccountSubType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CurrentAccount"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal Account"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Account"</span><span class="p">:</span><span class="w">
+        </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.OBIE.IBAN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IE05MONZ00000003102060"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Camila McSimpburg"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"OpeningDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-06-17"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"SwitchStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.CASS.NotSwitched"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_0000Avmn7n4tTdiAoOXbe5"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Enabled"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"StatusUpdateDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-07-04T09:49:08.53Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"AccountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"AccountSubType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Savings"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal Pot"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Account"</span><span class="p">:</span><span class="w">
+        </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Holiday"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"OpeningDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-07-04"</span><span class="p">,</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"Links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://openbanking.s101.nonprod-ffs.io/open-banking/v3.1/aisp/accounts"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='eu-balances'>EU Balances</h3>
+<p>See  <a href="/open-banking/#balances">Balances</a> section.</p>
+
+<ul>
+<li><code>includePots</code> parameter is not supported, as pots are presented as separate accounts in the EU.</li>
+</ul>
+<h3 id='eu-pots'>EU Pots</h3>
+<aside class="warning">
+    We do not support the <a href="/open-banking/#pots">pots endpoint</a> for the EU. Please use the <a href="/open-banking/#eu-accounts">EU Accounts endpoint</a> to fetch the list of pots.
+</aside>
 
       </div>
       <div class="dark-box">
