@@ -11,7 +11,7 @@ Like our UK Open Banking API, our EU PSD2 Dedicated Interface is also built to t
 
 ## Supported Endpoints
 
-Monzo's EU PSD2 API currently only supports Account Information Services. Payment Initiation Services and the Confirmation of Funds API (CBPII) will be available at a later date.
+Monzo's EU PSD2 API currently only supports Account Information Services (AIS) and Confirmation of Funds API (CBPII). Payment Initiation Services (PIS) will be available at a later date.
 
 ## Well-Known Endpoints
 
@@ -30,9 +30,10 @@ The Base URLs also differ, with sandbox now on `openbanking-s101.eu.monzo.com`
 
 ##### Base URLs
 
-<span class="hide">Environment</span> | <span class="hide">Base URL</span>
-------------------------------------|--------------------------------------
-Sandbox | `https://openbanking-s101.eu.monzo.com/open-banking/v3.1/aisp`
+<span class="hide">Service</span>  | <span class="hide">Environment</span> | <span class="hide">Base URL</span>
+-----------------------------------|---------------------------------------|--------------------------------------
+AIS   | Sandbox | `https://openbanking-s101.eu.monzo.com/open-banking/v3.1/aisp`
+CBPII | Sandbox | `https://openbanking-s101.eu.monzo.com/open-banking/v3.1/cbpii`
 
 ## Dynamic Client Registration
 
@@ -278,3 +279,14 @@ See  <a href="/open-banking/#balances">Balances</a> section.
 <aside class="warning">
     We do not support the <a href="/open-banking/#pots">pots endpoint</a> for the EU. Please use the <a href="/open-banking/#eu-accounts">EU Accounts endpoint</a> to fetch the list of pots.
 </aside>
+
+## EU Confirmation of Funds API
+
+It works in the same way as described in the <a href="/open-banking/#confirmation-of-funds-api">Confirmation of Funds API</a>, with some differences outlined below.
+
+### EU Confirmation of Funds
+
+See  <a href="/open-banking/#confirmation-of-funds">Confirmation of Funds</a> section.
+
+* You can identify a `DebtorAccount` using the `UK.OBIE.IBAN` scheme. We will return an error for any other `SchemeName`.
+* In the EU, a customer's pots are considered accounts, so you can identify them in the `DebtorAccount` section.
