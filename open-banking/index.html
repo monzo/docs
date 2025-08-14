@@ -507,6 +507,9 @@
                   <li>
                     <a href="#eu-account-information-services-api" class="toc-h2 toc-link" data-title="EU Account Information Services API">EU Account Information Services API</a>
                   </li>
+                  <li>
+                    <a href="#eu-confirmation-of-funds-api" class="toc-h2 toc-link" data-title="EU Confirmation of Funds API">EU Confirmation of Funds API</a>
+                  </li>
               </ul>
           </li>
       </ul>
@@ -1909,7 +1912,7 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 <h2 id='api-specification'>API Specification</h2>
 <p>Like our UK Open Banking API, our EU PSD2 Dedicated Interface is also built to the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.11/profiles/read-write-data-api-profile.html">Open Banking spec</a>. This means the structure of requests and responses is for the most part the same, with any differences reflecting product differences between UK and EU regions.</p>
 <h2 id='supported-endpoints'>Supported Endpoints</h2>
-<p>Monzo&#39;s EU PSD2 API currently only supports Account Information Services. Payment Initiation Services and the Confirmation of Funds API (CBPII) will be available at a later date.</p>
+<p>Monzo&#39;s EU PSD2 API currently only supports Account Information Services (AIS) and Confirmation of Funds API (CBPII). Payment Initiation Services (PIS) will be available at a later date.</p>
 <h2 id='well-known-endpoints'>Well-Known Endpoints</h2>
 <p>The Well-Known Endpoints differ from the UK API, and can be seen below:</p>
 <h5 id='endpoints'>Endpoints</h5>
@@ -1929,13 +1932,20 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 <h5 id='base-urls-2'>Base URLs</h5>
 <table><thead>
 <tr>
+<th><span class="hide">Service</span></th>
 <th><span class="hide">Environment</span></th>
 <th><span class="hide">Base URL</span></th>
 </tr>
 </thead><tbody>
 <tr>
+<td>AIS</td>
 <td>Sandbox</td>
 <td><code>https://openbanking-s101.eu.monzo.com/open-banking/v3.1/aisp</code></td>
+</tr>
+<tr>
+<td>CBPII</td>
+<td>Sandbox</td>
+<td><code>https://openbanking-s101.eu.monzo.com/open-banking/v3.1/cbpii</code></td>
 </tr>
 </tbody></table>
 <h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
@@ -2198,6 +2208,15 @@ place in the customer&#39;s Monzo app.</p>
 <aside class="warning">
     We do not support the <a href="/open-banking/#pots">pots endpoint</a> for the EU. Please use the <a href="/open-banking/#eu-accounts">EU Accounts endpoint</a> to fetch the list of pots.
 </aside>
+<h2 id='eu-confirmation-of-funds-api'>EU Confirmation of Funds API</h2>
+<p>It works in the same way as described in the <a href="/open-banking/#confirmation-of-funds-api">Confirmation of Funds API</a>, with some differences outlined below.</p>
+<h3 id='eu-confirmation-of-funds'>EU Confirmation of Funds</h3>
+<p>See  <a href="/open-banking/#confirmation-of-funds">Confirmation of Funds</a> section.</p>
+
+<ul>
+<li>You can identify a <code>DebtorAccount</code> using the <code>UK.OBIE.IBAN</code> scheme. We will return an error for any other <code>SchemeName</code>.</li>
+<li>In the EU, a customer&#39;s pots are considered accounts, so you can identify them in the <code>DebtorAccount</code> section.</li>
+</ul>
 
       </div>
       <div class="dark-box">
