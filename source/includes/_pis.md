@@ -193,6 +193,7 @@ The table below outlines the currencies and supported payment rails, along with 
 | ILS                | -                            | `UK.OBIE.IBAN`             | IBAN                           | -                                       | -                        | -                            | Required               |                                                                              |
 | INR                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.IN`         | IFSC Code                    | -                      |                                                                              |
 | INR                | -                            | `UK.MONZO.UPI`             | UPI ID (`customername@bank`)   | -                                       | -                        | -                            | -                      |                                                                              |
+| JPY                | -                            | `UK.OBIE.BBAN`             | Account Number                 | Account Type                            | `UK.OBIE.NCC.JP`         | 7-digit Zengin Code          | Required               | Account Type must be CURRENT, SAVINGS, or CHECKING                           |
 | RON                | -                            | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`          | BIC                          | Required               |                                                                              |
 | USD                | `UK.MONZO.ABA`               | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`         | ABA Routing Number           | Required               |                                                                              |
 | USD                | `UK.MONZO.FEDWIRE`           | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`         | Fedwire Routing Number       | Required               |                                                                              |
@@ -217,6 +218,12 @@ If `Creditor.PostalAddress` is required, the following fields must be provided:
   * `BusinessSavingsAccount`
 
 For USD payments, the account type (`Checking` or `Savings`) is determined based on `Risk.BeneficiaryAccountType`.
+
+For JPY payments, the account type must be provided in `CreditorAccount.SecondaryIdentification` and supports the following values:
+
+  * `CURRENT` - for Futsū yokin
+  * `SAVINGS` - for Chochiku yokin
+  * `CHECKING` - for Tōza yokin
 
 <aside class="notice">
 If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
