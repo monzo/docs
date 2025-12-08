@@ -208,6 +208,7 @@ If `Creditor.PostalAddress` is required, the following fields must be provided:
   * Either `AddressLine` or `BuildingNumber` + `StreetName`
 
 `Risk.BeneficiaryAccountType` is required and supports the following values:
+
   * `Personal`
   * `JointPersonal`
   * `PersonalSavingsAccount`
