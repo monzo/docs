@@ -1277,24 +1277,35 @@ we don&#39;t let you include both.</p>
 <td><code>Risk.BeneficiaryAccountType</code> must be <code>Business</code> or <code>BusinessSavingsAccount</code></td>
 </tr>
 <tr>
-<td>INR</td>
+<td>CAD</td>
 <td>-</td>
 <td><code>UK.OBIE.BBAN</code></td>
 <td>Account Number</td>
 <td>-</td>
-<td><code>UK.OBIE.NCC.IN</code></td>
-<td>IFSC Code</td>
+<td><code>UK.OBIE.NCC.CA</code></td>
+<td>8-digit Routing Number</td>
 <td>-</td>
 <td></td>
 </tr>
 <tr>
-<td>INR</td>
+<td>CAD</td>
 <td>-</td>
-<td><code>UK.MONZO.UPI</code></td>
-<td>UPI ID (<code>customername@bank</code>)</td>
+<td><code>UK.MONZO.Interac</code></td>
+<td>Email Address</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>CHF</td>
+<td>-</td>
+<td><code>UK.OBIE.IBAN</code></td>
+<td>IBAN</td>
+<td>-</td>
+<td><code>UK.OBIE.BICFI</code></td>
+<td>BIC</td>
 <td>-</td>
 <td></td>
 </tr>
@@ -1317,6 +1328,83 @@ we don&#39;t let you include both.</p>
 <td>-</td>
 <td><code>UK.OBIE.BICFI</code></td>
 <td>BIC</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>HUF</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>HUF</td>
+<td>-</td>
+<td><code>UK.OBIE.IBAN</code></td>
+<td>IBAN</td>
+<td>-</td>
+<td><code>UK.OBIE.BICFI</code></td>
+<td>BIC</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>ILS</td>
+<td>-</td>
+<td><code>UK.OBIE.IBAN</code></td>
+<td>IBAN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>Required</td>
+<td></td>
+</tr>
+<tr>
+<td>INR</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.NCC.IN</code></td>
+<td>IFSC Code</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>INR</td>
+<td>-</td>
+<td><code>UK.MONZO.UPI</code></td>
+<td>UPI ID (<code>customername@bank</code>)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>JPY</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>Account Type</td>
+<td><code>UK.OBIE.NCC.JP</code></td>
+<td>7-digit Zengin Code</td>
+<td>-</td>
+<td>Account Type must be CURRENT, SAVINGS, or CHECKING</td>
+</tr>
+<tr>
+<td>NZD</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td>-</td>
 <td></td>
 </tr>
@@ -1378,14 +1466,25 @@ we don&#39;t let you include both.</p>
 <li>Either <code>AddressLine</code> or <code>BuildingNumber</code> + <code>StreetName</code></li>
 </ul>
 
-<p><code>Risk.BeneficiaryAccountType</code> is required and supports the following values:
-  * <code>Personal</code>
-  * <code>JointPersonal</code>
-  * <code>PersonalSavingsAccount</code>
-  * <code>Business</code>
-  * <code>BusinessSavingsAccount</code></p>
+<p><code>Risk.BeneficiaryAccountType</code> is required and supports the following values:</p>
 
-<p>For USD payments, the account type (<code>Checking</code> or <code>Savings</code>) is determined based on <code>Risk.BeneficiaryAccountType</code>.</p>
+<ul>
+<li><code>Personal</code></li>
+<li><code>JointPersonal</code></li>
+<li><code>PersonalSavingsAccount</code></li>
+<li><code>Business</code></li>
+<li><code>BusinessSavingsAccount</code></li>
+</ul>
+
+<p>For CAD and USD payments, the account type (<code>Checking</code> or <code>Savings</code>) is determined based on <code>Risk.BeneficiaryAccountType</code>.</p>
+
+<p>For JPY payments, the account type must be provided in <code>CreditorAccount.SecondaryIdentification</code> and supports the following values:</p>
+
+<ul>
+<li><code>CURRENT</code> - for Futsū yokin</li>
+<li><code>SAVINGS</code> - for Chochiku yokin</li>
+<li><code>CHECKING</code> - for Tōza yokin</li>
+</ul>
 
 <aside class="notice">
 If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
