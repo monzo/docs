@@ -179,18 +179,26 @@ Note that we only support indicative exchange rates (`ExchangeRateInformation.Ra
 
 The table below outlines the currencies and supported payment rails, along with the required parameters for the `Initiation` object (`-` indicates that the parameter is not required).
 
-| CurrencyOfTransfer | LocalInstrumentCode          | CreditorAccount.SchemeName | CreditorAccount.Identification | CreditorAccount.SecondaryIdentification | CreditorAgent.SchemeName  | CreditorAgent.Identification | Creditor.PostalAddress | Notes                                                                        |
-| ------------------ | -----------------------------| -------------------------- |-------------------------------| ----------------------------------------| ------------------------- | ---------------------------- |------------------------|------------------------------------------------------------------------------|
-| AUD                | -                            | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.AU`          | BSB Code                     | -                      |                                                                              |
-| AUD                | -                            | `UK.MONZO.BPAY`            | Biller Pay Code               | Customer Reference Number               | -                         | -                            | -                      | `Risk.BeneficiaryAccountType` must be `Business` or `BusinessSavingsAccount` |
-| INR                | -                            | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.IN`          | IFSC Code                    | -                      |                                                                              |
-| INR                | -                            | `UK.MONZO.UPI`             | UPI ID (`customername@bank`)  | -                                       | -                         | -                            | -                      |                                                                              |
-| EUR                | `UK.OBIE.SEPACreditTransfer` | `UK.OBIE.IBAN`             | IBAN                          | -                                       | -                         | -                            | -                      |                                                                              |
-| EUR                | `UK.OBIE.SWIFT`              | `UK.OBIE.IBAN`             | IBAN                          | -                                       | `UK.OBIE.BICFI`           | BIC                          | -                      |                                                                              |
-| RON                | -                            | `UK.OBIE.IBAN`             | IBAN                          | -                                       | `UK.OBIE.BICFI`           | BIC                          | Required               |                                                                              |
-| USD                | `UK.MONZO.ABA`               | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.US`          | ABA Routing Number           | Required               |                                                                              |
-| USD                | `UK.MONZO.FEDWIRE`           | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.NCC.US`          | Fedwire Routing Number       | Required               |                                                                              |
-| USD                | `UK.OBIE.SWIFT`              | `UK.OBIE.BBAN`             | Account Number                | -                                       | `UK.OBIE.BICFI`           | BIC                          | Required               |                                                                              |
+| CurrencyOfTransfer | LocalInstrumentCode          | CreditorAccount.SchemeName | CreditorAccount.Identification | CreditorAccount.SecondaryIdentification | CreditorAgent.SchemeName | CreditorAgent.Identification | Creditor.PostalAddress | Notes                                                                        |
+|--------------------|------------------------------|----------------------------|--------------------------------|-----------------------------------------|--------------------------|------------------------------|------------------------|------------------------------------------------------------------------------|
+| AUD                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.AU`         | BSB Code                     | -                      |                                                                              |
+| AUD                | -                            | `UK.MONZO.BPAY`            | Biller Pay Code                | Customer Reference Number               | -                        | -                            | -                      | `Risk.BeneficiaryAccountType` must be `Business` or `BusinessSavingsAccount` |
+| CAD                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.CA`         | 8-digit Routing Number       | -                      |                                                                              |
+| CAD                | -                            | `UK.MONZO.Interac`         | Email Address                  | -                                       | -                        | -                            | -                      |                                                                              |
+| CHF                | -                            | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`          | BIC                          | -                      |                                                                              |
+| EUR                | `UK.OBIE.SEPACreditTransfer` | `UK.OBIE.IBAN`             | IBAN                           | -                                       | -                        | -                            | -                      |                                                                              |
+| EUR                | `UK.OBIE.SWIFT`              | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`          | BIC                          | -                      |                                                                              |
+| HUF                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | -                        | -                            | -                      |                                                                              |
+| HUF                | -                            | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`          | BIC                          | -                      |                                                                              |
+| ILS                | -                            | `UK.OBIE.IBAN`             | IBAN                           | -                                       | -                        | -                            | Required               |                                                                              |
+| INR                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.IN`         | IFSC Code                    | -                      |                                                                              |
+| INR                | -                            | `UK.MONZO.UPI`             | UPI ID (`customername@bank`)   | -                                       | -                        | -                            | -                      |                                                                              |
+| JPY                | -                            | `UK.OBIE.BBAN`             | Account Number                 | Account Type                            | `UK.OBIE.NCC.JP`         | 7-digit Zengin Code          | -                      | Account Type must be CURRENT, SAVINGS, or CHECKING                           |
+| NZD                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | -                        | -                            | -                      |                                                                              |
+| RON                | -                            | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`          | BIC                          | Required               |                                                                              |
+| USD                | `UK.MONZO.ABA`               | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`         | ABA Routing Number           | Required               |                                                                              |
+| USD                | `UK.MONZO.FEDWIRE`           | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`         | Fedwire Routing Number       | Required               |                                                                              |
+| USD                | `UK.OBIE.SWIFT`              | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.BICFI`          | BIC                          | Required               |                                                                              |
 
 `CreditorAccount.Name` is required for all currencies.
 
@@ -203,13 +211,20 @@ If `Creditor.PostalAddress` is required, the following fields must be provided:
   * Either `AddressLine` or `BuildingNumber` + `StreetName`
 
 `Risk.BeneficiaryAccountType` is required and supports the following values:
+
   * `Personal`
   * `JointPersonal`
   * `PersonalSavingsAccount`
   * `Business`
   * `BusinessSavingsAccount`
 
-For USD payments, the account type (`Checking` or `Savings`) is determined based on `Risk.BeneficiaryAccountType`.
+For CAD and USD payments, the account type (`Checking` or `Savings`) is determined based on `Risk.BeneficiaryAccountType`.
+
+For JPY payments, the account type must be provided in `CreditorAccount.SecondaryIdentification` and supports the following values:
+
+  * `CURRENT` - for Futsū yokin
+  * `SAVINGS` - for Chochiku yokin
+  * `CHECKING` - for Tōza yokin
 
 <aside class="notice">
 If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
