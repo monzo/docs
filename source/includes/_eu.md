@@ -1,7 +1,7 @@
 # EU PSD2 API
 
 <aside class="notice">
-    Monzo's EU PSD2 Dedicated Interface API is currently only available for testing in the sandbox environment. Please get in touch with us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a> if you'd like to test out our APIs. Production API access will be available at a later date.
+    Alongside the sandbox testing environment, Monzo's production EU PSD2 Dedicated Interface API is now available in an Alpha Capacity. Please get in touch with us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a> if you'd like to integrate with us and test out our APIs. Access to the production evironment is controlled by an allow-list at this time, so please contact us to get added.
 </aside>
 
 
@@ -22,10 +22,11 @@ The Well-Known Endpoints differ from the UK API, and can be seen below:
 <span class="hide">Environment</span> | <span class="hide">Path</span>
 ------------------------------------|--------------------------------------
 Sandbox | `https://api.s101.nonprod-ffs.io/open-banking/eu/.well-known/openid-configuration`
+Production | `https://api.monzo.com/open-banking/eu/.well-known/openid-configuration`
 
 ## Base URLs
 
-The Base URLs also differ, with sandbox now on `openbanking-s101.eu.monzo.com`
+The Base URLs also differ, with sandbox now on `openbanking-s101.eu.monzo.com`. and production being `openbanking.eu.monzo.com`.
 
 
 ##### Base URLs
@@ -34,6 +35,8 @@ The Base URLs also differ, with sandbox now on `openbanking-s101.eu.monzo.com`
 -----------------------------------|---------------------------------------|--------------------------------------
 AIS   | Sandbox | `https://openbanking-s101.eu.monzo.com/open-banking/v3.1/aisp`
 CBPII | Sandbox | `https://openbanking-s101.eu.monzo.com/open-banking/v3.1/cbpii`
+AIS   | Production | `https://openbanking.eu.monzo.com/open-banking/v3.1/aisp`
+CBPII | Production | `https://openbanking.eu.monzo.com/open-banking/v3.1/cbpii`
 
 ## Dynamic Client Registration
 
