@@ -26,7 +26,7 @@ Production | `https://api.monzo.com/open-banking/eu/.well-known/openid-configura
 
 ## Base URLs
 
-The Base URLs also differ, with sandbox now on `openbanking-s101.eu.monzo.com`. and production being `openbanking.eu.monzo.com`.
+The Base URLs also differ, with sandbox now on `openbanking-s101.eu.monzo.com` and production being `openbanking.eu.monzo.com`.
 
 
 ##### Base URLs
