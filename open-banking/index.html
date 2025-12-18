@@ -2006,7 +2006,7 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 <p>If you have any queries about these changes then please contact <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
 <h1 id='eu-psd2-api'>EU PSD2 API</h1>
 <aside class="notice">
-    Monzo's EU PSD2 Dedicated Interface API is currently only available for testing in the sandbox environment. Please get in touch with us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a> if you'd like to test out our APIs. Production API access will be available at a later date.
+    Alongside the sandbox testing environment, Monzo's production EU PSD2 Dedicated Interface API is now available in an Alpha Capacity. Please get in touch with us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a> if you'd like to integrate with us and test out our APIs. Access to the production evironment is controlled by an allow-list at this time, so please contact us to get added.
 </aside>
 <h2 id='api-specification'>API Specification</h2>
 <p>Like our UK Open Banking API, our EU PSD2 Dedicated Interface is also built to the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.11/profiles/read-write-data-api-profile.html">Open Banking spec</a>. This means the structure of requests and responses is for the most part the same, with any differences reflecting product differences between UK and EU regions.</p>
@@ -2025,9 +2025,13 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 <td>Sandbox</td>
 <td><code>https://api.s101.nonprod-ffs.io/open-banking/eu/.well-known/openid-configuration</code></td>
 </tr>
+<tr>
+<td>Production</td>
+<td><code>https://api.monzo.com/open-banking/eu/.well-known/openid-configuration</code></td>
+</tr>
 </tbody></table>
 <h2 id='base-urls'>Base URLs</h2>
-<p>The Base URLs also differ, with sandbox now on <code>openbanking-s101.eu.monzo.com</code></p>
+<p>The Base URLs also differ, with sandbox now on <code>openbanking-s101.eu.monzo.com</code> and production being <code>openbanking.eu.monzo.com</code>.</p>
 <h5 id='base-urls-2'>Base URLs</h5>
 <table><thead>
 <tr>
@@ -2045,6 +2049,16 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 <td>CBPII</td>
 <td>Sandbox</td>
 <td><code>https://openbanking-s101.eu.monzo.com/open-banking/v3.1/cbpii</code></td>
+</tr>
+<tr>
+<td>AIS</td>
+<td>Production</td>
+<td><code>https://openbanking.eu.monzo.com/open-banking/v3.1/aisp</code></td>
+</tr>
+<tr>
+<td>CBPII</td>
+<td>Production</td>
+<td><code>https://openbanking.eu.monzo.com/open-banking/v3.1/cbpii</code></td>
 </tr>
 </tbody></table>
 <h2 id='dynamic-client-registration'>Dynamic Client Registration</h2>
