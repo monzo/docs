@@ -23,7 +23,7 @@ If a refresh token is dropped during rotation, the only recovery path is for the
 
 ### Open Banking Clients
 
-Our OAuth clients have a limit of 20 active consents per a user. So if a user setups a VRP consent and then make 20 SIPs the VRP consent would be evicted. When a TPP attempts to use the VRP consents a `bad_request.refresh_token.evicted` error will be returned.
+Our OAuth clients have a limit of **20 active consents per user**. If a user sets up a VRP consent and then creates 20 SIPs, this results in 21 consents in total and the first consent (the VRP) will be evicted. When a TPP subsequently attempts to use the evicted VRP consent, a `bad_request.refresh_token.evicted` error will be returned.
 
 Some legacy OAuth clients have a lower limit of 10 active consents, and may therefore encounter eviction more frequently. A small number of older clients also share accounts and payments scopes, which can further increase the likelihood of consent eviction.
 
