@@ -470,6 +470,20 @@
               </ul>
           </li>
           <li>
+            <a href="#open-banking-tokens" class="toc-h1 toc-link" data-title="Open Banking Tokens">Open Banking Tokens</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#refreshing-tokens" class="toc-h2 toc-link" data-title="Refreshing Tokens">Refreshing Tokens</a>
+                  </li>
+                  <li>
+                    <a href="#open-banking-clients" class="toc-h2 toc-link" data-title="Open Banking Clients">Open Banking Clients</a>
+                  </li>
+                  <li>
+                    <a href="#invalidating-tokens" class="toc-h2 toc-link" data-title="Invalidating tokens">Invalidating tokens</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#sca-rts-ps21-19" class="toc-h1 toc-link" data-title="SCA-RTS (PS21/19)">SCA-RTS (PS21/19)</a>
               <ul class="toc-list-h2">
                   <li>
@@ -1994,6 +2008,49 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 <p>To revert to the previous error behavior, you can include an additional header <code>X-Open-Banking-Legacy-Errors</code> on each request. If this option does not meet your needs, please contact us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
 
 <p>Once we are confident that TPPs have successfully migrated to the new error behavior, we will remove the opt-out functionality.</p>
+<h1 id='open-banking-tokens'>Open Banking Tokens</h1>
+<table><thead>
+<tr>
+<th>Token Type</th>
+<th>Expiry</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Access</td>
+<td>30 hours</td>
+</tr>
+<tr>
+<td>Refresh</td>
+<td>4,320 hours ( ~6 months)</td>
+</tr>
+<tr>
+<td>Refresh (VRP)</td>
+<td>26,280 hours ( ~3 years)</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+  Refresh tokens are rotated on every successful refresh. The expiry shown is the maximum lifetime of the
+  credential.
+</aside>
+<h3 id='refreshing-tokens'>Refreshing Tokens</h3>
+<p>Refresh tokens are <strong>single-use</strong>. When a refresh token is exchanged it is immediately invalidated and replaced with a new refresh token.</p>
+
+<p>Clients <strong>must persist the newly issued refresh token atomically</strong> before making any further refresh attempts. Refresh requests must not be made concurrently using the same refresh token.</p>
+
+<p>When interacting with our <code>/oauth2</code> endpoints, the most recently issued refresh token must be used. If any previously issued refresh token is used, the request will fail with a <code>bad_request.refresh_token.invalid</code> error.</p>
+
+<p>If a refresh token is dropped during rotation, the only recovery path is for the user to complete a new consent flow via the standard redirect journey.</p>
+<h3 id='open-banking-clients'>Open Banking Clients</h3>
+<p>Our OAuth clients have a limit of <strong>20 active consents per user</strong>. If a user sets up a VRP consent and then creates 20 SIPs, this results in 21 consents in total and the first consent (the VRP) will be evicted. When a TPP subsequently attempts to use the evicted VRP consent, a <code>bad_request.refresh_token.evicted</code> error will be returned.</p>
+
+<p>Some legacy OAuth clients have a lower limit of 10 active consents, and may therefore encounter eviction more frequently. A small number of older clients also share accounts and payments scopes, which can further increase the likelihood of consent eviction.</p>
+<h3 id='invalidating-tokens'>Invalidating tokens</h3>
+<p>The scenarios above describe common causes of token invalidation, but they are not exhaustive.</p>
+
+<p>We may revoke credentials for additional reasons that we’re unable to provide further detail on for security reasons. Customers can also revoke a TPP’s access at any time via the Monzo app.</p>
+
+<p>When a consent has been revoked or invalidated, the only recovery path is for the user to complete a new consent flow.</p>
 <h1 id='sca-rts-ps21-19'>SCA-RTS (PS21/19)</h1><h2 id='overview'>Overview</h2>
 <p>In November 2021, the FCA set out new rules for standards on Strong Customer Authentication (SCA) in a change to the Regulatory Technical Standards on Strong Customer Authentication and Secure Communication (SCA-RTS).</p>
 
