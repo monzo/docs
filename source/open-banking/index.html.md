@@ -10,6 +10,7 @@ includes:
   - vrp
   - cbpii
   - ob_errors
+  - ob_tokens
   - scarts
   - eu
 
