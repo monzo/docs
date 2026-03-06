@@ -21,10 +21,6 @@ $ http "https://api.monzo.com/balance" \
 
 Returns balance information for a specific account.
 
-The returned balance is the same as shown to the customer in their app; it includes the result of applying pending transactions.
-
-Do not rely on being able to sum the transactions to end up at the balance amount as this might not always work.
-
 ##### Request arguments
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
