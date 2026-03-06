@@ -102,6 +102,9 @@ To access a customer's Pots, use the Pots endpoint described further on in this 
 Note that the fields we return as part of the response depend on whether your consent has the  `ReadAccountsBasic`
 or `ReadAccountsDetail` permission. In the former case, we will omit the account scheme data such as account number and sort code or IBAN.
 
+### Names
+We return the preferred name of the account holder in the `Name` field rather than their legal name.
+
 ### Business Account - Company types
 
 Business account has company type, which is shown in the `Description` field:
