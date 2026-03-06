@@ -739,6 +739,10 @@ Valid <code>account_type</code>s are <code>uk_retail</code>, <code>uk_retail_joi
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Returns balance information for a specific account.</p>
+
+<p>The returned balance is the same as shown to the customer in their app; it includes the result of applying pending transactions.</p>
+
+<p>Do not rely on being able to sum the transactions to end up at the balance amount as this might not always work.</p>
 <h5 id='request-arguments'>Request arguments</h5>
 <table><thead>
 <tr>
