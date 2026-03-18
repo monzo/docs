@@ -309,9 +309,9 @@ See  <a href="/open-banking/#confirmation-of-funds">Confirmation of Funds</a> se
 
 ## EU Payment Initiation Services API
 
-The EU PIS API works in the same way as described in the <a href="/open-banking/#payment-initiation-services-api">Payment Initiation Services API</a>, with the EU-specific differences outlined below.
+The EU PIS API works in the same way as described in the <a href="/open-banking/#payment-initiation-services-api">Payment Initiation Services API</a>, with the EU-specific differences outlined below. Please also see the <a href="/open-banking/#signing-headers">Signing Headers</a> section for EU-specific request signing requirements.
 
-All EU payments are made in `EUR` via SEPA. You can identify creditor accounts using the `UK.OBIE.IBAN` scheme only. We will return an error for any other `SchemeName`.
+All payments on the EU PSD2 API are made in `EUR` via SEPA. If specified, creditor accounts must be identified using the `UK.OBIE.IBAN` scheme.
 
 When you request a consent for Domestic Payments, you should provide one of the following as the `LocalInstrument`:
 
