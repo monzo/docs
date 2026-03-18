@@ -138,8 +138,7 @@ Notes on specific fields:
     "https://verify-s101.eu.monzo.com/open-banking/callback"
   ],
   "software_roles": [
-    "AISP",
-    "PISP"
+    "AISP"
   ],
   "organisation_competent_authority_claims": {
     "authority_id": "FCAGBR",
@@ -226,7 +225,7 @@ As there is no centralised Open Banking directory for the EU, you must publish a
 
 ## EU Account Information Services API
 
-It works in the same way as described in the <a href="/open-banking/#account-information-services-api">Account Information Services API</a>, with some differences outlined below.
+The EU AIS API works in the same way as described in the <a href="/open-banking/#account-information-services-api">Account Information Services API</a>, with some differences outlined below.
 
 ### EU Accounts
 
@@ -299,7 +298,7 @@ See  <a href="/open-banking/#balances">Balances</a> section.
 
 ## EU Confirmation of Funds API
 
-It works in the same way as described in the <a href="/open-banking/#confirmation-of-funds-api">Confirmation of Funds API</a>, with some differences outlined below.
+The EU CBPII API works in the same way as described in the <a href="/open-banking/#confirmation-of-funds-api">Confirmation of Funds API</a>, with some differences outlined below.
 
 ### EU Confirmation of Funds
 
@@ -310,7 +309,7 @@ See  <a href="/open-banking/#confirmation-of-funds">Confirmation of Funds</a> se
 
 ## EU Payment Initiation Services API
 
-It works in the same way as described in the <a href="/open-banking/#payment-initiation-services-api">Payment Initiation Services API</a>, with the EU-specific differences outlined below.
+The EU PIS API works in the same way as described in the <a href="/open-banking/#payment-initiation-services-api">Payment Initiation Services API</a>, with the EU-specific differences outlined below.
 
 All EU payments are made in `EUR` via SEPA. You can identify creditor accounts using the `UK.OBIE.IBAN` scheme only. We will return an error for any other `SchemeName`.
 
