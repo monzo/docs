@@ -1,7 +1,7 @@
 # EU PSD2 API
 
 <aside class="notice">
-    Alongside the sandbox testing environment, Monzo's production EU PSD2 Dedicated Interface API is now available in an Alpha Capacity. Please get in touch with us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a> if you'd like to integrate with us and test out our APIs. Access to the production evironment is controlled by an allow-list at this time, so please contact us to get added.
+    Alongside the sandbox testing environment, Monzo's production EU PSD2 Dedicated Interface API is now available in an Alpha Capacity for Account Information Services (AIS), Payment Initiation Services (PIS), and Confirmation of Funds (CBPII). Please get in touch with us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a> if you'd like to integrate with us and test out our APIs. Access to the production environment is controlled by an allow-list at this time, so please contact us to get added.
 </aside>
 
 
@@ -11,7 +11,7 @@ Like our UK Open Banking API, our EU PSD2 Dedicated Interface is also built to t
 
 ## Supported Endpoints
 
-Monzo's EU PSD2 API currently only supports Account Information Services (AIS) and Confirmation of Funds API (CBPII). Payment Initiation Services (PIS) will be available at a later date.
+Monzo's EU PSD2 API currently supports Account Information Services (AIS), Payment Initiation Services (PIS), and Confirmation of Funds (CBPII).
 
 ## Well-Known Endpoints
 
@@ -34,8 +34,10 @@ The Base URLs also differ, with sandbox now on `openbanking-s101.eu.monzo.com` a
 <span class="hide">Service</span>  | <span class="hide">Environment</span> | <span class="hide">Base URL</span>
 -----------------------------------|---------------------------------------|--------------------------------------
 AIS   | Sandbox | `https://openbanking-s101.eu.monzo.com/open-banking/v3.1/aisp`
+PIS   | Sandbox | `https://openbanking-s101.eu.monzo.com/open-banking/v3.1/pisp`
 CBPII | Sandbox | `https://openbanking-s101.eu.monzo.com/open-banking/v3.1/cbpii`
 AIS   | Production | `https://openbanking.eu.monzo.com/open-banking/v3.1/aisp`
+PIS   | Production | `https://openbanking.eu.monzo.com/open-banking/v3.1/pisp`
 CBPII | Production | `https://openbanking.eu.monzo.com/open-banking/v3.1/cbpii`
 
 ## Dynamic Client Registration
@@ -103,7 +105,7 @@ Notes on specific fields:
 | Field | Notes |
 | ----- | ----- |
 | `software_id` | Must be a valid v4 UUID | 
-| `scope` | As only the AIS API is currently supported, must be `"openid accounts"`
+| `scope` | `"openid accounts"` for AIS, `"openid payments"` for PIS
 
 
 > Header
@@ -136,7 +138,8 @@ Notes on specific fields:
     "https://verify-s101.eu.monzo.com/open-banking/callback"
   ],
   "software_roles": [
-    "AISP"
+    "AISP",
+    "PISP"
   ],
   "organisation_competent_authority_claims": {
     "authority_id": "FCAGBR",
@@ -209,6 +212,17 @@ As per the Well-Known endpoint above, note the `authorization_endpoint` for the 
 ## Certificates
 
 We expect the use of eIDAS QWAC and QSealC certificates issued by a QTSP. We currently have a manually maintained allow-list of trusted QTSPs. If we don't currently trust the QTSP that issues your certificate, then please get in touch at <openbanking@monzo.com>.
+
+## Signing Headers
+
+The JOSE header `crit` (critical) array must contain the following two fields:
+
+* `http://openbanking.org.uk/iat` — Issued At timestamp
+* `http://openbanking.org.uk/iss` — Issuer, in the format `OrgID` or `OrgID/SoftwareID`
+
+The `OrgID` is your PSD2 Authorization Number (e.g. `PSDIE-CBI-123456`) and the `SoftwareID` must be a valid v4 UUID.
+
+As there is no centralised Open Banking directory for the EU, you must publish a JWKS endpoint so that we can resolve your signing certificates.
 
 ## EU Account Information Services API
 
@@ -293,3 +307,38 @@ See  <a href="/open-banking/#confirmation-of-funds">Confirmation of Funds</a> se
 
 * You can identify a `DebtorAccount` using the `UK.OBIE.IBAN` scheme. We will return an error for any other `SchemeName`.
 * In the EU, a customer's pots are considered accounts, so you can identify them in the `DebtorAccount` section.
+
+## EU Payment Initiation Services API
+
+It works in the same way as described in the <a href="/open-banking/#payment-initiation-services-api">Payment Initiation Services API</a>, with the EU-specific differences outlined below.
+
+All EU payments are made in `EUR` via SEPA. You can identify creditor accounts using the `UK.OBIE.IBAN` scheme only. We will return an error for any other `SchemeName`.
+
+When you request a consent for Domestic Payments, you should provide one of the following as the `LocalInstrument`:
+
+<span class="hide">LocalInstrument</span> | <span class="hide">Description</span>
+------------------------------------|--------------------------------------
+`UK.OBIE.SEPACreditTransfer` | Standard SEPA Credit Transfer
+`UK.OBIE.SEPAInstantCreditTransfer` | SEPA Instant Credit Transfer
+
+### Testing in the Sandbox
+
+In the **sandbox** environment, you can automatically have domestic payment requests approved or declined to help with testing. When creating the payment consent, you can add a `DesiredStatus` field to the `Data/Initiation/SupplementaryData` object in the consent request. You can set this field to `Authorised` or `Rejected`, depending on the behaviour you want.
+
+If you want your payment to come from a specific User and Account then you can also add those values, but you must add **both** or a random test User and Account is used instead.
+
+We require that the `SupplementaryData` content is provided in the same order between the consent creation request and the payment request.
+
+```json
+{
+  "DesiredStatus": "Authorised"
+}
+```
+
+```json
+{
+  "DesiredStatus": "Rejected",
+  "UserID": "user_0000Av3bpksv3AAmdybBCr",
+  "AccountID": "acc_0000Av3bry7sn2XsI3eZ3C"
+}
+```
