@@ -319,25 +319,3 @@ When you request a consent for Domestic Payments, you should provide one of the 
 ------------------------------------|--------------------------------------
 `UK.OBIE.SEPACreditTransfer` | Standard SEPA Credit Transfer
 `UK.OBIE.SEPAInstantCreditTransfer` | SEPA Instant Credit Transfer
-
-### Testing in the Sandbox
-
-In the **sandbox** environment, you can automatically have domestic payment requests approved or declined to help with testing. When creating the payment consent, you can add a `DesiredStatus` field to the `Data/Initiation/SupplementaryData` object in the consent request. You can set this field to `Authorised` or `Rejected`, depending on the behaviour you want.
-
-If you want your payment to come from a specific User and Account then you can also add those values, but you must add **both** or a random test User and Account is used instead.
-
-We require that the `SupplementaryData` content is provided in the same order between the consent creation request and the payment request.
-
-```json
-{
-  "DesiredStatus": "Authorised"
-}
-```
-
-```json
-{
-  "DesiredStatus": "Rejected",
-  "UserID": "user_0000Av3bpksv3AAmdybBCr",
-  "AccountID": "acc_0000Av3bry7sn2XsI3eZ3C"
-}
-```
