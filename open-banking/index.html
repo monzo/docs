@@ -519,10 +519,16 @@
                     <a href="#certificates" class="toc-h2 toc-link" data-title="Certificates">Certificates</a>
                   </li>
                   <li>
+                    <a href="#signing-headers" class="toc-h2 toc-link" data-title="Signing Headers">Signing Headers</a>
+                  </li>
+                  <li>
                     <a href="#eu-account-information-services-api" class="toc-h2 toc-link" data-title="EU Account Information Services API">EU Account Information Services API</a>
                   </li>
                   <li>
                     <a href="#eu-confirmation-of-funds-api" class="toc-h2 toc-link" data-title="EU Confirmation of Funds API">EU Confirmation of Funds API</a>
+                  </li>
+                  <li>
+                    <a href="#eu-payment-initiation-services-api" class="toc-h2 toc-link" data-title="EU Payment Initiation Services API">EU Payment Initiation Services API</a>
                   </li>
               </ul>
           </li>
@@ -2065,12 +2071,12 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 <p>If you have any queries about these changes then please contact <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
 <h1 id='eu-psd2-api'>EU PSD2 API</h1>
 <aside class="notice">
-    Alongside the sandbox testing environment, Monzo's production EU PSD2 Dedicated Interface API is now available in an Alpha Capacity. Please get in touch with us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a> if you'd like to integrate with us and test out our APIs. Access to the production evironment is controlled by an allow-list at this time, so please contact us to get added.
+    Alongside the sandbox testing environment, Monzo's production EU PSD2 Dedicated Interface API is now available in an Alpha Capacity for Account Information Services (AIS), Payment Initiation Services (PIS), and Confirmation of Funds (CBPII). Please get in touch with us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a> if you'd like to integrate with us and test out our APIs. Access to the production environment is controlled by an allow-list at this time, so please contact us to get added.
 </aside>
 <h2 id='api-specification'>API Specification</h2>
 <p>Like our UK Open Banking API, our EU PSD2 Dedicated Interface is also built to the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.11/profiles/read-write-data-api-profile.html">Open Banking spec</a>. This means the structure of requests and responses is for the most part the same, with any differences reflecting product differences between UK and EU regions.</p>
 <h2 id='supported-endpoints'>Supported Endpoints</h2>
-<p>Monzo&#39;s EU PSD2 API currently only supports Account Information Services (AIS) and Confirmation of Funds API (CBPII). Payment Initiation Services (PIS) will be available at a later date.</p>
+<p>Monzo&#39;s EU PSD2 API currently supports Account Information Services (AIS), Payment Initiation Services (PIS), and Confirmation of Funds (CBPII).</p>
 <h2 id='well-known-endpoints'>Well-Known Endpoints</h2>
 <p>The Well-Known Endpoints differ from the UK API, and can be seen below:</p>
 <h5 id='endpoints'>Endpoints</h5>
@@ -2105,6 +2111,11 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 <td><code>https://openbanking-s101.eu.monzo.com/open-banking/v3.1/aisp</code></td>
 </tr>
 <tr>
+<td>PIS</td>
+<td>Sandbox</td>
+<td><code>https://openbanking-s101.eu.monzo.com/open-banking/v3.1/pisp</code></td>
+</tr>
+<tr>
 <td>CBPII</td>
 <td>Sandbox</td>
 <td><code>https://openbanking-s101.eu.monzo.com/open-banking/v3.1/cbpii</code></td>
@@ -2113,6 +2124,11 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 <td>AIS</td>
 <td>Production</td>
 <td><code>https://openbanking.eu.monzo.com/open-banking/v3.1/aisp</code></td>
+</tr>
+<tr>
+<td>PIS</td>
+<td>Production</td>
+<td><code>https://openbanking.eu.monzo.com/open-banking/v3.1/pisp</code></td>
 </tr>
 <tr>
 <td>CBPII</td>
@@ -2196,7 +2212,7 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 </tr>
 <tr>
 <td><code>scope</code></td>
-<td>As only the AIS API is currently supported, must be <code>&quot;openid accounts&quot;</code></td>
+<td><code>&quot;openid accounts&quot;</code> for AIS, <code>&quot;openid payments&quot;</code> for PIS</td>
 </tr>
 </tbody></table>
 
@@ -2311,8 +2327,19 @@ place in the customer&#39;s Monzo app.</p>
 <p>As per the Well-Known endpoint above, note the <code>authorization_endpoint</code> for the sandbox is <code>https://verify-s101.eu.monzo.com/open-banking/authorize</code></p>
 <h2 id='certificates'>Certificates</h2>
 <p>We expect the use of eIDAS QWAC and QSealC certificates issued by a QTSP. We currently have a manually maintained allow-list of trusted QTSPs. If we don&#39;t currently trust the QTSP that issues your certificate, then please get in touch at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
+<h2 id='signing-headers'>Signing Headers</h2>
+<p>The JOSE header <code>crit</code> (critical) array must contain the following two fields:</p>
+
+<ul>
+<li><code>http://openbanking.org.uk/iat</code> — Issued At timestamp</li>
+<li><code>http://openbanking.org.uk/iss</code> — Issuer, in the format <code>OrgID</code> or <code>OrgID/SoftwareID</code></li>
+</ul>
+
+<p>The <code>OrgID</code> is your PSD2 Authorization Number (e.g. <code>PSDIE-CBI-123456</code>) and the <code>SoftwareID</code> must be a valid v4 UUID.</p>
+
+<p>As there is no centralised Open Banking directory for the EU, you must publish a JWKS endpoint so that we can resolve your signing certificates.</p>
 <h2 id='eu-account-information-services-api'>EU Account Information Services API</h2>
-<p>It works in the same way as described in the <a href="/open-banking/#account-information-services-api">Account Information Services API</a>, with some differences outlined below.</p>
+<p>The EU AIS API works in the same way as described in the <a href="/open-banking/#account-information-services-api">Account Information Services API</a>, with some differences outlined below.</p>
 <h3 id='eu-accounts'>EU Accounts</h3>
 <p>See the <a href="/open-banking/#accounts">Accounts</a> section.</p>
 
@@ -2381,7 +2408,7 @@ place in the customer&#39;s Monzo app.</p>
     We do not support the <a href="/open-banking/#pots">pots endpoint</a> for the EU. Please use the <a href="/open-banking/#eu-accounts">EU Accounts endpoint</a> to fetch the list of pots.
 </aside>
 <h2 id='eu-confirmation-of-funds-api'>EU Confirmation of Funds API</h2>
-<p>It works in the same way as described in the <a href="/open-banking/#confirmation-of-funds-api">Confirmation of Funds API</a>, with some differences outlined below.</p>
+<p>The EU CBPII API works in the same way as described in the <a href="/open-banking/#confirmation-of-funds-api">Confirmation of Funds API</a>, with some differences outlined below.</p>
 <h3 id='eu-confirmation-of-funds'>EU Confirmation of Funds</h3>
 <p>See  <a href="/open-banking/#confirmation-of-funds">Confirmation of Funds</a> section.</p>
 
@@ -2389,6 +2416,28 @@ place in the customer&#39;s Monzo app.</p>
 <li>You can identify a <code>DebtorAccount</code> using the <code>UK.OBIE.IBAN</code> scheme. We will return an error for any other <code>SchemeName</code>.</li>
 <li>In the EU, a customer&#39;s pots are considered accounts, so you can identify them in the <code>DebtorAccount</code> section.</li>
 </ul>
+<h2 id='eu-payment-initiation-services-api'>EU Payment Initiation Services API</h2>
+<p>The EU PIS API works in the same way as described in the <a href="/open-banking/#payment-initiation-services-api">Payment Initiation Services API</a>, with the EU-specific differences outlined below. Please also see the <a href="/open-banking/#signing-headers">Signing Headers</a> section for EU-specific request signing requirements.</p>
+
+<p>All payments on the EU PSD2 API are made in <code>EUR</code> via SEPA. If specified, creditor accounts must be identified using the <code>UK.OBIE.IBAN</code> scheme.</p>
+
+<p>When you request a consent for Domestic Payments, you should provide one of the following as the <code>LocalInstrument</code>:</p>
+
+<table><thead>
+<tr>
+<th><span class="hide">LocalInstrument</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>UK.OBIE.SEPACreditTransfer</code></td>
+<td>Standard SEPA Credit Transfer</td>
+</tr>
+<tr>
+<td><code>UK.OBIE.SEPAInstantCreditTransfer</code></td>
+<td>SEPA Instant Credit Transfer</td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
