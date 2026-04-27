@@ -1,0 +1,68 @@
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 110;
+  background-color: #1B1E2C;
+  color: #fff;
+  font-size: 14px;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    gap: 24px;
+  }
+
+  &__text {
+    margin: 0;
+    line-height: 1.5;
+
+    strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    a {
+      color: $examples-link-text;
+      text-decoration: underline;
+
+      &:hover {
+        color: lighten($examples-link-text, 15%);
+      }
+    }
+  }
+
+  &__dismiss {
+    flex-shrink: 0;
+    background-color: #fff;
+    color: #1B1E2C;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: darken(#fff, 8%);
+    }
+  }
+}
+
+@media (max-width: $phone-width) {
+  .cookie-banner__content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .cookie-banner__dismiss {
+    align-self: flex-end;
+  }
+}
