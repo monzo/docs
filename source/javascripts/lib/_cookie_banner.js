@@ -37,7 +37,7 @@
       '<div class="cookie-banner__content">' +
       '<h2 class="cookie-banner__title">This site uses cookies</h2>' +
       '<p class="cookie-banner__text">' +
-      "These are required for our website to work and keep you safe and secure." +
+      "These cookies are set by Cloudflare and are required for our website to work and keep you safe and secure." +
       "</p>" +
       '<div class="cookie-banner__actions">' +
       '<button class="cookie-banner__button" type="button">Got it</button>' +
