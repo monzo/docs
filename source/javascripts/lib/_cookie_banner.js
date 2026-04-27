@@ -5,9 +5,7 @@
   var MAX_AGE = 365 * 24 * 60 * 60;
 
   function getCookie(name) {
-    var match = document.cookie.match(
-      new RegExp("(?:^|; )" + name + "=([^;]*)"),
-    );
+    var match = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
     return match ? match[1] : null;
   }
 
