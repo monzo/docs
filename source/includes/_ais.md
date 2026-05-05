@@ -174,7 +174,10 @@ When querying a flex's balance, you'll be returned two balances:
 }
 ```
 
-We've implemented version 3.1.10 of the [Open Banking transactions specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Transactions.html).
+We've generally implemented version 3.1.10 of the [Open Banking accounts specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Accounts.html).
+
+There are some notable cases where we diverge from the specification:
+- We do not limit the `TransactionInformation` field to 500 characters; we return the full transaction description as it appears in the Monzo app.
 
 For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
 [**RFC3339 format**](https://www.ietf.org/rfc/rfc3339.txt).
