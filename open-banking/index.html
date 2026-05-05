@@ -732,7 +732,10 @@ that our customers see in the Monzo app, and it includes pending and settled tra
   </span><span class="nl">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>We&#39;ve implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Transactions.html">Open Banking transactions specification</a>.</p>
+<p>We&#39;ve generally implemented version 3.1.10 of the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/Accounts.html">Open Banking accounts specification</a>.</p>
+
+<p>There are some notable cases where we diverge from the specification:
+- We do not limit the <code>TransactionInformation</code> field to 500 characters; we return the full transaction description as it appears in the Monzo app.</p>
 
 <p>For consistency with our internal systems and the rest of our API, you will need to provide the start and end times in 
 <a href="https://www.ietf.org/rfc/rfc3339.txt"><strong>RFC3339 format</strong></a>.</p>
