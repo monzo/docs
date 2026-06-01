@@ -2144,7 +2144,7 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 
 <p>You can find the appropriate URL and supported configuration in our well known endpoint above. </p>
 
-<p>Differing from DCR requests in the UK, TPPs not registered with the Open Banking directory must use a self-signed (or not signed) SSA. This is where the <code>alg</code> claim is set to <code>none</code></p>
+<p>TPPs must use a self-signed (or not signed) SSA. This is where the <code>alg</code> claim is set to <code>none</code>. The SSA&#39;s <code>orgID</code> must match the QWAC&#39;s organisation identifer.</p>
 <h3 id='example-dcr-request'>Example DCR Request</h3>
 <blockquote>
 <p>Header</p>
