@@ -46,7 +46,7 @@ We have implemented the `POST /register` endpoint in version 3.2 of the Open Ban
 
 You can find the appropriate URL and supported configuration in our well known endpoint above. 
 
-TPPs must use a self-signed (or not signed) SSA. This is where the `alg` claim is set to `none`. The SSA's `orgID` must match the QWAC's orginsation identifer.
+TPPs must use a self-signed (or not signed) SSA. This is where the `alg` claim is set to `none`. The SSA's `orgID` must match the QWAC's organisation identifer.
 
 ### Example DCR Request
 
