@@ -173,6 +173,8 @@ We've implemented version 3.1.11 of the [Open Banking International Payments spe
 }
 ```
 
+You can only specify payment amounts in GBP (`InstructedAmount.Currency`), while the destination currency (`CurrencyOfTransfer`) must be one of the supported currencies listed in the table below.
+
 Note that we only support indicative exchange rates (`ExchangeRateInformation.RateType` must be set to `Indicative`).
 
 ### International Payment currencies and rails support
