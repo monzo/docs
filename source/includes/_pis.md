@@ -173,7 +173,7 @@ We've implemented version 3.1.11 of the [Open Banking International Payments spe
 }
 ```
 
-You can only specify payments in GBP (`InstructedAmount.Currency`), while the destination currency (`CurrencyOfTransfer`) must be one of the supported currencies listed in the table below.
+You can only specify payment amounts in GBP (`InstructedAmount.Currency`), while the destination currency (`CurrencyOfTransfer`) must be one of the supported currencies listed in the table below.
 
 Note that we only support indicative exchange rates (`ExchangeRateInformation.RateType` must be set to `Indicative`).
 
