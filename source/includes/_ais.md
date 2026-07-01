@@ -110,8 +110,8 @@ We return the preferred name of the account holder in the `Name` field rather th
 Business account has company type, which is shown in the `Description` field:
 
 | Company type            | Description field         |
-| ------------------------| ------------------------- |
-| Sole srader             | `Sole Trader`             |
+|-------------------------| ------------------------- |
+| Sole trader             | `Sole Trader`             |
 | Private limited company | `Private Limited Company` |
 
 Company type affects payment limits, see [Payment Initiation Services API - Domestic Payments Limits](#domestic-payments-limits) for details.
@@ -129,9 +129,9 @@ We support an optional query param `includePots`. When set to `true` an addition
 
 When querying a flex's balance, you'll be returned two balances:
 
-- The `InterimAvailable` balance: This is the current amount owed on the flex account. Its the amount the customer would need to pay today to pay off their flex.
+- The `InterimAvailable` balance: This is the current amount owed on the flex account. It's the amount the customer would need to pay today to pay off their flex.
 
-- The `Information` balance: This is the current flex balance plus all future interest. Its the balance displayed within the Monzo app.
+- The `Information` balance: This is the current flex balance plus all future interest. It's the balance displayed within the Monzo app.
 
 
 ## Transactions
