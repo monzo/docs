@@ -672,7 +672,7 @@ or <code>ReadAccountsDetail</code> permission. In the former case, we will omit 
 </tr>
 </thead><tbody>
 <tr>
-<td>Sole srader</td>
+<td>Sole trader</td>
 <td><code>Sole Trader</code></td>
 </tr>
 <tr>
@@ -693,8 +693,8 @@ that our customers see in the Monzo app, and it includes pending and settled tra
 <p>When querying a flex&#39;s balance, you&#39;ll be returned two balances:</p>
 
 <ul>
-<li><p>The <code>InterimAvailable</code> balance: This is the current amount owed on the flex account. Its the amount the customer would need to pay today to pay off their flex.</p></li>
-<li><p>The <code>Information</code> balance: This is the current flex balance plus all future interest. Its the balance displayed within the Monzo app.</p></li>
+<li><p>The <code>InterimAvailable</code> balance: This is the current amount owed on the flex account. It&#39;s the amount the customer would need to pay today to pay off their flex.</p></li>
+<li><p>The <code>Information</code> balance: This is the current flex balance plus all future interest. It&#39;s the balance displayed within the Monzo app.</p></li>
 </ul>
 <h2 id='transactions'>Transactions</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="nl">"Data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1262,6 +1262,8 @@ we don&#39;t let you include both.</p>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p>You can only specify payment amounts in GBP (<code>InstructedAmount.Currency</code>), while the destination currency (<code>CurrencyOfTransfer</code>) must be one of the supported currencies listed in the table below.</p>
+
 <p>Note that we only support indicative exchange rates (<code>ExchangeRateInformation.RateType</code> must be set to <code>Indicative</code>).</p>
 <h3 id='international-payment-currencies-and-rails-support'>International Payment currencies and rails support</h3>
 <p>The table below outlines the currencies and supported payment rails, along with the required parameters for the <code>Initiation</code> object (<code>-</code> indicates that the parameter is not required).</p>
@@ -2144,7 +2146,7 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 
 <p>You can find the appropriate URL and supported configuration in our well known endpoint above. </p>
 
-<p>TPPs must use a self-signed (or not signed) SSA. This is where the <code>alg</code> claim is set to <code>none</code>. The SSA&#39;s <code>orgID</code> must match the QWAC&#39;s organisation identifer.</p>
+<p>TPPs must use a self-signed (or not signed) SSA. This is where the <code>alg</code> claim is set to <code>none</code>. The SSA&#39;s <code>orgID</code> must match the QWAC&#39;s organisation identifier.</p>
 <h3 id='example-dcr-request'>Example DCR Request</h3>
 <blockquote>
 <p>Header</p>
