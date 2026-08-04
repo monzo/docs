@@ -202,6 +202,7 @@ The table below outlines the currencies and supported payment rails, along with 
 | USD                | `UK.MONZO.ABA`               | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`         | ABA Routing Number           | Required               |                                                                              |
 | USD                | `UK.MONZO.FEDWIRE`           | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`         | Fedwire Routing Number       | Required               |                                                                              |
 | USD                | `UK.OBIE.SWIFT`              | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.BICFI`          | BIC                          | Required               |                                                                              |
+| VND                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.BICFI`          | BIC                          | -                      |                                                                              |
 
 `CreditorAccount.Name` is required for all currencies.
 
