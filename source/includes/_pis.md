@@ -222,7 +222,10 @@ If `Creditor.PostalAddress` is required, the following fields must be provided:
   * `Business`
   * `BusinessSavingsAccount`
 
-For CAD, COP and USD payments, the account type (`Checking` or `Savings`) is determined based on `Risk.BeneficiaryAccountType`.
+For CAD, COP and USD payments, the account type (`Checking` or `Savings`) is determined based on `Risk.BeneficiaryAccountType`:
+
+  * `Checking` - for `Personal`, `JointPersonal`, or `Business`
+  * `Savings` - for `PersonalSavingsAccount` or `BusinessSavingsAccount`
 
 For JPY payments, the account type must be provided in `CreditorAccount.SecondaryIdentification` and supports the following values:
 
