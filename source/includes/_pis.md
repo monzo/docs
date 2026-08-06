@@ -188,6 +188,7 @@ The table below outlines the currencies and supported payment rails, along with 
 | CAD                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.CA`         | 8-digit Routing Number       | -                      |                                                                              |
 | CAD                | -                            | `UK.MONZO.Interac`         | Email Address                  | -                                       | -                        | -                            | -                      |                                                                              |
 | CHF                | -                            | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`          | BIC                          | -                      |                                                                              |
+| COP                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.BICFI`          | BIC                          | Required               | `SupplementaryData` required — see [below](#international-payment-supplementarydata) |
 | EUR                | `UK.OBIE.SEPACreditTransfer` | `UK.OBIE.IBAN`             | IBAN                           | -                                       | -                        | -                            | -                      |                                                                              |
 | EUR                | `UK.OBIE.SWIFT`              | `UK.OBIE.IBAN`             | IBAN                           | -                                       | `UK.OBIE.BICFI`          | BIC                          | -                      |                                                                              |
 | HUF                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | -                        | -                            | -                      |                                                                              |
@@ -221,13 +222,33 @@ If `Creditor.PostalAddress` is required, the following fields must be provided:
   * `Business`
   * `BusinessSavingsAccount`
 
-For CAD and USD payments, the account type (`Checking` or `Savings`) is determined based on `Risk.BeneficiaryAccountType`.
+For CAD, COP and USD payments, the account type (`Checking` or `Savings`) is determined based on `Risk.BeneficiaryAccountType`.
 
 For JPY payments, the account type must be provided in `CreditorAccount.SecondaryIdentification` and supports the following values:
 
   * `CURRENT` - for Futsū yokin
   * `SAVINGS` - for Chochiku yokin
   * `CHECKING` - for Tōza yokin
+
+### International Payment SupplementaryData
+
+Some currencies require payee details that have no dedicated field elsewhere in the `Initiation` object. These must be provided as a JSON object in `Initiation.SupplementaryData`.
+
+| CurrencyOfTransfer | Field              | Description                                                                 | Required |
+|---------------------|--------------------|------------------------------------------------------------------------------|----------|
+| COP                 | `IDDocumentType`   | The payee's Colombian ID document type, e.g. `CC` for Cédula de Ciudadanía    | Yes      |
+| COP                 | `IDDocumentNumber` | The payee's Colombian national ID document number                            | Yes      |
+| COP                 | `PhoneNumber`      | The payee's phone number, in international format, e.g. `+573001234567`      | Yes      |
+
+For example, for a COP payment:
+
+```json
+{
+  "IDDocumentType": "CC",
+  "IDDocumentNumber": "901270245",
+  "PhoneNumber": "+573001234567"
+}
+```
 
 <aside class="notice">
 If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
