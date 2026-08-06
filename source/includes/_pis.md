@@ -203,6 +203,7 @@ The table below outlines the currencies and supported payment rails, along with 
 | USD                | `UK.MONZO.ABA`               | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`         | ABA Routing Number           | Required               | -                                                                   |                                                                              |
 | USD                | `UK.MONZO.FEDWIRE`           | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.US`         | Fedwire Routing Number       | Required               | -                                                                   |                                                                              |
 | USD                | `UK.OBIE.SWIFT`              | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.BICFI`          | BIC                          | Required               | -                                                                   |                                                                              |
+| VND                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.BICFI`          | BIC                          | -                      | `Relationship` (required for `Business` or `BusinessSavingsAccount` recipients) |                                                                  |
 
 `CreditorAccount.Name` is required for all currencies.
 
@@ -240,6 +241,14 @@ For COP payments, `Initiation.SupplementaryData` must be a JSON object containin
   "IDDocumentType": "CC",
   "IDDocumentNumber": "901270245",
   "PhoneNumber": "+573001234567"
+}
+```
+
+For VND payments to a `Business` or `BusinessSavingsAccount` recipient, `Initiation.SupplementaryData` must be a JSON object containing a `Relationship` field describing the relationship between the payer and the recipient, for example:
+
+```json
+{
+  "Relationship": "COLLEAGUE"
 }
 ```
 
