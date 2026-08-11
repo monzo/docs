@@ -183,7 +183,7 @@ The table below outlines the currencies and supported payment rails, along with 
 
 | CurrencyOfTransfer | LocalInstrumentCode          | CreditorAccount.SchemeName | CreditorAccount.Identification | CreditorAccount.SecondaryIdentification | CreditorAgent.SchemeName | CreditorAgent.Identification | Creditor.PostalAddress | Notes                                                                        |
 |--------------------|------------------------------|----------------------------|--------------------------------|-----------------------------------------|--------------------------|------------------------------|------------------------|------------------------------------------------------------------------------|
-| ARS                | -                            | `UK.OBIE.BBAN`             | Account Number (CBU)           | Tax ID (CUIL/CUIT)                      | -                        | -                            | -                      | `CreditorAccount.SecondaryIdentification` (Tax ID) is required               |
+| ARS                | -                            | `UK.OBIE.BBAN`             | Account Number (CBU)           | Tax ID (CUIL/CUIT)                      | -                        | -                            | -                      | -               |
 | AUD                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.AU`         | BSB Code                     | -                      |                                                                              |
 | AUD                | -                            | `UK.MONZO.BPAY`            | Biller Pay Code                | Customer Reference Number               | -                        | -                            | -                      | `Risk.BeneficiaryAccountType` must be `Business` or `BusinessSavingsAccount` |
 | CAD                | -                            | `UK.OBIE.BBAN`             | Account Number                 | -                                       | `UK.OBIE.NCC.CA`         | 8-digit Routing Number       | -                      |                                                                              |
@@ -230,7 +230,6 @@ For JPY payments, the account type must be provided in `CreditorAccount.Secondar
   * `SAVINGS` - for Chochiku yokin
   * `CHECKING` - for Tōza yokin
 
-For ARS payments, the CBU (Clave Bancaria Uniforme) must be provided in `CreditorAccount.Identification`, and the tax ID (CUIL/CUIT) must be provided in `CreditorAccount.SecondaryIdentification`.
 
 <aside class="notice">
 If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
