@@ -252,6 +252,20 @@ For VND payments to a `Business` or `BusinessSavingsAccount` recipient, `Initiat
 }
 ```
 
+`Relationship` supports the following values:
+
+| Value                 | Description                    |
+|------------------------|---------------------------------|
+| `SELF`                 | Self                            |
+| `COLLEAGUE`            | Business partner                |
+| `CUSTOMER`             | Customer                        |
+| `BRANCH`               | Branch/Representative office     |
+| `SUBSIDIARY`           | Subsidiary                      |
+| `VENDOR`               | Supplier                        |
+| `CREDITOR`             | Creditor                        |
+| `DEBTOR`               | Debtor                          |
+| `OTHER_NOT_SPECIFIED`  | Other                           |
+
 <aside class="notice">
 If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
 </aside>
