@@ -1,10 +1,5 @@
 # EU PSD2 API
 
-<aside class="notice">
-    Alongside the sandbox testing environment, Monzo's production EU PSD2 Dedicated Interface API is now available in an Alpha Capacity for Account Information Services (AIS), Payment Initiation Services (PIS), and Confirmation of Funds (CBPII). Please get in touch with us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a> if you'd like to integrate with us and test out our APIs. Access to the production environment is controlled by an allow-list at this time, so please contact us to get added.
-</aside>
-
-
 ## API Specification
 
 Like our UK Open Banking API, our EU PSD2 Dedicated Interface is also built to the [Open Banking spec](https://openbankinguk.github.io/read-write-api-site3/v3.1.11/profiles/read-write-data-api-profile.html). This means the structure of requests and responses is for the most part the same, with any differences reflecting product differences between UK and EU regions.
