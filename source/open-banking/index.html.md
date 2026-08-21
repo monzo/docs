@@ -24,7 +24,7 @@ Monzo's Open Banking API allows licensed [Third Party Providers](https://www.ope
 If you need support with Monzo's Open Banking API, please create a ticket on the [Open Banking Service Desk](https://directory.openbanking.org.uk/obieservicedesk/s/), or contact <openbanking@monzo.com>.
 
 <aside class="notice">
-    These are the docs for Monzo's <strong>UK Open Banking API</strong>. If you're looking to integrate with our EU region, see the <a href="#eu-psd2-api">EU PSD2 API</a> instead.
+    These are the docs for Monzo's <strong>UK Open Banking API</strong>. If you're looking to integrate with our EU region, please go to the <a href="#eu-psd2-api">EU PSD2 API</a> section.
 </aside>
 
 <aside class="warning">
