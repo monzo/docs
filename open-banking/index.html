@@ -544,9 +544,13 @@
 
 <p>If you need support with Monzo&#39;s Open Banking API, please create a ticket on the <a href="https://directory.openbanking.org.uk/obieservicedesk/s/">Open Banking Service Desk</a>, or contact <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
 
+<aside class="notice">
+    These are the docs for Monzo's <strong>UK Open Banking API</strong>. If you're looking to integrate with our EU region, please go to the <a href="#eu-psd2-api">EU PSD2 API</a> section.
+</aside>
+
 <aside class="warning">
     <strong>Not a licensed Open Banking Third Party Provider?</strong><br>
-    These are the docs for Monzo's Open Banking API. Check out <a href="/">the docs for our public developer API</a> that anyone can use.
+    Check out <a href="/">the docs for our public developer API</a> that anyone can use.
 </aside>
 <h1 id='account-information-services-api'>Account Information Services API</h1>
 <p>The Account Information Services API lets authorised Account Information Service Providers access balances, transactions, 
@@ -1278,9 +1282,22 @@ we don&#39;t let you include both.</p>
 <th>CreditorAgent.SchemeName</th>
 <th>CreditorAgent.Identification</th>
 <th>Creditor.PostalAddress</th>
+<th>SupplementaryData</th>
 <th>Notes</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>ARS</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number (CBU)</td>
+<td>Tax ID (CUIL/CUIT)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
 <tr>
 <td>AUD</td>
 <td>-</td>
@@ -1289,6 +1306,7 @@ we don&#39;t let you include both.</p>
 <td>-</td>
 <td><code>UK.OBIE.NCC.AU</code></td>
 <td>BSB Code</td>
+<td>-</td>
 <td>-</td>
 <td></td>
 </tr>
@@ -1301,7 +1319,32 @@ we don&#39;t let you include both.</p>
 <td>-</td>
 <td>-</td>
 <td>-</td>
+<td>-</td>
 <td><code>Risk.BeneficiaryAccountType</code> must be <code>Business</code> or <code>BusinessSavingsAccount</code></td>
+</tr>
+<tr>
+<td>BDT</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>Branch Routing Number</td>
+<td><code>UK.OBIE.NCC.BD</code></td>
+<td>Bank Code</td>
+<td>-</td>
+<td>-</td>
+<td><code>Risk.BeneficiaryAccountType</code> must not be a business account type</td>
+</tr>
+<tr>
+<td>BDT</td>
+<td>-</td>
+<td><code>UK.MONZO.BKash</code></td>
+<td>bKash Mobile Number</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td><code>Risk.BeneficiaryAccountType</code> must not be a business account type</td>
 </tr>
 <tr>
 <td>CAD</td>
@@ -1312,6 +1355,7 @@ we don&#39;t let you include both.</p>
 <td><code>UK.OBIE.NCC.CA</code></td>
 <td>8-digit Routing Number</td>
 <td>-</td>
+<td>-</td>
 <td></td>
 </tr>
 <tr>
@@ -1319,6 +1363,7 @@ we don&#39;t let you include both.</p>
 <td>-</td>
 <td><code>UK.MONZO.Interac</code></td>
 <td>Email Address</td>
+<td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -1334,6 +1379,19 @@ we don&#39;t let you include both.</p>
 <td><code>UK.OBIE.BICFI</code></td>
 <td>BIC</td>
 <td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>COP</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.BICFI</code></td>
+<td>BIC</td>
+<td>Required</td>
+<td><code>IDDocumentType</code>, <code>IDDocumentNumber</code>, <code>PhoneNumber</code> (all required)</td>
 <td></td>
 </tr>
 <tr>
@@ -1341,6 +1399,7 @@ we don&#39;t let you include both.</p>
 <td><code>UK.OBIE.SEPACreditTransfer</code></td>
 <td><code>UK.OBIE.IBAN</code></td>
 <td>IBAN</td>
+<td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -1356,13 +1415,39 @@ we don&#39;t let you include both.</p>
 <td><code>UK.OBIE.BICFI</code></td>
 <td>BIC</td>
 <td>-</td>
+<td>-</td>
 <td></td>
+</tr>
+<tr>
+<td>GHS</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.NCC.GH</code></td>
+<td>Bank Code</td>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>GHS</td>
+<td>-</td>
+<td><code>UK.MONZO.GhanaMobile</code></td>
+<td>Mobile Number</td>
+<td>-</td>
+<td><code>UK.OBIE.NCC.GH</code></td>
+<td>Mobile Network Operator Code</td>
+<td>-</td>
+<td>-</td>
+<td><code>Risk.BeneficiaryAccountType</code> must be <code>Personal</code>, <code>JointPersonal</code>, or <code>PersonalSavingsAccount</code></td>
 </tr>
 <tr>
 <td>HUF</td>
 <td>-</td>
 <td><code>UK.OBIE.BBAN</code></td>
 <td>Account Number</td>
+<td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -1378,6 +1463,7 @@ we don&#39;t let you include both.</p>
 <td><code>UK.OBIE.BICFI</code></td>
 <td>BIC</td>
 <td>-</td>
+<td>-</td>
 <td></td>
 </tr>
 <tr>
@@ -1389,6 +1475,7 @@ we don&#39;t let you include both.</p>
 <td>-</td>
 <td>-</td>
 <td>Required</td>
+<td>-</td>
 <td></td>
 </tr>
 <tr>
@@ -1400,6 +1487,7 @@ we don&#39;t let you include both.</p>
 <td><code>UK.OBIE.NCC.IN</code></td>
 <td>IFSC Code</td>
 <td>-</td>
+<td>-</td>
 <td></td>
 </tr>
 <tr>
@@ -1407,6 +1495,7 @@ we don&#39;t let you include both.</p>
 <td>-</td>
 <td><code>UK.MONZO.UPI</code></td>
 <td>UPI ID (<code>customername@bank</code>)</td>
+<td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -1422,6 +1511,7 @@ we don&#39;t let you include both.</p>
 <td><code>UK.OBIE.NCC.JP</code></td>
 <td>7-digit Zengin Code</td>
 <td>-</td>
+<td>-</td>
 <td>Account Type must be CURRENT, SAVINGS, or CHECKING</td>
 </tr>
 <tr>
@@ -1432,6 +1522,7 @@ we don&#39;t let you include both.</p>
 <td>-</td>
 <td><code>UK.OBIE.NCC.NG</code></td>
 <td>Bank Code</td>
+<td>-</td>
 <td>-</td>
 <td></td>
 </tr>
@@ -1444,7 +1535,20 @@ we don&#39;t let you include both.</p>
 <td>-</td>
 <td>-</td>
 <td>-</td>
+<td>-</td>
 <td></td>
+</tr>
+<tr>
+<td>QAR</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.BICFI</code></td>
+<td>BIC</td>
+<td>Required</td>
+<td>-</td>
+<td><code>PostCode</code> is not required for QAR</td>
 </tr>
 <tr>
 <td>RON</td>
@@ -1455,6 +1559,19 @@ we don&#39;t let you include both.</p>
 <td><code>UK.OBIE.BICFI</code></td>
 <td>BIC</td>
 <td>Required</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>SAR</td>
+<td>-</td>
+<td><code>UK.OBIE.IBAN</code></td>
+<td>IBAN</td>
+<td>-</td>
+<td><code>UK.OBIE.BICFI</code></td>
+<td>BIC</td>
+<td>Required</td>
+<td>-</td>
 <td></td>
 </tr>
 <tr>
@@ -1466,6 +1583,7 @@ we don&#39;t let you include both.</p>
 <td><code>UK.OBIE.NCC.US</code></td>
 <td>ABA Routing Number</td>
 <td>Required</td>
+<td>-</td>
 <td></td>
 </tr>
 <tr>
@@ -1477,6 +1595,7 @@ we don&#39;t let you include both.</p>
 <td><code>UK.OBIE.NCC.US</code></td>
 <td>Fedwire Routing Number</td>
 <td>Required</td>
+<td>-</td>
 <td></td>
 </tr>
 <tr>
@@ -1488,6 +1607,19 @@ we don&#39;t let you include both.</p>
 <td><code>UK.OBIE.BICFI</code></td>
 <td>BIC</td>
 <td>Required</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>VND</td>
+<td>-</td>
+<td><code>UK.OBIE.BBAN</code></td>
+<td>Account Number</td>
+<td>-</td>
+<td><code>UK.OBIE.BICFI</code></td>
+<td>BIC</td>
+<td>-</td>
+<td><code>Relationship</code> (required for <code>Business</code> or <code>BusinessSavingsAccount</code> recipients)</td>
 <td></td>
 </tr>
 </tbody></table>
@@ -1514,7 +1646,12 @@ we don&#39;t let you include both.</p>
 <li><code>BusinessSavingsAccount</code></li>
 </ul>
 
-<p>For CAD and USD payments, the account type (<code>Checking</code> or <code>Savings</code>) is determined based on <code>Risk.BeneficiaryAccountType</code>.</p>
+<p>For CAD, COP and USD payments, the account type (<code>Checking</code> or <code>Savings</code>) is determined based on <code>Risk.BeneficiaryAccountType</code>:</p>
+
+<ul>
+<li><code>Checking</code> - for <code>Personal</code>, <code>JointPersonal</code>, or <code>Business</code></li>
+<li><code>Savings</code> - for <code>PersonalSavingsAccount</code> or <code>BusinessSavingsAccount</code></li>
+</ul>
 
 <p>For JPY payments, the account type must be provided in <code>CreditorAccount.SecondaryIdentification</code> and supports the following values:</p>
 
@@ -1523,6 +1660,64 @@ we don&#39;t let you include both.</p>
 <li><code>SAVINGS</code> - for Chochiku yokin</li>
 <li><code>CHECKING</code> - for Tōza yokin</li>
 </ul>
+
+<p>For COP payments, <code>Initiation.SupplementaryData</code> must be a JSON object containing the fields listed in the table above, for example:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"IDDocumentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"IDDocumentNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"901270245"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"PhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+573001234567"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>For VND payments to a <code>Business</code> or <code>BusinessSavingsAccount</code> recipient, <code>Initiation.SupplementaryData</code> must be a JSON object containing a <code>Relationship</code> field describing the relationship between the payer and the recipient, for example:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Relationship"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COLLEAGUE"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>Relationship</code> supports the following values:</p>
+
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>SELF</code></td>
+<td>Self</td>
+</tr>
+<tr>
+<td><code>COLLEAGUE</code></td>
+<td>Business partner</td>
+</tr>
+<tr>
+<td><code>CUSTOMER</code></td>
+<td>Customer</td>
+</tr>
+<tr>
+<td><code>BRANCH</code></td>
+<td>Branch/Representative office</td>
+</tr>
+<tr>
+<td><code>SUBSIDIARY</code></td>
+<td>Subsidiary</td>
+</tr>
+<tr>
+<td><code>VENDOR</code></td>
+<td>Supplier</td>
+</tr>
+<tr>
+<td><code>CREDITOR</code></td>
+<td>Creditor</td>
+</tr>
+<tr>
+<td><code>DEBTOR</code></td>
+<td>Debtor</td>
+</tr>
+<tr>
+<td><code>OTHER_NOT_SPECIFIED</code></td>
+<td>Other</td>
+</tr>
+</tbody></table>
 
 <aside class="notice">
 If there are insufficient funds in the account, authorisation will fail and an error will be returned on redirection with the code `access_denied` and `error_description` being "Insufficient funds in selected account to make requested payment."
@@ -2088,11 +2283,7 @@ We've chosen not to implement the `Path` or `Url` properties of `OBError1`
 <p>TPPs will still be able to provide an <code>ExpirationDateTime</code> on the consent request at which time the consent will expire. If this is not populated, the permissions will be long-lived.</p>
 <h2 id='contact'>Contact</h2>
 <p>If you have any queries about these changes then please contact <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a>.</p>
-<h1 id='eu-psd2-api'>EU PSD2 API</h1>
-<aside class="notice">
-    Alongside the sandbox testing environment, Monzo's production EU PSD2 Dedicated Interface API is now available in an Alpha Capacity for Account Information Services (AIS), Payment Initiation Services (PIS), and Confirmation of Funds (CBPII). Please get in touch with us at <a href="mailto:openbanking@monzo.com">openbanking@monzo.com</a> if you'd like to integrate with us and test out our APIs. Access to the production environment is controlled by an allow-list at this time, so please contact us to get added.
-</aside>
-<h2 id='api-specification'>API Specification</h2>
+<h1 id='eu-psd2-api'>EU PSD2 API</h1><h2 id='api-specification'>API Specification</h2>
 <p>Like our UK Open Banking API, our EU PSD2 Dedicated Interface is also built to the <a href="https://openbankinguk.github.io/read-write-api-site3/v3.1.11/profiles/read-write-data-api-profile.html">Open Banking spec</a>. This means the structure of requests and responses is for the most part the same, with any differences reflecting product differences between UK and EU regions.</p>
 <h2 id='supported-endpoints'>Supported Endpoints</h2>
 <p>Monzo&#39;s EU PSD2 API currently supports Account Information Services (AIS), Payment Initiation Services (PIS), and Confirmation of Funds (CBPII).</p>
