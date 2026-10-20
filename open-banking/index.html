@@ -659,13 +659,99 @@ place in the customer&#39;s Monzo app.</p>
 <p>If the account has been closed, it will still be returned in the response, but with an updated <code>Status</code>.</p>
 
 <aside class="notice">
-To access a customer's Pots, use the Pots endpoint described further on in this documentation.
+Whether a customer's pots are returned as accounts depends on when and how you call the API. See <a href="#pots-as-accounts">Pots as accounts</a>.
 </aside>
 
 <p>Note that the fields we return as part of the response depend on whether your consent has the  <code>ReadAccountsBasic</code>
 or <code>ReadAccountsDetail</code> permission. In the former case, we will omit the account scheme data such as account number and sort code or IBAN.</p>
 <h3 id='names'>Names</h3>
 <p>We return the preferred name of the account holder in the <code>Name</code> field rather than their legal name.</p>
+<h3 id='pots-as-accounts'>Pots as accounts</h3>
+<blockquote>
+<p>Example of a pot returned as an account:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"AccountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_0000AAcb7Hf2Lx9QpRtUv3"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Enabled"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"StatusUpdateDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-10-16T09:10:37.237Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GBP"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"AccountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"AccountSubType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Savings"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal Pot"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Nickname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Holiday"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Account"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.MONZO.PotID"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pot_0000AAcb7HeZ1kWmNbVc8D"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Holiday"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.MONZO.OwningAccountID"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_0000AAca1egQMHUQX14Mt7"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Camila McSimpburg"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"OpeningDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-10-16"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"SwitchStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.CASS.NotSwitched"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>A customer&#39;s pots are returned as accounts in the following cases:</p>
+
+<ul>
+<li>EU accounts, always</li>
+<li>UK accounts, for all requests from 23 November 2026</li>
+<li>UK accounts before 23 November 2026, if you set the <code>X-Open-Banking-Pots-As-Accounts</code> request header to <code>true</code></li>
+</ul>
+
+<p>Until 23 November 2026, you may use the <a href="#pots">Pots endpoint</a> instead; after that date, the endpoint will be removed.</p>
+
+<p>Each pot has its own <code>AccountId</code>, which you can use with the rest of the AIS API, for example to read the pot&#39;s
+balance or transactions. Transactions made on a pot, including payments with a virtual card linked to the pot, are
+returned on the pot itself rather than on the account that owns it.</p>
+
+<p>Fields specific to pots:</p>
+
+<table><thead>
+<tr>
+<th>Field name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>Description</code></td>
+<td>The type of pot, e.g. <code>Personal Pot</code>, <code>Joint Pot</code>, <code>Business Pot</code>; or <code>Personal Savings Pot</code> for interest-earning pots</td>
+</tr>
+<tr>
+<td><code>Nickname</code></td>
+<td>The name the customer has given the pot</td>
+</tr>
+</tbody></table>
+
+<p>With the <code>ReadAccountsDetail</code> permission, a pot&#39;s <code>Account</code> scheme data contains two Monzo-specific entries instead of
+an account number and sort code:</p>
+
+<table><thead>
+<tr>
+<th><code>SchemeName</code></th>
+<th><code>Identification</code></th>
+<th><code>Name</code></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>UK.MONZO.PotID</code></td>
+<td>The pot&#39;s ID. This matches the <code>PotId</code> returned by the <a href="#pots">Pots endpoint</a></td>
+<td>The pot&#39;s name</td>
+</tr>
+<tr>
+<td><code>UK.MONZO.OwningAccountID</code></td>
+<td>The <code>AccountId</code> of the current account that owns the pot</td>
+<td>The name of the owning account&#39;s holder(s)</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Pots remain out of scope for the Payment Initiation Services API. You can't initiate payments from a pot.
+</aside>
 <h3 id='business-account-company-types'>Business Account - Company types</h3>
 <p>Business account has company type, which is shown in the <code>Description</code> field:</p>
 
@@ -810,6 +896,13 @@ If it's been more than 5 minutes since the customer completed Strong Customer Au
 your client, you'll get a Forbidden error when you try to access this endpoint.  
 </aside>
 <h2 id='pots'>Pots</h2>
+<aside class="warning">
+<strong>This endpoint will be retired on 23 November 2026</strong><br/>
+From that date, requests to the Pots endpoint will return a <code>404</code> response. Pots will instead be returned
+by the <a href="#accounts">Accounts endpoint</a>, as described in <a href="#pots-as-accounts">Pots as accounts</a>.
+You can adopt the new behaviour now by setting the <code>X-Open-Banking-Pots-As-Accounts</code> request header to <code>true</code>.
+</aside>
+
 <p>Since Pots on Monzo have lots of additional properties that AISPs might find useful, we have implemented a Pots 
 endpoint as an extension to the Open Banking specification.</p>
 <h3 id='list-pots'>List Pots</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2554,7 +2647,7 @@ place in the customer&#39;s Monzo app.</p>
 <p>See the <a href="/open-banking/#accounts">Accounts</a> section.</p>
 
 <ul>
-<li>In the EU, a customer&#39;s pots are returned as accounts.</li>
+<li>In the EU, a customer&#39;s pots are returned as accounts. See <a href="/open-banking/#pots-as-accounts">Pots as accounts</a> for the fields we return for pots.</li>
 </ul>
 
 <blockquote>
@@ -2590,16 +2683,23 @@ place in the customer&#39;s Monzo app.</p>
         </span><span class="nl">"AccountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"AccountSubType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Savings"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"Description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Personal Pot"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Nickname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Holiday"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"Account"</span><span class="p">:</span><span class="w">
         </span><span class="p">[</span><span class="w">
           </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.MONZO.PotID"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pot_0000Avmn7mZs3PqLdRtW2k"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Holiday"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"SchemeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.MONZO.OwningAccountID"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Identification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acc_0000AvDK9NmomdubVdW9jd"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Camila McSimpburg"</span><span class="w">
           </span><span class="p">}</span><span class="w">
         </span><span class="p">],</span><span class="w">
         </span><span class="nl">"OpeningDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-07-04"</span><span class="p">,</span><span class="w">
-    </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"SwitchStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK.CASS.NotSwitched"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"Links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
