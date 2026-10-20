@@ -96,7 +96,7 @@ Once you have a consent for a customer, you'll be able to see their:
 If the account has been closed, it will still be returned in the response, but with an updated `Status`.
 
 <aside class="notice">
-To access a customer's Pots, use the Pots endpoint described further on in this documentation.
+Whether a customer's pots are returned as accounts depends on when and how you call the API. See <a href="#pots-as-accounts">Pots as accounts</a>.
 </aside>
 
 Note that the fields we return as part of the response depend on whether your consent has the  `ReadAccountsBasic`
@@ -104,6 +104,68 @@ or `ReadAccountsDetail` permission. In the former case, we will omit the account
 
 ### Names
 We return the preferred name of the account holder in the `Name` field rather than their legal name.
+
+### Pots as accounts
+
+> Example of a pot returned as an account:
+
+```json
+{
+  "AccountId": "acc_0000AAcb7Hf2Lx9QpRtUv3",
+  "Status": "Enabled",
+  "StatusUpdateDateTime": "2026-10-16T09:10:37.237Z",
+  "Currency": "GBP",
+  "AccountType": "Personal",
+  "AccountSubType": "Savings",
+  "Description": "Personal Pot",
+  "Nickname": "Holiday",
+  "Account": [
+    {
+      "SchemeName": "UK.MONZO.PotID",
+      "Identification": "pot_0000AAcb7HeZ1kWmNbVc8D",
+      "Name": "Holiday"
+    },
+    {
+      "SchemeName": "UK.MONZO.OwningAccountID",
+      "Identification": "acc_0000AAca1egQMHUQX14Mt7",
+      "Name": "Camila McSimpburg"
+    }
+  ],
+  "OpeningDate": "2026-10-16",
+  "SwitchStatus": "UK.CASS.NotSwitched"
+}
+```
+
+A customer's pots are returned as accounts in the following cases:
+
+* EU accounts, always
+* UK accounts, for all requests from 23 November 2026
+* UK accounts before 23 November 2026, if you set the `X-Open-Banking-Pots-As-Accounts` request header to `true`
+
+Until 23 November 2026, you may use the <a href="#pots">Pots endpoint</a> instead; after that date, the endpoint will be removed.
+
+Each pot has its own `AccountId`, which you can use with the rest of the AIS API, for example to read the pot's
+balance or transactions. Transactions made on a pot, including payments with a virtual card linked to the pot, are
+returned on the pot itself rather than on the account that owns it.
+
+Fields specific to pots:
+
+| Field name       | Description                                                                                                            |
+| ---------------- |------------------------------------------------------------------------------------------------------------------------|
+| `Description`    | The type of pot, e.g. `Personal Pot`, `Joint Pot`, `Business Pot`; or `Personal Savings Pot` for interest-earning pots |
+| `Nickname`       | The name the customer has given the pot                                                                                |
+
+With the `ReadAccountsDetail` permission, a pot's `Account` scheme data contains two Monzo-specific entries instead of
+an account number and sort code:
+
+| `SchemeName`               | `Identification`                                                                                  | `Name`                                         |
+| -------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| `UK.MONZO.PotID`           | The pot's ID. This matches the `PotId` returned by the <a href="#pots">Pots endpoint</a>            | The pot's name                                 |
+| `UK.MONZO.OwningAccountID` | The `AccountId` of the current account that owns the pot                                          | The name of the owning account's holder(s)     |
+
+<aside class="notice">
+Pots remain out of scope for the Payment Initiation Services API. You can't initiate payments from a pot.
+</aside>
 
 ### Business Account - Company types
 
@@ -249,6 +311,13 @@ your client, you'll get a Forbidden error when you try to access this endpoint.
 </aside>
 
 ## Pots
+
+<aside class="warning">
+<strong>This endpoint will be retired on 23 November 2026</strong><br/>
+From that date, requests to the Pots endpoint will return a <code>404</code> response. Pots will instead be returned
+by the <a href="#accounts">Accounts endpoint</a>, as described in <a href="#pots-as-accounts">Pots as accounts</a>.
+You can adopt the new behaviour now by setting the <code>X-Open-Banking-Pots-As-Accounts</code> request header to <code>true</code>.
+</aside>
 
 Since Pots on Monzo have lots of additional properties that AISPs might find useful, we have implemented a Pots 
 endpoint as an extension to the Open Banking specification.

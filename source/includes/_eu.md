@@ -226,7 +226,7 @@ The EU AIS API works in the same way as described in the <a href="/open-banking/
 
 See the <a href="/open-banking/#accounts">Accounts</a> section.
 
-* In the EU, a customer's pots are returned as accounts.
+* In the EU, a customer's pots are returned as accounts. See <a href="/open-banking/#pots-as-accounts">Pots as accounts</a> for the fields we return for pots.
 
 > Example of a Current Account and Pot returned:
 
@@ -261,16 +261,23 @@ See the <a href="/open-banking/#accounts">Accounts</a> section.
         "AccountType": "Personal",
         "AccountSubType": "Savings",
         "Description": "Personal Pot",
+        "Nickname": "Holiday",
         "Account":
         [
           {
-            "SchemeName": "",
-            "Identification": "",
+            "SchemeName": "UK.MONZO.PotID",
+            "Identification": "pot_0000Avmn7mZs3PqLdRtW2k",
             "Name": "Holiday"
+          },
+          {
+            "SchemeName": "UK.MONZO.OwningAccountID",
+            "Identification": "acc_0000AvDK9NmomdubVdW9jd",
+            "Name": "Camila McSimpburg"
           }
         ],
         "OpeningDate": "2025-07-04",
-    },
+        "SwitchStatus": "UK.CASS.NotSwitched"
+      }
     ]
   },
   "Links": {
