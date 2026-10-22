@@ -321,3 +321,19 @@ When you request a consent for Domestic Payments, you should provide one of the 
 ------------------------------------|--------------------------------------
 `UK.OBIE.SEPACreditTransfer` | Standard SEPA Credit Transfer
 `UK.OBIE.SEPAInstantCreditTransfer` | SEPA Instant Credit Transfer
+
+### EU Scheduled Payments
+
+See the <a href="/open-banking/#scheduled-payments">Scheduled Payments</a> section.
+
+* Creditor accounts must be identified using the `UK.OBIE.IBAN` scheme with a valid IBAN, and payments must be in `EUR`. This replaces the sort code and `GBP` requirements in the UK section.
+* Scheduled payments are sent as standard SEPA Credit Transfers. You can leave `LocalInstrument` empty or set it to `UK.OBIE.SEPACreditTransfer`. We don't support `UK.OBIE.SEPAInstantCreditTransfer` for scheduled payments.
+
+### EU Standing Orders
+
+See the <a href="/open-banking/#standing-orders">Standing Orders</a> section.
+
+* Creditor accounts must be identified using the `UK.OBIE.IBAN` scheme with a valid IBAN, and payments must be in `EUR`. This replaces the sort code and `GBP` requirements in the UK section.
+* Each payment is sent as a standard SEPA Credit Transfer.
+* We support the same frequencies as in the UK.
+* We don't support `NumberOfPayments`. To end a standing order, use `FinalPaymentDateTime`. If you leave it out, the standing order is open-ended.
