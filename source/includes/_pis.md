@@ -80,11 +80,11 @@ Please note that these are <b>default</b> limits applied to payments and can be 
 
 ## Scheduled Payments
 
-We've implemented version 3.1.10 of the [Open Banking Scheduled Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/scheduled-payments.html).
+We've implemented version 3.1.10 of the [Open Banking Domestic Scheduled Payments specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/pisp/domestic-scheduled-payments.html).
 
 For consistency with our internal systems and the rest of our API, you will need to provide times in **RFC3339 format.**
 
-When you request a consent for Domestic Payments, you should provide `UK.OBIE.FPS` as the `LocalInstrument`.
+When you request a consent for Domestic Scheduled Payments, you should provide `UK.OBIE.FPS` as the `LocalInstrument`.
 
 We support account identification using `UK.OBIE.SortCodeAccountNumber`. We don't support identification using 
 `UK.OBIE.IBAN`.
@@ -99,7 +99,7 @@ All of our scheduled payments are sent in the early hours of the morning on the 
 
 ## Standing Orders
 
-We have implemented version 3.1.10 of the [Open Banking Standing Order specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/aisp/standing-orders.html).
+We have implemented version 3.1.10 of the [Open Banking Domestic Standing Orders specification](https://openbankinguk.github.io/read-write-api-site3/v3.1.10/resources-and-data-models/pisp/domestic-standing-orders.html).
 
 For consistency with our internal systems and the rest of our API, you will need to provide times in **RFC3339 format.**
 
