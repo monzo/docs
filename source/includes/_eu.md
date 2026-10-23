@@ -313,7 +313,7 @@ See  <a href="/open-banking/#confirmation-of-funds">Confirmation of Funds</a> se
 
 The EU PIS API works in the same way as described in the <a href="/open-banking/#payment-initiation-services-api">Payment Initiation Services API</a>, with the EU-specific differences outlined below. Please also see the <a href="/open-banking/#signing-headers">Signing Headers</a> section for EU-specific request signing requirements.
 
-All payments on the EU PSD2 API are made in `EUR` via SEPA. If specified, creditor accounts must be identified using the `UK.OBIE.IBAN` scheme.
+Domestic payments, scheduled payments and standing orders on the EU PSD2 API are made in `EUR` via SEPA. If specified, creditor accounts must be identified using the `UK.OBIE.IBAN` scheme. For payments in other currencies, see <a href="/open-banking/#eu-international-payments">EU International Payments</a>.
 
 When you request a consent for Domestic Payments, you should provide one of the following as the `LocalInstrument`:
 
@@ -337,3 +337,13 @@ See the <a href="/open-banking/#standing-orders">Standing Orders</a> section.
 * Each payment is sent as a standard SEPA Credit Transfer.
 * We support the same frequencies as in the UK.
 * We don't support `NumberOfPayments`. To end a standing order, use `FinalPaymentDateTime`. If you leave it out, the standing order is open-ended.
+
+### EU International Payments
+
+See the <a href="/open-banking/#international-payments">International Payments</a> section.
+
+* `InstructedAmount.Currency` must be `EUR`. This replaces the `GBP` requirement in the UK section.
+* `CurrencyOfTransfer` can't be `EUR`. To send `EUR` to another SEPA account, use Domestic Payments instead.
+* Supported currencies and creditor account requirements are the same as in the <a href="/open-banking/#international-payment-currencies-and-rails-support">International Payment currencies and rails support</a> table, except for the `EUR` rows, which don't apply in the EU.
+* If you specify a `DebtorAccount`, identify it using the `UK.OBIE.IBAN` scheme.
+* You can check the customer has enough money for the payment using `GET /international-payment-consents/{ConsentId}/funds-confirmation`.
