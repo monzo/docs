@@ -342,7 +342,7 @@ See the <a href="/open-banking/#standing-orders">Standing Orders</a> section.
 
 See the <a href="/open-banking/#international-payments">International Payments</a> section.
 
-* `InstructedAmount.Currency` must be `EUR`. This replaces the `GBP` requirement in the UK section.
+* `InstructedAmount.Currency` must be `EUR`. This replaces the `GBP` requirement in the UK section. If you send `ExchangeRateInformation`, its `UnitCurrency` must also be `EUR`.
 * `CurrencyOfTransfer` can't be `EUR`. To send `EUR` to another SEPA account, use Domestic Payments instead.
 * Supported currencies and creditor account requirements are the same as in the <a href="/open-banking/#international-payment-currencies-and-rails-support">International Payment currencies and rails support</a> table, except for the `EUR` rows, which don't apply in the EU.
 * If you specify a `DebtorAccount`, identify it using the `UK.OBIE.IBAN` scheme.
