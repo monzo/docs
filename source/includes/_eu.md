@@ -315,9 +315,25 @@ The EU PIS API works in the same way as described in the <a href="/open-banking/
 
 All payments on the EU PSD2 API are made in `EUR` via SEPA. If specified, creditor accounts must be identified using the `UK.OBIE.IBAN` scheme.
 
+### EU Domestic Payments
+
+See the <a href="/open-banking/#domestic-payments">Domestic Payments</a> section.
+
 When you request a consent for Domestic Payments, you should provide one of the following as the `LocalInstrument`:
 
 <span class="hide">LocalInstrument</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `UK.OBIE.SEPACreditTransfer` | Standard SEPA Credit Transfer
 `UK.OBIE.SEPAInstantCreditTransfer` | SEPA Instant Credit Transfer
+
+### EU Scheduled Payments
+
+See the <a href="/open-banking/#scheduled-payments">Scheduled Payments</a> section.
+
+* Scheduled payments are sent as standard SEPA Credit Transfers. You can leave `LocalInstrument` empty or set it to `UK.OBIE.SEPACreditTransfer`. We don't support `UK.OBIE.SEPAInstantCreditTransfer` for scheduled payments.
+
+### EU Standing Orders
+
+See the <a href="/open-banking/#standing-orders">Standing Orders</a> section.
+
+* Each payment is sent as a standard SEPA Credit Transfer.
