@@ -2730,6 +2730,8 @@ place in the customer&#39;s Monzo app.</p>
 <p>The EU PIS API works in the same way as described in the <a href="/open-banking/#payment-initiation-services-api">Payment Initiation Services API</a>, with the EU-specific differences outlined below. Please also see the <a href="/open-banking/#signing-headers">Signing Headers</a> section for EU-specific request signing requirements.</p>
 
 <p>All payments on the EU PSD2 API are made in <code>EUR</code> via SEPA. If specified, creditor accounts must be identified using the <code>UK.OBIE.IBAN</code> scheme.</p>
+<h3 id='eu-domestic-payments'>EU Domestic Payments</h3>
+<p>See the <a href="/open-banking/#domestic-payments">Domestic Payments</a> section.</p>
 
 <p>When you request a consent for Domestic Payments, you should provide one of the following as the <code>LocalInstrument</code>:</p>
 
@@ -2748,6 +2750,18 @@ place in the customer&#39;s Monzo app.</p>
 <td>SEPA Instant Credit Transfer</td>
 </tr>
 </tbody></table>
+<h3 id='eu-scheduled-payments'>EU Scheduled Payments</h3>
+<p>See the <a href="/open-banking/#scheduled-payments">Scheduled Payments</a> section.</p>
+
+<ul>
+<li>Scheduled payments are sent as standard SEPA Credit Transfers. You can leave <code>LocalInstrument</code> empty or set it to <code>UK.OBIE.SEPACreditTransfer</code>. We don&#39;t support <code>UK.OBIE.SEPAInstantCreditTransfer</code> for scheduled payments.</li>
+</ul>
+<h3 id='eu-standing-orders'>EU Standing Orders</h3>
+<p>See the <a href="/open-banking/#standing-orders">Standing Orders</a> section.</p>
+
+<ul>
+<li>Each payment is sent as a standard SEPA Credit Transfer.</li>
+</ul>
 
       </div>
       <div class="dark-box">
