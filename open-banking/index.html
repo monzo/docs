@@ -699,8 +699,10 @@ or <code>ReadAccountsDetail</code> permission. In the former case, we will omit 
 
 <ul>
 <li>EU accounts, always</li>
-<li>UK accounts, for all requests from 23 November 2026</li>
-<li>UK accounts before 23 November 2026, if you set the <code>X-Open-Banking-Pots-As-Accounts</code> request header to <code>true</code></li>
+<li>UK accounts, for all requests from 00:00 UTC on 23 November 2026</li>
+<li>UK accounts before 23 November 2026, if you set the <code>X-Open-Banking-Pots-As-Accounts</code> request header to <code>true</code>.
+Set it on every AIS request, not only on requests to the Accounts endpoint. Without it, requests that use a pot&#39;s
+<code>AccountId</code>, such as reading its balance or transactions, are rejected until 23 November 2026</li>
 </ul>
 
 <p>Until 23 November 2026, you may use the <a href="#pots">Pots endpoint</a> instead; after that date, the endpoint will be removed.</p>
@@ -748,6 +750,13 @@ an account number and sort code:</p>
 <td>The name of the owning account&#39;s holder(s)</td>
 </tr>
 </tbody></table>
+<h4 id='consents-and-pots'>Consents and pots</h4>
+<p>From 00:00 UTC on 23 November 2026, UK customers can choose individual pots, as well as their current accounts, when
+they authorise an account access consent.</p>
+
+<p>UK consents that were authorised before 23 November 2026 keep access to all open pots owned by the current accounts
+the customer shared. These pots are returned by the Accounts endpoint without the customer authorising them
+again.</p>
 
 <aside class="notice">
 Pots remain out of scope for the Payment Initiation Services API. You can't initiate payments from a pot.
@@ -778,7 +787,12 @@ Pots remain out of scope for the Payment Initiation Services API. You can't init
 <p>When you query this endpoint, you&#39;ll see the customer&#39;s <code>InterimAvailable</code> balance. This is the same real-time balance 
 that our customers see in the Monzo app, and it includes pending and settled transactions.</p>
 
-<p>We support an optional query param <code>includePots</code>. When set to <code>true</code> an additional <code>Information</code> balance type will be returned. This balance will be the aggregated account balance made up of the main account balance plus the balance of each pot owned by the account.</p>
+<p>A current account&#39;s balance doesn&#39;t include the money in its pots.</p>
+
+<p>When pots are returned as accounts (see <a href="#pots-as-accounts">Pots as accounts</a>), you can read a pot&#39;s own
+balance by calling this endpoint with the pot&#39;s <code>AccountId</code>.</p>
+
+<p>For UK accounts, we also support an optional query param <code>includePots</code> on a current account. When set to <code>true</code> an additional <code>Information</code> balance type will be returned. This balance will be the aggregated account balance made up of the main account balance plus the balance of each pot owned by the account. You don&#39;t need <code>includePots</code> to read the balance of an individual pot.</p>
 <h3 id='flex'>Flex</h3>
 <p>When querying a flex&#39;s balance, you&#39;ll be returned two balances:</p>
 
@@ -836,6 +850,11 @@ this endpoint.</p>
 <p>When you query this endpoint, you&#39;ll receive all of the transactions that the customer made in the date range specified 
 in the request. Like in the Monzo app, we organise transactions in this response based on creation (presentment) time,
 not the time the transaction settles.</p>
+
+<p>When pots are returned as accounts (see <a href="#pots-as-accounts">Pots as accounts</a>), you can read a pot&#39;s
+transactions by calling this endpoint with the pot&#39;s <code>AccountId</code>. They are no longer included in the transactions of
+the current account that owns the pot. Otherwise, payments made directly from a UK pot, for example with a virtual
+card linked to the pot, are returned with the owning current account&#39;s transactions.</p>
 
 <p>Transaction amounts can change after the transaction is first created, and you can use the <code>Status</code> field to help 
 identify transactions that are still pending.</p>
