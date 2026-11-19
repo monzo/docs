@@ -139,8 +139,10 @@ We return the preferred name of the account holder in the `Name` field rather th
 A customer's pots are returned as accounts in the following cases:
 
 * EU accounts, always
-* UK accounts, for all requests from 23 November 2026
-* UK accounts before 23 November 2026, if you set the `X-Open-Banking-Pots-As-Accounts` request header to `true`
+* UK accounts, for all requests from 00:00 UTC on 23 November 2026
+* UK accounts before 23 November 2026, if you set the `X-Open-Banking-Pots-As-Accounts` request header to `true`.
+  Set it on every AIS request, not only on requests to the Accounts endpoint. Without it, requests that use a pot's
+  `AccountId`, such as reading its balance or transactions, are rejected until 23 November 2026
 
 Until 23 November 2026, you may use the <a href="#pots">Pots endpoint</a> instead; after that date, the endpoint will be removed.
 
@@ -162,6 +164,15 @@ an account number and sort code:
 | -------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
 | `UK.MONZO.PotID`           | The pot's ID. This matches the `PotId` returned by the <a href="#pots">Pots endpoint</a>            | The pot's name                                 |
 | `UK.MONZO.OwningAccountID` | The `AccountId` of the current account that owns the pot                                          | The name of the owning account's holder(s)     |
+
+#### Consents and pots
+
+From 00:00 UTC on 23 November 2026, UK customers can choose individual pots, as well as their current accounts, when
+they authorise an account access consent.
+
+UK consents that were authorised before 23 November 2026 keep access to all open pots owned by the current accounts
+the customer shared. These pots are returned by the Accounts endpoint without the customer authorising them
+again.
 
 <aside class="notice">
 Pots remain out of scope for the Payment Initiation Services API. You can't initiate payments from a pot.
@@ -185,7 +196,12 @@ We've implemented version 3.1.10 of the [Open Banking balances specification](ht
 When you query this endpoint, you'll see the customer's `InterimAvailable` balance. This is the same real-time balance 
 that our customers see in the Monzo app, and it includes pending and settled transactions.
 
-We support an optional query param `includePots`. When set to `true` an additional `Information` balance type will be returned. This balance will be the aggregated account balance made up of the main account balance plus the balance of each pot owned by the account.
+A current account's balance doesn't include the money in its pots.
+
+When pots are returned as accounts (see <a href="#pots-as-accounts">Pots as accounts</a>), you can read a pot's own
+balance by calling this endpoint with the pot's `AccountId`.
+
+For UK accounts, we also support an optional query param `includePots` on a current account. When set to `true` an additional `Information` balance type will be returned. This balance will be the aggregated account balance made up of the main account balance plus the balance of each pot owned by the account. You don't need `includePots` to read the balance of an individual pot.
 
 ### Flex
 
@@ -250,6 +266,11 @@ this endpoint.
 When you query this endpoint, you'll receive all of the transactions that the customer made in the date range specified 
 in the request. Like in the Monzo app, we organise transactions in this response based on creation (presentment) time,
 not the time the transaction settles.
+
+When pots are returned as accounts (see <a href="#pots-as-accounts">Pots as accounts</a>), you can read a pot's
+transactions by calling this endpoint with the pot's `AccountId`. They are no longer included in the transactions of
+the current account that owns the pot. Otherwise, payments made directly from a UK pot, for example with a virtual
+card linked to the pot, are returned with the owning current account's transactions.
 
 Transaction amounts can change after the transaction is first created, and you can use the `Status` field to help 
 identify transactions that are still pending.
